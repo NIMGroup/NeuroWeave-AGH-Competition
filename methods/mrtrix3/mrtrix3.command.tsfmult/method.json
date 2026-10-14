@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix3.command.tsfmult",
+  "version": "1",
+  "kind": "method",
+  "label": "MRtrix3 tsfmult",
+  "description": "Multiply corresponding values in track scalar files\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "mrtrix3.command.tsfmult",
+  "parameters": [
+    {
+      "id": "nthreads",
+      "argument": "",
+      "label": "nthreads",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading). ",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 1,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 128.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).  Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input1",
+      "type": "generated_file",
+      "label": "input1",
+      "description": "the first input track scalar file.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "input1_2",
+      "type": "generated_file",
+      "label": "input1_2",
+      "description": "the second input track scalar file.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "output",
+      "type": "generated_file",
+      "label": "output",
+      "description": "Native command output, saved in this run’s output directory. Multiply corresponding values in track scalar files This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".txt",
+      "primary": true,
+      "path_template": "output.tsf",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "generated_file"
+  ],
+  "output_types": [
+    "generated_file"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/tsfmult.usage.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "mrtrix3",
+      "command": "tsfmult",
+      "version": "3.0.8",
+      "argv": [
+        {
+          "tokens": [
+            {
+              "input": "input1"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "input": "input1_2"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "output": "output"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-nthreads",
+            {
+              "parameter": "nthreads"
+            }
+          ],
+          "when": {},
+          "optional": true
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "info": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "quiet": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "debug": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "force": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "config": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "help": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "version": "Managed by the platform or requires a specialized repeated/text argument contract."
+      }
+    }
+  }
+}

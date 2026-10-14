@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "id": "fsl.command.fslchfiletype",
+  "version": "1",
+  "kind": "method",
+  "label": "FSL fslchfiletype",
+  "description": "Convert file format using a separate output, never overwrite the source.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "fsl.command.fslchfiletype",
+  "parameters": [
+    {
+      "id": "format",
+      "argument": "",
+      "label": "format",
+      "description": "Output type; this interface writes NIfTI.",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": "NIFTI_GZ",
+      "options": [
+        {
+          "value": "NIFTI_GZ",
+          "label": "NIFTI_GZ",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Output type; this interface writes NIfTI. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "output",
+      "type": "imaging_input",
+      "label": "output",
+      "description": "Native command output, saved in this run’s output directory. Convert file format using a separate output, never overwrite the source. The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".nii.gz",
+      "primary": true,
+      "path_template": "output.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "imaging_input"
+  ],
+  "output_types": [
+    "imaging_input"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/fsl-fslchfiletype.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "fsl",
+      "command": "fslchfiletype",
+      "version": "installed-2412.6",
+      "argv": [
+        {
+          "tokens": [
+            {
+              "parameter": "format"
+            },
+            {
+              "input": "input"
+            },
+            {
+              "output": "output"
+            }
+          ],
+          "when": {},
+          "optional": false
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

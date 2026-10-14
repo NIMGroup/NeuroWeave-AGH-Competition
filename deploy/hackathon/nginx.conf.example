@@ -1,0 +1,23 @@
+# Optional 3004 landing page. Replace the static root before enabling.
+# AGH Web / WebSocket remain loopback-only and are accessed via SSH.
+server {
+    listen 127.0.0.1:3004;
+    server_name localhost;
+    root /absolute/path/to/neuroweave-agh/frontend/dist;
+    index index.html;
+    location = /healthz { return 200 "ok\n"; }
+    location = /api/health { proxy_pass http://127.0.0.1:8127; }
+    location = /api/agh/overview { proxy_pass http://127.0.0.1:8127; }
+    location /api/agh/download/ { proxy_pass http://127.0.0.1:8127; }
+    location /api/ { return 403; }
+    location /assets/ {
+        try_files $uri =404;
+        add_header Cache-Control "public, max-age=31536000, immutable";
+    }
+    location / {
+        etag off;
+        if_modified_since off;
+        try_files $uri $uri/ /index.html;
+        add_header Cache-Control "no-cache";
+    }
+}

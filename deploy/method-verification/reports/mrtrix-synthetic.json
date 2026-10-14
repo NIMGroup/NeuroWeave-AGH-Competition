@@ -1,0 +1,72 @@
+{
+  "tested_at": "2026-09-23T13:39:05.650280+00:00",
+  "environment": "== tckgen 3.0.8 ==; Linux CPU, 1 thread",
+  "checks": [
+    {
+      "command": "5tt2gmwmi",
+      "success": true,
+      "artifacts": 1
+    },
+    {
+      "command": "5tt2vis",
+      "success": true,
+      "artifacts": 1
+    },
+    {
+      "command": "dwidenoise",
+      "success": true,
+      "artifacts": 2
+    },
+    {
+      "command": "maskfilter",
+      "success": true,
+      "artifacts": 1
+    },
+    {
+      "command": "mrcheckerboardmask",
+      "success": true,
+      "artifacts": 1
+    },
+    {
+      "command": "mrconvert",
+      "success": true,
+      "artifacts": 1
+    },
+    {
+      "command": "mrdegibbs",
+      "success": true,
+      "artifacts": 1
+    },
+    {
+      "command": "mrhistogram",
+      "success": true,
+      "artifacts": 1
+    },
+    {
+      "command": "mrthreshold",
+      "success": true,
+      "artifacts": 1
+    },
+    {
+      "command": "sh2power",
+      "success": true,
+      "artifacts": 1
+    },
+    {
+      "command": "tckresample",
+      "success": true,
+      "artifacts": 1
+    },
+    {
+      "command": "tcksift2",
+      "success": true,
+      "artifacts": 2
+    },
+    {
+      "command": "tckgen -> independent tcksift2",
+      "success": true,
+      "streamlines": 20,
+      "weights": 20
+    }
+  ]
+}

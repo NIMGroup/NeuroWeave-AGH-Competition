@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "id": "freesurfer.command.mri_tessellate",
+  "version": "1",
+  "kind": "method",
+  "label": "FreeSurfer mri_tessellate",
+  "description": "Tessellate a labelled volume at an explicitly selected label.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "freesurfer.command.mri_tessellate",
+  "parameters": [
+    {
+      "id": "label",
+      "argument": "",
+      "label": "label",
+      "description": "Label value to tessellate.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 1,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Label value to tessellate. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "labels",
+      "type": "label_image",
+      "label": "labels",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "surface",
+      "type": "generated_file",
+      "label": "surface",
+      "description": "Native command output, saved in this run’s output directory. Tessellate a labelled volume at an explicitly selected label. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": "",
+      "primary": true,
+      "path_template": "surface",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "label_image"
+  ],
+  "output_types": [
+    "generated_file"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/freesurfer-mri_tessellate.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "freesurfer",
+      "command": "mri_tessellate",
+      "version": "7.4.1",
+      "argv": [
+        {
+          "tokens": [
+            {
+              "input": "labels"
+            },
+            {
+              "parameter": "label"
+            },
+            {
+              "output": "surface"
+            }
+          ],
+          "when": {},
+          "optional": false
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

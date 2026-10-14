@@ -1,0 +1,601 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix3.command.tckedit",
+  "version": "1",
+  "kind": "method",
+  "label": "MRtrix3 tckedit",
+  "description": "Perform various editing operations on track files\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "mrtrix3.command.tckedit",
+  "parameters": [
+    {
+      "id": "maxlength",
+      "argument": "",
+      "label": "maxlength",
+      "description": "set the maximum length of any streamline in mm ",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "set the maximum length of any streamline in mm  Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "minlength",
+      "argument": "",
+      "label": "minlength",
+      "description": "set the minimum length of any streamline in mm ",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "set the minimum length of any streamline in mm  Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "number",
+      "argument": "",
+      "label": "number",
+      "description": "set the desired number of selected streamlines to be propagated to the output file ",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "set the desired number of selected streamlines to be propagated to the output file  Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "skip",
+      "argument": "",
+      "label": "skip",
+      "description": "omit this number of selected streamlines before commencing writing to the output file ",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "omit this number of selected streamlines before commencing writing to the output file  Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "maxweight",
+      "argument": "",
+      "label": "maxweight",
+      "description": "set the maximum weight of any streamline ",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "set the maximum weight of any streamline  Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "minweight",
+      "argument": "",
+      "label": "minweight",
+      "description": "set the minimum weight of any streamline ",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "set the minimum weight of any streamline  Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "inverse",
+      "argument": "-inverse",
+      "label": "inverse",
+      "description": "output the inverse selection of streamlines based on the criteria provided; i.e. only those streamlines that fail at least one selection criterion, and/or vertices that are outside masks if provided, will be written to file",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "output the inverse selection of streamlines based on the criteria provided; i.e. only those streamlines that fail at least one selection criterion, and/or vertices that are outside masks if provided, will be written to file Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "ends_only",
+      "argument": "-ends_only",
+      "label": "ends_only",
+      "description": "only test the ends of each streamline against the provided include/exclude ROIs",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "only test the ends of each streamline against the provided include/exclude ROIs Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "save_tck_weights_out",
+      "argument": "",
+      "label": "save_tck_weights_out",
+      "description": "specify the path for an output text scalar file containing streamline weights",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "specify the path for an output text scalar file containing streamline weights Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "nthreads",
+      "argument": "",
+      "label": "nthreads",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading). ",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 1,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 128.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).  Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "tracks_in",
+      "type": "tractogram",
+      "label": "tracks_in",
+      "description": "the input track file(s)",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "tracks_in_2",
+      "type": "tractogram",
+      "label": "tracks_in_2",
+      "description": "the input track file(s)",
+      "required": false,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "tracks_in_3",
+      "type": "tractogram",
+      "label": "tracks_in_3",
+      "description": "the input track file(s)",
+      "required": false,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "tracks_in_4",
+      "type": "tractogram",
+      "label": "tracks_in_4",
+      "description": "the input track file(s)",
+      "required": false,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "tck_weights_in",
+      "type": "generated_file",
+      "label": "tck_weights_in",
+      "description": "specify a text scalar file containing the streamline weights ",
+      "required": false,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "tracks_out",
+      "type": "tractogram",
+      "label": "tracks_out",
+      "description": "Native command output, saved in this run’s output directory. Perform various editing operations on track files",
+      "format": ".tck",
+      "primary": true,
+      "path_template": "tracks_out.tck",
+      "generated_when": {}
+    },
+    {
+      "id": "tck_weights_out",
+      "type": "generated_file",
+      "label": "tck_weights_out",
+      "description": "Native command output, saved in this run’s output directory. Perform various editing operations on track files This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".txt",
+      "primary": false,
+      "path_template": "tck_weights_out.txt",
+      "generated_when": {
+        "save_tck_weights_out": [
+          true
+        ]
+      }
+    }
+  ],
+  "input_types": [
+    "tractogram",
+    "generated_file"
+  ],
+  "output_types": [
+    "tractogram",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/tckedit.usage.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "mrtrix3",
+      "command": "tckedit",
+      "version": "3.0.8",
+      "argv": [
+        {
+          "tokens": [
+            {
+              "input": "tracks_in"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "input": "tracks_in_2"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            {
+              "input": "tracks_in_3"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            {
+              "input": "tracks_in_4"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            {
+              "output": "tracks_out"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-maxlength",
+            {
+              "parameter": "maxlength"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-minlength",
+            {
+              "parameter": "minlength"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-number",
+            {
+              "parameter": "number"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-skip",
+            {
+              "parameter": "skip"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-maxweight",
+            {
+              "parameter": "maxweight"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-minweight",
+            {
+              "parameter": "minweight"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-inverse"
+          ],
+          "when": {
+            "inverse": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-ends_only"
+          ],
+          "when": {
+            "ends_only": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-tck_weights_in",
+            {
+              "input": "tck_weights_in"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-tck_weights_out",
+            {
+              "output": "tck_weights_out"
+            }
+          ],
+          "when": {
+            "save_tck_weights_out": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-nthreads",
+            {
+              "parameter": "nthreads"
+            }
+          ],
+          "when": {},
+          "optional": true
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "tracks_in_unbounded": "This interface supports up to four files for this repeated argument.",
+        "include": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "include_ordered": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "exclude": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "mask": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "info": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "quiet": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "debug": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "force": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "config": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "help": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "version": "Managed by the platform or requires a specialized repeated/text argument contract."
+      }
+    }
+  }
+}

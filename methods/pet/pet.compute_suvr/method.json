@@ -1,0 +1,173 @@
+{
+  "label": "PET SUVR 实际定量",
+  "description": "使用 Skill 自带且已审核的脚本，从 PET、参考区 Mask 和目标 Mask 计算 SUVR 表格与影像。",
+  "runner_id": "pet.compute_suvr",
+  "input_types": [
+    "imaging_input",
+    "brain_mask",
+    "target_mask"
+  ],
+  "output_types": [
+    "generated_file",
+    "execution_log"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "frame",
+      "argument": "frame",
+      "label": "PET 帧",
+      "description": "-1 对 4D PET 所有帧求平均；非负数选择指定帧。",
+      "type": "integer",
+      "control": "number",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": -1,
+      "options": [],
+      "minimum": -1.0,
+      "maximum": 10000.0,
+      "step": 1.0,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "pet_image",
+      "type": "imaging_input",
+      "label": "PET 影像",
+      "description": "3D 静态或 4D 动态 PET NIfTI。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "reference_mask",
+      "type": "brain_mask",
+      "label": "参考区 Mask",
+      "description": "用于归一化的参考脑区，例如小脑皮层。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists",
+        "spatially_compatible"
+      ]
+    },
+    {
+      "id": "target_mask",
+      "type": "target_mask",
+      "label": "目标区 Mask",
+      "description": "计算目标区平均 SUVR 与体素 SUVR 图。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists",
+        "spatially_compatible"
+      ]
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "summary",
+      "type": "generated_file",
+      "label": "SUVR 汇总",
+      "description": "Target region signal, reference region signal, and SUVR. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".csv",
+      "primary": true,
+      "path_template": "suvr.csv",
+      "generated_when": {}
+    },
+    {
+      "id": "map",
+      "type": "generated_file",
+      "label": "SUVR 影像",
+      "description": "Target region voxel SUVR NIfTI. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".nii.gz",
+      "primary": false,
+      "path_template": "suvr-map.nii.gz",
+      "generated_when": {}
+    },
+    {
+      "id": "log",
+      "type": "execution_log",
+      "label": "SUVR 日志",
+      "description": "完整定量日志。",
+      "format": "",
+      "primary": false,
+      "path_template": "compute-suvr.log",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/pet-skill/scripts/compute_suvr.py",
+      "label": "SUVR 实现脚本",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "skills/pet-skill/skill.json",
+      "label": "PET Skill",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "pet.compute_suvr",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "builtin"
+  }
+}

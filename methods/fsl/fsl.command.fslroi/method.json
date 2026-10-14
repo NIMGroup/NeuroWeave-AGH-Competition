@@ -1,0 +1,493 @@
+{
+  "schema_version": 1,
+  "id": "fsl.command.fslroi",
+  "version": "1",
+  "kind": "method",
+  "label": "FSL fslroi",
+  "description": "Extract a spatial or temporal region of an image; size -1 means all remaining samples.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "fsl.command.fslroi",
+  "parameters": [
+    {
+      "id": "mode",
+      "argument": "",
+      "label": "mode",
+      "description": "Crop in space, time, or both.",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": "spatial",
+      "options": [
+        {
+          "value": "spatial",
+          "label": "spatial",
+          "description": ""
+        },
+        {
+          "value": "temporal",
+          "label": "temporal",
+          "description": ""
+        },
+        {
+          "value": "both",
+          "label": "both",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Crop in space, time, or both. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "xmin",
+      "argument": "",
+      "label": "xmin",
+      "description": "Zero-based first voxel/volume.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 0,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "mode": [
+          "spatial",
+          "both"
+        ]
+      },
+      "required_when": {
+        "mode": [
+          "spatial",
+          "both"
+        ]
+      },
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "Required only for the selected operation.",
+      "usage": "Zero-based first voxel/volume. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "xsize",
+      "argument": "",
+      "label": "xsize",
+      "description": "Number of voxels/volumes; -1 keeps the rest.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": -1,
+      "options": [],
+      "minimum": -1.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "mode": [
+          "spatial",
+          "both"
+        ]
+      },
+      "required_when": {
+        "mode": [
+          "spatial",
+          "both"
+        ]
+      },
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "Required only for the selected operation.",
+      "usage": "Number of voxels/volumes; -1 keeps the rest. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "ymin",
+      "argument": "",
+      "label": "ymin",
+      "description": "Zero-based first voxel/volume.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 0,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "mode": [
+          "spatial",
+          "both"
+        ]
+      },
+      "required_when": {
+        "mode": [
+          "spatial",
+          "both"
+        ]
+      },
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "Required only for the selected operation.",
+      "usage": "Zero-based first voxel/volume. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "ysize",
+      "argument": "",
+      "label": "ysize",
+      "description": "Number of voxels/volumes; -1 keeps the rest.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": -1,
+      "options": [],
+      "minimum": -1.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "mode": [
+          "spatial",
+          "both"
+        ]
+      },
+      "required_when": {
+        "mode": [
+          "spatial",
+          "both"
+        ]
+      },
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "Required only for the selected operation.",
+      "usage": "Number of voxels/volumes; -1 keeps the rest. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "zmin",
+      "argument": "",
+      "label": "zmin",
+      "description": "Zero-based first voxel/volume.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 0,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "mode": [
+          "spatial",
+          "both"
+        ]
+      },
+      "required_when": {
+        "mode": [
+          "spatial",
+          "both"
+        ]
+      },
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "Required only for the selected operation.",
+      "usage": "Zero-based first voxel/volume. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "zsize",
+      "argument": "",
+      "label": "zsize",
+      "description": "Number of voxels/volumes; -1 keeps the rest.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": -1,
+      "options": [],
+      "minimum": -1.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "mode": [
+          "spatial",
+          "both"
+        ]
+      },
+      "required_when": {
+        "mode": [
+          "spatial",
+          "both"
+        ]
+      },
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "Required only for the selected operation.",
+      "usage": "Number of voxels/volumes; -1 keeps the rest. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "tmin",
+      "argument": "",
+      "label": "tmin",
+      "description": "Zero-based first voxel/volume.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 0,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "mode": [
+          "temporal",
+          "both"
+        ]
+      },
+      "required_when": {
+        "mode": [
+          "temporal",
+          "both"
+        ]
+      },
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "Required only for the selected operation.",
+      "usage": "Zero-based first voxel/volume. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "tsize",
+      "argument": "",
+      "label": "tsize",
+      "description": "Number of voxels/volumes; -1 keeps the rest.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": -1,
+      "options": [],
+      "minimum": -1.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "mode": [
+          "temporal",
+          "both"
+        ]
+      },
+      "required_when": {
+        "mode": [
+          "temporal",
+          "both"
+        ]
+      },
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "Required only for the selected operation.",
+      "usage": "Number of voxels/volumes; -1 keeps the rest. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "output",
+      "type": "imaging_input",
+      "label": "output",
+      "description": "Native command output, saved in this run’s output directory. Extract a spatial or temporal region of an image; size -1 means all remaining samples. The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".nii.gz",
+      "primary": true,
+      "path_template": "output.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "imaging_input"
+  ],
+  "output_types": [
+    "imaging_input"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/fsl-fslroi.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "fsl",
+      "command": "fslroi",
+      "version": "installed-2412.6",
+      "argv": [
+        {
+          "tokens": [
+            {
+              "input": "input"
+            },
+            {
+              "output": "output"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "parameter": "xmin"
+            },
+            {
+              "parameter": "xsize"
+            }
+          ],
+          "when": {
+            "mode": [
+              "spatial",
+              "both"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "parameter": "ymin"
+            },
+            {
+              "parameter": "ysize"
+            }
+          ],
+          "when": {
+            "mode": [
+              "spatial",
+              "both"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "parameter": "zmin"
+            },
+            {
+              "parameter": "zsize"
+            }
+          ],
+          "when": {
+            "mode": [
+              "spatial",
+              "both"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "parameter": "tmin"
+            },
+            {
+              "parameter": "tsize"
+            }
+          ],
+          "when": {
+            "mode": [
+              "temporal",
+              "both"
+            ]
+          },
+          "optional": false
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

@@ -1,0 +1,382 @@
+{
+  "schema_version": 1,
+  "id": "freesurfer.command.mri_robust_register",
+  "version": "1",
+  "kind": "method",
+  "label": "FreeSurfer mri_robust_register",
+  "description": "Robust image registration with an explicit target and transform output.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "freesurfer.command.mri_robust_register",
+  "parameters": [
+    {
+      "id": "nomulti",
+      "argument": "--nomulti",
+      "label": "nomulti",
+      "description": "Process only the highest resolution; disable the multi-resolution pyramid.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Process only the highest resolution; disable the multi-resolution pyramid. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "minsize",
+      "argument": "--minsize",
+      "label": "minsize",
+      "description": "Smallest voxel dimension used by the Gaussian pyramid.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Smallest voxel dimension used by the Gaussian pyramid. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "maxit",
+      "argument": "--maxit",
+      "label": "maxit",
+      "description": "Maximum iterations at each pyramid resolution.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Maximum iterations at each pyramid resolution. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "highit",
+      "argument": "--highit",
+      "label": "highit",
+      "description": "Maximum iterations at the highest resolution.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Maximum iterations at the highest resolution. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "satit",
+      "argument": "--satit",
+      "label": "satit",
+      "description": "Automatically estimate saturation parameter.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": true,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Automatically estimate saturation parameter. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "iscale",
+      "argument": "--iscale",
+      "label": "iscale",
+      "description": "Estimate intensity scaling.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Estimate intensity scaling. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "affine",
+      "argument": "--affine",
+      "label": "affine",
+      "description": "Use affine transformation.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Use affine transformation. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "moving",
+      "type": "imaging_input",
+      "label": "moving",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "fixed",
+      "type": "imaging_input",
+      "label": "fixed",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "transform",
+      "type": "transform_matrix",
+      "label": "transform",
+      "description": "Native command output, saved in this run’s output directory. Robust image registration with an explicit target and transform output.",
+      "format": ".lta",
+      "primary": true,
+      "path_template": "registration.lta",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "imaging_input"
+  ],
+  "output_types": [
+    "transform_matrix"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/freesurfer-mri_robust_register.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "freesurfer",
+      "command": "mri_robust_register",
+      "version": "7.4.1",
+      "argv": [
+        {
+          "tokens": [
+            "--mov",
+            {
+              "input": "moving"
+            },
+            "--dst",
+            {
+              "input": "fixed"
+            },
+            "--lta",
+            {
+              "output": "transform"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "--nomulti"
+          ],
+          "when": {
+            "nomulti": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "--minsize",
+            {
+              "parameter": "minsize"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "--maxit",
+            {
+              "parameter": "maxit"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "--highit",
+            {
+              "parameter": "highit"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "--satit"
+          ],
+          "when": {
+            "satit": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "--iscale"
+          ],
+          "when": {
+            "iscale": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "--affine"
+          ],
+          "when": {
+            "affine": [
+              true
+            ]
+          },
+          "optional": false
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

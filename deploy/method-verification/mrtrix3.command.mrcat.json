@@ -1,0 +1,11 @@
+{
+  "method_id": "mrtrix3.command.mrcat",
+  "method_version": "2",
+  "execution_fingerprint": "f207881e4aaf0a5d33ca005664f7b83d5cbcd5ac9b1183c6c629a318c60db537",
+  "test_type": "synthetic",
+  "tested_at": "2026-09-27T03:51:26.871280+00:00",
+  "environment": "mgr installed MRtrix3/FSL/ANTs; six-voxel axes",
+  "result": "passed",
+  "report_path": "deploy/method-verification/reports/reliability-synthetic.json",
+  "report_sha256": "8ac98604628405dba7c79bb7a2c027322331cd17afb6c28c866ab0c681e30d75"
+}

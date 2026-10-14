@@ -1,0 +1,1362 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix3.command.mrinfo",
+  "version": "1",
+  "kind": "method",
+  "label": "MRtrix3 mrinfo",
+  "description": "Display image header information, or extract specific information from the header\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "mrtrix3.command.mrinfo",
+  "parameters": [
+    {
+      "id": "all",
+      "argument": "-all",
+      "label": "all",
+      "description": "print all properties, rather than the first and last 2 of each.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "print all properties, rather than the first and last 2 of each. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "name",
+      "argument": "-name",
+      "label": "name",
+      "description": "print the file system path of the image",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "print the file system path of the image Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "format",
+      "argument": "-format",
+      "label": "format",
+      "description": "image file format",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "image file format Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "ndim",
+      "argument": "-ndim",
+      "label": "ndim",
+      "description": "number of image dimensions",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "number of image dimensions Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "size",
+      "argument": "-size",
+      "label": "size",
+      "description": "image size along each axis",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "image size along each axis Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "spacing",
+      "argument": "-spacing",
+      "label": "spacing",
+      "description": "voxel spacing along each image dimension",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "voxel spacing along each image dimension Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "datatype",
+      "argument": "-datatype",
+      "label": "datatype",
+      "description": "data type used for image data storage",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "data type used for image data storage Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "strides",
+      "argument": "-strides",
+      "label": "strides",
+      "description": "data strides i.e. order and direction of axes data layout",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "data strides i.e. order and direction of axes data layout Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "offset",
+      "argument": "-offset",
+      "label": "offset",
+      "description": "image intensity offset",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "image intensity offset Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "multiplier",
+      "argument": "-multiplier",
+      "label": "multiplier",
+      "description": "image intensity multiplier",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "image intensity multiplier Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "transform",
+      "argument": "-transform",
+      "label": "transform",
+      "description": "the transformation from image coordinates [mm] to scanner / real world coordinates [mm]",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "the transformation from image coordinates [mm] to scanner / real world coordinates [mm] Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "save_json_keyval",
+      "argument": "",
+      "label": "save_json_keyval",
+      "description": "export header key/value entries to a JSON file",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "export header key/value entries to a JSON file Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "save_json_all",
+      "argument": "",
+      "label": "save_json_all",
+      "description": "export all header contents to a JSON file",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "export all header contents to a JSON file Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "save_export_grad_mrtrix",
+      "argument": "",
+      "label": "save_export_grad_mrtrix",
+      "description": "export the diffusion-weighted gradient table to file in MRtrix format",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "export the diffusion-weighted gradient table to file in MRtrix format Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "save_export_grad_fsl",
+      "argument": "",
+      "label": "save_export_grad_fsl",
+      "description": "export the diffusion-weighted gradient table to files in FSL (bvecs / bvals) format",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "export the diffusion-weighted gradient table to files in FSL (bvecs / bvals) format Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "dwgrad",
+      "argument": "-dwgrad",
+      "label": "dwgrad",
+      "description": "the diffusion-weighting gradient table, as interpreted by MRtrix3",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "the diffusion-weighting gradient table, as interpreted by MRtrix3 Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "shell_bvalues",
+      "argument": "-shell_bvalues",
+      "label": "shell_bvalues",
+      "description": "list the average b-value of each shell",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "list the average b-value of each shell Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "shell_sizes",
+      "argument": "-shell_sizes",
+      "label": "shell_sizes",
+      "description": "list the number of volumes in each shell",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "list the number of volumes in each shell Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "shell_indices",
+      "argument": "-shell_indices",
+      "label": "shell_indices",
+      "description": "list the image volumes attributed to each b-value shell",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "list the image volumes attributed to each b-value shell Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "save_export_pe_table",
+      "argument": "",
+      "label": "save_export_pe_table",
+      "description": "export phase-encoding table to file",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "export phase-encoding table to file Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "save_export_pe_topup",
+      "argument": "",
+      "label": "save_export_pe_topup",
+      "description": "export phase-encoding table to a file intended for FSL topup",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "export phase-encoding table to a file intended for FSL topup Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "save_export_pe_eddy",
+      "argument": "",
+      "label": "save_export_pe_eddy",
+      "description": "export phase-encoding information to an EDDY-style config / index file pair",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "export phase-encoding information to an EDDY-style config / index file pair Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "petable",
+      "argument": "-petable",
+      "label": "petable",
+      "description": "print the phase encoding table",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "print the phase encoding table Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "nodelete",
+      "argument": "-nodelete",
+      "label": "nodelete",
+      "description": "don't delete temporary images or images passed to mrinfo via Unix pipes",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "don't delete temporary images or images passed to mrinfo via Unix pipes Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "nthreads",
+      "argument": "",
+      "label": "nthreads",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading). ",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 1,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 128.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).  Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "image",
+      "type": "imaging_input",
+      "label": "image",
+      "description": "the input image(s).",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "image_2",
+      "type": "imaging_input",
+      "label": "image_2",
+      "description": "the input image(s).",
+      "required": false,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "image_3",
+      "type": "imaging_input",
+      "label": "image_3",
+      "description": "the input image(s).",
+      "required": false,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "image_4",
+      "type": "imaging_input",
+      "label": "image_4",
+      "description": "the input image(s).",
+      "required": false,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "grad",
+      "type": "generated_file",
+      "label": "grad",
+      "description": "Provide the diffusion-weighted gradient scheme used in the acquisition in a text file. This should be supplied as a 4xN text file with each line is in the format [ X Y Z b ], where [ X Y Z ] describe the direction of the applied gradient, and b gives the b-value in units of s/mm^2. If a diffusion gradient scheme is present in the input image header, the data provided with this option will be instead used. ",
+      "required": false,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "fslgrad_bvecs",
+      "type": "generated_file",
+      "label": "fslgrad_bvecs",
+      "description": "Provide the diffusion-weighted gradient scheme used in the acquisition in FSL bvecs/bvals format files. If a diffusion gradient scheme is present in the input image header, the data provided with this option will be instead used. ",
+      "required": false,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "fslgrad_bvals",
+      "type": "generated_file",
+      "label": "fslgrad_bvals",
+      "description": "Provide the diffusion-weighted gradient scheme used in the acquisition in FSL bvecs/bvals format files. If a diffusion gradient scheme is present in the input image header, the data provided with this option will be instead used. ",
+      "required": false,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "json_keyval",
+      "type": "generated_file",
+      "label": "json_keyval",
+      "description": "Native command output, saved in this run’s output directory. Display image header information, or extract specific information from the header This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".txt",
+      "primary": true,
+      "path_template": "json_keyval.txt",
+      "generated_when": {
+        "save_json_keyval": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "json_all",
+      "type": "generated_file",
+      "label": "json_all",
+      "description": "Native command output, saved in this run’s output directory. Display image header information, or extract specific information from the header This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".txt",
+      "primary": false,
+      "path_template": "json_all.txt",
+      "generated_when": {
+        "save_json_all": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "export_grad_mrtrix",
+      "type": "generated_file",
+      "label": "export_grad_mrtrix",
+      "description": "Native command output, saved in this run’s output directory. Display image header information, or extract specific information from the header This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".txt",
+      "primary": false,
+      "path_template": "export_grad_mrtrix.txt",
+      "generated_when": {
+        "save_export_grad_mrtrix": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "export_grad_fsl_bvecs_path",
+      "type": "generated_file",
+      "label": "export_grad_fsl_bvecs_path",
+      "description": "Native command output, saved in this run’s output directory. Display image header information, or extract specific information from the header This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".txt",
+      "primary": false,
+      "path_template": "export_grad_fsl_bvecs_path.txt",
+      "generated_when": {
+        "save_export_grad_fsl": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "export_grad_fsl_bvals_path",
+      "type": "generated_file",
+      "label": "export_grad_fsl_bvals_path",
+      "description": "Native command output, saved in this run’s output directory. Display image header information, or extract specific information from the header This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".txt",
+      "primary": false,
+      "path_template": "export_grad_fsl_bvals_path.txt",
+      "generated_when": {
+        "save_export_grad_fsl": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "export_pe_table",
+      "type": "generated_file",
+      "label": "export_pe_table",
+      "description": "Native command output, saved in this run’s output directory. Display image header information, or extract specific information from the header This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".txt",
+      "primary": false,
+      "path_template": "export_pe_table.txt",
+      "generated_when": {
+        "save_export_pe_table": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "export_pe_topup",
+      "type": "generated_file",
+      "label": "export_pe_topup",
+      "description": "Native command output, saved in this run’s output directory. Display image header information, or extract specific information from the header This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".txt",
+      "primary": false,
+      "path_template": "export_pe_topup.txt",
+      "generated_when": {
+        "save_export_pe_topup": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "export_pe_eddy_config",
+      "type": "generated_file",
+      "label": "export_pe_eddy_config",
+      "description": "Native command output, saved in this run’s output directory. Display image header information, or extract specific information from the header This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".txt",
+      "primary": false,
+      "path_template": "export_pe_eddy_config.txt",
+      "generated_when": {
+        "save_export_pe_eddy": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "export_pe_eddy_indices",
+      "type": "generated_file",
+      "label": "export_pe_eddy_indices",
+      "description": "Native command output, saved in this run’s output directory. Display image header information, or extract specific information from the header This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".txt",
+      "primary": false,
+      "path_template": "export_pe_eddy_indices.txt",
+      "generated_when": {
+        "save_export_pe_eddy": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "report",
+      "type": "execution_log",
+      "label": "report",
+      "description": "Native command output, saved in this run’s output directory. Display image header information, or extract specific information from the header",
+      "format": ".log",
+      "primary": false,
+      "path_template": "command.log",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "imaging_input",
+    "generated_file"
+  ],
+  "output_types": [
+    "generated_file",
+    "execution_log"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/mrinfo.usage.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "mrtrix3",
+      "command": "mrinfo",
+      "version": "3.0.8",
+      "argv": [
+        {
+          "tokens": [
+            {
+              "input": "image"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "input": "image_2"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            {
+              "input": "image_3"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            {
+              "input": "image_4"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-all"
+          ],
+          "when": {
+            "all": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-name"
+          ],
+          "when": {
+            "name": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-format"
+          ],
+          "when": {
+            "format": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-ndim"
+          ],
+          "when": {
+            "ndim": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-size"
+          ],
+          "when": {
+            "size": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-spacing"
+          ],
+          "when": {
+            "spacing": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-datatype"
+          ],
+          "when": {
+            "datatype": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-strides"
+          ],
+          "when": {
+            "strides": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-offset"
+          ],
+          "when": {
+            "offset": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-multiplier"
+          ],
+          "when": {
+            "multiplier": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-transform"
+          ],
+          "when": {
+            "transform": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-json_keyval",
+            {
+              "output": "json_keyval"
+            }
+          ],
+          "when": {
+            "save_json_keyval": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-json_all",
+            {
+              "output": "json_all"
+            }
+          ],
+          "when": {
+            "save_json_all": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-grad",
+            {
+              "input": "grad"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-fslgrad",
+            {
+              "input": "fslgrad_bvecs"
+            },
+            {
+              "input": "fslgrad_bvals"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-export_grad_mrtrix",
+            {
+              "output": "export_grad_mrtrix"
+            }
+          ],
+          "when": {
+            "save_export_grad_mrtrix": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-export_grad_fsl",
+            {
+              "output": "export_grad_fsl_bvecs_path"
+            },
+            {
+              "output": "export_grad_fsl_bvals_path"
+            }
+          ],
+          "when": {
+            "save_export_grad_fsl": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-dwgrad"
+          ],
+          "when": {
+            "dwgrad": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-shell_bvalues"
+          ],
+          "when": {
+            "shell_bvalues": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-shell_sizes"
+          ],
+          "when": {
+            "shell_sizes": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-shell_indices"
+          ],
+          "when": {
+            "shell_indices": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-export_pe_table",
+            {
+              "output": "export_pe_table"
+            }
+          ],
+          "when": {
+            "save_export_pe_table": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-export_pe_topup",
+            {
+              "output": "export_pe_topup"
+            }
+          ],
+          "when": {
+            "save_export_pe_topup": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-export_pe_eddy",
+            {
+              "output": "export_pe_eddy_config"
+            },
+            {
+              "output": "export_pe_eddy_indices"
+            }
+          ],
+          "when": {
+            "save_export_pe_eddy": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-petable"
+          ],
+          "when": {
+            "petable": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-nodelete"
+          ],
+          "when": {
+            "nodelete": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-nthreads",
+            {
+              "parameter": "nthreads"
+            }
+          ],
+          "when": {},
+          "optional": true
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "image_unbounded": "This interface supports up to four files for this repeated argument.",
+        "property": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "bvalue_scaling": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "info": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "quiet": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "debug": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "force": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "config": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "help": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "version": "Managed by the platform or requires a specialized repeated/text argument contract."
+      }
+    }
+  }
+}

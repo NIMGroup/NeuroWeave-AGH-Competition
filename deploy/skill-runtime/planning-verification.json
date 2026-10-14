@@ -1,0 +1,374 @@
+{
+  "date": "2026-09-08",
+  "scope": "Isolated Slurm RunService integration jobs; synthetic inputs and original trainer functions. fsl_anat uses the public FSL template. Not a claim of scientific validity or end-to-end testing of every ready method.",
+  "backend": {
+    "passed": 208,
+    "subtests_passed": 609
+  },
+  "frontend": {
+    "passed": 10,
+    "lint": true,
+    "typecheck": true,
+    "build": true
+  },
+  "catalog": {
+    "reviewed_planning_identities": 358,
+    "mapped": 191,
+    "remaining_planning": 167,
+    "compiled_recipe_options": 65
+  },
+  "node_readiness": {
+    "nodes": [
+      "node01",
+      "node02",
+      "node03"
+    ],
+    "summary": {
+      "skills": 103,
+      "skills_with_ready_methods": 75,
+      "registered_runners": 187,
+      "ready_runners": 180,
+      "selectable_methods": 770,
+      "ready": 566,
+      "missing_runtime": 37,
+      "planning": 167
+    }
+  },
+  "slurm_cases": [
+    {
+      "case": "nifti",
+      "passed": true,
+      "run_id": "run_86afcebcd30e",
+      "jobs": [
+        {
+          "runner": "reviewed.nibabel-skill.save-existing",
+          "job_id": "283",
+          "node": "node01",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 0
+        }
+      ],
+      "artifact_count": 3
+    },
+    {
+      "case": "evoked",
+      "passed": true,
+      "run_id": "run_5a2e2da335fc",
+      "jobs": [
+        {
+          "runner": "reviewed.meg-skill.evoked-existing",
+          "job_id": "284",
+          "node": "node02",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 0
+        }
+      ],
+      "artifact_count": 3
+    },
+    {
+      "case": "bands",
+      "passed": true,
+      "run_id": "run_d12cc0a5ee44",
+      "jobs": [
+        {
+          "runner": "reviewed.mne-eeg-tool.original-bands",
+          "job_id": "285",
+          "node": "node03",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 0
+        }
+      ],
+      "artifact_count": 8
+    },
+    {
+      "case": "alpha",
+      "passed": true,
+      "run_id": "run_ec195a6a38b8",
+      "jobs": [
+        {
+          "runner": "reviewed.mne-eeg-tool.original-alpha-ratio",
+          "job_id": "287",
+          "node": "node02",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 0
+        }
+      ],
+      "artifact_count": 3
+    },
+    {
+      "case": "table",
+      "passed": true,
+      "run_id": "run_b7c5e93308c8",
+      "jobs": [
+        {
+          "runner": "reviewed.dataset-inspector.table-inspect",
+          "job_id": "288",
+          "node": "node03",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 0
+        }
+      ],
+      "artifact_count": 3
+    },
+    {
+      "case": "join",
+      "passed": true,
+      "run_id": "run_062f0ac32713",
+      "jobs": [
+        {
+          "runner": "reviewed.scan-skill.table-join",
+          "job_id": "289",
+          "node": "node01",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 0
+        }
+      ],
+      "artifact_count": 4
+    },
+    {
+      "case": "bids",
+      "passed": true,
+      "run_id": "run_c02fb2c7f1b8",
+      "jobs": [
+        {
+          "runner": "reviewed.bids-organizer.explicit-stage",
+          "job_id": "290",
+          "node": "node02",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 0
+        }
+      ],
+      "artifact_count": 5
+    },
+    {
+      "case": "bedpost",
+      "passed": true,
+      "run_id": "run_d2ec5c39ca3c",
+      "jobs": [
+        {
+          "runner": "reviewed.dwi-skill.bedpostx",
+          "job_id": "294",
+          "node": "node03",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 0
+        },
+        {
+          "runner": "reviewed.dwi-skill.probtrackx-existing",
+          "job_id": "295",
+          "node": "node03",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 0
+        }
+      ],
+      "artifact_count": 83
+    },
+    {
+      "case": "erp",
+      "passed": true,
+      "run_id": "run_12ea297b1bf4",
+      "jobs": [
+        {
+          "runner": "reviewed.mne-eeg-tool.original-erp",
+          "job_id": "299",
+          "node": "node01",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 0
+        }
+      ],
+      "artifact_count": 3
+    },
+    {
+      "case": "features",
+      "passed": true,
+      "run_id": "run_b8c973865f75",
+      "jobs": [
+        {
+          "runner": "reviewed.mne-eeg-tool.original-features",
+          "job_id": "300",
+          "node": "node03",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 0
+        }
+      ],
+      "artifact_count": 3
+    },
+    {
+      "case": "harmonization",
+      "passed": true,
+      "run_id": "run_bd4329783a59",
+      "jobs": [
+        {
+          "runner": "reviewed.harmonization-tool.none",
+          "job_id": "301",
+          "node": "node01",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 0
+        }
+      ],
+      "artifact_count": 7
+    },
+    {
+      "case": "regions",
+      "passed": true,
+      "run_id": "run_955a64e34271",
+      "jobs": [
+        {
+          "runner": "reviewed.brain-visualization.original-region-summary",
+          "job_id": "302",
+          "node": "node02",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 0
+        }
+      ],
+      "artifact_count": 5
+    },
+    {
+      "case": "brainnetcnn",
+      "passed": true,
+      "run_id": "run_84115bb59d23",
+      "jobs": [
+        {
+          "runner": "reviewed.brainnetcnn.original-trainer",
+          "job_id": "305",
+          "node": "node03",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 1
+        }
+      ],
+      "cuda_used": true,
+      "torch_version": "2.11.0+cu128",
+      "subjects": 12,
+      "epochs": 1,
+      "artifact_count": 5
+    },
+    {
+      "case": "act",
+      "passed": true,
+      "run_id": "run_a31e36d8f926",
+      "jobs": [
+        {
+          "runner": "mrtrix.dwi2response",
+          "job_id": "306",
+          "node": "node03",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 0
+        },
+        {
+          "runner": "mrtrix.dwi2fod",
+          "job_id": "307",
+          "node": "node03",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 0
+        },
+        {
+          "runner": "mrtrix.tckgen",
+          "job_id": "308",
+          "node": "node03",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 0
+        },
+        {
+          "runner": "mrtrix.tck2connectome",
+          "job_id": "309",
+          "node": "node03",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 0
+        }
+      ],
+      "artifact_count": 13
+    },
+    {
+      "case": "sift-history",
+      "passed": true,
+      "run_id": "run_00ff9bbd7c1e",
+      "jobs": [
+        {
+          "runner": "reviewed.dwi-skill.sift-existing",
+          "job_id": "310",
+          "node": "node01",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 0
+        }
+      ],
+      "history_source_run": "run_a31e36d8f926",
+      "artifact_count": 3
+    },
+    {
+      "case": "bnt",
+      "passed": true,
+      "run_id": "run_66a266f2bd8e",
+      "jobs": [
+        {
+          "runner": "reviewed.bnt.original-trainer",
+          "job_id": "314",
+          "node": "node03",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 1
+        }
+      ],
+      "cuda_used": true,
+      "torch_version": "2.11.0+cu128",
+      "subjects": 12,
+      "epochs": 1,
+      "artifact_count": 4
+    },
+    {
+      "case": "combraintf",
+      "passed": true,
+      "run_id": "run_2e630f90e5d8",
+      "jobs": [
+        {
+          "runner": "reviewed.combraintf.original-trainer",
+          "job_id": "315",
+          "node": "node02",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 1
+        }
+      ],
+      "cuda_used": true,
+      "torch_version": "2.11.0+cu128",
+      "subjects": 12,
+      "epochs": 1,
+      "artifact_count": 4
+    },
+    {
+      "case": "fsl-anat",
+      "passed": true,
+      "run_id": "run_c0f01a9d356b",
+      "input": "FSL public MNI152_T1_2mm template",
+      "jobs": [
+        {
+          "runner": "reviewed.fsl-tool.fsl-anat",
+          "job_id": "319",
+          "node": "node03",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 0
+        }
+      ],
+      "artifact_count": 91
+    }
+  ],
+  "slurm_cases_passed": 18
+}

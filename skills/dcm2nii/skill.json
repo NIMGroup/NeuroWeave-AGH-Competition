@@ -1,0 +1,419 @@
+{
+  "schema_version": 1,
+  "id": "dcm2nii",
+  "description": "统筹 dcm2niix 的 DICOM 到 NIfTI 转换。独立 Method 提供完整参数配置；三个 Pipeline 分别固定 GZip 压缩、GZip 压缩与 JSON sidecar、GZip 压缩与 sidecar 匿名化。单序列或多维序列的识别由同一个 dcm2niix 方法完成，不作为重复 Pipeline 单独登记。",
+  "method_refs": [
+    {
+      "capability": "skill.dcm2nii",
+      "method_id": "dcm2niix-convert",
+      "label": "dcm2niix 实际转换",
+      "default_recommended": true,
+      "default_reason": "服务器已检测到 dcm2niix，适合把 DICOM 序列转换为 NIfTI。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "执行 DICOM 到 NIfTI 转换；可配置压缩方式、JSON sidecar、sidecar 匿名化和文件名模板。",
+      "method_ref": "dcm2niix.convert"
+    }
+  ],
+  "pipeline_refs": [
+    {
+      "capability": "skill.dcm2nii",
+      "method_id": "dcm2nii-guided--basic-single-series-conversion",
+      "label": "DICOM → NIfTI（GZip 转换）",
+      "default_recommended": false,
+      "default_reason": "服务器已检测到 dcm2niix，适合把 DICOM 序列转换为 NIfTI。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "dcm2nii-guided--basic-single-series-conversion",
+        "target_method_id": "dcm2niix-convert"
+      },
+      "role": "将只读 DICOM 目录转换到隔离的 NIfTI 输出目录，固定使用 GZip 压缩；可配置 JSON sidecar、sidecar 匿名化和文件名模板。序列维度与切片组织由 dcm2niix 按输入自动识别。",
+      "pipeline_ref": "reviewed-dcm2niix-convert-y-aaf8accb64"
+    },
+    {
+      "capability": "skill.dcm2nii",
+      "method_id": "dcm2nii-guided--4d-fmri-dwi-perfusion",
+      "label": "DICOM → NIfTI（固定生成 JSON）",
+      "default_recommended": false,
+      "default_reason": "服务器已检测到 dcm2niix，适合把 DICOM 序列转换为 NIfTI。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "dcm2nii-guided--4d-fmri-dwi-perfusion",
+        "target_method_id": "dcm2niix-convert"
+      },
+      "role": "将只读 DICOM 目录转换到隔离的 NIfTI 输出目录，固定使用 GZip 压缩并生成 JSON sidecar；可配置 sidecar 匿名化和文件名模板。此预设不组织完整 BIDS 目录，也不额外执行 4D 重建。",
+      "pipeline_ref": "reviewed-dcm2niix-convert-y-true-989e0368fb"
+    },
+    {
+      "capability": "skill.dcm2nii",
+      "method_id": "dcm2nii-guided--anonymize-remove-most-phi",
+      "label": "DICOM → NIfTI（固定匿名化 sidecar）",
+      "default_recommended": false,
+      "default_reason": "服务器已检测到 dcm2niix，适合把 DICOM 序列转换为 NIfTI。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "dcm2nii-guided--anonymize-remove-most-phi",
+        "target_method_id": "dcm2niix-convert"
+      },
+      "role": "将只读 DICOM 目录转换到隔离的 NIfTI 输出目录，固定使用 GZip 压缩和 sidecar 匿名化；可配置是否生成 JSON sidecar以及文件名模板。匿名化仅作用于 dcm2niix 支持的 sidecar 字段，不修改原始 DICOM，也不执行图像去面部处理。",
+      "pipeline_ref": "reviewed-dcm2niix-convert-y-true-4ca43bff7b"
+    }
+  ],
+  "planning_capabilities": [
+    {
+      "capability": "skill.dcm2nii",
+      "method_id": "dcm2nii-guided--keep-slice-timing-philips-diff",
+      "skill_id": "dcm2nii",
+      "label": "Keep slice timing / Philips diff",
+      "description": "该入口为规划能力；用于讨论Keep slice timing / Philips diff的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "keep-slice-timing-philips-diff",
+          "options": [
+            {
+              "value": "keep-slice-timing-philips-diff",
+              "label": "Keep slice timing / Philips diff",
+              "description": "规划选项：Keep slice timing / Philips diff；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_policy",
+          "argument": "output-policy",
+          "label": "输出策略",
+          "description": "规划阶段默认保留原始数据，并把结果写入新目录。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "new_output",
+          "options": [
+            {
+              "value": "preview_only",
+              "label": "只预览变更",
+              "description": ""
+            },
+            {
+              "value": "copy_then_modify",
+              "label": "复制后处理",
+              "description": ""
+            },
+            {
+              "value": "new_output",
+              "label": "写入新输出目录",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "validation_level",
+          "argument": "validation-level",
+          "label": "输出验证",
+          "description": "选择基础结构检查或包含模式、计数和元数据的严格验证。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "strict",
+          "options": [
+            {
+              "value": "basic",
+              "label": "基础验证",
+              "description": ""
+            },
+            {
+              "value": "strict",
+              "label": "严格验证",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "metadata_policy",
+          "argument": "metadata-policy",
+          "label": "元数据处理",
+          "description": "控制缺失或冲突元数据的处理方式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "结构与元数据",
+          "unit": "",
+          "required": true,
+          "default": "preserve_and_report",
+          "options": [
+            {
+              "value": "preserve_and_report",
+              "label": "保留并报告",
+              "description": ""
+            },
+            {
+              "value": "normalize",
+              "label": "规范化字段",
+              "description": ""
+            },
+            {
+              "value": "strict",
+              "label": "严格拒绝冲突",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "naming_template",
+          "argument": "naming-template",
+          "label": "命名模板",
+          "description": "可选的输出文件或实体命名模板。",
+          "type": "string",
+          "control": "text",
+          "level": "advanced",
+          "group": "结构与元数据",
+          "unit": "",
+          "required": false,
+          "default": "",
+          "options": [],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "例如：sub-{subject}_ses-{session}",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "collision_policy",
+          "argument": "collision-policy",
+          "label": "命名冲突策略",
+          "description": "目标位置已经存在同名文件时的处理方式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "安全策略",
+          "unit": "",
+          "required": true,
+          "default": "stop",
+          "options": [
+            {
+              "value": "stop",
+              "label": "停止并报告",
+              "description": ""
+            },
+            {
+              "value": "rename",
+              "label": "自动追加编号",
+              "description": ""
+            },
+            {
+              "value": "replace_copy",
+              "label": "替换输出副本",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "worker_count",
+          "argument": "worker-count",
+          "label": "并行处理数",
+          "description": "批量转换或清洗时允许的并行任务数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "性能",
+          "unit": "",
+          "required": true,
+          "default": 2,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 64.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "dataset_folder",
+          "label": "输入数据集",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "folder",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/dcm2nii/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/dcm2nii/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "source_error",
+        "reason": "原参考的 -t y 不是已安装 dcm2niix 的切片时序开关；转换器默认从有效 DICOM 写入相应 JSON 字段，无法用该选项保证缺失时序得到恢复。",
+        "source_method_id": "dcm2nii-guided--keep-slice-timing-philips-diff",
+        "requirements": [
+          "正确的原始 DICOM 时序元数据；可选择普通 dcm2niix 转换检查 sidecar"
+        ]
+      }
+    }
+  ],
+  "selection_rules": [
+    "需要关闭 JSON sidecar 时选择通用 GZip 预设或独立转换方法，避免固定生成 JSON 的预设。"
+  ],
+  "name": "dcm2nii",
+  "category": [
+    "软件工具",
+    "dcm2nii"
+  ],
+  "scope": "software",
+  "limitations": [
+    "原始 DICOM 中缺失的切片时序不能靠额外转换开关恢复。"
+  ],
+  "keywords": [
+    "dcm2nii",
+    "DICOM",
+    "NIfTI",
+    "格式转换"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "label": "FSL 完整结构预处理（fsl_anat）",
+  "description": "Invoke the existing FSL fsl_anat workflow on a T1-weighted image and retain its structural.anat directory, including the bias-corrected brain image。 Inputs: input: T1w NIfTI (file). Registered outputs: results/structural.anat/T1_biascorr_brain.nii.gz. Fixed invocation options: --operation fsl-anat.",
+  "runner_id": "reviewed.fsl-tool.fsl-anat",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "t1w_image"
+  ],
+  "requires_features": [],
+  "parameters": [],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "T1w NIfTI",
+      "description": "T1w NIfTI. Required file input for FSL 完整结构预处理（fsl_anat）; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for FSL 完整结构预处理（fsl_anat）. Contains this operation's generated files, including results/structural.anat/T1_biascorr_brain.nii.gz; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_structural_anat_T1_biascorr_brain_nii_gz",
+      "type": "t1w_image",
+      "label": "structural.anat/T1_biascorr_brain.nii.gz",
+      "description": "structural.anat/T1_biascorr_brain.nii.gz: output of FSL 完整结构预处理（fsl_anat）. Relative run path: results/structural.anat/T1_biascorr_brain.nii.gz.",
+      "format": ".nii.gz",
+      "primary": false,
+      "path_template": "results/structural.anat/T1_biascorr_brain.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "bakend/app/execution/planning_native_worker.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.fsl-tool.fsl-anat",
+  "version": "2",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.fsl-tool.fsl-anat",
+      "script": "bakend/app/execution/planning_native_worker.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [],
+      "modules": [],
+      "expected": [
+        "structural.anat/T1_biascorr_brain.nii.gz"
+      ],
+      "profile": "scientific",
+      "fixed_args": [
+        "--operation",
+        "fsl-anat"
+      ],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [
+        "/opt/software/fsl/bin/fsl_anat",
+        "/opt/software/fsl/bin/fsl_sub",
+        "/opt/software/fsl/bin/fslreorient2std",
+        "/opt/software/fsl/bin/robustfov",
+        "/opt/software/fsl/bin/bet",
+        "/opt/software/fsl/bin/fast",
+        "/opt/software/fsl/bin/flirt",
+        "/opt/software/fsl/bin/fnirt",
+        "/opt/software/fsl/bin/run_first_all"
+      ],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "software_command",
+        "entrypoints": [
+          "/opt/software/fsl/bin/fsl_anat",
+          "/opt/software/fsl/bin/fsl_sub",
+          "/opt/software/fsl/bin/fslreorient2std",
+          "/opt/software/fsl/bin/robustfov",
+          "/opt/software/fsl/bin/bet",
+          "/opt/software/fsl/bin/fast",
+          "/opt/software/fsl/bin/flirt",
+          "/opt/software/fsl/bin/fnirt",
+          "/opt/software/fsl/bin/run_first_all"
+        ],
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "bakend/app/execution/planning_native_worker.py",
+          "sha256": "b8758b07bf02f10c8fbcc5ddbc2ade3486bb0cc12fc6bd31bc6f957669f6dd8d"
+        }
+      ],
+      "artifact_types": {
+        "structural.anat/T1_biascorr_brain.nii.gz": "t1w_image"
+      }
+    }
+  }
+}

@@ -1,0 +1,235 @@
+{
+  "schema_version": 1,
+  "id": "ants.command.SmoothImage",
+  "version": "1",
+  "kind": "method",
+  "label": "ANTs SmoothImage",
+  "description": "Gaussian smoothing or median filtering with a scalar/per-axis width.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "ants.command.SmoothImage",
+  "parameters": [
+    {
+      "id": "dimension",
+      "argument": "",
+      "label": "dimension",
+      "description": "Image dimensionality. Match the actual input image.",
+      "type": "integer",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 3,
+      "options": [
+        {
+          "value": 2,
+          "label": "2",
+          "description": ""
+        },
+        {
+          "value": 3,
+          "label": "3",
+          "description": ""
+        },
+        {
+          "value": 4,
+          "label": "4",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Image dimensionality. Match the actual input image. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://github.com/ANTsX/ANTs/wiki"
+    },
+    {
+      "id": "sigma",
+      "argument": "",
+      "label": "sigma",
+      "description": "Gaussian sigma, or median radius in voxels; x separates axes.",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": "1",
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Gaussian sigma, or median radius in voxels; x separates axes. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://github.com/ANTsX/ANTs/wiki"
+    },
+    {
+      "id": "physical_units",
+      "argument": "",
+      "label": "physical_units",
+      "description": "Interpret sigma in physical spacing units.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Interpret sigma in physical spacing units. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://github.com/ANTsX/ANTs/wiki"
+    },
+    {
+      "id": "median",
+      "argument": "",
+      "label": "median",
+      "description": "Use median filter instead of Gaussian.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Use median filter instead of Gaussian. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://github.com/ANTsX/ANTs/wiki"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "output",
+      "type": "imaging_input",
+      "label": "output",
+      "description": "Native command output, saved in this run’s output directory. Gaussian smoothing or median filtering with a scalar/per-axis width. The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".nii.gz",
+      "primary": true,
+      "path_template": "output.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "imaging_input"
+  ],
+  "output_types": [
+    "imaging_input"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/ants-SmoothImage.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "ants",
+      "command": "SmoothImage",
+      "version": "2.6.5",
+      "argv": [
+        {
+          "tokens": [
+            {
+              "parameter": "dimension"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "input": "input"
+            },
+            {
+              "parameter": "sigma"
+            },
+            {
+              "output": "output"
+            },
+            {
+              "parameter": "physical_units"
+            },
+            {
+              "parameter": "median"
+            }
+          ],
+          "when": {},
+          "optional": false
+        }
+      ],
+      "patterns": {
+        "sigma": "[0-9.]+(x[0-9.]+){0,3}"
+      },
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

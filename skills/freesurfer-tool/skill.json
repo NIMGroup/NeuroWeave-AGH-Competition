@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "id": "freesurfer-tool",
+  "description": "Coordinate FreeSurfer anatomical atlas parcellation, cortical surface reconstruction, subcortical segmentation and associated volume/surface operations. recon-all exposes both the subject directory and stage-specific files, including aparc+aseg.mgz for cortical/subcortical brain regions. Select individual Methods or matching Pipelines; check structural-to-diffusion alignment separately before connectome construction.",
+  "method_refs": [
+    {
+      "capability": "skill.freesurfer-tool",
+      "method_id": "freesurfer-recon-all",
+      "label": "FreeSurfer recon-all（可执行）",
+      "default_recommended": true,
+      "default_reason": "Choose for anatomical atlas parcellation or cortical/subcortical reconstruction when T1w or a suitable existing FreeSurfer subject is available. Verify stage, space and runtime status; availability is not a completed run.",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run FreeSurfer recon-all for T1w cortical surface reconstruction, subcortical segmentation and anatomical atlas parcellation. all runs the full reconstruction; autorecon1/2/3 are consecutive stages, and stats recomputes statistics in an existing subject directory. all/autorecon3 expose mri/aparc+aseg.mgz as a Desikan-Killiany cortical plus subcortical node image, not just a result folder. Labels are in the subject structural space, not automatically aligned to DWI or streamlines. Connectome use requires checking alignment and the atlas lookup table; labelconvert remaps IDs but does not register images. Tissue segmentation, 5TT and data-driven clusters are different products.",
+      "method_ref": "freesurfer.recon_all"
+    },
+    {
+      "capability": "skill.freesurfer-tool",
+      "method_id": "freesurfer.command.mri_convert",
+      "method_ref": "freesurfer.command.mri_convert",
+      "label": "FreeSurfer mri_convert",
+      "role": "Convert volume format, voxel size and orientation using a new output file.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.freesurfer-tool",
+      "method_id": "freesurfer.command.mri_mask",
+      "method_ref": "freesurfer.command.mri_mask",
+      "label": "FreeSurfer mri_mask",
+      "role": "Apply a mask volume to an input image without modifying either source.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.freesurfer-tool",
+      "method_id": "freesurfer.command.mri_binarize",
+      "method_ref": "freesurfer.command.mri_binarize",
+      "label": "FreeSurfer mri_binarize",
+      "role": "Binarize, threshold and morphologically process a volume.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.freesurfer-tool",
+      "method_id": "freesurfer.command.mri_concat",
+      "method_ref": "freesurfer.command.mri_concat",
+      "label": "FreeSurfer mri_concat",
+      "role": "Concatenate two to eight input volumes and optionally reduce across frames.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.freesurfer-tool",
+      "method_id": "freesurfer.command.mri_info",
+      "method_ref": "freesurfer.command.mri_info",
+      "label": "FreeSurfer mri_info",
+      "role": "Inspect volume metadata using a read-only query.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.freesurfer-tool",
+      "method_id": "freesurfer.command.mri_segstats",
+      "method_ref": "freesurfer.command.mri_segstats",
+      "label": "FreeSurfer mri_segstats",
+      "role": "Summarize segmentation regions with optional image intensity statistics.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.freesurfer-tool",
+      "method_id": "freesurfer.command.mri_normalize",
+      "method_ref": "freesurfer.command.mri_normalize",
+      "label": "FreeSurfer mri_normalize",
+      "role": "Intensity normalization using FreeSurfer mri_normalize.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.freesurfer-tool",
+      "method_id": "freesurfer.command.mri_robust_register",
+      "method_ref": "freesurfer.command.mri_robust_register",
+      "label": "FreeSurfer mri_robust_register",
+      "role": "Robust image registration with an explicit target and transform output.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.freesurfer-tool",
+      "method_id": "freesurfer.command.mri_vol2vol",
+      "method_ref": "freesurfer.command.mri_vol2vol",
+      "label": "FreeSurfer mri_vol2vol",
+      "role": "Resample a moving volume into a target grid with an explicit LTA registration.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.freesurfer-tool",
+      "method_id": "freesurfer.command.mris_convert",
+      "method_ref": "freesurfer.command.mris_convert",
+      "label": "FreeSurfer mris_convert",
+      "role": "Convert a surface to GIFTI without modifying the source.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.freesurfer-tool",
+      "method_id": "freesurfer.command.mris_smooth",
+      "method_ref": "freesurfer.command.mris_smooth",
+      "label": "FreeSurfer mris_smooth",
+      "role": "Smooth a surface using the native FreeSurfer algorithm.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.freesurfer-tool",
+      "method_id": "freesurfer.command.mris_extract_main_component",
+      "method_ref": "freesurfer.command.mris_extract_main_component",
+      "label": "FreeSurfer mris_extract_main_component",
+      "role": "Keep the largest connected surface component.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.freesurfer-tool",
+      "method_id": "freesurfer.command.mri_tessellate",
+      "method_ref": "freesurfer.command.mri_tessellate",
+      "label": "FreeSurfer mri_tessellate",
+      "role": "Tessellate a labelled volume at an explicitly selected label.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.freesurfer-tool",
+      "method_id": "freesurfer.command.mri_pretess",
+      "method_ref": "freesurfer.command.mri_pretess",
+      "label": "FreeSurfer mri_pretess",
+      "role": "Prepare a label for tessellation using the corresponding intensity volume.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    }
+  ],
+  "pipeline_refs": [
+    {
+      "capability": "skill.freesurfer-tool",
+      "method_id": "freesurfer-tool-guided--full-pipeline-most-common",
+      "label": "Full pipeline (most common)",
+      "default_recommended": false,
+      "default_reason": "该方法已映射到受审核的 Runner 执行配方。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "依次执行：FreeSurfer recon-all（可执行）。输入和参数由方法契约定义。",
+      "pipeline_ref": "freesurfer.full-pipeline-377f0f0a05"
+    },
+    {
+      "capability": "skill.freesurfer-tool",
+      "method_id": "freesurfer-tool-guided--fast-subcortical-basic-surfaces",
+      "label": "Fast subcortical + basic surfaces",
+      "default_recommended": false,
+      "default_reason": "该方法已映射到受审核的 Runner 执行配方。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "依次执行：FreeSurfer recon-all（可执行） → FreeSurfer recon-all（可执行） → FreeSurfer recon-all（可执行）。输入和参数由方法契约定义。",
+      "pipeline_ref": "freesurfer.autorecon-stages-f5b6e34bac"
+    },
+    {
+      "capability": "skill.freesurfer-tool",
+      "method_id": "freesurfer-tool-guided--cortical-surfaces-parcellation",
+      "label": "Cortical surfaces & parcellation",
+      "default_recommended": false,
+      "default_reason": "当用户明确要求 FreeSurfer 分割/皮层重建且已提供 T1w 时，选择服务器已验证的 recon-all Runner。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "freesurfer-tool-guided--cortical-surfaces-parcellation",
+        "target_method_id": "freesurfer-recon-all"
+      },
+      "role": "依次执行：FreeSurfer recon-all（可执行）。输入和参数由方法契约定义。",
+      "pipeline_ref": "reviewed-freesurfer-recon-all-autorecon3-a0bc3c2c6f"
+    },
+    {
+      "capability": "skill.freesurfer-tool",
+      "method_id": "freesurfer-tool-guided--generate-statistics-only",
+      "label": "Generate statistics only",
+      "default_recommended": false,
+      "default_reason": "当用户明确要求 FreeSurfer 分割/皮层重建且已提供 T1w 时，选择服务器已验证的 recon-all Runner。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "freesurfer-tool-guided--generate-statistics-only",
+        "target_method_id": "freesurfer-recon-all"
+      },
+      "role": "依次执行：FreeSurfer recon-all（可执行）。输入和参数由方法契约定义。",
+      "pipeline_ref": "reviewed-freesurfer-recon-all-stats-6c57af087f"
+    }
+  ],
+  "planning_capabilities": [],
+  "selection_rules": [
+    "已有 FreeSurfer subject 目录时先确认 recon-all 已完成的阶段，再选择继续重建或读取统计结果。"
+  ],
+  "name": "freesurfer-tool",
+  "category": [
+    "软件工具",
+    "freesurfer"
+  ],
+  "scope": "software",
+  "limitations": [
+    "aparc+aseg 的脑区标签与 5TT 的组织分类用途不同；FreeSurfer 输出处于受试者结构像空间，不能直接视为 DWI 空间中的节点分区。"
+  ],
+  "keywords": [
+    "freesurfer-tool",
+    "FreeSurfer",
+    "皮层重建",
+    "分割",
+    "anatomical parcellation",
+    "脑区分区",
+    "Desikan-Killiany",
+    "aparc+aseg",
+    "connectome nodes"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

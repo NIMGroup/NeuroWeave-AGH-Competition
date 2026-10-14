@@ -1,0 +1,571 @@
+{
+  "schema_version": 1,
+  "skill_id": "dwi-skill",
+  "provides": [
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "command-tckresample",
+      "label": "MRtrix3 流线顶点重采样",
+      "description": "独立调用 MRtrix3 3.0.8 的 tckresample；保留原软件计算，参数按原版本帮助定义。\n\nResample each streamline in a track file to a new set of vertices\nIt is necessary to specify precisely ONE of the command-line options for controlling how this resampling takes place; this may be either increasing or decreasing the number of samples along each streamline, or may involve changing the positions of the samples according to some specified trajectory.\nNote that because the length of a streamline is calculated based on the sums of distances between adjacent vertices, resampling a streamline to a new set of vertices will typically change the quantified length of that streamline; the magnitude of the difference will typically depend on the discrepancy in the number of vertices, with less vertices leading to a shorter length (due to taking chordal lengths of curved trajectories).",
+      "runner_id": "mrtrix.command.tckresample",
+      "execution_mode": "runner",
+      "input_types": [
+        "tractogram"
+      ],
+      "output_types": [
+        "tractogram"
+      ],
+      "input_slots": [
+        {
+          "id": "in_tracks",
+          "type": "tractogram",
+          "label": "in_tracks",
+          "description": "the input track file",
+          "required": true,
+          "binding": "file",
+          "formats": [
+            ".tck"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "out_tracks",
+          "type": "tractogram",
+          "label": "输出：流线顶点重采样",
+          "description": "the output resampled tracks 文件名由平台固定在本次输出目录内。",
+          "format": ".tck",
+          "primary": true,
+          "path_template": "resampled.tck"
+        }
+      ],
+      "parameters": [
+        {
+          "id": "mode",
+          "argument": "",
+          "label": "重采样方式",
+          "description": "只启用所选方式对应的原软件选项；其他方式的草稿值不会传入命令。",
+          "type": "string",
+          "required": true,
+          "default": "num_points",
+          "control": "select",
+          "options": [
+            {
+              "value": "upsample",
+              "label": "上采样倍数"
+            },
+            {
+              "value": "downsample",
+              "label": "下采样倍数"
+            },
+            {
+              "value": "step_size",
+              "label": "重采样步长"
+            },
+            {
+              "value": "num_points",
+              "label": "每条流线的顶点数"
+            },
+            {
+              "value": "endpoints",
+              "label": "endpoints"
+            },
+            {
+              "value": "line",
+              "label": "line"
+            },
+            {
+              "value": "arc",
+              "label": "arc"
+            }
+          ]
+        },
+        {
+          "id": "upsample",
+          "argument": "-upsample",
+          "label": "上采样倍数",
+          "description": "increase the density of points along the length of each streamline by some factor (may improve mapping streamlines to ROIs, and/or visualisation)",
+          "required": false,
+          "default": null,
+          "type": "integer",
+          "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+          "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckresample.html",
+          "minimum": 1,
+          "visible_when": {
+            "mode": [
+              "upsample"
+            ]
+          },
+          "required_when": {
+            "mode": [
+              "upsample"
+            ]
+          },
+          "condition_help": "当前所选方式需要此参数。"
+        },
+        {
+          "id": "downsample",
+          "argument": "-downsample",
+          "label": "下采样倍数",
+          "description": "increase the density of points along the length of each streamline by some factor (decreases required storage space)",
+          "required": false,
+          "default": null,
+          "type": "integer",
+          "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+          "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckresample.html",
+          "minimum": 1,
+          "visible_when": {
+            "mode": [
+              "downsample"
+            ]
+          },
+          "required_when": {
+            "mode": [
+              "downsample"
+            ]
+          },
+          "condition_help": "当前所选方式需要此参数。"
+        },
+        {
+          "id": "step_size",
+          "argument": "-step_size",
+          "label": "重采样步长",
+          "description": "re-sample the streamlines to a desired step size (in mm)",
+          "required": false,
+          "default": null,
+          "type": "number",
+          "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+          "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckresample.html",
+          "minimum": 0.0,
+          "visible_when": {
+            "mode": [
+              "step_size"
+            ]
+          },
+          "required_when": {
+            "mode": [
+              "step_size"
+            ]
+          },
+          "condition_help": "当前所选方式需要此参数。"
+        },
+        {
+          "id": "num_points",
+          "argument": "-num_points",
+          "label": "每条流线的顶点数",
+          "description": "re-sample each streamline to a fixed number of points",
+          "required": false,
+          "default": 100,
+          "type": "integer",
+          "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+          "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckresample.html",
+          "minimum": 2,
+          "visible_when": {
+            "mode": [
+              "num_points"
+            ]
+          },
+          "required_when": {
+            "mode": [
+              "num_points"
+            ]
+          },
+          "condition_help": "当前所选方式需要此参数。"
+        },
+        {
+          "id": "line_num",
+          "argument": "-line",
+          "label": "line_num",
+          "description": "resample tracks at 'num' equidistant locations along a line between 'start' and 'end' (specified as comma-separated 3-vectors in scanner coordinates)",
+          "required": false,
+          "default": null,
+          "type": "integer",
+          "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+          "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckresample.html",
+          "minimum": 2,
+          "visible_when": {
+            "mode": [
+              "line"
+            ]
+          },
+          "required_when": {
+            "mode": [
+              "line"
+            ]
+          },
+          "condition_help": "当前所选方式需要此参数。"
+        },
+        {
+          "id": "line_start",
+          "argument": "-line",
+          "label": "line_start",
+          "description": "resample tracks at 'num' equidistant locations along a line between 'start' and 'end' (specified as comma-separated 3-vectors in scanner coordinates)",
+          "required": false,
+          "default": null,
+          "type": "string",
+          "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+          "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckresample.html",
+          "usage": "逗号分隔的数值；本接口仅接受明确列表，不接受路径或任意表达式。 坐标向量应有三个数值；轴编号从 0 开始。",
+          "visible_when": {
+            "mode": [
+              "line"
+            ]
+          },
+          "required_when": {
+            "mode": [
+              "line"
+            ]
+          },
+          "condition_help": "当前所选方式需要此参数。"
+        },
+        {
+          "id": "line_end",
+          "argument": "-line",
+          "label": "line_end",
+          "description": "resample tracks at 'num' equidistant locations along a line between 'start' and 'end' (specified as comma-separated 3-vectors in scanner coordinates)",
+          "required": false,
+          "default": null,
+          "type": "string",
+          "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+          "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckresample.html",
+          "usage": "逗号分隔的数值；本接口仅接受明确列表，不接受路径或任意表达式。 坐标向量应有三个数值；轴编号从 0 开始。",
+          "visible_when": {
+            "mode": [
+              "line"
+            ]
+          },
+          "required_when": {
+            "mode": [
+              "line"
+            ]
+          },
+          "condition_help": "当前所选方式需要此参数。"
+        },
+        {
+          "id": "arc_num",
+          "argument": "-arc",
+          "label": "arc_num",
+          "description": "resample tracks at 'num' equidistant locations along a circular arc specified by points 'start', 'mid' and 'end' (specified as comma-separated 3-vectors in scanner coordinates)",
+          "required": false,
+          "default": null,
+          "type": "integer",
+          "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+          "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckresample.html",
+          "minimum": 2,
+          "visible_when": {
+            "mode": [
+              "arc"
+            ]
+          },
+          "required_when": {
+            "mode": [
+              "arc"
+            ]
+          },
+          "condition_help": "当前所选方式需要此参数。"
+        },
+        {
+          "id": "arc_start",
+          "argument": "-arc",
+          "label": "arc_start",
+          "description": "resample tracks at 'num' equidistant locations along a circular arc specified by points 'start', 'mid' and 'end' (specified as comma-separated 3-vectors in scanner coordinates)",
+          "required": false,
+          "default": null,
+          "type": "string",
+          "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+          "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckresample.html",
+          "usage": "逗号分隔的数值；本接口仅接受明确列表，不接受路径或任意表达式。 坐标向量应有三个数值；轴编号从 0 开始。",
+          "visible_when": {
+            "mode": [
+              "arc"
+            ]
+          },
+          "required_when": {
+            "mode": [
+              "arc"
+            ]
+          },
+          "condition_help": "当前所选方式需要此参数。"
+        },
+        {
+          "id": "arc_mid",
+          "argument": "-arc",
+          "label": "arc_mid",
+          "description": "resample tracks at 'num' equidistant locations along a circular arc specified by points 'start', 'mid' and 'end' (specified as comma-separated 3-vectors in scanner coordinates)",
+          "required": false,
+          "default": null,
+          "type": "string",
+          "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+          "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckresample.html",
+          "usage": "逗号分隔的数值；本接口仅接受明确列表，不接受路径或任意表达式。 坐标向量应有三个数值；轴编号从 0 开始。",
+          "visible_when": {
+            "mode": [
+              "arc"
+            ]
+          },
+          "required_when": {
+            "mode": [
+              "arc"
+            ]
+          },
+          "condition_help": "当前所选方式需要此参数。"
+        },
+        {
+          "id": "arc_end",
+          "argument": "-arc",
+          "label": "arc_end",
+          "description": "resample tracks at 'num' equidistant locations along a circular arc specified by points 'start', 'mid' and 'end' (specified as comma-separated 3-vectors in scanner coordinates)",
+          "required": false,
+          "default": null,
+          "type": "string",
+          "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+          "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckresample.html",
+          "usage": "逗号分隔的数值；本接口仅接受明确列表，不接受路径或任意表达式。 坐标向量应有三个数值；轴编号从 0 开始。",
+          "visible_when": {
+            "mode": [
+              "arc"
+            ]
+          },
+          "required_when": {
+            "mode": [
+              "arc"
+            ]
+          },
+          "condition_help": "当前所选方式需要此参数。"
+        },
+        {
+          "id": "info",
+          "argument": "-info",
+          "label": "info",
+          "description": "display information messages.",
+          "type": "boolean",
+          "required": false,
+          "default": false
+        },
+        {
+          "id": "quiet",
+          "argument": "-quiet",
+          "label": "quiet",
+          "description": "do not display information messages or progress status; alternatively, this can be achieved by setting the MRTRIX_QUIET environment variable to a non-empty string.",
+          "type": "boolean",
+          "required": false,
+          "default": false
+        },
+        {
+          "id": "debug",
+          "argument": "-debug",
+          "label": "debug",
+          "description": "display debugging messages.",
+          "type": "boolean",
+          "required": false,
+          "default": false
+        },
+        {
+          "id": "nthreads",
+          "argument": "-nthreads",
+          "label": "CPU 线程数",
+          "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).",
+          "required": true,
+          "default": 1,
+          "type": "integer",
+          "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+          "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckresample.html",
+          "minimum": 0,
+          "group": "计算资源",
+          "level": "advanced"
+        }
+      ],
+      "source_references": [
+        {
+          "path": "skills/dwi-skill/references/mrtrix-3.0.8/tckresample.md",
+          "label": "安装版本原始命令帮助",
+          "kind": "command"
+        }
+      ]
+    }
+  ],
+  "command_contract": {
+    "command": "tckresample",
+    "version": "3.0.8",
+    "positional": [
+      {
+        "source": "input",
+        "id": "in_tracks"
+      },
+      {
+        "source": "output",
+        "id": "out_tracks"
+      }
+    ],
+    "options": [
+      {
+        "flag": "-upsample",
+        "values": [
+          {
+            "source": "parameter",
+            "id": "upsample",
+            "kind": "INT"
+          }
+        ],
+        "when": {
+          "mode": [
+            "upsample"
+          ]
+        }
+      },
+      {
+        "flag": "-downsample",
+        "values": [
+          {
+            "source": "parameter",
+            "id": "downsample",
+            "kind": "INT"
+          }
+        ],
+        "when": {
+          "mode": [
+            "downsample"
+          ]
+        }
+      },
+      {
+        "flag": "-step_size",
+        "values": [
+          {
+            "source": "parameter",
+            "id": "step_size",
+            "kind": "FLOAT"
+          }
+        ],
+        "when": {
+          "mode": [
+            "step_size"
+          ]
+        }
+      },
+      {
+        "flag": "-num_points",
+        "values": [
+          {
+            "source": "parameter",
+            "id": "num_points",
+            "kind": "INT"
+          }
+        ],
+        "when": {
+          "mode": [
+            "num_points"
+          ]
+        }
+      },
+      {
+        "flag": "-endpoints",
+        "values": [],
+        "when": {
+          "mode": [
+            "endpoints"
+          ]
+        }
+      },
+      {
+        "flag": "-line",
+        "values": [
+          {
+            "source": "parameter",
+            "id": "line_num",
+            "kind": "INT"
+          },
+          {
+            "source": "parameter",
+            "id": "line_start",
+            "kind": "FSEQ"
+          },
+          {
+            "source": "parameter",
+            "id": "line_end",
+            "kind": "FSEQ"
+          }
+        ],
+        "when": {
+          "mode": [
+            "line"
+          ]
+        }
+      },
+      {
+        "flag": "-arc",
+        "values": [
+          {
+            "source": "parameter",
+            "id": "arc_num",
+            "kind": "INT"
+          },
+          {
+            "source": "parameter",
+            "id": "arc_start",
+            "kind": "FSEQ"
+          },
+          {
+            "source": "parameter",
+            "id": "arc_mid",
+            "kind": "FSEQ"
+          },
+          {
+            "source": "parameter",
+            "id": "arc_end",
+            "kind": "FSEQ"
+          }
+        ],
+        "when": {
+          "mode": [
+            "arc"
+          ]
+        }
+      },
+      {
+        "flag": "-info",
+        "values": [],
+        "when": {
+          "info": [
+            true
+          ]
+        }
+      },
+      {
+        "flag": "-quiet",
+        "values": [],
+        "when": {
+          "quiet": [
+            true
+          ]
+        }
+      },
+      {
+        "flag": "-debug",
+        "values": [],
+        "when": {
+          "debug": [
+            true
+          ]
+        }
+      },
+      {
+        "flag": "-nthreads",
+        "values": [
+          {
+            "source": "parameter",
+            "id": "nthreads",
+            "kind": "INT"
+          }
+        ]
+      }
+    ],
+    "total_options": 15,
+    "omitted_options": {
+      "force": "运行输出目录独立分配，不允许覆盖输入或其他运行。",
+      "config": "不开放任意软件配置键，以免绕过路径、线程及运行环境管理。",
+      "help": "通过命令说明面板提供，不作为计算参数。",
+      "version": "由运行环境探测提供。"
+    }
+  }
+}

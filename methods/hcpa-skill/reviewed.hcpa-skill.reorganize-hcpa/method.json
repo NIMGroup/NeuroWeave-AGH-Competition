@@ -1,0 +1,122 @@
+{
+  "label": "hcpa 复制整理为 BIDS 目录",
+  "description": "Reorganize HCP Aging native layout to BIDS structure. Converts HCP-A directory layout to BIDS-style structure。 Inputs: input: Path to HCP-A raw directory (directory). Registered outputs: results/.",
+  "runner_id": "reviewed.hcpa-skill.reorganize-hcpa",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder"
+  ],
+  "requires_features": [],
+  "parameters": [],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "Path to HCP-A raw directory",
+      "description": "Path to HCP-A raw directory. Required directory input for hcpa 复制整理为 BIDS 目录; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "folder",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for hcpa 复制整理为 BIDS 目录. Contains this operation's generated files, including results/; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/hcpa-skill/scripts/reorganize_hcpa.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.hcpa-skill.reorganize-hcpa",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.hcpa-skill.reorganize-hcpa",
+      "script": "skills/hcpa-skill/scripts/reorganize_hcpa.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [],
+      "modules": [
+        "pandas",
+        "numpy"
+      ],
+      "expected": [
+        "bids/**/*.nii*"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output",
+          "bids"
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/hcpa-skill/scripts/reorganize_hcpa.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/hcpa-skill/scripts/reorganize_hcpa.py",
+          "source_sha256": "62aa18c209b4bbf5328b4d53fd4b86cd4964c96b02fa3924f64602129575b6cf"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/hcpa-skill/scripts/reorganize_hcpa.py",
+          "sha256": "9ea5981e2d8f8e0c518760b29e35b0a35a480c202a088bbfb9e7253a4e91cad3"
+        }
+      ],
+      "artifact_types": {}
+    }
+  }
+}

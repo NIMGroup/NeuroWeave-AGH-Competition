@@ -1,0 +1,41 @@
+
+COMMAND: 
+     antsApplyTransforms
+
+OPTIONS: 
+     -d, --dimensionality 2/3/4
+     -e, --input-image-type 0/1/2/3/4/5/6
+                            scalar/vector/tensor/time-series/multichannel/five-dimensional/physical-vector
+     --time-index <timeIndex>
+     -i, --input inputFileName
+     -r, --reference-image imageFileName
+     -o, --output warpedOutputFileName
+                  DisplacementField[compositeDFFileName]
+                  CompositeTransform[compositeTransformFileName]
+                  Linear[collapsedAffine.mat, invert=0]
+                  [collapsedDisplacementField,1]
+     -n, --interpolation Linear
+                         NearestNeighbor
+                         MultiLabel[<sigma=imageSpacing>,<alpha=4.0>]
+                         Gaussian[<sigma=imageSpacing>,<alpha=1.0>]
+                         BSpline[<order=3>]
+                         CosineWindowedSinc
+                         WelchWindowedSinc
+                         HammingWindowedSinc
+                         LanczosWindowedSinc
+                         GenericLabel[<interpolator=Linear>]
+     -u, --output-data-type char
+                            uchar
+                            short
+                            int
+                            float
+                            double
+                            default
+     -t, --transform transformFileName
+                     [transformFileName,useInverse]
+     -f, --default-value value
+     -z, --static-cast-for-R value
+     --float 
+     -v, --verbose (0)/1
+     -h 
+     --help 

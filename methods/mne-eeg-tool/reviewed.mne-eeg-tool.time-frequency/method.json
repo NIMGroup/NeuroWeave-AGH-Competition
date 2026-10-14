@@ -1,0 +1,313 @@
+{
+  "label": "Morlet 时频功率与 ITC",
+  "description": "Compute averaged Morlet time-frequency power and inter-trial coherence from epochs at twelve frequencies spanning the selected band; export power, ITC, frequencies and times。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file); events: MNE 事件文件 (file). Registered outputs: results/time_frequency.npz. Fixed invocation options: --operation time-frequency.",
+  "runner_id": "reviewed.mne-eeg-tool.time-frequency",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "epoch_seconds",
+      "argument": "epoch-seconds",
+      "label": "epoch-seconds",
+      "description": "未提供事件文件时，固定长度分段的持续时间，单位为秒。",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 2.0,
+      "options": [],
+      "minimum": 0.1,
+      "maximum": 60.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 epoch_seconds，由结构化 Runner 映射到现有入口参数 epoch-seconds。 平台默认值：2.0；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "tmin",
+      "argument": "tmin",
+      "label": "tmin",
+      "description": "提供事件文件时的分段起点，相对事件的秒数；负值包含事件前信号。",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": -0.2,
+      "options": [],
+      "minimum": -10.0,
+      "maximum": 0.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 tmin，由结构化 Runner 映射到现有入口参数 tmin。 平台默认值：-0.2；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "tmax",
+      "argument": "tmax",
+      "label": "tmax",
+      "description": "提供事件文件时的分段终点，相对事件的秒数；应晚于 tmin。",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 0.8,
+      "options": [],
+      "minimum": 0.01,
+      "maximum": 60.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 tmax，由结构化 Runner 映射到现有入口参数 tmax。 平台默认值：0.8；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "freq_min",
+      "argument": "freq-min",
+      "label": "freq-min",
+      "description": "频域连接或时频分析的频带下界，单位为 Hz；应低于频带上界。",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 8.0,
+      "options": [],
+      "minimum": 0.1,
+      "maximum": 1000.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 freq_min，由结构化 Runner 映射到现有入口参数 freq-min。 平台默认值：8.0；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "freq_max",
+      "argument": "freq-max",
+      "label": "freq-max",
+      "description": "频域连接或时频分析的频带上界，单位为 Hz；必须符合数据采样率。",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 13.0,
+      "options": [],
+      "minimum": 0.2,
+      "maximum": 2000.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 freq_max，由结构化 Runner 映射到现有入口参数 freq-max。 平台默认值：13.0；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "EEG/MEG 原始文件（FIF/EDF/BDF/SET）",
+      "description": "EEG/MEG 原始文件（FIF/EDF/BDF/SET）. Required file input for Morlet 时频功率与 ITC; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "events",
+      "type": "analysis_input",
+      "label": "MNE 事件文件",
+      "description": "MNE 事件文件. Optional file input for Morlet 时频功率与 ITC; bind to port events.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for Morlet 时频功率与 ITC. Contains this operation's generated files, including results/time_frequency.npz; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_time_frequency_npz",
+      "type": "generated_file",
+      "label": "time_frequency.npz",
+      "description": "time_frequency.npz: output of Morlet time-frequency power and ITC. Relative run path: results/time_frequency.npz. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".npz",
+      "primary": false,
+      "path_template": "results/time_frequency.npz",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "bakend/app/execution/eeg_worker.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.mne-eeg-tool.time-frequency",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.mne-eeg-tool.time-frequency",
+      "script": "bakend/app/execution/eeg_worker.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "events",
+          "flag": "--events",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "epoch_seconds",
+          "flag": "--epoch-seconds"
+        },
+        {
+          "id": "tmin",
+          "flag": "--tmin"
+        },
+        {
+          "id": "tmax",
+          "flag": "--tmax"
+        },
+        {
+          "id": "freq_min",
+          "flag": "--freq-min"
+        },
+        {
+          "id": "freq_max",
+          "flag": "--freq-max"
+        }
+      ],
+      "modules": [
+        "numpy",
+        "mne"
+      ],
+      "expected": [
+        "time_frequency.npz"
+      ],
+      "profile": "scientific",
+      "fixed_args": [
+        "--operation",
+        "time-frequency"
+      ],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [
+        [
+          "mne",
+          "Epochs.compute_tfr"
+        ]
+      ],
+      "implementation_source": {
+        "kind": "library_api",
+        "entrypoints": [
+          "mne.Epochs.compute_tfr"
+        ],
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "bakend/app/execution/eeg_worker.py",
+          "sha256": "b15760e312712683a17dfa2466294b0e451372f0502dd498a942c6725a4ec021"
+        }
+      ],
+      "artifact_types": {
+        "time_frequency.npz": "generated_file"
+      }
+    }
+  }
+}

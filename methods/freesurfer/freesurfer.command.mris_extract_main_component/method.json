@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "id": "freesurfer.command.mris_extract_main_component",
+  "version": "1",
+  "kind": "method",
+  "label": "FreeSurfer mris_extract_main_component",
+  "description": "Keep the largest connected surface component.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "freesurfer.command.mris_extract_main_component",
+  "parameters": [],
+  "input_slots": [
+    {
+      "id": "surface",
+      "type": "generated_file",
+      "label": "surface",
+      "description": "Input surface file.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "surface",
+      "type": "generated_file",
+      "label": "surface",
+      "description": "Native command output, saved in this run’s output directory. Keep the largest connected surface component. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".main",
+      "primary": true,
+      "path_template": "surface.main",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "generated_file"
+  ],
+  "output_types": [
+    "generated_file"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/freesurfer-mris_extract_main_component.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "freesurfer",
+      "command": "mris_extract_main_component",
+      "version": "7.4.1",
+      "argv": [
+        {
+          "tokens": [
+            {
+              "input": "surface"
+            },
+            {
+              "output": "surface"
+            }
+          ],
+          "when": {},
+          "optional": false
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

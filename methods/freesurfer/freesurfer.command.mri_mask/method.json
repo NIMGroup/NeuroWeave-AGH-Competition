@@ -1,0 +1,343 @@
+{
+  "schema_version": 1,
+  "id": "freesurfer.command.mri_mask",
+  "version": "1",
+  "kind": "method",
+  "label": "FreeSurfer mri_mask",
+  "description": "Apply a mask volume to an input image without modifying either source.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "freesurfer.command.mri_mask",
+  "parameters": [
+    {
+      "id": "T",
+      "argument": "-T",
+      "label": "T",
+      "description": "Mask values at or below this threshold are zero.",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Mask values at or below this threshold are zero. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "dilate",
+      "argument": "-dilate",
+      "label": "dilate",
+      "description": "Number of mask dilation iterations.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Number of mask dilation iterations. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "oval",
+      "argument": "-oval",
+      "label": "oval",
+      "description": "Output value outside the mask.",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Output value outside the mask. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "abs",
+      "argument": "-abs",
+      "label": "abs",
+      "description": "Take absolute mask values before applying the mask threshold.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Take absolute mask values before applying the mask threshold. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "invert",
+      "argument": "-invert",
+      "label": "invert",
+      "description": "Invert the mask so the normally excluded region is retained instead.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Invert the mask so the normally excluded region is retained instead. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "samseg",
+      "argument": "-samseg",
+      "label": "samseg",
+      "description": "Interpret the mask as a SAMSEG segmentation and remove its non-brain labels.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Interpret the mask as a SAMSEG segmentation and remove its non-brain labels. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "mask",
+      "type": "brain_mask",
+      "label": "mask",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "output",
+      "type": "imaging_input",
+      "label": "output",
+      "description": "Native command output, saved in this run’s output directory. Apply a mask volume to an input image without modifying either source. The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".nii.gz",
+      "primary": true,
+      "path_template": "output.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "imaging_input",
+    "brain_mask"
+  ],
+  "output_types": [
+    "imaging_input"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/freesurfer-mri_mask.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "freesurfer",
+      "command": "mri_mask",
+      "version": "7.4.1",
+      "argv": [
+        {
+          "tokens": [
+            "-T",
+            {
+              "parameter": "T"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-dilate",
+            {
+              "parameter": "dilate"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-oval",
+            {
+              "parameter": "oval"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-abs"
+          ],
+          "when": {
+            "abs": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-invert"
+          ],
+          "when": {
+            "invert": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-samseg"
+          ],
+          "when": {
+            "samseg": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "input": "input"
+            },
+            {
+              "input": "mask"
+            },
+            {
+              "output": "output"
+            }
+          ],
+          "when": {},
+          "optional": false
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

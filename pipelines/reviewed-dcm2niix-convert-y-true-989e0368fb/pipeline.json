@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "id": "reviewed-dcm2niix-convert-y-true-989e0368fb",
+  "version": "1",
+  "kind": "pipeline",
+  "description": "将只读 DICOM 目录转换到隔离的 NIfTI 输出目录，固定使用 GZip 压缩并生成 JSON sidecar；可配置 sidecar 匿名化和文件名模板。此预设不组织完整 BIDS 目录，也不额外执行 4D 重建。",
+  "label": "DICOM → NIfTI（固定生成 JSON）",
+  "parameters": [
+    {
+      "id": "anonymize",
+      "argument": "-ba",
+      "label": "匿名化 sidecar",
+      "description": "移除 dcm2niix 支持匿名化的个人标识字段。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "隐私",
+      "unit": "",
+      "required": true,
+      "default": true,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "filename_template",
+      "argument": "-f",
+      "label": "文件名模板",
+      "description": "dcm2niix 文件名占位符；不允许路径分隔符或上级目录。",
+      "type": "string",
+      "control": "text",
+      "level": "advanced",
+      "group": "输出命名",
+      "unit": "",
+      "required": true,
+      "default": "%p_%s",
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "%p_%s",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "dicom_directory",
+      "type": "dataset_folder",
+      "label": "DICOM 目录",
+      "description": "包含一个或多个 DICOM 序列的目录；源目录只读。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "folder",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path"
+      ],
+      "validation": [
+        "path_exists",
+        "within_authorized_root"
+      ]
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "converted",
+      "type": "generated_folder",
+      "label": "NIfTI 转换目录",
+      "description": "转换后的 NIfTI、JSON 与扩散梯度文件。",
+      "format": "",
+      "primary": true,
+      "path_template": "converted-nifti/",
+      "generated_when": {}
+    }
+  ],
+  "steps": [
+    {
+      "id": "execute",
+      "title": "dcm2niix 实际转换",
+      "fixed_parameters": {
+        "compression": "y",
+        "bids_sidecar": true
+      },
+      "parameter_bindings": {
+        "anonymize": "anonymize",
+        "filename_template": "filename_template"
+      },
+      "inherit_parameters": false,
+      "input_bindings": {
+        "dicom_directory": {
+          "source": "workflow_input",
+          "slot_id": "dicom_directory",
+          "step_id": null,
+          "output_slot_id": null
+        }
+      },
+      "workspace": "execute",
+      "method_ref": "dcm2niix.convert",
+      "method_version": "1",
+      "capability": "skill.dcm2nii"
+    }
+  ],
+  "output_bindings": {
+    "converted": {
+      "step_id": "execute",
+      "output_slot_id": "converted"
+    }
+  },
+  "included_capabilities": [
+    "skill.dcm2nii"
+  ],
+  "category": [
+    "内置 Pipeline",
+    "其他软件"
+  ]
+}

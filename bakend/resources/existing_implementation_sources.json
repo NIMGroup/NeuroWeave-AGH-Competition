@@ -1,0 +1,1567 @@
+{
+  "schema_version": 1,
+  "hash_format": "SHA-256 of UTF-8 text with LF line endings",
+  "policy": "Only call existing project scripts, upstream implementations, library APIs or software commands. Do not implement missing algorithms or change training objectives.",
+  "files": {
+    "skills/abcd-skill/scripts/abcd_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/abcd-skill/scripts/abcd_qc_summary.py",
+      "source_sha256": "03d21a16336c566677ef7af592a475dd738ac5fb2cc321da4833b5e3bafc9e23"
+    },
+    "skills/abcd-skill/scripts/extract_abcd_phenotype.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/abcd-skill/scripts/extract_abcd_phenotype.py",
+      "source_sha256": "c78bede945a18c7a1781745fbf7e59c8995d2a035aa48765c4671d9abef876b3"
+    },
+    "skills/abcd-skill/scripts/reorganize_abcd.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/abcd-skill/scripts/reorganize_abcd.py",
+      "source_sha256": "ca09e139c91dc667faa600a5d8eb5af11947be20c92a30ecdbd12ca75d183c8d"
+    },
+    "skills/abide-skill/scripts/abide_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/abide-skill/scripts/abide_qc_summary.py",
+      "source_sha256": "c5c984ef4c29a6a723d022a33d570ed3f48710af847541b45fa68b4447d9da7b"
+    },
+    "skills/abide-skill/scripts/extract_abide_phenotype.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/abide-skill/scripts/extract_abide_phenotype.py",
+      "source_sha256": "e3bc65c0514d0fc3c05410eb17848c8b78f3d86a33726d591b1cfc9ddc5bfc73"
+    },
+    "skills/abide-skill/scripts/reorganize_abide.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/abide-skill/scripts/reorganize_abide.py",
+      "source_sha256": "b2e0e7a0b4ac3a1390adb87d3cbf8d14567ac7536aac18c2422e5848cbcf8083"
+    },
+    "skills/academic-research-hub/scripts/research.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/academic-research-hub/scripts/research.py",
+      "source_sha256": "287411f210350a90fd71119ed4929a2c59aaddc1496f48382228ac9891448f46"
+    },
+    "skills/adhd200-skill/scripts/adhd200_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/adhd200-skill/scripts/adhd200_qc_summary.py",
+      "source_sha256": "6e89547ccdc72331e0ca559c074cc41af77856fc989a561ae84e6e75c738fc92"
+    },
+    "skills/adhd200-skill/scripts/extract_adhd200_phenotype.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/adhd200-skill/scripts/extract_adhd200_phenotype.py",
+      "source_sha256": "26ce34e3fc0dbbc2533b4f46d1fc758eb5093f9485a6982c9dc935ce2c5a9694"
+    },
+    "skills/adhd200-skill/scripts/reorganize_adhd200.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/adhd200-skill/scripts/reorganize_adhd200.py",
+      "source_sha256": "03273df20ae81d90b68c748c814f967e49db9431122fb283bd033928dc9d0c1b"
+    },
+    "skills/adni-skill/scripts/generate_adni_task_files.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/adni-skill/scripts/generate_adni_task_files.py",
+      "source_sha256": "73395cb3a9f044185a91bd3107490f7c744d08c12db0a590fcb45b0874601975"
+    },
+    "skills/adni-skill/scripts/generate_vqa_from_tasks.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/adni-skill/scripts/generate_vqa_from_tasks.py",
+      "source_sha256": "ab456c4d8db0049d0a2e9a442fafffe763e230f1a61b3dfd83d21b3a12a50779"
+    },
+    "skills/adni-skill/scripts/reorganize_adni.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/adni-skill/scripts/reorganize_adni.py",
+      "source_sha256": "88c7c3d601013d25cc96e7d2afd8098cf74778b64a2b594bc3a3fce4d73350e7"
+    },
+    "skills/aibl-skill/scripts/aibl_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/aibl-skill/scripts/aibl_qc_summary.py",
+      "source_sha256": "123d0c8766aed0aea2a4c55ce7c40041d14fe1c5cd0d3561734944abcf07e4fd"
+    },
+    "skills/aibl-skill/scripts/extract_aibl_phenotype.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/aibl-skill/scripts/extract_aibl_phenotype.py",
+      "source_sha256": "2d7acaee39a807662f890805f8cd8dc925f5de22bf734fc96c0b191e6894ac48"
+    },
+    "skills/aibl-skill/scripts/reorganize_aibl.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/aibl-skill/scripts/reorganize_aibl.py",
+      "source_sha256": "72ebe6b2ec50cb37fbcaef44d8084b2c7fe8d74f5701d5b9c091c8dedbc78c41"
+    },
+    "skills/aomic-skill/scripts/aomic_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/aomic-skill/scripts/aomic_qc_summary.py",
+      "source_sha256": "03e49aec028bb23c0b32fd33faebd0bf20fd0547023e26177b8a7380f618ef44"
+    },
+    "skills/aomic-skill/scripts/extract_aomic_phenotype.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/aomic-skill/scripts/extract_aomic_phenotype.py",
+      "source_sha256": "18a7e544c62ec71aaa2a55d74d398aa83311c8aed6b58eb1b9dc6213f271289c"
+    },
+    "skills/aomic-skill/scripts/reorganize_aomic.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/aomic-skill/scripts/reorganize_aomic.py",
+      "source_sha256": "6328c3be4d88bf147fa4f5a7cf0b40203a9a46cb3e3d7e4a61c2b4ba7110dac2"
+    },
+    "skills/asl-skill/scripts/compute_cbf.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/asl-skill/scripts/compute_cbf.py",
+      "source_sha256": "facaade04835f66da034656e6dec631d3ced24985ef28e1a99a72b8e0fbd1a4c"
+    },
+    "skills/beautiful-log/scripts/beautiful_log.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/beautiful-log/scripts/beautiful_log.py",
+      "source_sha256": "77e5300dc30aa201abc056bb51975293c1b854e19733e6bf42c82f405ae03828"
+    },
+    "skills/bnt/scripts/data_adapter_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/bnt/scripts/data_adapter_reference.py",
+      "source_sha256": "32406a5be2f6ea94a367181eadd19cb96cfd37606cbc3f840a43b75d7224c831"
+    },
+    "skills/bnt/scripts/train_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/bnt/scripts/train_reference.py",
+      "source_sha256": "30748947a8cfeeabf2406175d50a7c835db0d83cd0569357441aa8a30ca907e0"
+    },
+    "skills/bold5000-skill/scripts/bold5000_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/bold5000-skill/scripts/bold5000_qc_summary.py",
+      "source_sha256": "b00d2e80400aaf884b49d3c927c1fb5daf551dfb08249245275f60f2d08b8214"
+    },
+    "skills/bold5000-skill/scripts/extract_bold5000_stimulus.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/bold5000-skill/scripts/extract_bold5000_stimulus.py",
+      "source_sha256": "f1e3a30d25eed2860ce7d4974af5caeb3ff89b0294630824d2e43e7e06ed71e8"
+    },
+    "skills/bold5000-skill/scripts/reorganize_bold5000.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/bold5000-skill/scripts/reorganize_bold5000.py",
+      "source_sha256": "8740d3fc3602145a146ec63e04d9e5f9a69f54407e75c48bce0008434bd1ca73"
+    },
+    "skills/brain-age-modeling/scripts/train_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/brain-age-modeling/scripts/train_reference.py",
+      "source_sha256": "a25fad522d3f7cdae884067c1e7b5295851bfc0db528f607ed80566003c7de98"
+    },
+    "skills/brain-visualization/scripts/connectome_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/brain-visualization/scripts/connectome_reference.py",
+      "source_sha256": "f9bd87fde658a0b3daed741321681d870d8f038763eea32f916211b564768b00"
+    },
+    "skills/brain-visualization/scripts/freesurfer_ply_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/brain-visualization/scripts/freesurfer_ply_reference.py",
+      "source_sha256": "89b36ca51ec905207924177f2f5eb45ab418b614fcb43705136bff1e359ace25"
+    },
+    "skills/brain-visualization/scripts/zalff_summary_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/brain-visualization/scripts/zalff_summary_reference.py",
+      "source_sha256": "1d5d2384d31456aaed602a531d4f44981e24d529c3e1ce4700d6ecfd8f31c236"
+    },
+    "skills/brain_gnn/scripts/data_adapter_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/brain_gnn/scripts/data_adapter_reference.py",
+      "source_sha256": "19236af281dff7b055b7a7dc2f7a1ea4f8a77e324fe4a5f37401fe55da31516e"
+    },
+    "skills/brain_gnn/scripts/hypothesis_label_mapper.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/brain_gnn/scripts/hypothesis_label_mapper.py",
+      "source_sha256": "439ff35f36e1dbc829695d4cd7c82fd240dafec06589a754cb81312d26c4cccd"
+    },
+    "skills/brain_gnn/scripts/region_roi_mapper.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/brain_gnn/scripts/region_roi_mapper.py",
+      "source_sha256": "817c19bd793c851b63eb5ffcfd03d49a7654daddfd6dc772f2b45b906c8dafdb"
+    },
+    "skills/brain_gnn/scripts/run_atom_task_validation.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/brain_gnn/scripts/run_atom_task_validation.py",
+      "source_sha256": "4c0d631288ba960e3c18f1d321577a4e3f33a4856f86014d12753dcb744fe361"
+    },
+    "skills/brain_gnn/scripts/run_ibgnn_tune.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/brain_gnn/scripts/run_ibgnn_tune.py",
+      "source_sha256": "e22275201237b49452edad9cf2c8825cdf623cb1048df163a2aac84c58d6b053"
+    },
+    "skills/brain_gnn/scripts/run_lifespan_age.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/brain_gnn/scripts/run_lifespan_age.py",
+      "source_sha256": "a800f6832ed4ee7de5d9a86f405d56b8ed2c3e7b68ab8d950ffc2d254e47a239"
+    },
+    "skills/brain_gnn/scripts/run_lifespan_new_models_search.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/brain_gnn/scripts/run_lifespan_new_models_search.py",
+      "source_sha256": "43f6ad2b875555991d891612b8edabb5dcc57ab8d04bd66ef6889ab0c33d945f"
+    },
+    "skills/brain_gnn/scripts/train_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/brain_gnn/scripts/train_reference.py",
+      "source_sha256": "4a9dd1a94f525b5a88ca76e6c0951542d22d4bdf71e39f0e01ed8df6e2904b92"
+    },
+    "skills/brainnetcnn/scripts/train_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/brainnetcnn/scripts/train_reference.py",
+      "source_sha256": "d06aa728e82e9d6ea119fbd262b8a0379c824dee7d369ad0c38894f1942e7e00"
+    },
+    "skills/camcan-skill/scripts/camcan_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/camcan-skill/scripts/camcan_qc_summary.py",
+      "source_sha256": "4da8bde420eb90a29044499c2cf53f3de547ff747383fa4ad53b3f0c5bb3efe1"
+    },
+    "skills/camcan-skill/scripts/extract_camcan_phenotype.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/camcan-skill/scripts/extract_camcan_phenotype.py",
+      "source_sha256": "3398b01b9d4cd0dc59afe2228657e00961bfe4e5f9a46a85bf85e64b0c7c98f9"
+    },
+    "skills/camcan-skill/scripts/validate_camcan.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/camcan-skill/scripts/validate_camcan.py",
+      "source_sha256": "b935b90f4305a9b68978b203865ff6c726149de3a4e8b865ced0d85ed7ca2e5c"
+    },
+    "skills/causal-treatment-models/scripts/train_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/causal-treatment-models/scripts/train_reference.py",
+      "source_sha256": "4eb3b53eb5d7227ffe8bb6ff0ed095f858742c165ad6da89c96729c874297362"
+    },
+    "skills/cnn3d/scripts/train_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/cnn3d/scripts/train_reference.py",
+      "source_sha256": "6de078e400b0e6d1ac151cde5c5de50aa719ae11867886a429a6bf4fc3d75872"
+    },
+    "skills/cobre-skill/scripts/cobre_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/cobre-skill/scripts/cobre_qc_summary.py",
+      "source_sha256": "2d82179c9eac40e45db95b4ea8964a5563761e18e71fd375e201a165c215d685"
+    },
+    "skills/cobre-skill/scripts/extract_cobre_phenotype.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/cobre-skill/scripts/extract_cobre_phenotype.py",
+      "source_sha256": "8fe85db8dc5499ccb2ab5fbac699f2231da2b47696c58cf6412f6fd6e7c6cfc7"
+    },
+    "skills/cobre-skill/scripts/reorganize_cobre.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/cobre-skill/scripts/reorganize_cobre.py",
+      "source_sha256": "a4b9fdbb6c4947e1653d20f0578c3b2401f45a4d1a7c193cafc62987db734042"
+    },
+    "skills/combraintf/scripts/data_adapter_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/combraintf/scripts/data_adapter_reference.py",
+      "source_sha256": "15e37112f58f7c47f9bdbe4f6990b929a4683c4b84210afaf357fd89233eb2b9"
+    },
+    "skills/combraintf/scripts/train_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/combraintf/scripts/train_reference.py",
+      "source_sha256": "6d7d632db5913ba4fdf7aeb742d7d765e820ab9dd304e39d082afe7209fe1db6"
+    },
+    "skills/cpm/scripts/train_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/cpm/scripts/train_reference.py",
+      "source_sha256": "d1f49bd25a2740125d9d704e5ecd9b7d09d27b98c402e733c5b275903552e9d8"
+    },
+    "skills/dipy-tool/scripts/dti_metrics_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/dipy-tool/scripts/dti_metrics_reference.py",
+      "source_sha256": "1dc79b3925d578231021db2827f143cb3d521c2b5dd6160b08da82c9e92221eb"
+    },
+    "skills/dipy-tool/scripts/load_and_mask_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/dipy-tool/scripts/load_and_mask_reference.py",
+      "source_sha256": "39c77e1d98556c3f07e87d219e647508b334cccea58b81a47a6da54a3f366518"
+    },
+    "skills/dipy-tool/scripts/roi_stats_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/dipy-tool/scripts/roi_stats_reference.py",
+      "source_sha256": "6bc9efbf46cfc67ad7fd26684a82d8893a2ba4adc339ec85620270d428150343"
+    },
+    "skills/dmt-har-med-skill/scripts/dmt_har_med_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/dmt-har-med-skill/scripts/dmt_har_med_qc_summary.py",
+      "source_sha256": "66ac5452b0d3713b86abcb1ecb58317604e9d5171d14c199438e563b6d0eeb1d"
+    },
+    "skills/dmt-har-med-skill/scripts/extract_dmt_har_med_phenotype.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/dmt-har-med-skill/scripts/extract_dmt_har_med_phenotype.py",
+      "source_sha256": "bfd1d54b25524cd1785bd2331ee9c654deae06b670a7f6f85939e7e96b67bdb9"
+    },
+    "skills/dmt-har-med-skill/scripts/reorganize_dmt_har_med.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/dmt-har-med-skill/scripts/reorganize_dmt_har_med.py",
+      "source_sha256": "a96245343630f588eed0f2d67f4dc3f28cafb9182e18382e0646f91e98a6496d"
+    },
+    "skills/freesurfer-tool/scripts/freesurfer_processor.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/freesurfer-tool/scripts/freesurfer_processor.py",
+      "source_sha256": "08d83e0c2a8eb4f2087a615795616dbffdecaefb9f4d0e919c8f16708129917a"
+    },
+    "skills/harmonization-tool/scripts/adapters/__init__.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/harmonization-tool/scripts/adapters/__init__.py",
+      "source_sha256": "f7a4a3e01d6da16822facc5d990c325913435761c661129f5c4004d969375d52"
+    },
+    "skills/harmonization-tool/scripts/adapters/base.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/harmonization-tool/scripts/adapters/base.py",
+      "source_sha256": "568434f3afa89304b03651a4bd552e64b78678b6baa51971fecd78158b2de633"
+    },
+    "skills/harmonization-tool/scripts/adapters/covbat_wrapper.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/harmonization-tool/scripts/adapters/covbat_wrapper.py",
+      "source_sha256": "83460cd7662e00ee0049b5262d62b6a0c27d6023781525f5796e7817734ff501"
+    },
+    "skills/harmonization-tool/scripts/adapters/neurocombat_wrapper.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/harmonization-tool/scripts/adapters/neurocombat_wrapper.py",
+      "source_sha256": "1554ea7ad26d95ed65ed8997a0a8167e65f8c2f948502fe0477c92b3c1664e61"
+    },
+    "skills/harmonization-tool/scripts/adapters/neuroharmonize_wrapper.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/harmonization-tool/scripts/adapters/neuroharmonize_wrapper.py",
+      "source_sha256": "7be0466b5bc268ec6b7ae7ca71aaee4271c7ed3496b95bc98b5465b65d525fac"
+    },
+    "skills/harmonization-tool/scripts/adapters/site_covar.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/harmonization-tool/scripts/adapters/site_covar.py",
+      "source_sha256": "ef0b5face192fbb2fdec0a6e7a3411f2ccbf92ab7443f534d1e6b76df3356996"
+    },
+    "skills/harmonization-tool/scripts/diagnostics.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/harmonization-tool/scripts/diagnostics.py",
+      "source_sha256": "61be29edddb2120767051325753b62693f6fe8e0d483c0b04a1f3bf66c98d1a1"
+    },
+    "skills/harmonization-tool/scripts/extraction/atlas_registry.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/harmonization-tool/scripts/extraction/atlas_registry.py",
+      "source_sha256": "fdc66c2ceb03ea9455e020028139a76ed1e8122385d97e858097c36076832593"
+    },
+    "skills/harmonization-tool/scripts/extraction/extractors.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/harmonization-tool/scripts/extraction/extractors.py",
+      "source_sha256": "8199c7e1d5859a8c4db58ff42033c0aab464326348de8a35e9e345b662217cae"
+    },
+    "skills/harmonization-tool/scripts/extraction/run_batch.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/harmonization-tool/scripts/extraction/run_batch.py",
+      "source_sha256": "96235bc30851505b8563718d71fb942d34097a19c1e402e63e36e7f6931b516e"
+    },
+    "skills/harmonization-tool/scripts/extraction/worker.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/harmonization-tool/scripts/extraction/worker.py",
+      "source_sha256": "40f52c380e9e13c519635eb410bd6f2b6f60da5da439dc030100aa55a77e098e"
+    },
+    "skills/harmonization-tool/scripts/fetch_abide_rois.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/harmonization-tool/scripts/fetch_abide_rois.py",
+      "source_sha256": "a3c9e408dbfcdb5afcfad3f2d11fb6f865033b70e01cf0902783e188bcb906a1"
+    },
+    "skills/harmonization-tool/scripts/fetch_abide_rois_robust.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/harmonization-tool/scripts/fetch_abide_rois_robust.py",
+      "source_sha256": "c3712552f800dde807a9933ddb1c4e8c3761721c2a4bc3267a44fa95d98efade"
+    },
+    "skills/harmonization-tool/scripts/harmonize.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/harmonization-tool/scripts/harmonize.py",
+      "source_sha256": "3980be9712f8a1d9fb65282a933d0997111580c2c1a7a0b5c214ce6b6b96e848"
+    },
+    "skills/harmonization-tool/scripts/io_schema.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/harmonization-tool/scripts/io_schema.py",
+      "source_sha256": "76d4b2bed8d569e33a28711abac66b470fde1484217d9dca30ecf408dc332640"
+    },
+    "skills/harmonization-tool/scripts/loaders/__init__.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/harmonization-tool/scripts/loaders/__init__.py",
+      "source_sha256": "d4e38f7d3913db40e14f568f4bdb5fd82ef95146dd50384aa7d100aac07410c9"
+    },
+    "skills/harmonization-tool/scripts/loaders/abide_real.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/harmonization-tool/scripts/loaders/abide_real.py",
+      "source_sha256": "400e673db4f5a63f021b7f72da77982547bc1c07f3bf5848ac9961f9af60f6b6"
+    },
+    "skills/harmonization-tool/scripts/loaders/adhd200_real.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/harmonization-tool/scripts/loaders/adhd200_real.py",
+      "source_sha256": "eb62446344619280a96d2eeade4173627018ebace3a066b966f55db1157a9c1a"
+    },
+    "skills/harmonization-tool/scripts/pilot_abide_style.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/harmonization-tool/scripts/pilot_abide_style.py",
+      "source_sha256": "6185013f013c3690628a9f1ded9381ef657d7b1fd22fe5489da455523c5ffe53"
+    },
+    "skills/harmonization-tool/scripts/splitters/__init__.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/harmonization-tool/scripts/splitters/__init__.py",
+      "source_sha256": "c5ff3d2ab8afc64ec5f871fdfb659d1054b43687bc629c08ff619cf624377ce2"
+    },
+    "skills/harmonization-tool/scripts/splitters/leave_site_out.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/harmonization-tool/scripts/splitters/leave_site_out.py",
+      "source_sha256": "d9b12e31c4f3366895d3c782c46b10a372555e0d6f730195a85f188e40945b42"
+    },
+    "skills/harmonization-tool/scripts/splitters/site_stratified.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/harmonization-tool/scripts/splitters/site_stratified.py",
+      "source_sha256": "17bcd0cec68e7f6315fe04e0bef7d25711976b285d04e9722d00c95ce9087a2b"
+    },
+    "skills/harness-core/__init__.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/harness-core/__init__.py",
+      "source_sha256": "8ad1a9620147e7dd23f5b8b1980bc861b068d6581dddd8c256c2db15b95bec33"
+    },
+    "skills/hbn-skill/scripts/extract_hbn_phenotype.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/hbn-skill/scripts/extract_hbn_phenotype.py",
+      "source_sha256": "c5381ed54f15d6654e27fa338f54edc3582e5e43f33bd6d008dfb15009127bf7"
+    },
+    "skills/hbn-skill/scripts/hbn_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/hbn-skill/scripts/hbn_qc_summary.py",
+      "source_sha256": "7800df81d90e1352e548d380cf5f29d4d26f3bfa075cfcaae34289e8bc5837c9"
+    },
+    "skills/hbn-skill/scripts/reorganize_hbn.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/hbn-skill/scripts/reorganize_hbn.py",
+      "source_sha256": "8a77bf7a7f6ccf44b15c8459530b3e4db4fe865bd17d333f182d377fe83d8af8"
+    },
+    "skills/hcpa-skill/scripts/extract_hcpa_phenotype.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/hcpa-skill/scripts/extract_hcpa_phenotype.py",
+      "source_sha256": "e8eeebd81504dd6ab30c60392709d360ec373530129ce803efcddbe73aa60057"
+    },
+    "skills/hcpa-skill/scripts/hcpa_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/hcpa-skill/scripts/hcpa_qc_summary.py",
+      "source_sha256": "eec3890a7ff252823f6195a2b70d06f48e163fdd5e47451aae42ff33669698a4"
+    },
+    "skills/hcpa-skill/scripts/reorganize_hcpa.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/hcpa-skill/scripts/reorganize_hcpa.py",
+      "source_sha256": "62aa18c209b4bbf5328b4d53fd4b86cd4964c96b02fa3924f64602129575b6cf"
+    },
+    "skills/hcpd-skill/scripts/extract_hcpd_phenotype.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/hcpd-skill/scripts/extract_hcpd_phenotype.py",
+      "source_sha256": "c848be0535ff0d9ff215b7bbd82310d905023c8435f4b059dabfd3ada6148372"
+    },
+    "skills/hcpd-skill/scripts/hcpd_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/hcpd-skill/scripts/hcpd_qc_summary.py",
+      "source_sha256": "8be016e67e7cd9bff1d5bf46028234a586992401fa10d907a0c07b879b033e28"
+    },
+    "skills/hcpd-skill/scripts/reorganize_hcpd.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/hcpd-skill/scripts/reorganize_hcpd.py",
+      "source_sha256": "04921cf6bf36983f27b90f17b6053fd462ed0b38f0e0da75c870d35e69623daa"
+    },
+    "skills/hcpep-skill/scripts/extract_hcpep_phenotype.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/hcpep-skill/scripts/extract_hcpep_phenotype.py",
+      "source_sha256": "73d2d92368df49e5c33ecb9788d7703ff93b5681b40b26b4ff79307f21e63687"
+    },
+    "skills/hcpep-skill/scripts/hcpep_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/hcpep-skill/scripts/hcpep_qc_summary.py",
+      "source_sha256": "7f9904b6290e912728ff83fc751a21e4a0b5c176c21e07d22449fda355b4c9c9"
+    },
+    "skills/hcpep-skill/scripts/reorganize_hcpep.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/hcpep-skill/scripts/reorganize_hcpep.py",
+      "source_sha256": "58da2aeaba321e738bfcd3112abb706dfc45461109288c1e9b1c277b4c536666"
+    },
+    "skills/hcpya-skill/scripts/extract_hcpya_phenotype.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/hcpya-skill/scripts/extract_hcpya_phenotype.py",
+      "source_sha256": "37a558e89de5f2edeaddb898dae8569f5aa47dc6e6749be985cd72dee93e0138"
+    },
+    "skills/hcpya-skill/scripts/hcpya_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/hcpya-skill/scripts/hcpya_qc_summary.py",
+      "source_sha256": "e2c7b3f2e28e177152fdc4efb2292e9c2a9c911868ce69dd99069794157a31ba"
+    },
+    "skills/hcpya-skill/scripts/reorganize_hcpya.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/hcpya-skill/scripts/reorganize_hcpya.py",
+      "source_sha256": "258b47989bd7c8b9f11cb5f6cfce8e3c8664509cd8b7f3e25c3967dea5e0ab25"
+    },
+    "skills/ibgnn/scripts/data_adapter_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/ibgnn/scripts/data_adapter_reference.py",
+      "source_sha256": "031894b7e2c0e9ce4073df0b0f14fd24b66868985b6d37989437c205e1124e35"
+    },
+    "skills/ibgnn/scripts/train_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/ibgnn/scripts/train_reference.py",
+      "source_sha256": "057ec768e620af95c2e823167e0981b362117905ab90cfbf462adaa7b647dea4"
+    },
+    "skills/imaging-genetics-models/scripts/train_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/imaging-genetics-models/scripts/train_reference.py",
+      "source_sha256": "0aab9d5f2a95cac311628dc361bc66ac1e8ab06570092eccffb8edd5decd8148"
+    },
+    "skills/ixi-skill/scripts/ixi_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/ixi-skill/scripts/ixi_qc_summary.py",
+      "source_sha256": "258422f9f59e4dbaba65fe77169332c2359f77b57a60470f5dd1f97beb455112"
+    },
+    "skills/ixi-skill/scripts/reorganize_ixi.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/ixi-skill/scripts/reorganize_ixi.py",
+      "source_sha256": "473fd199e9544c7dae6dd9e527b7c33d03c4294b362ef36f086c69ce0d88e593"
+    },
+    "skills/kg-link-prediction/scripts/train_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/kg-link-prediction/scripts/train_reference.py",
+      "source_sha256": "0b646b6cf680e6ca7e7d69e7f36b573a1ccceb770cdcb9fbedff7aca58c64837"
+    },
+    "skills/knowledge-graph-builder/scripts/entity_resolution.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/knowledge-graph-builder/scripts/entity_resolution.py",
+      "source_sha256": "aa8f07bbd77c51ca23b2aeaad99b82061e5939cc48953ecd6f3b536475faade2"
+    },
+    "skills/knowledge-graph-builder/scripts/graph_query.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/knowledge-graph-builder/scripts/graph_query.py",
+      "source_sha256": "53186e5fd721c67ecd83180127f56252983acbd1ced029056a265466488769f7"
+    },
+    "skills/knowledge-graph-builder/scripts/hypothesis_cli_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/knowledge-graph-builder/scripts/hypothesis_cli_reference.py",
+      "source_sha256": "5c0e9dfa4a06d6e6007c6faeae49622f9532e37411ffcb22853ac1192e0109c7"
+    },
+    "skills/knowledge-graph-builder/scripts/new_data_source_template.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/knowledge-graph-builder/scripts/new_data_source_template.py",
+      "source_sha256": "2d7a68a75e5424f61de3c15917e0ea0932ab390cddd006b6e74ec62f1198f9c4"
+    },
+    "skills/lggnn/scripts/data_adapter_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/lggnn/scripts/data_adapter_reference.py",
+      "source_sha256": "9423e908de8c81337ba57646af1dd3557b1f612464005993cd9868749513d2e6"
+    },
+    "skills/lggnn/scripts/train_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/lggnn/scripts/train_reference.py",
+      "source_sha256": "a8e7a81f2734eb67237bb8e89c924f10ddec1121d2dbc418006487bce0449ef0"
+    },
+    "skills/meg-skill/scripts/time_frequency.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/meg-skill/scripts/time_frequency.py",
+      "source_sha256": "1740b8674ba113dfa57c0a8e3a3a627907d47d4dd341a6459ab4c1467f03f22a"
+    },
+    "skills/method-design/scripts/__init__.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/method-design/scripts/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "skills/method-design/scripts/llm_client.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/method-design/scripts/llm_client.py",
+      "source_sha256": "9cbb35f03d9be48ca67f73b4c774f52eb8d84013f215f372497075acaf2a064c"
+    },
+    "skills/method-design/scripts/test_tournament.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/method-design/scripts/test_tournament.py",
+      "source_sha256": "a7339a1caca8e2b4ac2e318f408843b12f5d0ba251fa71b59576156b14cb15fc"
+    },
+    "skills/method-design/scripts/tournament.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/method-design/scripts/tournament.py",
+      "source_sha256": "92a4bd46ddb4fa472c9cb8a5ff086e595409718358ff583fc4190318f4c1099a"
+    },
+    "skills/mnd-skill/scripts/extract_mnd_phenotype.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/mnd-skill/scripts/extract_mnd_phenotype.py",
+      "source_sha256": "30e0b940ecff85f9737206db0545529175ca423a1606b83f69e10f1af5f44c96"
+    },
+    "skills/mnd-skill/scripts/mnd_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/mnd-skill/scripts/mnd_qc_summary.py",
+      "source_sha256": "ef73c6219506ffffad45342c9287c03cd23045a4fc0dc8d07ff78b000c1fb937"
+    },
+    "skills/mnd-skill/scripts/validate_mnd.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/mnd-skill/scripts/validate_mnd.py",
+      "source_sha256": "71f42ca02ea5c04b05e09c738475e9d499aaaba181e4e1da9e00515f324977a7"
+    },
+    "skills/mne-eeg-tool/scripts/eeg_pipeline_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/mne-eeg-tool/scripts/eeg_pipeline_reference.py",
+      "source_sha256": "70a7c44b0a55a2c9f28f2c2ff61838f3f1aa50cc8fde5c0e184a312745be2cf9"
+    },
+    "skills/mschallenge-skill/scripts/analyze_lesions.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/mschallenge-skill/scripts/analyze_lesions.py",
+      "source_sha256": "e18b87d5d86dd2beced30b7b748aed63a3b8585336c16e03363970400b5948af"
+    },
+    "skills/mschallenge-skill/scripts/longitudinal_lesion.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/mschallenge-skill/scripts/longitudinal_lesion.py",
+      "source_sha256": "7504e164d6941de38e747f74edb2a9c0894f77b27ef9148cb737160fd5462147"
+    },
+    "skills/mschallenge-skill/scripts/mschallenge_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/mschallenge-skill/scripts/mschallenge_qc_summary.py",
+      "source_sha256": "6b46cf1ae2156b0a62342fea6baeec02dbdc44d86155c7238aa8726c5ec2cb81"
+    },
+    "skills/mschallenge-skill/scripts/validate_mschallenge.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/mschallenge-skill/scripts/validate_mschallenge.py",
+      "source_sha256": "d8dd984cb633dcdcab48309e0316bfcc750fc66b3a834ab1bc1e158f80ffb710"
+    },
+    "skills/neuroimaging-decoding/scripts/train_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/neuroimaging-decoding/scripts/train_reference.py",
+      "source_sha256": "f8666f909b379a1f8012194d971ec73049c42b9e4f2298d9f2b7c68a0b1cd973"
+    },
+    "skills/nibabel-skill/scripts/atlas_coordinate_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/nibabel-skill/scripts/atlas_coordinate_reference.py",
+      "source_sha256": "0672ffb7f06727b3c74565db378a02d54ff0b6e6328531ebc74f21db15717155"
+    },
+    "skills/nibabel-skill/scripts/freesurfer_io_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/nibabel-skill/scripts/freesurfer_io_reference.py",
+      "source_sha256": "917b24e6ee4107788de985c0fd9400b95ebe8de4e9225612a616705a83686a49"
+    },
+    "skills/nibabel-skill/scripts/nifti_inspection_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/nibabel-skill/scripts/nifti_inspection_reference.py",
+      "source_sha256": "f01dd8f65c342fbc5b5e1eed4bf148ae4b685d88e271737fe30d4b59c817ae5e"
+    },
+    "skills/nifd-skill/scripts/extract_nifd_phenotype.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/nifd-skill/scripts/extract_nifd_phenotype.py",
+      "source_sha256": "4220ce63d8fbf14567f0d014ec726fb5f2e24107b311a00b64904f31a5fe1e77"
+    },
+    "skills/nifd-skill/scripts/nifd_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/nifd-skill/scripts/nifd_qc_summary.py",
+      "source_sha256": "0a909715a5101f2440ad5e78a974ba9dce630140d3c01d139727c976946a08f2"
+    },
+    "skills/nifd-skill/scripts/validate_nifd.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/nifd-skill/scripts/validate_nifd.py",
+      "source_sha256": "0ca7c639017a561822ede305e92bba9e2dc63be2b9014554c16f70e176e75387"
+    },
+    "skills/nilearn-tool/scripts/connectome_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/nilearn-tool/scripts/connectome_reference.py",
+      "source_sha256": "9b0d1f8ef32f200b7aea0c0f030e4911d8007b7e39bb310358a7e37fb8e1cd71"
+    },
+    "skills/nilearn-tool/scripts/denoise_timeseries_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/nilearn-tool/scripts/denoise_timeseries_reference.py",
+      "source_sha256": "15e1e30662ac3c191faff8ea8909685c1d760d91e5de73a95314ccf16a2268a1"
+    },
+    "skills/nilearn-tool/scripts/hierarchical_parcellation_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/nilearn-tool/scripts/hierarchical_parcellation_reference.py",
+      "source_sha256": "6be008154d175b2ded6fae079bcdc8b3f7407867ced1c81bae98a3f15388c7e5"
+    },
+    "skills/nilearn-tool/scripts/kmeans_parcellation_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/nilearn-tool/scripts/kmeans_parcellation_reference.py",
+      "source_sha256": "4c547a249b00843ed91869776662ea97515b7af73ca1acdf5a6fc3d225631862"
+    },
+    "skills/nilearn-tool/scripts/preprocess_bold_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/nilearn-tool/scripts/preprocess_bold_reference.py",
+      "source_sha256": "1fa90db2ffbeeff2ab36c38974180e2233e4a1ebbc504c920fe54748405066d1"
+    },
+    "skills/nilearn-tool/scripts/rest_dictlearning_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/nilearn-tool/scripts/rest_dictlearning_reference.py",
+      "source_sha256": "c436fda0eb1ab445c0ac23733dcf21d479bd02943dad61681ae1ae219b674c7b"
+    },
+    "skills/nilearn-tool/scripts/rest_ica_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/nilearn-tool/scripts/rest_ica_reference.py",
+      "source_sha256": "bdff7958a09985ad2563847394a30e95d4f010109557c300dfe2558dd1336582"
+    },
+    "skills/nilearn-tool/scripts/second_level_glm_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/nilearn-tool/scripts/second_level_glm_reference.py",
+      "source_sha256": "6f62800da7a223f86bbb650328a0ad8c005ef0cd479f06353f4df6c488d9336a"
+    },
+    "skills/nilearn-tool/scripts/spacenet_classifier_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/nilearn-tool/scripts/spacenet_classifier_reference.py",
+      "source_sha256": "ae42b4bc2a20e8c62ffebe4835ada17f43909da905b2fdad894f3103945ea244"
+    },
+    "skills/nilearn-tool/scripts/svm_classifier_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/nilearn-tool/scripts/svm_classifier_reference.py",
+      "source_sha256": "130e28a6eb9416d7b8375c21ffabd0a520f541355545f8687236afc33585ebc2"
+    },
+    "skills/nilearn-tool/scripts/task_glm_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/nilearn-tool/scripts/task_glm_reference.py",
+      "source_sha256": "8109b818c82741c03750a4395da850b4e9da9bcfb854eddd004ff2bc566909ca"
+    },
+    "skills/nilearn-tool/scripts/zalff_summary_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/nilearn-tool/scripts/zalff_summary_reference.py",
+      "source_sha256": "0a1a55c5f388d485b7c1d3bb74cf55b70ddfb98700043fc54735b902bd3168e8"
+    },
+    "skills/nsd-skill/scripts/extract_nsd_stimulus.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/nsd-skill/scripts/extract_nsd_stimulus.py",
+      "source_sha256": "6a57f392383e50d146e35d1b96f56bf58272e220126e739f35a2c8c423c66469"
+    },
+    "skills/nsd-skill/scripts/nsd_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/nsd-skill/scripts/nsd_qc_summary.py",
+      "source_sha256": "26545a22e7205d8f931c79637aa456a35257eb9100e04089882b9c92d7ba5d46"
+    },
+    "skills/nsd-skill/scripts/validate_nsd.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/nsd-skill/scripts/validate_nsd.py",
+      "source_sha256": "146b8452483197b7f3706236d490af695b39d63b4af4e84ab12902867bb0ac2c"
+    },
+    "skills/oasis-skill/scripts/extract_oasis_phenotype.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/oasis-skill/scripts/extract_oasis_phenotype.py",
+      "source_sha256": "b906de92e870fc5979575933b56868d6f1bb8d0204a5b87b4fa125e1456be3d5"
+    },
+    "skills/oasis-skill/scripts/oasis_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/oasis-skill/scripts/oasis_qc_summary.py",
+      "source_sha256": "bd0072ac744e9baefd1d7e459c02a0aeb01ec897c727052ce36af0e96d48f950"
+    },
+    "skills/oasis-skill/scripts/validate_oasis.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/oasis-skill/scripts/validate_oasis.py",
+      "source_sha256": "232678d6c420778b03bde7d3bbf39a3decf0c7c3a61b94fd7b8c203023bf1ee8"
+    },
+    "skills/paper-writing/scripts/data_statement_templates.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/paper-writing/scripts/data_statement_templates.py",
+      "source_sha256": "df1d9cf94cc5295d7dc87807aa1e9dd0812474295e3f409ec60610e82693d168"
+    },
+    "skills/paper-writing/scripts/figure_templates.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/paper-writing/scripts/figure_templates.py",
+      "source_sha256": "0fff90cac660d71efa652fd78ec47404bf7bfc9c812e900ecbe0270ef8f60954"
+    },
+    "skills/paper-writing/scripts/nature_figure_style.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/paper-writing/scripts/nature_figure_style.py",
+      "source_sha256": "5d270c185880c28c8736f34f9e49427adef73fd9e287e74a84b4fc9e220b6f28"
+    },
+    "skills/paper-writing/scripts/section_phrasebank.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/paper-writing/scripts/section_phrasebank.py",
+      "source_sha256": "48afd7dcfeb30432e130c027964c36be5795cb94d21252145edfd9467ab130c0"
+    },
+    "skills/pet-skill/scripts/compute_suvr.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/pet-skill/scripts/compute_suvr.py",
+      "source_sha256": "51b4f6a896fd00a463fba8605bc1bee8587d938c60c61bcb21c96a0c04b90bca"
+    },
+    "skills/pnc-skill/scripts/extract_pnc_phenotype.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/pnc-skill/scripts/extract_pnc_phenotype.py",
+      "source_sha256": "e8a4b902d388be339864b2f63b876a982e9a28cbb5b86b287f84d7cc284bb7a8"
+    },
+    "skills/pnc-skill/scripts/pnc_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/pnc-skill/scripts/pnc_qc_summary.py",
+      "source_sha256": "699b3025a78b6f4daec06a3e9c0ced2c39fdd1f61740ab0c67fd4c372c4e4e72"
+    },
+    "skills/pnc-skill/scripts/validate_pnc.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/pnc-skill/scripts/validate_pnc.py",
+      "source_sha256": "3dd4646a0cca5a66f797d9d2cb480c9f1b60d63a58fc9c2b3c561a2861c1c7d7"
+    },
+    "skills/ppmi-skill/scripts/extract_ppmi_phenotype.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/ppmi-skill/scripts/extract_ppmi_phenotype.py",
+      "source_sha256": "61468052dbee6783ebc2db2e17220aab20c910e7237c792e1dff4f3916fa022b"
+    },
+    "skills/ppmi-skill/scripts/ppmi_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/ppmi-skill/scripts/ppmi_qc_summary.py",
+      "source_sha256": "68e477e1e53857a838c5506f084e98df508250a79ba881f356c30e1fe5eff00b"
+    },
+    "skills/ppmi-skill/scripts/validate_ppmi.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/ppmi-skill/scripts/validate_ppmi.py",
+      "source_sha256": "5e9dd75afe5df3ae9f23ab6c265882e3b858af6b60454c337db83af00a19918a"
+    },
+    "skills/rest-mneta-mdd-skill/scripts/extract_rest_mdd_phenotype.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/rest-mneta-mdd-skill/scripts/extract_rest_mdd_phenotype.py",
+      "source_sha256": "2ac033530f3f38459a3fbfd04a8e4297cfd21a17d4eaea8c52f561d3c7567956"
+    },
+    "skills/rest-mneta-mdd-skill/scripts/harmonize_sites.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/rest-mneta-mdd-skill/scripts/harmonize_sites.py",
+      "source_sha256": "66079394127a57bc38b8d045c69b0c2a36bf6b6d56deb63842f92db6dd712867"
+    },
+    "skills/rest-mneta-mdd-skill/scripts/rest_mdd_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/rest-mneta-mdd-skill/scripts/rest_mdd_qc_summary.py",
+      "source_sha256": "75e184a9da4fa5064948a1cc1ddd8ba055c54b40a1ec3ad10c2c571c968f5226"
+    },
+    "skills/rest-mneta-mdd-skill/scripts/validate_rest_mdd.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/rest-mneta-mdd-skill/scripts/validate_rest_mdd.py",
+      "source_sha256": "dd1cf89a974e169475c405e4cd42a8f385c31b11cdf7325a522fe6f99d7e3364"
+    },
+    "skills/seed-iv-skill/scripts/classify_seed_iv.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/seed-iv-skill/scripts/classify_seed_iv.py",
+      "source_sha256": "b2cf604337a01521f7dd961a1399509cf9345af6098d4fb6058a91bee9074c3f"
+    },
+    "skills/seed-iv-skill/scripts/extract_seed_iv_features.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/seed-iv-skill/scripts/extract_seed_iv_features.py",
+      "source_sha256": "67389da902cd8480657be020db81ac7c691cfed470cd3fa491fcd8f8637ae8cd"
+    },
+    "skills/seed-iv-skill/scripts/validate_seed_iv.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/seed-iv-skill/scripts/validate_seed_iv.py",
+      "source_sha256": "1c0cc668d3856b8892e3ee0b141e87d304aa7d3cadcb0a3093a83e93f9c34855"
+    },
+    "skills/seed-vig-skill/scripts/classify_seed_vig.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/seed-vig-skill/scripts/classify_seed_vig.py",
+      "source_sha256": "a6e7d7906d556e0b4ce49a6a3a3095598ab9609cbc24495713e27658c1c639df"
+    },
+    "skills/seed-vig-skill/scripts/extract_seed_vig_features.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/seed-vig-skill/scripts/extract_seed_vig_features.py",
+      "source_sha256": "486a0d59606a3d8403329eeac5b5fada996a49b74db797587f3cc6d81b92fa09"
+    },
+    "skills/seed-vig-skill/scripts/validate_seed_vig.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/seed-vig-skill/scripts/validate_seed_vig.py",
+      "source_sha256": "bccae965847fa2fafb861c112197650b4673e8af5af801901dc411de230edd8b"
+    },
+    "skills/statistical-ml/scripts/train_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/statistical-ml/scripts/train_reference.py",
+      "source_sha256": "d3a03c95abdda9fe0ec0d12db2d91868e1429791441ac218376f4698c19c5ae4"
+    },
+    "skills/subject-subtyping/scripts/train_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/subject-subtyping/scripts/train_reference.py",
+      "source_sha256": "34c079949916b9f34fd0cc06e14c3d60efa52ebf8519e6c04d004e1fbea7c793"
+    },
+    "skills/survival-models/scripts/train_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/survival-models/scripts/train_reference.py",
+      "source_sha256": "048c9b39163b562f9a1f681b0e4d15dde8a5dd2987253681c91a2c4682d11b73"
+    },
+    "skills/tcp-skill/scripts/extract_tcp_phenotype.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/tcp-skill/scripts/extract_tcp_phenotype.py",
+      "source_sha256": "0a2afcf9077ca86d46c809f77fbed95917ce55f10427c55d1e9ec05f8edd309f"
+    },
+    "skills/tcp-skill/scripts/tcp_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/tcp-skill/scripts/tcp_qc_summary.py",
+      "source_sha256": "8601085236e2b88984f3ac5619182479953f1d3eb727bbb6e57c2fe702523005"
+    },
+    "skills/tcp-skill/scripts/validate_tcp.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/tcp-skill/scripts/validate_tcp.py",
+      "source_sha256": "4452dcfbada250341a62786a6fcf40d7231a28d1ea6c22cd0d455c647296d09d"
+    },
+    "skills/temporal-models/scripts/train_reference.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/temporal-models/scripts/train_reference.py",
+      "source_sha256": "751ba1d476b4a0a87cecfcd8b837d75e9f7225b95339ec76f9e1d2bab47a84bf"
+    },
+    "skills/ucla-cnp-skill/scripts/extract_ucla_cnp_phenotype.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/ucla-cnp-skill/scripts/extract_ucla_cnp_phenotype.py",
+      "source_sha256": "47d84e1e22b57c43f08c52284619889df1b4a421d6ce50c631a6e7c445a401a1"
+    },
+    "skills/ucla-cnp-skill/scripts/ucla_cnp_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/ucla-cnp-skill/scripts/ucla_cnp_qc_summary.py",
+      "source_sha256": "737b0d9907f708f688735e2f99c0daf354c534bcae902e1f5827dd433028fda1"
+    },
+    "skills/ucla-cnp-skill/scripts/validate_ucla_cnp.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/ucla-cnp-skill/scripts/validate_ucla_cnp.py",
+      "source_sha256": "73bbdd66c33a9a334a03ce0df1f694cfa12969274a5ada6fbf6f099e91135be5"
+    },
+    "skills/ukb-skill/scripts/build_ukb_survival.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/ukb-skill/scripts/build_ukb_survival.py",
+      "source_sha256": "388ffe5510772fd789d2adbb66e52b372dab3a3f54bbd8230d1c29390a758e9d"
+    },
+    "skills/ukb-skill/scripts/extract_ukb_cases.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/ukb-skill/scripts/extract_ukb_cases.py",
+      "source_sha256": "0cda2fc6b019b3dc04d304b6b8ef4810a8225b7c9ac88719bfab47d8cd0c432f"
+    },
+    "skills/ukb-skill/scripts/extract_ukb_phenotype.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/ukb-skill/scripts/extract_ukb_phenotype.py",
+      "source_sha256": "797c737c1d694dfc29720acc715e9ec7698c3bff3bdd72fef6d0cc38123e6ea1"
+    },
+    "skills/ukb-skill/scripts/ukb_qc_summary.py": {
+      "origin": "NeuroWeave before runtime expansion",
+      "revision": "70b681c",
+      "source_path": "skills/ukb-skill/scripts/ukb_qc_summary.py",
+      "source_sha256": "e99ad0a3ce9e52d529179989c4a0641efd8b97c1405d82e3828ec935bf4b6021"
+    },
+    "models/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "models/bnt/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/bnt/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "models/bnt/net/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/bnt/net/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "models/bnt/net/bnt.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/bnt/net/bnt.py",
+      "source_sha256": "1c3e362faeaf936f68a0253335780f1d4dab4d5232f107017e061cc129409af8"
+    },
+    "models/bnt/scripts/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/bnt/scripts/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "models/bnt/scripts/data_adapter.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/bnt/scripts/data_adapter.py",
+      "source_sha256": "61487cecd6df90ee83df865ce8e34cbd314fe54a164cd5d03c7624c4139c4a31",
+      "local_adjustments": "Input loading disables Pickle, device auto selects the allocated runtime, optional torch import, or isolated vendored imports; algorithm and training definitions unchanged."
+    },
+    "models/brain_age/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/brain_age/__init__.py",
+      "source_sha256": "3e4b82b0e5dc06a444017070f11d1359e96481856ca25bd651c63ca16fb73f33"
+    },
+    "models/brain_age/correction.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/brain_age/correction.py",
+      "source_sha256": "ba88c3f59d2015d1989f5c79f77711de99000330a4b612a1c9ff1f9ac8d48859"
+    },
+    "models/brain_age/train.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/brain_age/train.py",
+      "source_sha256": "77c7dde01c9133304acf2aab800f8d2fcdffae43210df91861cecfcd246583b8"
+    },
+    "models/braingnn/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/braingnn/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "models/braingnn/net/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/braingnn/net/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "models/braingnn/net/braingnn.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/braingnn/net/braingnn.py",
+      "source_sha256": "80e1025591f47198da69bf2f8e2ca6ed64156d1bc9dc54614e1ac0ccf56b9fbb"
+    },
+    "models/braingnn/scripts/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/braingnn/scripts/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "models/braingnn/scripts/data_adapter.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/braingnn/scripts/data_adapter.py",
+      "source_sha256": "df4a3a57cddb3ebdb5d8c226a8c99111983ea0a1fa6cbd7fd8cba35482172ef5",
+      "local_adjustments": "Input loading disables Pickle, device auto selects the allocated runtime, optional torch import, or isolated vendored imports; algorithm and training definitions unchanged."
+    },
+    "models/braingnn/scripts/sweep_atlases.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/braingnn/scripts/sweep_atlases.py",
+      "source_sha256": "e74d4168dd6b6482a9d90ae7add4de2a216bff7cf40e4bfe259aa362bc05e8d8"
+    },
+    "models/braingnn/scripts/train.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/braingnn/scripts/train.py",
+      "source_sha256": "e003cef6954272f87a33bea65248762b3c29b3935417eacbdf5d7ee92ea9b9e4"
+    },
+    "models/brainnetcnn/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/brainnetcnn/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "models/brainnetcnn/net/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/brainnetcnn/net/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "models/brainnetcnn/net/brainnetcnn.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/brainnetcnn/net/brainnetcnn.py",
+      "source_sha256": "ced466c43da69908bb2e979afe5940d0d6246dbe84bce3a48698b6c5b1f1918d"
+    },
+    "models/brainnetcnn/scripts/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/brainnetcnn/scripts/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "models/brainnetcnn/scripts/data_adapter.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/brainnetcnn/scripts/data_adapter.py",
+      "source_sha256": "1e796da803c836d137e0d804ea1109c12307ca36a9be72ca57bc10ba06a87e41"
+    },
+    "models/brainnetcnn/scripts/train.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/brainnetcnn/scripts/train.py",
+      "source_sha256": "fa8d29251898f7e37a960e3fa3f95a77a627378baac19ba404e30f28e92dbb9b"
+    },
+    "models/causal_treatment/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/causal_treatment/__init__.py",
+      "source_sha256": "d14ed9c9e432022198e3b562e3ddb4525ecc44e613f6cef73354f051af7f83cc"
+    },
+    "models/causal_treatment/estimators.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/causal_treatment/estimators.py",
+      "source_sha256": "100c7cb37a1bd1f2dbd1282317403539092fa6651a42fa5e27292cd0796d2494"
+    },
+    "models/causal_treatment/metrics.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/causal_treatment/metrics.py",
+      "source_sha256": "5510af04bb9fe4367cff6140e3b18f6c7bbdd235f89a11c99badd177c3886d2c"
+    },
+    "models/causal_treatment/train.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/causal_treatment/train.py",
+      "source_sha256": "6fcdfab188bbbdd1589bad734bc7694ea5e60f586a078d7a573e16bf508f0367",
+      "local_adjustments": "Input loading disables Pickle, device auto selects the allocated runtime, optional torch import, or isolated vendored imports; algorithm and training definitions unchanged."
+    },
+    "models/cnn3d/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/cnn3d/__init__.py",
+      "source_sha256": "4bb3ed1bd70d809f5206de96ad3f3fa0f70937d3ca503176a5724770fbbc1774"
+    },
+    "models/cnn3d/net.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/cnn3d/net.py",
+      "source_sha256": "c0ad87dbdb939f165a95983ee79e833a5e1bef3aa21d64370bfe37468504da88"
+    },
+    "models/cnn3d/train.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/cnn3d/train.py",
+      "source_sha256": "d27b78349cac354b71064203598bfdfe6d0cf7c32a5e4bb33fdc58e345a7f29d",
+      "local_adjustments": "Input loading disables Pickle, device auto selects the allocated runtime, optional torch import, or isolated vendored imports; algorithm and training definitions unchanged."
+    },
+    "models/combraintf/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/combraintf/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "models/combraintf/net/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/combraintf/net/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "models/combraintf/net/combraintf.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/combraintf/net/combraintf.py",
+      "source_sha256": "ebb07022285766d4592331559153d4ba171ac636c9da237f63e58d8bbe1c9044"
+    },
+    "models/combraintf/scripts/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/combraintf/scripts/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "models/combraintf/scripts/data_adapter.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/combraintf/scripts/data_adapter.py",
+      "source_sha256": "38765b492f1cde796559287f08202dd74cd574b996574d648417703100683c87"
+    },
+    "models/common/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/common/__init__.py",
+      "source_sha256": "8fb6017776f7569978f518a498cc4e8e988d82c5b0e5d1c186cab188224ff3f9"
+    },
+    "models/common/artifacts.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/common/artifacts.py",
+      "source_sha256": "5f322a369021c56d9081ffb12a99d448f7e863be95a2fe30c2c6cdb70198035b"
+    },
+    "models/common/data.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/common/data.py",
+      "source_sha256": "55767d56bbaa9c59b917a7aff699d19c8e9c595a05d6aa6cb795e3215e4d848f"
+    },
+    "models/common/metrics.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/common/metrics.py",
+      "source_sha256": "87e52263b7486ecc9ad08ee327e6e8114afd70c5a14548c93790ff30ca6b63e5"
+    },
+    "models/common/training.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/common/training.py",
+      "source_sha256": "da3d210b55730f05d9a275bfcd4d4bc699e2654f5cb31670801a55e8b38881bc"
+    },
+    "models/connectome_discovery/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/connectome_discovery/__init__.py",
+      "source_sha256": "2905d917971ee68d9a268c3f1442b3c4eebcb419328dc7e8f03aba1e313c7c02"
+    },
+    "models/connectome_discovery/mapping.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/connectome_discovery/mapping.py",
+      "source_sha256": "6ad48c53b5709adfedd96df1dc659abdebdbebcbabc72a212f6b7e2cf12a1fa1"
+    },
+    "models/cpm/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/cpm/__init__.py",
+      "source_sha256": "77d97e4b5c17a8431ba6d74657e0f9142c78e03bfbe9b76d8de06d81cfdd7257"
+    },
+    "models/cpm/cpm.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/cpm/cpm.py",
+      "source_sha256": "7fa672646f9f77dbf0c1336a15025f40fc00d11596e20aae4b6718996d9111c1"
+    },
+    "models/cpm/train.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/cpm/train.py",
+      "source_sha256": "bdf61bd07ed83624cc51905ec3a564f7e6239ea59dbd184c3a324089b09802b0",
+      "local_adjustments": "Input loading disables Pickle, device auto selects the allocated runtime, optional torch import, or isolated vendored imports; algorithm and training definitions unchanged."
+    },
+    "models/ibgnn/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/ibgnn/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "models/ibgnn/net/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/ibgnn/net/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "models/ibgnn/net/ibgnn.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/ibgnn/net/ibgnn.py",
+      "source_sha256": "fe7bf8ce7958e985abf67dc4a6110112c276f8d6b956ff0a6dc1430faf23c250"
+    },
+    "models/ibgnn/scripts/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/ibgnn/scripts/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "models/ibgnn/scripts/data_adapter.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/ibgnn/scripts/data_adapter.py",
+      "source_sha256": "e4a81b020fae31a9f84fb8c49261c41f996cee6c30ac9d4d744fc262dcab9822"
+    },
+    "models/imaging_genetics/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/imaging_genetics/__init__.py",
+      "source_sha256": "2f353477f7f8fee74c22a431c038e066b3700320520b308b3a21dda417072225"
+    },
+    "models/imaging_genetics/association.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/imaging_genetics/association.py",
+      "source_sha256": "8dc12556a0cbf9cb78b94d7ce0b73edf41c0e2b493a8443673e6199d351f2560"
+    },
+    "models/imaging_genetics/multivariate.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/imaging_genetics/multivariate.py",
+      "source_sha256": "b752a2eba06d9d2869779aa8b5451f18b2bfb4187fdf23d58d70f195ee8ad57d"
+    },
+    "models/imaging_genetics/plink.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/imaging_genetics/plink.py",
+      "source_sha256": "167aa002405fa7f71c3123da9595697e57e37c5abf86e7d549f878e3b837b403"
+    },
+    "models/imaging_genetics/train.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/imaging_genetics/train.py",
+      "source_sha256": "2b81e7d422cd3700050c2f1585da090dfa7185be6ca04edf580c26e72a865bc8",
+      "local_adjustments": "Input loading disables Pickle, device auto selects the allocated runtime, optional torch import, or isolated vendored imports; algorithm and training definitions unchanged."
+    },
+    "models/kg_link_prediction/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/kg_link_prediction/__init__.py",
+      "source_sha256": "2432208504d5db818c6c652b021d45eca8804155469fe3a315673fc0bbbe6535"
+    },
+    "models/kg_link_prediction/gnn.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/kg_link_prediction/gnn.py",
+      "source_sha256": "2ceb5352b4ca45f0973a64d04e90707ceca2e5c3d5817776fbdc619d274bca7b"
+    },
+    "models/kg_link_prediction/train.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/kg_link_prediction/train.py",
+      "source_sha256": "5254114e0aee0bde6df0e0ca0e5dc8d669b4534ccd09824c6e5690eb847b67e0",
+      "local_adjustments": "Input loading disables Pickle, device auto selects the allocated runtime, optional torch import, or isolated vendored imports; algorithm and training definitions unchanged."
+    },
+    "models/kg_link_prediction/vendor/base.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "neurooracle/src/kge/base.py",
+      "source_sha256": "ddffda0ceb1ebfce068e876c3fff9774b64666d0b8aa63e5f096436b38320f03"
+    },
+    "models/kg_link_prediction/vendor/complex_scorer.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "neurooracle/src/kge/complex_scorer.py",
+      "source_sha256": "6510984574af76c0c72ed280dee41daafc130cb8f20d9069674babc7520f330a"
+    },
+    "models/kg_link_prediction/vendor/triple_loader.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "neurooracle/src/kge/triple_loader.py",
+      "source_sha256": "89d3bca2c18a6b24226f98877ccda40de27a7991798d0c0e7730d9b051cf320d"
+    },
+    "models/lggnn/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/lggnn/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "models/lggnn/net/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/lggnn/net/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "models/lggnn/net/lggnn.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/lggnn/net/lggnn.py",
+      "source_sha256": "41226e3bf314d18d12aea37f25800dbbda3c7e12359dced17a4b4d9c5dbdb947"
+    },
+    "models/lggnn/scripts/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/lggnn/scripts/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "models/lggnn/scripts/data_adapter.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/lggnn/scripts/data_adapter.py",
+      "source_sha256": "72cd0879743f5b0322b27279fad07c8d49dc2be31bbc50d782cccbef6dce5002"
+    },
+    "models/neuroimaging_decoding/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/neuroimaging_decoding/__init__.py",
+      "source_sha256": "9f3f9d15aaa1e81c1d6a8cfd0fcb8a666820eb4edad9c6276538f1c1f8a3a67c"
+    },
+    "models/neuroimaging_decoding/roi_glm.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/neuroimaging_decoding/roi_glm.py",
+      "source_sha256": "11a1691e6c8034f726fea5c60aa38b7ce2ccd2b21002e833ce5a99ecbef5b1d2"
+    },
+    "models/neuroimaging_decoding/searchlight.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/neuroimaging_decoding/searchlight.py",
+      "source_sha256": "9d2d60645a9406c8f4594709a0e06dc96b9264d1a7bbe0375b9d7223f619edce"
+    },
+    "models/neuroimaging_decoding/train.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/neuroimaging_decoding/train.py",
+      "source_sha256": "121c70c5a68f1a9475649827475f9ca954486e8e01c00aa42448d973bc939752"
+    },
+    "models/ridge/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/ridge/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "models/ridge/train.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/ridge/train.py",
+      "source_sha256": "00ddc372c70a4ada452ea1a21772c6d4845f46130bc9ce0e152f48960ac87ed3",
+      "local_adjustments": "Input loading disables Pickle, device auto selects the allocated runtime, optional torch import, or isolated vendored imports; algorithm and training definitions unchanged."
+    },
+    "models/scripts/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/scripts/__init__.py",
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "models/scripts/hypothesis_roi_mapper.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/scripts/hypothesis_roi_mapper.py",
+      "source_sha256": "d0b312660e035d0ed1b233180e12e975f304e78dfdb8973acac0c75cd04fde27"
+    },
+    "models/scripts/kg_guided_experiment.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/scripts/kg_guided_experiment.py",
+      "source_sha256": "6a8edaaa54904e85118a1d7031d70cab2541b64432b00fe30f9a7497f85dd7da"
+    },
+    "models/scripts/kg_prediction_tasks.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/scripts/kg_prediction_tasks.py",
+      "source_sha256": "8c8b1535362c35094ee37d84870c426e45d445e6ccbd70d19b360a89bfc5d59e"
+    },
+    "models/scripts/run_benchmark.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/scripts/run_benchmark.py",
+      "source_sha256": "7eff6cc26939f0afb540fd99c19c456fb0cbe05b77f8d7bc10814ade9e2233e0"
+    },
+    "models/scripts/sweep_targets.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/scripts/sweep_targets.py",
+      "source_sha256": "61d84848ae3ee5d4b6c08f229176339730b20d35d0e51c31a67d1392c32b71c8"
+    },
+    "models/scripts/tune_braingnn.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/scripts/tune_braingnn.py",
+      "source_sha256": "3b3244a14f536c35b572b78de38d953ad0be9888acd0bc0a211a4dc497dc3812"
+    },
+    "models/statistical_ml/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/statistical_ml/__init__.py",
+      "source_sha256": "a9e321c74526c741c76f226d53ef6b9fef2059fc8739995fedb05e69aa92d1a3"
+    },
+    "models/statistical_ml/estimators.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/statistical_ml/estimators.py",
+      "source_sha256": "fac5d0509cea79e8b02bc5bc1125b442e50533d055317f7f31c816e0885d10c6"
+    },
+    "models/statistical_ml/mixed_effects.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/statistical_ml/mixed_effects.py",
+      "source_sha256": "cef9a5e40e8b431f45a66789acbbc1734ea9d72af40e76271e907f7838799000"
+    },
+    "models/statistical_ml/train.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/statistical_ml/train.py",
+      "source_sha256": "2adb8aa65c0f032d2e16ad104f189091164f57f4b5de822c6ba64ba4fcc1bc1c"
+    },
+    "models/subtyping/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/subtyping/__init__.py",
+      "source_sha256": "afc87ee19e3a8235cbe24df0e68ec7f41d9b8560a7eade8046c83155420cc85d"
+    },
+    "models/subtyping/estimators.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/subtyping/estimators.py",
+      "source_sha256": "984441bba2351936a394c54379537c4f5a3dbab0021d4983772ab47788683842"
+    },
+    "models/subtyping/train.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/subtyping/train.py",
+      "source_sha256": "b3eb86af3bfa0027a56f0b5b96c75a6c2cdffe5a777ee5e11a4783d9609312d3"
+    },
+    "models/survival_models/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/survival_models/__init__.py",
+      "source_sha256": "f76193f01063dd54a8031354fc9c64381982a6c3343ca87d56c445b62de4a42e"
+    },
+    "models/survival_models/estimators.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/survival_models/estimators.py",
+      "source_sha256": "be494e3f2edb9a8ccf57420aeeb15de7519b73cbc9063f29ecfae2831f9f8c87"
+    },
+    "models/survival_models/metrics.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/survival_models/metrics.py",
+      "source_sha256": "5d78c878cc43b624312d8497622cae2f0f4913a3fe7e0316347beb5feb46f21c"
+    },
+    "models/survival_models/train.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/survival_models/train.py",
+      "source_sha256": "01a5bfc4f545bbd1ac80a084ee5c2bcffafd71b8dd24dad7ff29b01d63397200",
+      "local_adjustments": "Input loading disables Pickle, device auto selects the allocated runtime, optional torch import, or isolated vendored imports; algorithm and training definitions unchanged."
+    },
+    "models/temporal_models/__init__.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/temporal_models/__init__.py",
+      "source_sha256": "51fa7ff74540ca8f1f3f872abb50f07c5603e0c9897ea1b9db1c0fa18457c9f0"
+    },
+    "models/temporal_models/net.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/temporal_models/net.py",
+      "source_sha256": "31e4bdc82ecc6aa8a59450aa933a98acdf6fab511c657fce7eeb03b0e24738a5"
+    },
+    "models/temporal_models/train.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/temporal_models/train.py",
+      "source_sha256": "504e5cef33f106e5a9fbca378f3b3d49da8fad8ca9928db95df68bff7f0850a8",
+      "local_adjustments": "Input loading disables Pickle, device auto selects the allocated runtime, optional torch import, or isolated vendored imports; algorithm and training definitions unchanged."
+    },
+    "models/tests/test_extended_models.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/tests/test_extended_models.py",
+      "source_sha256": "092bd14972b00340fb862d258ebf2b8d4568b762a91909cd1e72e8d0b343f645"
+    },
+    "models/train_unified.py": {
+      "origin": "User-provided NeuroClaw source snapshot",
+      "source_path": "models/train_unified.py",
+      "source_sha256": "3904408aa561a13c7bb40f0df97294642b317fc37fa651e52e32e86683f77afd"
+    }
+  }
+}

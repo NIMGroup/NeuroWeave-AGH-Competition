@@ -1,0 +1,742 @@
+{
+  "schema_version": 1,
+  "id": "ixi-skill",
+  "description": "IXI 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：ixi 质控汇总；ixi 复制整理为 BIDS 目录；FSL 完整结构预处理（fsl_anat）；FreeSurfer recon-all（可执行）。",
+  "method_refs": [
+    {
+      "capability": "skill.ixi-skill",
+      "method_id": "reviewed-ixi-qc-summary-ixi-skill",
+      "label": "ixi 质控汇总",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "qc-summary"
+      ],
+      "execution_resolution": {},
+      "role": "Generate per-subject QC summaries for IXI processing. Multi-site aware: tracks site information and applies site-specific QC criteria。 Inputs: fmriprep_dir: Path to fMRIPrep output directory (directory); freesurfer_dir: Path to FreeSurfer output directory (directory). Registered outputs: results/output.csv.",
+      "method_ref": "reviewed.ixi-skill.ixi-qc-summary"
+    },
+    {
+      "capability": "skill.ixi-skill",
+      "method_id": "reviewed-reorganize-ixi-ixi-skill",
+      "label": "ixi 复制整理为 BIDS 目录",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "bids-reorganization",
+        "data-reorganization"
+      ],
+      "execution_resolution": {},
+      "role": "Reorganize IXI native layout to BIDS structure. Converts IXI directory layout (e.g., IXI002/, IXI002-T1.nii.gz, IXI002-T2.nii.gz) to BIDS-style structure (sub-IXI002/anat/)。 Inputs: input: Path to IXI raw directory (directory). Registered outputs: results/.",
+      "method_ref": "reviewed.ixi-skill.reorganize-ixi"
+    },
+    {
+      "capability": "skill.ixi-skill",
+      "method_id": "ixi-skill-guided--smri-processing--via-reviewed-fsl-anat-fsl-tool",
+      "label": "FSL 完整结构预处理（fsl_anat）",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "选择原文委托的具体结构处理入口；不同流程分别列出，按用户所需范围执行。",
+        "source_method_id": "ixi-skill-guided--smri-processing",
+        "target_method_id": "reviewed-fsl-anat-fsl-tool"
+      },
+      "role": "Invoke the existing FSL fsl_anat workflow on a T1-weighted image and retain its structural.anat directory, including the bias-corrected brain image。 Inputs: input: T1w NIfTI (file). Registered outputs: results/structural.anat/T1_biascorr_brain.nii.gz. Fixed invocation options: --operation fsl-anat.",
+      "method_ref": "reviewed.fsl-tool.fsl-anat"
+    }
+  ],
+  "pipeline_refs": [
+    {
+      "capability": "skill.ixi-skill",
+      "method_id": "ixi-skill-guided--smri-processing--via-freesurfer-recon-all-all",
+      "label": "FreeSurfer recon-all（可执行）",
+      "default_recommended": false,
+      "default_reason": "当用户明确要求 FreeSurfer 分割/皮层重建且已提供 T1w 时，选择服务器已验证的 recon-all Runner。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "选择原文委托的具体结构处理入口；不同流程分别列出，按用户所需范围执行。",
+        "source_method_id": "ixi-skill-guided--smri-processing",
+        "target_method_id": "freesurfer-recon-all"
+      },
+      "role": "依次执行：FreeSurfer recon-all（可执行）。输入和参数由方法契约定义。",
+      "pipeline_ref": "reviewed-freesurfer-recon-all-all-9ffa727fda"
+    }
+  ],
+  "planning_capabilities": [
+    {
+      "capability": "skill.ixi-skill",
+      "method_id": "ixi-skill-guided--data-download",
+      "skill_id": "ixi-skill",
+      "label": "Data download",
+      "description": "该入口为规划能力；用于讨论Data download的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": true,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "data-download",
+          "options": [
+            {
+              "value": "data-download",
+              "label": "Data download",
+              "description": "规划选项：Data download；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "processing_scope",
+          "argument": "processing-scope",
+          "label": "处理范围",
+          "description": "选择单个受试者、小批量或完整数据集；这里只记录规划约束。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "single_subject",
+          "options": [
+            {
+              "value": "single_subject",
+              "label": "单个受试者",
+              "description": ""
+            },
+            {
+              "value": "selected_cohort",
+              "label": "选定队列",
+              "description": ""
+            },
+            {
+              "value": "full_dataset",
+              "label": "完整数据集",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "validation_level",
+          "argument": "validation-level",
+          "label": "验证级别",
+          "description": "严格验证会要求更完整的输入、元数据和质量控制检查。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "strict",
+          "options": [
+            {
+              "value": "basic",
+              "label": "基础检查",
+              "description": ""
+            },
+            {
+              "value": "strict",
+              "label": "严格检查",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "missing_data_policy",
+          "argument": "missing-data-policy",
+          "label": "缺失数据策略",
+          "description": "遇到缺失模态或表型时采用的处理策略。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "样本与完整性",
+          "unit": "",
+          "required": true,
+          "default": "report",
+          "options": [
+            {
+              "value": "report",
+              "label": "报告并继续",
+              "description": ""
+            },
+            {
+              "value": "exclude",
+              "label": "排除不完整样本",
+              "description": ""
+            },
+            {
+              "value": "stop",
+              "label": "停止并等待处理",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "subject_filter",
+          "argument": "subject-filter",
+          "label": "受试者筛选表达式",
+          "description": "可选的受试者、诊断或队列筛选条件；留空表示不额外筛选。",
+          "type": "string",
+          "control": "text",
+          "level": "advanced",
+          "group": "样本与完整性",
+          "unit": "",
+          "required": false,
+          "default": "",
+          "options": [],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "例如：group == 'control'",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "verify_checksums",
+          "argument": "verify-checksums",
+          "label": "校验文件完整性",
+          "description": "在方案中加入校验和或文件完整性检查。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "验证与资源",
+          "unit": "",
+          "required": true,
+          "default": false,
+          "options": [
+            {
+              "value": true,
+              "label": "校验",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不校验",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "parallel_jobs",
+          "argument": "parallel-jobs",
+          "label": "并行任务数",
+          "description": "规划批量处理时允许的最大并行任务数。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "验证与资源",
+          "unit": "",
+          "required": true,
+          "default": 1,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 128.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "dataset_folder",
+          "label": "输入数据集",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "folder",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/ixi-skill/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/ixi-skill/scripts/ixi_qc_summary.py",
+          "label": "ixi_qc_summary.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/ixi-skill/scripts/reorganize_ixi.py",
+          "label": "reorganize_ixi.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "external_service",
+        "reason": "此步骤需要数据提供方账户、访问批准和明确下载范围；本地处理环境不能代替数据访问条件。",
+        "source_method_id": "ixi-skill-guided--data-download",
+        "requirements": [
+          "数据提供方授权及已批准导出/下载"
+        ]
+      }
+    },
+    {
+      "capability": "skill.ixi-skill",
+      "method_id": "ixi-skill-guided--mra-processing",
+      "skill_id": "ixi-skill",
+      "label": "MRA processing",
+      "description": "该入口为规划能力；用于讨论MRA processing的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "mra-processing",
+          "options": [
+            {
+              "value": "mra-processing",
+              "label": "MRA processing",
+              "description": "规划选项：MRA processing；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "processing_scope",
+          "argument": "processing-scope",
+          "label": "处理范围",
+          "description": "选择单个受试者、小批量或完整数据集；这里只记录规划约束。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "single_subject",
+          "options": [
+            {
+              "value": "single_subject",
+              "label": "单个受试者",
+              "description": ""
+            },
+            {
+              "value": "selected_cohort",
+              "label": "选定队列",
+              "description": ""
+            },
+            {
+              "value": "full_dataset",
+              "label": "完整数据集",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "validation_level",
+          "argument": "validation-level",
+          "label": "验证级别",
+          "description": "严格验证会要求更完整的输入、元数据和质量控制检查。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "strict",
+          "options": [
+            {
+              "value": "basic",
+              "label": "基础检查",
+              "description": ""
+            },
+            {
+              "value": "strict",
+              "label": "严格检查",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "missing_data_policy",
+          "argument": "missing-data-policy",
+          "label": "缺失数据策略",
+          "description": "遇到缺失模态或表型时采用的处理策略。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "样本与完整性",
+          "unit": "",
+          "required": true,
+          "default": "report",
+          "options": [
+            {
+              "value": "report",
+              "label": "报告并继续",
+              "description": ""
+            },
+            {
+              "value": "exclude",
+              "label": "排除不完整样本",
+              "description": ""
+            },
+            {
+              "value": "stop",
+              "label": "停止并等待处理",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "subject_filter",
+          "argument": "subject-filter",
+          "label": "受试者筛选表达式",
+          "description": "可选的受试者、诊断或队列筛选条件；留空表示不额外筛选。",
+          "type": "string",
+          "control": "text",
+          "level": "advanced",
+          "group": "样本与完整性",
+          "unit": "",
+          "required": false,
+          "default": "",
+          "options": [],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "例如：group == 'control'",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "verify_checksums",
+          "argument": "verify-checksums",
+          "label": "校验文件完整性",
+          "description": "在方案中加入校验和或文件完整性检查。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "验证与资源",
+          "unit": "",
+          "required": true,
+          "default": false,
+          "options": [
+            {
+              "value": true,
+              "label": "校验",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不校验",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "parallel_jobs",
+          "argument": "parallel-jobs",
+          "label": "并行任务数",
+          "description": "规划批量处理时允许的最大并行任务数。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "验证与资源",
+          "unit": "",
+          "required": true,
+          "default": 1,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 128.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "dataset_folder",
+          "label": "输入数据集",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "folder",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/ixi-skill/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/ixi-skill/scripts/ixi_qc_summary.py",
+          "label": "ixi_qc_summary.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/ixi-skill/scripts/reorganize_ixi.py",
+          "label": "reorganize_ixi.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [
+        "nibabel-skill"
+      ],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "needs_protocol",
+        "reason": "该条目前只有高层研究/流程说明，没有确定完整调用所需的设计、模型或输入输出约定；已实现的独立方法仍保留可选。",
+        "source_method_id": "ixi-skill-guided--mra-processing",
+        "requirements": [
+          "核对原 Skill 中此操作的具体执行协议：MRA processing"
+        ]
+      }
+    }
+  ],
+  "name": "ixi-skill",
+  "category": [
+    "数据集专属",
+    "数据集适配与质控"
+  ],
+  "scope": "dataset",
+  "keywords": [
+    "ixi-skill",
+    "BIDS",
+    "FSL"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

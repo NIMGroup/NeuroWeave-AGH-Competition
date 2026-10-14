@@ -1,0 +1,202 @@
+{
+  "label": "aomic 复制整理为 BIDS 目录",
+  "description": "Validate and reorganize AOMIC data into BIDS-style directory structure. AOMIC (Amsterdam Open MRI Collection) data is typically already in BIDS format. This script validates structure, handles edge cases, and normalizes across sub-datasets (ID1000, PIOP1, PIOP2)。 Inputs: input: Path to AOMIC data directory (directory); participants_file: Optional: path to phenotype file for participant metadata (file). Registered outputs: results/. Fixed invocation options: --copy.",
+  "runner_id": "reviewed.aomic-skill.reorganize-aomic",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "sub_dataset",
+      "argument": "sub-dataset",
+      "label": "sub-dataset",
+      "description": "AOMIC sub-dataset (default: ID1000)",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": "ID1000",
+      "options": [
+        {
+          "value": "ID1000",
+          "label": "ID1000",
+          "description": ""
+        },
+        {
+          "value": "PIOP1",
+          "label": "PIOP1",
+          "description": ""
+        },
+        {
+          "value": "PIOP2",
+          "label": "PIOP2",
+          "description": ""
+        },
+        {
+          "value": "all",
+          "label": "all",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/aomic-skill/scripts/reorganize_aomic.py:235。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "Path to AOMIC data directory",
+      "description": "Path to AOMIC data directory. Required directory input for aomic 复制整理为 BIDS 目录; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "folder",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "participants_file",
+      "type": "analysis_input",
+      "label": "Optional: path to phenotype file for participant metadata",
+      "description": "Optional: path to phenotype file for participant metadata. Optional file input for aomic 复制整理为 BIDS 目录; bind to port participants_file.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for aomic 复制整理为 BIDS 目录. Contains this operation's generated files, including results/; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/aomic-skill/scripts/reorganize_aomic.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.aomic-skill.reorganize-aomic",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.aomic-skill.reorganize-aomic",
+      "script": "skills/aomic-skill/scripts/reorganize_aomic.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "participants_file",
+          "flag": "--participants-file",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "sub_dataset",
+          "flag": "--sub-dataset",
+          "split": false
+        }
+      ],
+      "modules": [
+        "pandas",
+        "numpy"
+      ],
+      "expected": [
+        "bids/**/*.nii*"
+      ],
+      "profile": "scientific",
+      "fixed_args": [
+        "--copy"
+      ],
+      "outputs": [
+        [
+          "--output",
+          "bids"
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/aomic-skill/scripts/reorganize_aomic.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/aomic-skill/scripts/reorganize_aomic.py",
+          "source_sha256": "6328c3be4d88bf147fa4f5a7cf0b40203a9a46cb3e3d7e4a61c2b4ba7110dac2"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/aomic-skill/scripts/reorganize_aomic.py",
+          "sha256": "6328c3be4d88bf147fa4f5a7cf0b40203a9a46cb3e3d7e4a61c2b4ba7110dac2"
+        }
+      ],
+      "artifact_types": {}
+    }
+  }
+}

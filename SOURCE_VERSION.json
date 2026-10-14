@@ -1,0 +1,10 @@
+{
+  "project": "NeuroWeave-AGH-Competition",
+  "source_repository": "https://github.com/NIMGroup/NeuroWeave",
+  "source_branch": "AGH-AGNES",
+  "source_commit": "d281f803fd634ab76f3f0000e5f166207bf4cab4",
+  "agh_repository": "https://github.com/AgnesAI-Labs/agnes-harness",
+  "agh_commit": "dc267c3c78429933e2b3d8c5d544e56bb980a574",
+  "business_baseline_commit": "7ecf540296136a10bf2a39fb4342b098861dea33",
+  "history": "Independent competition snapshot; prior project history is available in the source repository."
+}

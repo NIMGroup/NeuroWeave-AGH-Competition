@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "id": "fsl.command.convert_xfm",
+  "version": "1",
+  "kind": "method",
+  "label": "FSL convert_xfm",
+  "description": "Invert or concatenate affine matrices in FSL convention.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "fsl.command.convert_xfm",
+  "parameters": [
+    {
+      "id": "operation",
+      "argument": "",
+      "label": "operation",
+      "description": "Matrix operation.",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": "inverse",
+      "options": [
+        {
+          "value": "inverse",
+          "label": "inverse",
+          "description": ""
+        },
+        {
+          "value": "concat",
+          "label": "concat",
+          "description": ""
+        },
+        {
+          "value": "fixscaleskew",
+          "label": "fixscaleskew",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Matrix operation. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "second",
+      "type": "transform_matrix",
+      "label": "second",
+      "description": "Second matrix; for concat this maps B to C.",
+      "required": false,
+      "required_when": {
+        "operation": [
+          "concat",
+          "fixscaleskew"
+        ]
+      },
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "input",
+      "type": "transform_matrix",
+      "label": "input",
+      "description": "Input matrix; for concat this maps A to B.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "transform",
+      "type": "transform_matrix",
+      "label": "transform",
+      "description": "Native command output, saved in this run’s output directory. Invert or concatenate affine matrices in FSL convention.",
+      "format": ".mat",
+      "primary": true,
+      "path_template": "transform.mat",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "transform_matrix"
+  ],
+  "output_types": [
+    "transform_matrix"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/fsl-convert_xfm.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "fsl",
+      "command": "convert_xfm",
+      "version": "installed-2412.6",
+      "argv": [
+        {
+          "tokens": [
+            "-omat",
+            {
+              "output": "transform"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-inverse"
+          ],
+          "when": {
+            "operation": [
+              "inverse"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-concat",
+            {
+              "input": "second"
+            }
+          ],
+          "when": {
+            "operation": [
+              "concat"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-fixscaleskew",
+            {
+              "input": "second"
+            }
+          ],
+          "when": {
+            "operation": [
+              "fixscaleskew"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "input": "input"
+            }
+          ],
+          "when": {},
+          "optional": false
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

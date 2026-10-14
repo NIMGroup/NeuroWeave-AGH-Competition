@@ -1,0 +1,239 @@
+{
+  "label": "影像遗传关联",
+  "description": "CLI for matrix-based imaging-genetics analysis。 Inputs: input: NPZ 矩阵数据 (file). Registered outputs: results/metrics.json.",
+  "runner_id": "reviewed.imaging-genetics-models.association",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "operation",
+      "argument": "operation",
+      "label": "关联方法",
+      "description": "选择此入口允许的现有操作或模型，具体选项见参数选项列表。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "association",
+      "options": [
+        {
+          "value": "association",
+          "label": "association",
+          "description": ""
+        },
+        {
+          "value": "lmm",
+          "label": "lmm",
+          "description": ""
+        },
+        {
+          "value": "prs",
+          "label": "prs",
+          "description": ""
+        },
+        {
+          "value": "cca",
+          "label": "cca",
+          "description": ""
+        },
+        {
+          "value": "pls",
+          "label": "pls",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 operation，由结构化 Runner 映射到现有入口参数 operation。 可选值：association, lmm, prs, cca, pls。 平台默认值：association；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "components",
+      "argument": "components",
+      "label": "components",
+      "description": "现有分解或关联算法使用的成分数量，实际允许值还受数据维度限制。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 2,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 100.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 components，由结构化 Runner 映射到现有入口参数 components。 平台默认值：2；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "NPZ 矩阵数据",
+      "description": "NPZ matrix bundle. Required file input for 影像遗传关联; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for 影像遗传关联. Contains this operation's generated files, including results/metrics.json; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_metrics_json",
+      "type": "generated_file",
+      "label": "metrics.json",
+      "description": "metrics.json: output of imaging genetics association. Relative run path: results/metrics.json. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".json",
+      "primary": false,
+      "path_template": "results/metrics.json",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/imaging-genetics-models/scripts/train_reference.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.imaging-genetics-models.association",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.imaging-genetics-models.association",
+      "script": "skills/imaging-genetics-models/scripts/train_reference.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "operation",
+          "flag": "--model"
+        },
+        {
+          "id": "components",
+          "flag": "--components"
+        }
+      ],
+      "modules": [
+        "numpy",
+        "pandas",
+        "scipy",
+        "sklearn",
+        "joblib"
+      ],
+      "expected": [
+        "metrics.json"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [
+        "models/imaging_genetics/train.py"
+      ],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/imaging-genetics-models/scripts/train_reference.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/imaging-genetics-models/scripts/train_reference.py",
+          "source_sha256": "0aab9d5f2a95cac311628dc361bc66ac1e8ab06570092eccffb8edd5decd8148"
+        },
+        "dependencies": {
+          "models/imaging_genetics/train.py": {
+            "origin": "User-provided NeuroClaw source snapshot",
+            "source_path": "models/imaging_genetics/train.py",
+            "source_sha256": "2b81e7d422cd3700050c2f1585da090dfa7185be6ca04edf580c26e72a865bc8",
+            "local_adjustments": "Input loading disables Pickle, device auto selects the allocated runtime, optional torch import, or isolated vendored imports; algorithm and training definitions unchanged."
+          }
+        },
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/imaging-genetics-models/scripts/train_reference.py",
+          "sha256": "0aab9d5f2a95cac311628dc361bc66ac1e8ab06570092eccffb8edd5decd8148"
+        },
+        {
+          "path": "models/imaging_genetics/train.py",
+          "sha256": "fe84b93a438d4095ab7f13d6171d226cb74f4b3f22d91bbbf40673dd4e8c4376"
+        }
+      ],
+      "artifact_types": {
+        "metrics.json": "generated_file"
+      }
+    }
+  }
+}

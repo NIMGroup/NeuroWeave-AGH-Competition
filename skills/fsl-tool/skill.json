@@ -1,0 +1,372 @@
+{
+  "schema_version": 1,
+  "id": "fsl-tool",
+  "description": "fsl-tool 统筹已登记的独立方法和可复用流程。支持：FSL topup / eddy；FSL dtifit；FSL FLIRT；FSL 脑提取；FSL 组织分割；FSL 运动校正；FSL 层间时间校正；FSL 非线性配准；其他方法可在详情中分页查询。",
+  "method_refs": [
+    {
+      "capability": "dwi.preprocess",
+      "method_id": "fsl_eddy",
+      "label": "FSL topup / eddy",
+      "default_recommended": false,
+      "default_reason": "当需要手动控制校正细节或已有 FSL 环境时更合适。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "使用 FSL eddy_cpu 或 eddy_cuda 完成涡流、运动与离群值校正；topup 输出可以按需接入。",
+      "method_ref": "fsl.eddy"
+    },
+    {
+      "capability": "dwi.tensor_metrics",
+      "method_id": "fsl_dtifit",
+      "label": "FSL dtifit",
+      "default_recommended": false,
+      "default_reason": "预处理已经采用 FSL 时可以减少工具切换。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "复用 FSL 环境完成经典 DTI 张量拟合。",
+      "method_ref": "fsl.dtifit"
+    },
+    {
+      "capability": "image.registration",
+      "method_id": "fsl_flirt",
+      "label": "FSL FLIRT",
+      "default_recommended": true,
+      "default_reason": "适合常见的刚体或仿射线性配准，参数清晰且执行时间较短。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "复用现有 FSL Skill 完成刚体或仿射线性配准，并输出变换矩阵。",
+      "method_ref": "fsl.flirt"
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "reviewed-bet-fsl-tool",
+      "label": "FSL 脑提取",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Extract brain tissue from the input image with FSL BET, controlling the fractional intensity threshold; save the extracted image and BET mask inside the result directory。 Inputs: input: 输入影像 (file). Registered outputs: results/image.nii.gz. Fixed invocation options: --operation bet.",
+      "method_ref": "reviewed.fsl-tool.bet"
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "reviewed-fast-fsl-tool",
+      "label": "FSL 组织分割",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Segment the input brain image into the requested number of tissue classes with FSL FAST; expose the tissue segmentation and preserve additional FAST products in the result directory。 Inputs: input: 输入影像 (file). Registered outputs: results/tissue_seg.nii.gz. Fixed invocation options: --operation fast.",
+      "method_ref": "reviewed.fsl-tool.fast"
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "reviewed-mcflirt-fsl-tool",
+      "label": "FSL 运动校正",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Correct motion in a 4D image series with FSL MCFLIRT and save the corrected series, motion plots and transformation matrices。 Inputs: input: 输入影像 (file). Registered outputs: results/image.nii.gz. Fixed invocation options: --operation mcflirt.",
+      "method_ref": "reviewed.fsl-tool.mcflirt"
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "reviewed-slicetimer-fsl-tool",
+      "label": "FSL 层间时间校正",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Correct slice acquisition timing in a 4D series with FSL slicetimer using the supplied repetition time, slice axis and acquisition order。 Inputs: input: 输入影像 (file). Registered outputs: results/image.nii.gz. Fixed invocation options: --operation slicetimer.",
+      "method_ref": "reviewed.fsl-tool.slicetimer"
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "reviewed-fnirt-fsl-tool",
+      "label": "FSL 非线性配准",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Register an input image nonlinearly to a reference with FSL FNIRT, optionally initialized by a supplied affine matrix; write the warped image and warp coefficients。 Inputs: input: 输入影像 (file); reference: 参考影像 (file); transform: 变换/形变场 (file). Registered outputs: results/image.nii.gz. Fixed invocation options: --operation fnirt.",
+      "method_ref": "reviewed.fsl-tool.fnirt"
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "reviewed-applywarp-fsl-tool",
+      "label": "FSL 应用形变",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Apply an existing FSL warp to the input image on the supplied reference grid, using linear or nearest-neighbour interpolation. This entry does not estimate a new registration。 Inputs: input: 输入影像 (file); reference: 参考影像 (file); transform: 变换/形变场 (file). Registered outputs: results/image.nii.gz. Fixed invocation options: --operation applywarp.",
+      "method_ref": "reviewed.fsl-tool.applywarp"
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "reviewed-fsl-anat-fsl-tool",
+      "label": "FSL 完整结构预处理（fsl_anat）",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Invoke the existing FSL fsl_anat workflow on a T1-weighted image and retain its structural.anat directory, including the bias-corrected brain image。 Inputs: input: T1w NIfTI (file). Registered outputs: results/structural.anat/T1_biascorr_brain.nii.gz. Fixed invocation options: --operation fsl-anat.",
+      "method_ref": "reviewed.fsl-tool.fsl-anat"
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "reviewed-bedpostx-dwi-skill",
+      "label": "FSL BEDPOSTX 纤维方向采样",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run FSL BEDPOSTX on a staged copy of preprocessed DWI, a matching brain mask and FSL gradients; estimate fibre-orientation posterior samples. FSL subprocesses stay inside the allocated job。 Inputs: input: 预处理 DWI NIfTI (file); mask: 脑掩膜 (file); bval: bval (file); bvec: bvec (file). Registered outputs: results/data.bedpostX/merged_th1samples.nii.gz, results/data.bedpostX/merged_ph1samples.nii.gz, results/data.bedpostX/merged_f1samples.nii.gz. Fixed invocation options: --operation bedpostx.",
+      "method_ref": "reviewed.dwi-skill.bedpostx"
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "reviewed-probtrackx-existing-dwi-skill",
+      "label": "FSL ProbtrackX（已有方向采样，输出纤维密度图）",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run FSL probtrackx2 from existing BEDPOSTX posterior samples with a brain mask and seed mask. Write path-density images and waytotal; it neither recomputes BEDPOSTX nor produces an MRtrix tractogram。 Inputs: samples: BEDPOSTX 结果目录 (directory); mask: 脑掩膜 (file); seed: 种子掩膜 (file). Registered outputs: results/fdt_paths.nii.gz, results/waytotal. Fixed invocation options: --operation probtrackx.",
+      "method_ref": "reviewed.dwi-skill.probtrackx-existing"
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "linked-fsl_eddy",
+      "label": "FSL topup / eddy",
+      "default_recommended": false,
+      "default_reason": "当需要手动控制校正细节或已有 FSL 环境时更合适。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "使用 FSL eddy_cpu 或 eddy_cuda 完成涡流、运动与离群值校正；topup 输出可以按需接入。",
+      "method_ref": "fsl.eddy"
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "linked-fsl_dtifit",
+      "label": "FSL dtifit",
+      "default_recommended": false,
+      "default_reason": "预处理已经采用 FSL 时可以减少工具切换。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "复用 FSL 环境完成经典 DTI 张量拟合。",
+      "method_ref": "fsl.dtifit"
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "linked-fsl_flirt",
+      "label": "FSL FLIRT",
+      "default_recommended": false,
+      "default_reason": "适合常见的刚体或仿射线性配准，参数清晰且执行时间较短。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "复用现有 FSL Skill 完成刚体或仿射线性配准，并输出变换矩阵。",
+      "method_ref": "fsl.flirt"
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "fsl-tool-guided--diffusion",
+      "label": "FSL topup / eddy",
+      "default_recommended": false,
+      "default_reason": "当需要手动控制校正细节或已有 FSL 环境时更合适。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "fsl-tool-guided--diffusion",
+        "target_method_id": "fsl_eddy"
+      },
+      "role": "使用 FSL eddy_cpu 或 eddy_cuda 完成涡流、运动与离群值校正；topup 输出可以按需接入。",
+      "method_ref": "fsl.eddy"
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "fsl.command.fslmaths",
+      "method_ref": "fsl.command.fslmaths",
+      "label": "FSL fslmaths",
+      "role": "Voxelwise arithmetic, filtering and reductions using native FSL operations.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "fsl.command.fslstats",
+      "method_ref": "fsl.command.fslstats",
+      "label": "FSL fslstats",
+      "role": "Image summary statistics. Results are captured in the command report.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "fsl.command.fslroi",
+      "method_ref": "fsl.command.fslroi",
+      "label": "FSL fslroi",
+      "role": "Extract a spatial or temporal region of an image; size -1 means all remaining samples.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "fsl.command.fslmerge",
+      "method_ref": "fsl.command.fslmerge",
+      "label": "FSL fslmerge",
+      "role": "Concatenate explicitly selected images along one axis.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "fsl.command.fslsplit",
+      "method_ref": "fsl.command.fslsplit",
+      "label": "FSL fslsplit",
+      "role": "Split a volume into separate images along one axis.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "fsl.command.fslmeants",
+      "method_ref": "fsl.command.fslmeants",
+      "label": "FSL fslmeants",
+      "role": "Extract mean, weighted, eigenvariate or voxelwise time series.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "fsl.command.fslhd",
+      "method_ref": "fsl.command.fslhd",
+      "label": "FSL fslhd",
+      "role": "Inspect image header metadata without changing the image.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "fsl.command.fslinfo",
+      "method_ref": "fsl.command.fslinfo",
+      "label": "FSL fslinfo",
+      "role": "Inspect image header metadata without changing the image.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "fsl.command.fslval",
+      "method_ref": "fsl.command.fslval",
+      "label": "FSL fslval",
+      "role": "Read a named NIfTI/Analyze header field.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "fsl.command.fslorient",
+      "method_ref": "fsl.command.fslorient",
+      "label": "FSL fslorient",
+      "role": "Inspect orientation, qform, and sform. In-place editing flags are intentionally excluded.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "fsl.command.fslreorient2std",
+      "method_ref": "fsl.command.fslreorient2std",
+      "label": "FSL fslreorient2std",
+      "role": "Reorient an image to standard label orientation; this is not registration.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "fsl.command.fslchfiletype",
+      "method_ref": "fsl.command.fslchfiletype",
+      "label": "FSL fslchfiletype",
+      "role": "Convert file format using a separate output, never overwrite the source.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "fsl.command.fslpspec",
+      "method_ref": "fsl.command.fslpspec",
+      "label": "FSL fslpspec",
+      "role": "Compute the temporal power spectrum of an image.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "fsl.command.fslcc",
+      "method_ref": "fsl.command.fslcc",
+      "label": "FSL fslcc",
+      "role": "Cross-correlate image volumes.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "fsl.command.fsl_regfilt",
+      "method_ref": "fsl.command.fsl_regfilt",
+      "label": "FSL fsl_regfilt",
+      "role": "Regress selected design components from a 4D time series.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "fsl.command.fsl_glm",
+      "method_ref": "fsl.command.fsl_glm",
+      "label": "FSL fsl_glm",
+      "role": "Fit a temporal/spatial GLM to image data using an explicitly supplied design matrix.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "fsl.command.convert_xfm",
+      "method_ref": "fsl.command.convert_xfm",
+      "label": "FSL convert_xfm",
+      "role": "Invert or concatenate affine matrices in FSL convention.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "fsl.command.invwarp",
+      "method_ref": "fsl.command.invwarp",
+      "label": "FSL invwarp",
+      "role": "Invert a nonlinear warp with an explicit reference image.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "fsl.command.convertwarp",
+      "method_ref": "fsl.command.convertwarp",
+      "label": "FSL convertwarp",
+      "role": "Compose nonlinear warps and affine matrices in a reference grid.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "fsl.command.randomise",
+      "method_ref": "fsl.command.randomise",
+      "label": "FSL randomise",
+      "role": "Permutation-based GLM inference with optional TFCE. Statistical design and exchangeability assumptions require scientific review.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "skill.fsl-tool",
+      "method_id": "fsl.command.smoothest",
+      "method_ref": "fsl.command.smoothest",
+      "label": "FSL smoothest",
+      "role": "Estimate residual smoothness for cluster inference.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "selection_rules": [
+    "已有变换时选择 applywarp，而不是重复估计配准。",
+    "eddy 使用既有 topup 结果时先检查场系数与采集参数；没有对应输入时不能把 topup 已完成当作事实。",
+    "分割、脑提取和配准是独立需求，不因选择 FSL 自动全部加入。"
+  ],
+  "name": "fsl-tool",
+  "category": [
+    "软件工具",
+    "fsl"
+  ],
+  "scope": "software",
+  "applicability": [
+    "需要使用 FSL 方法，且具备对应影像、梯度、采集参数或变换文件。"
+  ],
+  "examples": [
+    {
+      "request": "把既有非线性变换应用到影像",
+      "decision": "选择已接入的 applywarp，检查移动影像、参考影像及变换；不重新估计变换。"
+    }
+  ],
+  "keywords": [
+    "fsl-tool",
+    "FSL",
+    "FLIRT",
+    "FEAT",
+    "eddy",
+    "配准"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

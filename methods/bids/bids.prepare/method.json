@@ -1,0 +1,147 @@
+{
+  "label": "BIDS Organizer",
+  "description": "把已有 NIfTI/BIDS 数据复制到隔离输出目录，补齐 dataset_description.json、清理敏感 sidecar 字段并执行基础结构校验。DICOM 应先使用 dcm2niix 转换。",
+  "runner_id": "bids.prepare",
+  "input_types": [
+    "dataset_folder"
+  ],
+  "output_types": [
+    "bids_dwi",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "validation_level",
+      "argument": "validation-level",
+      "label": "BIDS 验证级别",
+      "description": "严格模式在没有 sub-* 或 NIfTI 时停止；基础模式复制并在报告中记录问题。",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "strict",
+      "options": [
+        {
+          "value": "basic",
+          "label": "基础检查并保留报告",
+          "description": ""
+        },
+        {
+          "value": "strict",
+          "label": "严格检查，失败即停止",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "anonymize_metadata",
+      "argument": "anonymize-metadata",
+      "label": "清理敏感元数据",
+      "description": "只在输出副本中移除常见 Patient、Institution、Physician 和日期字段。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "basic",
+      "group": "隐私与安全",
+      "unit": "",
+      "required": true,
+      "default": true,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "source_dataset",
+      "type": "dataset_folder",
+      "label": "NIfTI/BIDS 源目录",
+      "description": "包含 NIfTI 与可选 BIDS sidecar 的源目录；DICOM 数据请先运行 dcm2niix。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "folder",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path"
+      ],
+      "validation": [
+        "path_exists",
+        "inside_authorized_root"
+      ]
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "bids_dataset",
+      "type": "bids_dwi",
+      "label": "BIDS 数据集副本",
+      "description": "经过复制、元数据清理和基础验证的数据集。",
+      "format": "",
+      "primary": true,
+      "path_template": "bids/",
+      "generated_when": {}
+    },
+    {
+      "id": "validation_report",
+      "type": "generated_file",
+      "label": "BIDS 校验报告",
+      "description": "Number of subjects, number of images, number of anonymized fields, and structural issues. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".json",
+      "primary": false,
+      "path_template": "bids-validation.json",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "methods/bids/bids.prepare/method.json",
+      "label": "结构化方法声明",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "skills/bids-organizer/skill.json",
+      "label": "Skill 使用说明",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "bids.prepare",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "builtin"
+  }
+}

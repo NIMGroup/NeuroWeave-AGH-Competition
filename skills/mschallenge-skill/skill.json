@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "id": "mschallenge-skill",
+  "description": "MSCHALLENGE 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：病灶负荷统计；纵向病灶变化；mschallenge 质控汇总；mschallenge 数据校验；FSL 完整结构预处理（fsl_anat）；FreeSurfer recon-all（可执行）。",
+  "method_refs": [
+    {
+      "capability": "skill.mschallenge-skill",
+      "method_id": "reviewed-analyze-lesions-mschallenge-skill",
+      "label": "病灶负荷统计",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "lesion-analysis"
+      ],
+      "execution_resolution": {},
+      "role": "Analyze lesion masks from MS Lesion Challenge data. Computes lesion volume, count, and location statistics from binary lesion masks。 Inputs: input: 病灶影像目录 (directory). Registered outputs: results/lesions.csv.",
+      "method_ref": "reviewed.mschallenge-skill.analyze-lesions"
+    },
+    {
+      "capability": "skill.mschallenge-skill",
+      "method_id": "reviewed-longitudinal-lesion-mschallenge-skill",
+      "label": "纵向病灶变化",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "longitudinal-analysis"
+      ],
+      "execution_resolution": {},
+      "role": "Analyze longitudinal lesion changes across timepoints. Tracks lesion volume, count, and new/enlarged/resolved lesions across multiple timepoints for each subject。 Inputs: input: 病灶影像目录 (directory). Registered outputs: results/lesions.csv.",
+      "method_ref": "reviewed.mschallenge-skill.longitudinal-lesion"
+    },
+    {
+      "capability": "skill.mschallenge-skill",
+      "method_id": "reviewed-mschallenge-qc-summary-mschallenge-skill",
+      "label": "mschallenge 质控汇总",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "qc-summary"
+      ],
+      "execution_resolution": {},
+      "role": "Generate per-subject QC summaries for MS Challenge processing. Checks modality completeness, ground truth presence, and data quality。 Inputs: input: Path to MS Challenge directory (directory). Registered outputs: results/output.csv.",
+      "method_ref": "reviewed.mschallenge-skill.mschallenge-qc-summary"
+    },
+    {
+      "capability": "skill.mschallenge-skill",
+      "method_id": "reviewed-validate-mschallenge-mschallenge-skill",
+      "label": "mschallenge 数据校验",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "bids-validation",
+        "data-validation",
+        "eeg-validation"
+      ],
+      "execution_resolution": {},
+      "role": "Validate MS Lesion Challenge directory structure. Checks directory structure, modality completeness, ground truth presence, and longitudinal timepoint consistency。 Inputs: input: Path to MS Challenge directory (directory). Registered outputs: results/output.csv.",
+      "method_ref": "reviewed.mschallenge-skill.validate-mschallenge"
+    },
+    {
+      "capability": "skill.mschallenge-skill",
+      "method_id": "mschallenge-skill-guided--smri-processing--via-reviewed-fsl-anat-fsl-tool",
+      "label": "FSL 完整结构预处理（fsl_anat）",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "选择原文委托的具体结构处理入口；不同流程分别列出，按用户所需范围执行。",
+        "source_method_id": "mschallenge-skill-guided--smri-processing",
+        "target_method_id": "reviewed-fsl-anat-fsl-tool"
+      },
+      "role": "Invoke the existing FSL fsl_anat workflow on a T1-weighted image and retain its structural.anat directory, including the bias-corrected brain image。 Inputs: input: T1w NIfTI (file). Registered outputs: results/structural.anat/T1_biascorr_brain.nii.gz. Fixed invocation options: --operation fsl-anat.",
+      "method_ref": "reviewed.fsl-tool.fsl-anat"
+    }
+  ],
+  "pipeline_refs": [
+    {
+      "capability": "skill.mschallenge-skill",
+      "method_id": "mschallenge-skill-guided--smri-processing--via-freesurfer-recon-all-all",
+      "label": "FreeSurfer recon-all（可执行）",
+      "default_recommended": false,
+      "default_reason": "当用户明确要求 FreeSurfer 分割/皮层重建且已提供 T1w 时，选择服务器已验证的 recon-all Runner。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "选择原文委托的具体结构处理入口；不同流程分别列出，按用户所需范围执行。",
+        "source_method_id": "mschallenge-skill-guided--smri-processing",
+        "target_method_id": "freesurfer-recon-all"
+      },
+      "role": "依次执行：FreeSurfer recon-all（可执行）。输入和参数由方法契约定义。",
+      "pipeline_ref": "reviewed-freesurfer-recon-all-all-9ffa727fda"
+    }
+  ],
+  "planning_capabilities": [],
+  "selection_rules": [
+    "单次病灶负荷选择病灶统计；纵向变化选择同一受试者跨时点的病灶比较，并明确是否具有 ground truth。"
+  ],
+  "name": "mschallenge-skill",
+  "category": [
+    "数据集专属",
+    "数据集适配与质控"
+  ],
+  "scope": "dataset",
+  "keywords": [
+    "mschallenge-skill"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

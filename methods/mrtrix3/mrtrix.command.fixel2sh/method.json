@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix.command.fixel2sh",
+  "version": "1",
+  "kind": "method",
+  "label": "MRtrix3 fixel2sh",
+  "description": "Convert a fixel-based sparse-data image into an spherical harmonic image\nThis command generates spherical harmonic data from fixels that can be visualised using the ODF tool in MRview. The output ODF lobes are scaled according to the values in the input fixel image.\nThe spherical harmonic coefficients are stored according the conventions described the main documentation, which can be found at the following link: \nhttps://mrtrix.readthedocs.io/en/3.0.8/concepts/spherical_harmonics.html",
+  "runner_id": "mrtrix.command.fixel2sh",
+  "parameters": [
+    {
+      "id": "lmax",
+      "argument": "lmax",
+      "label": "lmax",
+      "description": "set the maximum harmonic order for the output series (Default: 8)",
+      "type": "integer",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/fixel2sh.html",
+      "minimum": 0,
+      "maximum": 30
+    },
+    {
+      "id": "info",
+      "argument": "-info",
+      "label": "info",
+      "description": "display information messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "quiet",
+      "argument": "-quiet",
+      "label": "quiet",
+      "description": "do not display information messages or progress status; alternatively, this can be achieved by setting the MRTRIX_QUIET environment variable to a non-empty string.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "debug",
+      "argument": "-debug",
+      "label": "debug",
+      "description": "display debugging messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "nthreads",
+      "argument": "nthreads",
+      "label": "nthreads",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).",
+      "type": "integer",
+      "required": true,
+      "default": 1,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/fixel2sh.html",
+      "minimum": 0,
+      "group": "计算资源",
+      "level": "advanced"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "fixel_in",
+      "type": "imaging_input",
+      "label": "fixel_in",
+      "description": "the input fixel data file.",
+      "required": true,
+      "binding": "file"
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "sh_out",
+      "type": "imaging_input",
+      "label": "sh_out",
+      "description": "the output sh image. The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".mif",
+      "path_template": "sh_out.mif"
+    }
+  ],
+  "input_types": [
+    "imaging_input"
+  ],
+  "output_types": [
+    "imaging_input"
+  ],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/fixel2sh.usage.txt",
+      "kind": "command",
+      "label": "MRtrix3 安装版原始完整帮助"
+    }
+  ],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "command": "fixel2sh",
+      "version": "3.0.8",
+      "positional": [
+        {
+          "source": "input",
+          "id": "fixel_in",
+          "optional": false
+        },
+        {
+          "source": "output",
+          "id": "sh_out",
+          "optional": false
+        }
+      ],
+      "options": [
+        {
+          "flag": "-lmax",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "lmax",
+              "kind": "INT"
+            }
+          ]
+        },
+        {
+          "flag": "-info",
+          "values": [],
+          "when": {
+            "info": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-quiet",
+          "values": [],
+          "when": {
+            "quiet": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-debug",
+          "values": [],
+          "when": {
+            "debug": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-nthreads",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "nthreads",
+              "kind": "INT"
+            }
+          ]
+        }
+      ],
+      "total_options": 9,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    }
+  }
+}

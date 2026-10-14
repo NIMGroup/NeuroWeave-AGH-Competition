@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix.dwi-to-nifti",
+  "version": "1",
+  "kind": "method",
+  "label": "DWI 转为 NIfTI",
+  "description": "仅将已有预处理 DWI 容器转换为 NIfTI；保留体素与空间信息，不证明预处理质量。梯度文件仍由独立输入绑定。",
+  "runner_id": "mrtrix.dwi-to-nifti",
+  "parameters": [],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "preprocessed_dwi",
+      "label": "input",
+      "description": "已生成的 MIF DWI；仅转换容器，不执行插值、平滑或其他预处理。",
+      "required": true,
+      "binding": "file",
+      "formats": [
+        ".mif"
+      ]
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "output",
+      "type": "preprocessed_dwi",
+      "label": "output",
+      "description": "转换后的 DWI NIfTI。梯度文件仍需独立绑定。",
+      "format": ".nii.gz",
+      "path_template": "dwi.nii.gz"
+    }
+  ],
+  "input_types": [
+    "preprocessed_dwi"
+  ],
+  "output_types": [
+    "preprocessed_dwi"
+  ],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/mrconvert.usage.txt",
+      "kind": "command",
+      "label": "MRtrix3 安装版原始完整帮助"
+    },
+    {
+      "path": "methods/mrtrix3/mrtrix.command.mrconvert/method.json",
+      "kind": "script",
+      "label": "受限容器转换使用现有原生命令契约"
+    }
+  ],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "command": "mrconvert",
+      "version": "3.0.8",
+      "positional": [
+        {
+          "source": "input",
+          "id": "input",
+          "optional": false
+        },
+        {
+          "source": "output",
+          "id": "output",
+          "optional": false
+        }
+      ],
+      "options": [],
+      "total_options": 0,
+      "omitted_options": {}
+    }
+  }
+}

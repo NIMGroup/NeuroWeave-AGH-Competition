@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "id": "brain-age-modeling",
+  "description": "brain-age-modeling 统筹已登记的独立方法和可复用流程。支持：脑龄预测与偏差校正。",
+  "method_refs": [
+    {
+      "capability": "skill.brain-age-modeling",
+      "method_id": "reviewed-train-brain-age-modeling",
+      "label": "脑龄预测与偏差校正",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-validated brain-age training with fold-local bias correction。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.brain-age-modeling.train"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "name": "brain-age-modeling",
+  "category": [
+    "任务能力",
+    "brain"
+  ],
+  "scope": "task",
+  "limitations": [
+    "Brain-PAD 是校正后的预测年龄与实际年龄之差，其解释依赖训练参考人群和偏差校正，不能单独作为疾病诊断或因果效应。"
+  ],
+  "keywords": [
+    "brain-age-modeling"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

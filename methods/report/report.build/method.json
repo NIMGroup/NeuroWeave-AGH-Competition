@@ -1,0 +1,282 @@
+{
+  "label": "结果报告",
+  "description": "生成可审阅的处理摘要、参数快照与结果清单。",
+  "runner_id": "report.build",
+  "input_types": [],
+  "output_types": [
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "detail_level",
+      "argument": "detail-level",
+      "label": "报告详细程度",
+      "description": "控制报告包含摘要、标准细节或完整诊断信息。",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "standard",
+      "options": [
+        {
+          "value": "summary",
+          "label": "摘要",
+          "description": ""
+        },
+        {
+          "value": "standard",
+          "label": "标准",
+          "description": ""
+        },
+        {
+          "value": "diagnostic",
+          "label": "完整诊断",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "include_qc",
+      "argument": "include-qc",
+      "label": "包含质量控制",
+      "description": "汇总每个步骤产生的 QC 指标、警告和图表引用。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": true,
+      "options": [
+        {
+          "value": true,
+          "label": "包含",
+          "description": ""
+        },
+        {
+          "value": false,
+          "label": "不包含",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "output_format",
+      "argument": "output-format",
+      "label": "输出格式",
+      "description": "生成 HTML、Markdown 或 JSON 结构化报告。",
+      "type": "string",
+      "control": "select",
+      "level": "advanced",
+      "group": "输出",
+      "unit": "",
+      "required": true,
+      "default": "html",
+      "options": [
+        {
+          "value": "html",
+          "label": "HTML",
+          "description": ""
+        },
+        {
+          "value": "markdown",
+          "label": "Markdown",
+          "description": ""
+        },
+        {
+          "value": "json",
+          "label": "JSON",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "include_commands",
+      "argument": "include-commands",
+      "label": "包含命令与参数",
+      "description": "在报告中记录命令预览和完整参数快照。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "可复现性",
+      "unit": "",
+      "required": true,
+      "default": true,
+      "options": [
+        {
+          "value": true,
+          "label": "包含",
+          "description": ""
+        },
+        {
+          "value": false,
+          "label": "不包含",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "include_environment",
+      "argument": "include-environment",
+      "label": "包含环境信息",
+      "description": "记录软件版本、容器或 Conda 环境摘要。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "可复现性",
+      "unit": "",
+      "required": true,
+      "default": true,
+      "options": [
+        {
+          "value": true,
+          "label": "包含",
+          "description": ""
+        },
+        {
+          "value": false,
+          "label": "不包含",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "anonymize_paths",
+      "argument": "anonymize-paths",
+      "label": "匿名化本地路径",
+      "description": "从导出的报告中移除用户名和绝对目录前缀。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "隐私",
+      "unit": "",
+      "required": true,
+      "default": true,
+      "options": [
+        {
+          "value": true,
+          "label": "匿名化",
+          "description": ""
+        },
+        {
+          "value": false,
+          "label": "保留完整路径",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [],
+  "output_slots": [
+    {
+      "id": "report",
+      "type": "generated_file",
+      "label": "处理报告",
+      "description": "HTML, Markdown, or JSON files containing the pipeline, parameters, input bindings, dry-run, and environment snapshot. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": "",
+      "primary": true,
+      "path_template": "localflow-report.{format}",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "methods/report/report.build/method.json",
+      "label": "结构化方法声明",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "skills/report-builder/skill.json",
+      "label": "Skill 使用说明",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "report.build",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "builtin"
+  }
+}

@@ -1,0 +1,240 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix3.command.dcminfo",
+  "version": "1",
+  "kind": "method",
+  "label": "MRtrix3 dcminfo",
+  "description": "Output DICOM fields in human-readable format\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "mrtrix3.command.dcminfo",
+  "parameters": [
+    {
+      "id": "all",
+      "argument": "-all",
+      "label": "all",
+      "description": "print all DICOM fields.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "print all DICOM fields. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "csa",
+      "argument": "-csa",
+      "label": "csa",
+      "description": "print all Siemens CSA fields (excluding Phoenix unless requested)",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "print all Siemens CSA fields (excluding Phoenix unless requested) Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "phoenix",
+      "argument": "-phoenix",
+      "label": "phoenix",
+      "description": "print Siemens Phoenix protocol information",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "print Siemens Phoenix protocol information Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "nthreads",
+      "argument": "",
+      "label": "nthreads",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading). ",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 1,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 128.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).  Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "file",
+      "type": "generated_file",
+      "label": "file",
+      "description": "the DICOM file to be scanned.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "report",
+      "type": "execution_log",
+      "label": "report",
+      "description": "Native command output, saved in this run’s output directory. Output DICOM fields in human-readable format",
+      "format": ".log",
+      "primary": true,
+      "path_template": "command.log",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "generated_file"
+  ],
+  "output_types": [
+    "execution_log"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/dcminfo.usage.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "mrtrix3",
+      "command": "dcminfo",
+      "version": "3.0.8",
+      "argv": [
+        {
+          "tokens": [
+            {
+              "input": "file"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-all"
+          ],
+          "when": {
+            "all": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-csa"
+          ],
+          "when": {
+            "csa": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-phoenix"
+          ],
+          "when": {
+            "phoenix": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-nthreads",
+            {
+              "parameter": "nthreads"
+            }
+          ],
+          "when": {},
+          "optional": true
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "tag": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "info": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "quiet": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "debug": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "force": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "config": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "help": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "version": "Managed by the platform or requires a specialized repeated/text argument contract."
+      }
+    }
+  }
+}

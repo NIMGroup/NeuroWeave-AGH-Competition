@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix.command.5ttedit",
+  "version": "2",
+  "kind": "method",
+  "label": "MRtrix3 5ttedit",
+  "description": "Manually set the partial volume fractions in an ACT five-tissue-type (5TT) image using mask images",
+  "runner_id": "mrtrix.command.5ttedit",
+  "parameters": [
+    {
+      "id": "info",
+      "argument": "-info",
+      "label": "info",
+      "description": "display information messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "quiet",
+      "argument": "-quiet",
+      "label": "quiet",
+      "description": "do not display information messages or progress status; alternatively, this can be achieved by setting the MRTRIX_QUIET environment variable to a non-empty string.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "debug",
+      "argument": "-debug",
+      "label": "debug",
+      "description": "display debugging messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "nthreads",
+      "argument": "nthreads",
+      "label": "nthreads",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).",
+      "type": "integer",
+      "required": true,
+      "default": 1,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/5ttedit.html",
+      "minimum": 0,
+      "group": "计算资源",
+      "level": "advanced"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "the 5TT image to be modified",
+      "required": true,
+      "binding": "file"
+    },
+    {
+      "id": "cgm",
+      "type": "imaging_input",
+      "label": "cgm",
+      "description": "provide a mask of voxels that should be set to cortical grey matter",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "sgm",
+      "type": "imaging_input",
+      "label": "sgm",
+      "description": "provide a mask of voxels that should be set to sub-cortical grey matter",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "wm",
+      "type": "imaging_input",
+      "label": "wm",
+      "description": "provide a mask of voxels that should be set to white matter",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "csf",
+      "type": "imaging_input",
+      "label": "csf",
+      "description": "provide a mask of voxels that should be set to CSF",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "path",
+      "type": "imaging_input",
+      "label": "path",
+      "description": "provide a mask of voxels that should be set to pathological tissue",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "none",
+      "type": "imaging_input",
+      "label": "none",
+      "description": "provide a mask of voxels that should be cleared (i.e. are non-brain); note that this will supersede all other provided masks",
+      "required": false,
+      "binding": "file"
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "output",
+      "type": "five_tt_image",
+      "label": "output",
+      "description": "the output modified 5TT image",
+      "format": ".mif",
+      "path_template": "output.mif"
+    }
+  ],
+  "input_types": [
+    "imaging_input"
+  ],
+  "output_types": [
+    "five_tt_image"
+  ],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/5ttedit.usage.txt",
+      "kind": "command",
+      "label": "MRtrix3 安装版原始完整帮助"
+    }
+  ],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "command": "5ttedit",
+      "version": "3.0.8",
+      "positional": [
+        {
+          "source": "input",
+          "id": "input",
+          "optional": false
+        },
+        {
+          "source": "output",
+          "id": "output",
+          "optional": false
+        }
+      ],
+      "options": [
+        {
+          "flag": "-cgm",
+          "values": [
+            {
+              "source": "input",
+              "id": "cgm"
+            }
+          ]
+        },
+        {
+          "flag": "-sgm",
+          "values": [
+            {
+              "source": "input",
+              "id": "sgm"
+            }
+          ]
+        },
+        {
+          "flag": "-wm",
+          "values": [
+            {
+              "source": "input",
+              "id": "wm"
+            }
+          ]
+        },
+        {
+          "flag": "-csf",
+          "values": [
+            {
+              "source": "input",
+              "id": "csf"
+            }
+          ]
+        },
+        {
+          "flag": "-path",
+          "values": [
+            {
+              "source": "input",
+              "id": "path"
+            }
+          ]
+        },
+        {
+          "flag": "-none",
+          "values": [
+            {
+              "source": "input",
+              "id": "none"
+            }
+          ]
+        },
+        {
+          "flag": "-info",
+          "values": [],
+          "when": {
+            "info": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-quiet",
+          "values": [],
+          "when": {
+            "quiet": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-debug",
+          "values": [],
+          "when": {
+            "debug": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-nthreads",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "nthreads",
+              "kind": "INT"
+            }
+          ]
+        }
+      ],
+      "total_options": 14,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    }
+  }
+}

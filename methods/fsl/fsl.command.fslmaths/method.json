@@ -1,0 +1,604 @@
+{
+  "schema_version": 1,
+  "id": "fsl.command.fslmaths",
+  "version": "1",
+  "kind": "method",
+  "label": "FSL fslmaths",
+  "description": "Voxelwise arithmetic, filtering and reductions using native FSL operations.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "fsl.command.fslmaths",
+  "parameters": [
+    {
+      "id": "operation",
+      "argument": "",
+      "label": "operation",
+      "description": "Choose one native operation. Compose multiple operations as Pipeline steps.",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": "-bin",
+      "options": [
+        {
+          "value": "-exp",
+          "label": "-exp",
+          "description": ""
+        },
+        {
+          "value": "-log",
+          "label": "-log",
+          "description": ""
+        },
+        {
+          "value": "-sin",
+          "label": "-sin",
+          "description": ""
+        },
+        {
+          "value": "-cos",
+          "label": "-cos",
+          "description": ""
+        },
+        {
+          "value": "-tan",
+          "label": "-tan",
+          "description": ""
+        },
+        {
+          "value": "-asin",
+          "label": "-asin",
+          "description": ""
+        },
+        {
+          "value": "-acos",
+          "label": "-acos",
+          "description": ""
+        },
+        {
+          "value": "-atan",
+          "label": "-atan",
+          "description": ""
+        },
+        {
+          "value": "-sqr",
+          "label": "-sqr",
+          "description": ""
+        },
+        {
+          "value": "-sqrt",
+          "label": "-sqrt",
+          "description": ""
+        },
+        {
+          "value": "-recip",
+          "label": "-recip",
+          "description": ""
+        },
+        {
+          "value": "-abs",
+          "label": "-abs",
+          "description": ""
+        },
+        {
+          "value": "-bin",
+          "label": "-bin",
+          "description": ""
+        },
+        {
+          "value": "-binv",
+          "label": "-binv",
+          "description": ""
+        },
+        {
+          "value": "-nan",
+          "label": "-nan",
+          "description": ""
+        },
+        {
+          "value": "-nanm",
+          "label": "-nanm",
+          "description": ""
+        },
+        {
+          "value": "-dilM",
+          "label": "-dilM",
+          "description": ""
+        },
+        {
+          "value": "-dilD",
+          "label": "-dilD",
+          "description": ""
+        },
+        {
+          "value": "-dilF",
+          "label": "-dilF",
+          "description": ""
+        },
+        {
+          "value": "-ero",
+          "label": "-ero",
+          "description": ""
+        },
+        {
+          "value": "-eroF",
+          "label": "-eroF",
+          "description": ""
+        },
+        {
+          "value": "-fmean",
+          "label": "-fmean",
+          "description": ""
+        },
+        {
+          "value": "-fmedian",
+          "label": "-fmedian",
+          "description": ""
+        },
+        {
+          "value": "-fillh",
+          "label": "-fillh",
+          "description": ""
+        },
+        {
+          "value": "-fillh26",
+          "label": "-fillh26",
+          "description": ""
+        },
+        {
+          "value": "-Tmean",
+          "label": "-Tmean",
+          "description": ""
+        },
+        {
+          "value": "-Tstd",
+          "label": "-Tstd",
+          "description": ""
+        },
+        {
+          "value": "-Tmin",
+          "label": "-Tmin",
+          "description": ""
+        },
+        {
+          "value": "-Tmax",
+          "label": "-Tmax",
+          "description": ""
+        },
+        {
+          "value": "-Tmedian",
+          "label": "-Tmedian",
+          "description": ""
+        },
+        {
+          "value": "-Tsum",
+          "label": "-Tsum",
+          "description": ""
+        },
+        {
+          "value": "-Tmaxn",
+          "label": "-Tmaxn",
+          "description": ""
+        },
+        {
+          "value": "-Tminn",
+          "label": "-Tminn",
+          "description": ""
+        },
+        {
+          "value": "-Tar1",
+          "label": "-Tar1",
+          "description": ""
+        },
+        {
+          "value": "-index",
+          "label": "-index",
+          "description": ""
+        },
+        {
+          "value": "-edge",
+          "label": "-edge",
+          "description": ""
+        },
+        {
+          "value": "-add",
+          "label": "-add",
+          "description": ""
+        },
+        {
+          "value": "-sub",
+          "label": "-sub",
+          "description": ""
+        },
+        {
+          "value": "-mul",
+          "label": "-mul",
+          "description": ""
+        },
+        {
+          "value": "-div",
+          "label": "-div",
+          "description": ""
+        },
+        {
+          "value": "-rem",
+          "label": "-rem",
+          "description": ""
+        },
+        {
+          "value": "-max",
+          "label": "-max",
+          "description": ""
+        },
+        {
+          "value": "-min",
+          "label": "-min",
+          "description": ""
+        },
+        {
+          "value": "-thr",
+          "label": "-thr",
+          "description": ""
+        },
+        {
+          "value": "-uthr",
+          "label": "-uthr",
+          "description": ""
+        },
+        {
+          "value": "-thrp",
+          "label": "-thrp",
+          "description": ""
+        },
+        {
+          "value": "-uthrp",
+          "label": "-uthrp",
+          "description": ""
+        },
+        {
+          "value": "-thrP",
+          "label": "-thrP",
+          "description": ""
+        },
+        {
+          "value": "-uthrP",
+          "label": "-uthrP",
+          "description": ""
+        },
+        {
+          "value": "-s",
+          "label": "-s",
+          "description": ""
+        },
+        {
+          "value": "-inm",
+          "label": "-inm",
+          "description": ""
+        },
+        {
+          "value": "-ing",
+          "label": "-ing",
+          "description": ""
+        },
+        {
+          "value": "-mas",
+          "label": "-mas",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Choose one native operation. Compose multiple operations as Pipeline steps. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "value",
+      "argument": "",
+      "label": "value",
+      "description": "Numeric operand, threshold, target mean, or smoothing sigma in mm.",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "operation": [
+          "-add",
+          "-sub",
+          "-mul",
+          "-div",
+          "-rem",
+          "-max",
+          "-min",
+          "-thr",
+          "-uthr",
+          "-thrp",
+          "-uthrp",
+          "-thrP",
+          "-uthrP",
+          "-s",
+          "-inm",
+          "-ing"
+        ]
+      },
+      "required_when": {
+        "operation": [
+          "-add",
+          "-sub",
+          "-mul",
+          "-div",
+          "-rem",
+          "-max",
+          "-min",
+          "-thr",
+          "-uthr",
+          "-thrp",
+          "-uthrp",
+          "-thrP",
+          "-uthrP",
+          "-s",
+          "-inm",
+          "-ing"
+        ]
+      },
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "Required only for the selected operation.",
+      "usage": "Numeric operand, threshold, target mean, or smoothing sigma in mm. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "odt",
+      "argument": "-odt",
+      "label": "odt",
+      "description": "Output storage datatype.",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [
+        {
+          "value": "char",
+          "label": "char",
+          "description": ""
+        },
+        {
+          "value": "short",
+          "label": "short",
+          "description": ""
+        },
+        {
+          "value": "int",
+          "label": "int",
+          "description": ""
+        },
+        {
+          "value": "float",
+          "label": "float",
+          "description": ""
+        },
+        {
+          "value": "double",
+          "label": "double",
+          "description": ""
+        },
+        {
+          "value": "input",
+          "label": "input",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Output storage datatype. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "mask",
+      "type": "brain_mask",
+      "label": "mask",
+      "description": "Binary mask used by -mas.",
+      "required": false,
+      "required_when": {
+        "operation": [
+          "-mas"
+        ]
+      },
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "output",
+      "type": "imaging_input",
+      "label": "output",
+      "description": "Native command output, saved in this run’s output directory. Voxelwise arithmetic, filtering and reductions using native FSL operations. The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".nii.gz",
+      "primary": true,
+      "path_template": "output.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "imaging_input",
+    "brain_mask"
+  ],
+  "output_types": [
+    "imaging_input"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/fsl-fslmaths.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "fsl",
+      "command": "fslmaths",
+      "version": "installed-2412.6",
+      "argv": [
+        {
+          "tokens": [
+            {
+              "input": "input"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "parameter": "operation"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "parameter": "value"
+            }
+          ],
+          "when": {
+            "operation": [
+              "-add",
+              "-sub",
+              "-mul",
+              "-div",
+              "-rem",
+              "-max",
+              "-min",
+              "-thr",
+              "-uthr",
+              "-thrp",
+              "-uthrp",
+              "-thrP",
+              "-uthrP",
+              "-s",
+              "-inm",
+              "-ing"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "input": "mask"
+            }
+          ],
+          "when": {
+            "operation": [
+              "-mas"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "output": "output"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-odt",
+            {
+              "parameter": "odt"
+            }
+          ],
+          "when": {},
+          "optional": true
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

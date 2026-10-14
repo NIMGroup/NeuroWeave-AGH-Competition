@@ -1,0 +1,292 @@
+{
+  "label": "任务态一级 GLM",
+  "description": "Reference Nilearn snippet for first-level task GLM。 Inputs: bold: 预处理 BOLD 影像 (file); events: 事件表 (file); confounds: 混杂变量 (file); mask: 脑掩膜 (file). Registered outputs: results/z_map.nii.gz, results/effect_map.nii.gz.",
+  "runner_id": "reviewed.nilearn-tool.task-glm",
+  "input_types": [
+    "bold_image",
+    "analysis_input",
+    "brain_mask"
+  ],
+  "output_types": [
+    "generated_folder",
+    "z_stat_map",
+    "contrast_image"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "tr",
+      "argument": "tr",
+      "label": "TR（秒）",
+      "description": "Repetition time in seconds.",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 2.0,
+      "options": [],
+      "minimum": 0.01,
+      "maximum": 100.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/nilearn-tool/scripts/denoise_timeseries_reference.py:38。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "contrast",
+      "argument": "contrast",
+      "label": "对比表达式",
+      "description": "Named contrast expression.",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/nilearn-tool/scripts/task_glm_reference.py:45。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "bold",
+      "type": "bold_image",
+      "label": "预处理 BOLD 影像",
+      "description": "Input preprocessed task BOLD NIfTI. Required file input for 任务态一级 GLM; bind to port bold.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "events",
+      "type": "analysis_input",
+      "label": "事件表",
+      "description": "Events TSV/CSV with onset, duration, and trial_type. Required file input for 任务态一级 GLM; bind to port events.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "confounds",
+      "type": "analysis_input",
+      "label": "混杂变量",
+      "description": "Optional confounds TSV/CSV. Optional file input for 任务态一级 GLM; bind to port confounds.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "mask",
+      "type": "brain_mask",
+      "label": "脑掩膜",
+      "description": "Optional mask image. Optional file input for 任务态一级 GLM; bind to port mask.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for 任务态一级 GLM. Contains this operation's generated files, including results/z_map.nii.gz, results/effect_map.nii.gz; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_z_map_nii_gz",
+      "type": "z_stat_map",
+      "label": "z_map.nii.gz",
+      "description": "z_map.nii.gz: output of 任务态一级 GLM. Relative run path: results/z_map.nii.gz.",
+      "format": ".nii.gz",
+      "primary": false,
+      "path_template": "results/z_map.nii.gz",
+      "generated_when": {}
+    },
+    {
+      "id": "file_effect_map_nii_gz",
+      "type": "contrast_image",
+      "label": "effect_map.nii.gz",
+      "description": "effect_map.nii.gz: output of 任务态一级 GLM. Relative run path: results/effect_map.nii.gz.",
+      "format": ".nii.gz",
+      "primary": false,
+      "path_template": "results/effect_map.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/nilearn-tool/scripts/task_glm_reference.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.nilearn-tool.task-glm",
+  "version": "2",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.nilearn-tool.task-glm",
+      "script": "skills/nilearn-tool/scripts/task_glm_reference.py",
+      "inputs": [
+        {
+          "id": "bold",
+          "flag": "--bold",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "events",
+          "flag": "--events",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "confounds",
+          "flag": "--confounds",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "mask",
+          "flag": "--mask",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "tr",
+          "flag": "--tr"
+        },
+        {
+          "id": "contrast",
+          "flag": "--contrast"
+        }
+      ],
+      "modules": [
+        "numpy",
+        "pandas",
+        "nibabel",
+        "nilearn"
+      ],
+      "expected": [
+        "z_map.nii.gz",
+        "effect_map.nii.gz"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/nilearn-tool/scripts/task_glm_reference.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/nilearn-tool/scripts/task_glm_reference.py",
+          "source_sha256": "8109b818c82741c03750a4395da850b4e9da9bcfb854eddd004ff2bc566909ca"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/nilearn-tool/scripts/task_glm_reference.py",
+          "sha256": "4f8773fcfbb964273f5814a84303b50edaa2a1749867e9ae3cd55ff15da17cfc"
+        }
+      ],
+      "artifact_types": {
+        "z_map.nii.gz": "z_stat_map",
+        "effect_map.nii.gz": "contrast_image"
+      }
+    }
+  }
+}

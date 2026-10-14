@@ -1,0 +1,246 @@
+{
+  "label": "数据集巡检",
+  "description": "扫描授权目录的结构和轻量元数据，形成处理前检查摘要。",
+  "runner_id": "dataset.inspect",
+  "input_types": [],
+  "output_types": [],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "inspection_scope",
+      "argument": "inspection-scope",
+      "label": "巡检范围",
+      "description": "控制只检查结构，还是进一步读取轻量影像头和元数据。",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "metadata",
+      "options": [
+        {
+          "value": "structure",
+          "label": "仅目录结构",
+          "description": ""
+        },
+        {
+          "value": "metadata",
+          "label": "结构与元数据",
+          "description": ""
+        },
+        {
+          "value": "headers",
+          "label": "包含影像头",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "bids_validation",
+      "argument": "bids-validation",
+      "label": "检查 BIDS 规范",
+      "description": "检测 BIDS 结构、命名和关键 sidecar。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": true,
+      "options": [
+        {
+          "value": true,
+          "label": "检查",
+          "description": ""
+        },
+        {
+          "value": false,
+          "label": "跳过",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "max_files",
+      "argument": "max-files",
+      "label": "最大检查文件数",
+      "description": "限制深度巡检读取的文件数量，0 表示不限制。",
+      "type": "integer",
+      "control": "number",
+      "level": "advanced",
+      "group": "扫描限制",
+      "unit": "",
+      "required": true,
+      "default": 10000,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 10000000.0,
+      "step": 100.0,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "follow_links",
+      "argument": "follow-links",
+      "label": "跟随符号链接",
+      "description": "是否进入数据目录中的符号链接目标。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "扫描限制",
+      "unit": "",
+      "required": true,
+      "default": false,
+      "options": [
+        {
+          "value": true,
+          "label": "跟随",
+          "description": ""
+        },
+        {
+          "value": false,
+          "label": "不跟随",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "compute_checksums",
+      "argument": "compute-checksums",
+      "label": "计算校验和",
+      "description": "为文件生成校验和；大型数据集会显著增加巡检时间。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "完整性",
+      "unit": "",
+      "required": true,
+      "default": false,
+      "options": [
+        {
+          "value": true,
+          "label": "计算",
+          "description": ""
+        },
+        {
+          "value": false,
+          "label": "不计算",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "sample_subjects",
+      "argument": "sample-subjects",
+      "label": "头信息抽样数",
+      "description": "读取影像头时抽样的受试者数量。",
+      "type": "integer",
+      "control": "number",
+      "level": "advanced",
+      "group": "完整性",
+      "unit": "",
+      "required": true,
+      "default": 5,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 1000.0,
+      "step": 1.0,
+      "placeholder": "",
+      "visible_when": {
+        "inspection_scope": [
+          "headers"
+        ]
+      },
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [],
+  "output_slots": [],
+  "source_references": [
+    {
+      "path": "methods/dataset/dataset.inspect/method.json",
+      "label": "结构化方法声明",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "skills/dataset-inspector/skill.json",
+      "label": "Skill 使用说明",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "dataset.inspect",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "builtin"
+  }
+}

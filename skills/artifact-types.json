@@ -1,0 +1,415 @@
+{
+  "schema_version": 1,
+  "artifact_types": [
+    {
+      "id": "dataset_folder",
+      "label": "数据集目录",
+      "description": "位于已授权数据根目录中的输入文件夹。",
+      "kind": "folder"
+    },
+    {
+      "id": "imaging_input",
+      "label": "影像或工具输入",
+      "description": "尚未细化为专用制品类型的影像文件、文件组合或工具输入目录。",
+      "kind": "artifact",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mgz",
+        ".mgh",
+        ".dcm",
+        ".mat",
+        ".csv",
+        ".tsv"
+      ]
+    },
+    {
+      "id": "analysis_input",
+      "label": "分析输入",
+      "description": "模型、统计或连接组分析使用的表格、数组、图结构或特征文件。",
+      "kind": "artifact",
+      "formats": [
+        ".csv",
+        ".tsv",
+        ".npy",
+        ".npz",
+        ".mat",
+        ".json",
+        ".graphml"
+      ]
+    },
+    {
+      "id": "planned_artifact",
+      "label": "规划产物",
+      "description": "planning 方法声明的预期结果；不表示文件已经由 runner 生成。",
+      "kind": "artifact"
+    },
+    {
+      "id": "raw_dwi",
+      "label": "原始 DWI 数据",
+      "description": "尚未整理或预处理的扩散影像数据。",
+      "kind": "file_bundle",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".dcm"
+      ],
+      "companions": [
+        "bval",
+        "bvec"
+      ]
+    },
+    {
+      "id": "bids_dwi",
+      "label": "BIDS DWI 数据集",
+      "description": "符合 BIDS 命名和元数据要求的 DWI 数据集。",
+      "kind": "folder",
+      "companions": [
+        "dataset_description.json",
+        "bval",
+        "bvec"
+      ]
+    },
+    {
+      "id": "preprocessed_dwi",
+      "label": "预处理后的 DWI",
+      "description": "已经完成运动、涡流和畸变校正，可用于建模或追踪的 DWI 数据。",
+      "kind": "file_bundle",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif"
+      ],
+      "companions": [
+        "bval",
+        "bvec"
+      ]
+    },
+    {
+      "id": "preprocess_qc",
+      "label": "预处理质量控制",
+      "description": "预处理产生的质量控制指标、图像和报告。",
+      "kind": "artifact"
+    },
+    {
+      "id": "t1w_image",
+      "label": "T1w 结构像",
+      "description": "用于组织分割、ACT 或空间配准的高分辨率结构像。",
+      "kind": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif"
+      ]
+    },
+    {
+      "id": "brain_mask",
+      "label": "脑或 DWI Mask",
+      "description": "限制拟合、配准或统计范围的二值掩膜影像。",
+      "kind": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif"
+      ]
+    },
+    {
+      "id": "gradient_table",
+      "label": "扩散梯度表",
+      "description": "DWI 的 b-value 或 b-vector 文本文件。",
+      "kind": "file",
+      "formats": [
+        ".bval",
+        ".bvec",
+        ".txt"
+      ]
+    },
+    {
+      "id": "registered_image",
+      "label": "配准后影像",
+      "description": "重采样到参考空间的配准结果。",
+      "kind": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ]
+    },
+    {
+      "id": "transform_matrix",
+      "label": "空间变换",
+      "description": "图像配准产生的线性矩阵、形变场或复合变换。",
+      "kind": "file",
+      "formats": [
+        ".mat",
+        ".txt",
+        ".h5",
+        ".nii",
+        ".nii.gz"
+      ]
+    },
+    {
+      "id": "diffusion_metrics",
+      "label": "扩散张量指标",
+      "description": "dtifit 等工具生成的 FA、MD、特征值或张量影像。",
+      "kind": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif"
+      ]
+    },
+    {
+      "id": "freesurfer_subject",
+      "label": "FreeSurfer 受试者目录",
+      "description": "FreeSurfer subject directory. The available derivatives depend on the completed reconstruction stages; bind individual declared files when a downstream method needs a specific image or table.",
+      "kind": "folder"
+    },
+    {
+      "id": "five_tt_image",
+      "label": "5TT 组织分割",
+      "description": "ACT 解剖约束追踪使用的五组织类型影像。",
+      "kind": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif"
+      ]
+    },
+    {
+      "id": "seed_mask",
+      "label": "种子 Mask/ROI",
+      "description": "指定纤维追踪起始位置的二值或标签影像。",
+      "kind": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif"
+      ]
+    },
+    {
+      "id": "target_mask",
+      "label": "目标 Mask/ROI",
+      "description": "纤维追踪需要到达或统计的目标区域。",
+      "kind": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".txt"
+      ]
+    },
+    {
+      "id": "waypoint_mask",
+      "label": "Waypoint Mask",
+      "description": "追踪路径可选的必经区域。",
+      "kind": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif"
+      ]
+    },
+    {
+      "id": "exclusion_mask",
+      "label": "排除 Mask",
+      "description": "追踪路径不得进入的可选区域。",
+      "kind": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif"
+      ]
+    },
+    {
+      "id": "parcellation_image",
+      "label": "脑区分区图",
+      "description": "Integer brain-region node image with an explicitly chosen parcellation scheme. Anatomical atlas identity, label lookup table, subject and physical space must be checked before connectivity use. A type declaration alone does not certify alignment.",
+      "kind": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ]
+    },
+    {
+      "id": "scalar_image",
+      "label": "标量影像",
+      "description": "Voxel-wise scalar quantities such as diffusion metrics, coefficients or intensities. Units, sign, normalization and physical space are determined by the producing method; these are not discrete node labels.",
+      "kind": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif"
+      ]
+    },
+    {
+      "id": "response_functions",
+      "label": "组织响应函数",
+      "description": "约束球面反卷积使用的组织响应函数文件。",
+      "kind": "artifact",
+      "formats": [
+        ".txt"
+      ]
+    },
+    {
+      "id": "fod_image",
+      "label": "纤维方向分布",
+      "description": "球面反卷积估计的纤维方向分布影像。",
+      "kind": "file",
+      "formats": [
+        ".mif",
+        ".nii",
+        ".nii.gz"
+      ]
+    },
+    {
+      "id": "tractogram",
+      "label": "纤维流线文件",
+      "description": "确定性或概率纤维追踪生成的流线集合。",
+      "kind": "file",
+      "formats": [
+        ".tck",
+        ".trk"
+      ]
+    },
+    {
+      "id": "streamline_weights",
+      "label": "流线权重",
+      "description": "SIFT2 等方法为每条流线生成的定量权重。",
+      "kind": "file",
+      "formats": [
+        ".txt",
+        ".csv"
+      ]
+    },
+    {
+      "id": "connectome",
+      "label": "结构连接组矩阵",
+      "description": "根据分区图和流线汇总得到的 ROI×ROI 连接矩阵。",
+      "kind": "file",
+      "formats": [
+        ".csv",
+        ".tsv",
+        ".npy"
+      ]
+    },
+    {
+      "id": "connectivity_map",
+      "label": "概率连接图",
+      "description": "probtrackx 等概率追踪方法生成的路径分布或连接概率图。",
+      "kind": "artifact",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mat"
+      ]
+    },
+    {
+      "id": "generated_file",
+      "label": "通用生成文件",
+      "description": "受信任 Runner 在隔离输出目录中生成、校验并登记的文件。",
+      "kind": "file"
+    },
+    {
+      "id": "generated_folder",
+      "label": "通用生成目录",
+      "description": "受信任 Runner 在隔离输出目录中生成并登记的目录型结果。",
+      "kind": "folder"
+    },
+    {
+      "id": "execution_log",
+      "label": "执行日志",
+      "description": "真实命令的完整标准输出与错误输出，用于复核、审计和故障诊断。",
+      "kind": "file",
+      "formats": [
+        ".log",
+        ".txt"
+      ]
+    },
+    {
+      "id": "bold_image",
+      "label": "BOLD 时间序列",
+      "description": "BOLD 时间序列；运行时验证实际产物。",
+      "kind": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ]
+    },
+    {
+      "id": "label_image",
+      "label": "Discrete label image",
+      "description": "Discrete integer labels, such as tissue classes, anatomical segmentations or learned clusters. Label meaning comes from the producing method and its settings; this general type is not automatically a connectome node parcellation.",
+      "kind": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mgz",
+        ".mgh",
+        ".mif"
+      ]
+    },
+    {
+      "id": "b_values",
+      "label": "扩散 b 值",
+      "description": "Diffusion weighting values, one per DWI volume, in matching volume order. Must be paired with the corresponding gradient directions and image; file existence alone does not verify acquisition consistency.",
+      "kind": "file",
+      "formats": [
+        ".bval",
+        ".txt"
+      ]
+    },
+    {
+      "id": "b_vectors",
+      "label": "扩散梯度方向",
+      "description": "Diffusion gradient directions corresponding to the DWI volumes and coordinate convention. Use rotated directions after motion correction when supplied; do not reuse the original vectors blindly.",
+      "kind": "file",
+      "formats": [
+        ".bvec",
+        ".txt"
+      ]
+    },
+    {
+      "id": "z_stat_map",
+      "label": "Z 统计图",
+      "description": "Z 统计图；运行时验证实际产物。",
+      "kind": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ]
+    },
+    {
+      "id": "contrast_image",
+      "label": "对比效应图",
+      "description": "对比效应图；运行时验证实际产物。",
+      "kind": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ]
+    },
+    {
+      "id": "connectome_matrix",
+      "label": "ROI 连接矩阵",
+      "description": "ROI 连接矩阵；运行时验证实际产物。",
+      "kind": "file",
+      "formats": [
+        ".npy",
+        ".csv"
+      ]
+    },
+    {
+      "id": "roi_timeseries",
+      "label": "ROI 时间序列表",
+      "description": "ROI 时间序列表；运行时验证实际产物。",
+      "kind": "file",
+      "formats": [
+        ".csv",
+        ".tsv"
+      ]
+    }
+  ]
+}

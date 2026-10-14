@@ -1,0 +1,531 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix.command.tcksift",
+  "version": "1",
+  "kind": "method",
+  "label": "MRtrix3 tcksift",
+  "description": "Filter a whole-brain fibre-tracking data set such that the streamline densities match the FOD lobe integrals",
+  "runner_id": "mrtrix.command.tcksift",
+  "parameters": [
+    {
+      "id": "nofilter",
+      "argument": "-nofilter",
+      "label": "nofilter",
+      "description": "do NOT perform track filtering - just construct the model in order to provide output debugging images",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "output_at_counts",
+      "argument": "output_at_counts",
+      "label": "output_at_counts",
+      "description": "output filtered track files (and optionally debugging images if -output_debug is specified) at specific numbers of remaining streamlines; provide as comma-separated list of integers",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tcksift.html"
+    },
+    {
+      "id": "fd_scale_gm",
+      "argument": "-fd_scale_gm",
+      "label": "fd_scale_gm",
+      "description": "provide this option (in conjunction with -act) to heuristically downsize the fibre density estimates based on the presence of GM in the voxel. This can assist in reducing tissue interface effects when using a single-tissue deconvolution algorithm",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "no_dilate_lut",
+      "argument": "-no_dilate_lut",
+      "label": "no_dilate_lut",
+      "description": "do NOT dilate FOD lobe lookup tables; only map streamlines to FOD lobes if the precise tangent lies within the angular spread of that lobe",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "make_null_lobes",
+      "argument": "-make_null_lobes",
+      "label": "make_null_lobes",
+      "description": "add an additional FOD lobe to each voxel, with zero integral, that covers all directions with zero / negative FOD amplitudes",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "remove_untracked",
+      "argument": "-remove_untracked",
+      "label": "remove_untracked",
+      "description": "remove FOD lobes that do not have any streamline density attributed to them; this improves filtering slightly, at the expense of longer computation time (and you can no longer do quantitative comparisons between reconstructions if this is enabled)",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "fd_thresh",
+      "argument": "fd_thresh",
+      "label": "fd_thresh",
+      "description": "fibre density threshold; exclude an FOD lobe from filtering processing if its integral is less than this amount (streamlines will still be mapped to it, but it will not contribute to the cost function or the filtering)",
+      "type": "number",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tcksift.html",
+      "minimum": 0.0,
+      "maximum": 6.28319
+    },
+    {
+      "id": "save_csv",
+      "argument": "-csv",
+      "label": "生成 csv",
+      "description": "output statistics of execution per iteration to a .csv file",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "save_out_mu",
+      "argument": "-out_mu",
+      "label": "生成 out_mu",
+      "description": "output the final value of SIFT proportionality coefficient mu to a text file",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "output_debug",
+      "argument": "-output_debug",
+      "label": "output_debug",
+      "description": "provide various output images for assessing & debugging performance etc.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "save_out_selection",
+      "argument": "-out_selection",
+      "label": "生成 out_selection",
+      "description": "output a text file containing the binary selection of streamlines",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "term_number",
+      "argument": "term_number",
+      "label": "term_number",
+      "description": "number of streamlines - continue filtering until this number of streamlines remain",
+      "type": "integer",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tcksift.html",
+      "minimum": 1
+    },
+    {
+      "id": "term_ratio",
+      "argument": "term_ratio",
+      "label": "term_ratio",
+      "description": "termination ratio - defined as the ratio between reduction in cost function, and reduction in density of streamlines.\nSmaller values result in more streamlines being filtered out.",
+      "type": "number",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tcksift.html",
+      "minimum": 1e-06
+    },
+    {
+      "id": "term_mu",
+      "argument": "term_mu",
+      "label": "term_mu",
+      "description": "terminate filtering once the SIFT proportionality coefficient reaches a given value",
+      "type": "number",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tcksift.html",
+      "minimum": 0.0
+    },
+    {
+      "id": "info",
+      "argument": "-info",
+      "label": "info",
+      "description": "display information messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "quiet",
+      "argument": "-quiet",
+      "label": "quiet",
+      "description": "do not display information messages or progress status; alternatively, this can be achieved by setting the MRTRIX_QUIET environment variable to a non-empty string.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "debug",
+      "argument": "-debug",
+      "label": "debug",
+      "description": "display debugging messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "nthreads",
+      "argument": "nthreads",
+      "label": "nthreads",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).",
+      "type": "integer",
+      "required": true,
+      "default": 1,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tcksift.html",
+      "minimum": 0,
+      "group": "计算资源",
+      "level": "advanced"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "in_tracks",
+      "type": "tractogram",
+      "label": "in_tracks",
+      "description": "the input track file",
+      "required": true,
+      "binding": "file"
+    },
+    {
+      "id": "in_fod",
+      "type": "imaging_input",
+      "label": "in_fod",
+      "description": "input image containing the spherical harmonics of the fibre orientation distributions",
+      "required": true,
+      "binding": "file"
+    },
+    {
+      "id": "proc_mask",
+      "type": "imaging_input",
+      "label": "proc_mask",
+      "description": "provide an image containing the processing mask weights for the model; image spatial dimensions must match the fixel image",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "act",
+      "type": "imaging_input",
+      "label": "act",
+      "description": "use an ACT five-tissue-type segmented anatomical image to derive the processing mask",
+      "required": false,
+      "binding": "file"
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "out_tracks",
+      "type": "tractogram",
+      "label": "out_tracks",
+      "description": "the output filtered tracks file",
+      "format": ".tck",
+      "path_template": "out_tracks.tck"
+    },
+    {
+      "id": "csv",
+      "type": "generated_file",
+      "label": "csv",
+      "description": "output statistics of execution per iteration to a .csv file This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".txt",
+      "path_template": "csv.txt",
+      "generated_when": {
+        "save_csv": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "out_mu",
+      "type": "generated_file",
+      "label": "out_mu",
+      "description": "output the final value of SIFT proportionality coefficient mu to a text file This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".txt",
+      "path_template": "out_mu.txt",
+      "generated_when": {
+        "save_out_mu": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "out_selection",
+      "type": "generated_file",
+      "label": "out_selection",
+      "description": "output a text file containing the binary selection of streamlines This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".txt",
+      "path_template": "out_selection.txt",
+      "generated_when": {
+        "save_out_selection": [
+          true
+        ]
+      }
+    }
+  ],
+  "input_types": [
+    "tractogram",
+    "imaging_input"
+  ],
+  "output_types": [
+    "tractogram",
+    "generated_file"
+  ],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/tcksift.usage.txt",
+      "kind": "command",
+      "label": "MRtrix3 安装版原始完整帮助"
+    }
+  ],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "command": "tcksift",
+      "version": "3.0.8",
+      "positional": [
+        {
+          "source": "input",
+          "id": "in_tracks",
+          "optional": false
+        },
+        {
+          "source": "input",
+          "id": "in_fod",
+          "optional": false
+        },
+        {
+          "source": "output",
+          "id": "out_tracks",
+          "optional": false
+        }
+      ],
+      "options": [
+        {
+          "flag": "-nofilter",
+          "values": [],
+          "when": {
+            "nofilter": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-output_at_counts",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "output_at_counts",
+              "kind": "ISEQ"
+            }
+          ]
+        },
+        {
+          "flag": "-proc_mask",
+          "values": [
+            {
+              "source": "input",
+              "id": "proc_mask"
+            }
+          ]
+        },
+        {
+          "flag": "-act",
+          "values": [
+            {
+              "source": "input",
+              "id": "act"
+            }
+          ]
+        },
+        {
+          "flag": "-fd_scale_gm",
+          "values": [],
+          "when": {
+            "fd_scale_gm": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-no_dilate_lut",
+          "values": [],
+          "when": {
+            "no_dilate_lut": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-make_null_lobes",
+          "values": [],
+          "when": {
+            "make_null_lobes": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-remove_untracked",
+          "values": [],
+          "when": {
+            "remove_untracked": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-fd_thresh",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "fd_thresh",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-csv",
+          "values": [
+            {
+              "source": "output",
+              "id": "csv"
+            }
+          ],
+          "when": {
+            "save_csv": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-out_mu",
+          "values": [
+            {
+              "source": "output",
+              "id": "out_mu"
+            }
+          ],
+          "when": {
+            "save_out_mu": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-output_debug",
+          "values": [],
+          "when": {
+            "output_debug": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-out_selection",
+          "values": [
+            {
+              "source": "output",
+              "id": "out_selection"
+            }
+          ],
+          "when": {
+            "save_out_selection": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-term_number",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "term_number",
+              "kind": "INT"
+            }
+          ]
+        },
+        {
+          "flag": "-term_ratio",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "term_ratio",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-term_mu",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "term_mu",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-info",
+          "values": [],
+          "when": {
+            "info": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-quiet",
+          "values": [],
+          "when": {
+            "quiet": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-debug",
+          "values": [],
+          "when": {
+            "debug": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-nthreads",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "nthreads",
+              "kind": "INT"
+            }
+          ]
+        }
+      ],
+      "total_options": 24,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    }
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "label": "mnd 数据校验",
+  "description": "Validate MND BIDS structure and generate compliance report. Checks directory structure, modality completeness, and participant group labeling。 Inputs: input: Path to MND BIDS directory (directory). Registered outputs: results/output.csv.",
+  "runner_id": "reviewed.mnd-skill.validate-mnd",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "Path to MND BIDS directory",
+      "description": "Path to MND BIDS directory. Required directory input for mnd 数据校验; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "folder",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for mnd 数据校验. Contains this operation's generated files, including results/output.csv; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_output_csv",
+      "type": "generated_file",
+      "label": "output.csv",
+      "description": "Output path for validation CSV: output of mnd data validation. Relative run path: results/output.csv. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".csv",
+      "primary": false,
+      "path_template": "results/output.csv",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/mnd-skill/scripts/validate_mnd.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.mnd-skill.validate-mnd",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.mnd-skill.validate-mnd",
+      "script": "skills/mnd-skill/scripts/validate_mnd.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [],
+      "modules": [
+        "pandas",
+        "numpy"
+      ],
+      "expected": [
+        "output.csv"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output",
+          "output.csv"
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/mnd-skill/scripts/validate_mnd.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/mnd-skill/scripts/validate_mnd.py",
+          "source_sha256": "71f42ca02ea5c04b05e09c738475e9d499aaaba181e4e1da9e00515f324977a7"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/mnd-skill/scripts/validate_mnd.py",
+          "sha256": "71f42ca02ea5c04b05e09c738475e9d499aaaba181e4e1da9e00515f324977a7"
+        }
+      ],
+      "artifact_types": {
+        "output.csv": "generated_file"
+      }
+    }
+  }
+}

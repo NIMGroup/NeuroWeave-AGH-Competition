@@ -1,0 +1,192 @@
+{
+  "label": "hcpa 表型/刺激提取",
+  "description": "Extract and merge HCP Aging phenotype data. Reads HCP-A phenotype CSV files (cognitive, health, demographic) and produces a merged phenotype table aligned with imaging subject list。 Inputs: phenotype_files: 文件路径清单（每行一项） (file); imaging_ids: Text file with imaging subject IDs (file). Registered outputs: results/output.csv.",
+  "runner_id": "reviewed.hcpa-skill.extract-hcpa-phenotype",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "columns",
+      "argument": "columns",
+      "label": "columns",
+      "description": "Comma-separated columns to extract",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/hcpa-skill/scripts/extract_hcpa_phenotype.py:109。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "phenotype_files",
+      "type": "analysis_input",
+      "label": "文件路径清单（每行一项）",
+      "description": "文件路径清单（每行一项）. Required file input for hcpa 表型/刺激提取; bind to port phenotype_files.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "imaging_ids",
+      "type": "analysis_input",
+      "label": "Text file with imaging subject IDs",
+      "description": "Text file with imaging subject IDs. Optional file input for hcpa 表型/刺激提取; bind to port imaging_ids.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for hcpa 表型/刺激提取. Contains this operation's generated files, including results/output.csv; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_output_csv",
+      "type": "generated_file",
+      "label": "output.csv",
+      "description": "output.csv: output of hcpa phenotype/stimulus extraction. Relative run path: results/output.csv. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".csv",
+      "primary": false,
+      "path_template": "results/output.csv",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/hcpa-skill/scripts/extract_hcpa_phenotype.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.hcpa-skill.extract-hcpa-phenotype",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.hcpa-skill.extract-hcpa-phenotype",
+      "script": "skills/hcpa-skill/scripts/extract_hcpa_phenotype.py",
+      "inputs": [
+        {
+          "id": "phenotype_files",
+          "flag": "--phenotype-files",
+          "path_list": true,
+          "many_args": true
+        },
+        {
+          "id": "imaging_ids",
+          "flag": "--imaging-ids",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "columns",
+          "flag": "--columns",
+          "split": false
+        }
+      ],
+      "modules": [
+        "pandas",
+        "numpy"
+      ],
+      "expected": [
+        "output.csv"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output",
+          "output.csv"
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/hcpa-skill/scripts/extract_hcpa_phenotype.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/hcpa-skill/scripts/extract_hcpa_phenotype.py",
+          "source_sha256": "e8eeebd81504dd6ab30c60392709d360ec373530129ce803efcddbe73aa60057"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/hcpa-skill/scripts/extract_hcpa_phenotype.py",
+          "sha256": "e8eeebd81504dd6ab30c60392709d360ec373530129ce803efcddbe73aa60057"
+        }
+      ],
+      "artifact_types": {
+        "output.csv": "generated_file"
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "id": "dictlearning",
+  "description": "dictlearning 统筹已登记的独立方法和可复用流程。支持：静息态 DICTLEARNING。",
+  "method_refs": [
+    {
+      "capability": "skill.dictlearning",
+      "method_id": "reviewed-dictlearning-nilearn-tool",
+      "label": "静息态 DICTLEARNING",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Reference Nilearn snippet for resting-state DictLearning。 Inputs: input_list: 影像路径清单 (file); mask: 脑掩膜 (file). Registered outputs: results/components.nii.gz.",
+      "method_ref": "reviewed.nilearn-tool.dictlearning"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "name": "dictlearning",
+  "category": [
+    "任务能力",
+    "dictlearning"
+  ],
+  "scope": "model",
+  "keywords": [
+    "dictlearning",
+    "DICTLEARNING"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

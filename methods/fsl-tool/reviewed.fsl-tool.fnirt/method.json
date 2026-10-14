@@ -1,0 +1,179 @@
+{
+  "label": "FSL 非线性配准",
+  "description": "Register an input image nonlinearly to a reference with FSL FNIRT, optionally initialized by a supplied affine matrix; write the warped image and warp coefficients。 Inputs: input: 输入影像 (file); reference: 参考影像 (file); transform: 变换/形变场 (file). Registered outputs: results/image.nii.gz. Fixed invocation options: --operation fnirt.",
+  "runner_id": "reviewed.fsl-tool.fnirt",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "registered_image"
+  ],
+  "requires_features": [],
+  "parameters": [],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "输入影像",
+      "description": "输入影像. Required file input for FSL 非线性配准; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "reference",
+      "type": "analysis_input",
+      "label": "参考影像",
+      "description": "参考影像. Required file input for FSL 非线性配准; bind to port reference.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "transform",
+      "type": "analysis_input",
+      "label": "变换/形变场",
+      "description": "变换/形变场. Optional file input for FSL 非线性配准; bind to port transform.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for FSL 非线性配准. Contains this operation's generated files, including results/image.nii.gz; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_image_nii_gz",
+      "type": "registered_image",
+      "label": "image.nii.gz",
+      "description": "image.nii.gz: output of FSL 非线性配准. Relative run path: results/image.nii.gz.",
+      "format": ".nii.gz",
+      "primary": false,
+      "path_template": "results/image.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "bakend/app/execution/native_worker.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.fsl-tool.fnirt",
+  "version": "2",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.fsl-tool.fnirt",
+      "script": "bakend/app/execution/native_worker.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "reference",
+          "flag": "--reference",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "transform",
+          "flag": "--transform",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [],
+      "modules": [],
+      "expected": [
+        "image.nii.gz"
+      ],
+      "profile": "scientific",
+      "fixed_args": [
+        "--operation",
+        "fnirt"
+      ],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [
+        "/opt/software/fsl/bin/fnirt"
+      ],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "software_command",
+        "entrypoints": [
+          "/opt/software/fsl/bin/fnirt"
+        ],
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "bakend/app/execution/native_worker.py",
+          "sha256": "22d3605475d0c26bb0d90bb1543ba9242e916677ebe00e92c2e75c2ba828dd77"
+        }
+      ],
+      "artifact_types": {
+        "image.nii.gz": "registered_image"
+      }
+    }
+  }
+}

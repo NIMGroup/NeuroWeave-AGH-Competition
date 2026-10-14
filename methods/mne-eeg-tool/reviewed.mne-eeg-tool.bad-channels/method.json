@@ -1,0 +1,142 @@
+{
+  "label": "MNE LOF 坏导联检测与插值",
+  "description": "Detect EEG bad channels using MNE local-outlier-factor detection and interpolate them using channel positions; retain the detected-channel list in the summary。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file). Registered outputs: results/processed-raw.fif. Fixed invocation options: --operation bad-channels.",
+  "runner_id": "reviewed.mne-eeg-tool.bad-channels",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "EEG/MEG 原始文件（FIF/EDF/BDF/SET）",
+      "description": "EEG/MEG 原始文件（FIF/EDF/BDF/SET）. Required file input for MNE LOF 坏导联检测与插值; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for MNE LOF 坏导联检测与插值. Contains this operation's generated files, including results/processed-raw.fif; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_processed_raw_fif",
+      "type": "generated_file",
+      "label": "processed-raw.fif",
+      "description": "processed-raw.fif: output of MNE LOF bad channel detection and interpolation. Relative run path: results/processed-raw.fif. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": "",
+      "primary": false,
+      "path_template": "results/processed-raw.fif",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "bakend/app/execution/eeg_worker.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.mne-eeg-tool.bad-channels",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.mne-eeg-tool.bad-channels",
+      "script": "bakend/app/execution/eeg_worker.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [],
+      "modules": [
+        "numpy",
+        "mne"
+      ],
+      "expected": [
+        "processed-raw.fif"
+      ],
+      "profile": "scientific",
+      "fixed_args": [
+        "--operation",
+        "bad-channels"
+      ],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [
+        [
+          "mne.preprocessing",
+          "find_bad_channels_lof"
+        ],
+        [
+          "mne.io",
+          "BaseRaw.interpolate_bads"
+        ]
+      ],
+      "implementation_source": {
+        "kind": "library_api",
+        "entrypoints": [
+          "mne.preprocessing.find_bad_channels_lof",
+          "mne.io.BaseRaw.interpolate_bads"
+        ],
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "bakend/app/execution/eeg_worker.py",
+          "sha256": "b15760e312712683a17dfa2466294b0e451372f0502dd498a942c6725a4ec021"
+        }
+      ],
+      "artifact_types": {
+        "processed-raw.fif": "generated_file"
+      }
+    }
+  }
+}

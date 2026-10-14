@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "id": "oasis-skill",
+  "description": "OASIS 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：oasis 表型/刺激提取；oasis 质控汇总；oasis 数据校验；FSL 完整结构预处理（fsl_anat）；FreeSurfer recon-all（可执行）。",
+  "method_refs": [
+    {
+      "capability": "skill.oasis-skill",
+      "method_id": "reviewed-extract-oasis-phenotype-oasis-skill",
+      "label": "oasis 表型/刺激提取",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "phenotype-extraction",
+        "stimulus-extraction"
+      ],
+      "execution_resolution": {},
+      "role": "Extract and merge OASIS phenotype data. Reads OASIS phenotype files (CDR, MMSE, demographics) and produces a merged phenotype table aligned with imaging subject list。 Inputs: phenotype_files: 文件路径清单（每行一项） (file); imaging_ids: imaging-ids (file). Registered outputs: results/output.csv.",
+      "method_ref": "reviewed.oasis-skill.extract-oasis-phenotype"
+    },
+    {
+      "capability": "skill.oasis-skill",
+      "method_id": "reviewed-oasis-qc-summary-oasis-skill",
+      "label": "oasis 质控汇总",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "qc-summary"
+      ],
+      "execution_resolution": {},
+      "role": "Generate per-subject QC summaries for OASIS processing. Aging/AD-specific: tracks CDR group and applies appropriate QC criteria。 Inputs: fmriprep_dir: Path to fMRIPrep output directory (directory); phenotype_file: CSV with CDR/MMSE info (file). Registered outputs: results/output.csv.",
+      "method_ref": "reviewed.oasis-skill.oasis-qc-summary"
+    },
+    {
+      "capability": "skill.oasis-skill",
+      "method_id": "reviewed-validate-oasis-oasis-skill",
+      "label": "oasis 数据校验",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "bids-validation",
+        "data-validation",
+        "eeg-validation"
+      ],
+      "execution_resolution": {},
+      "role": "Validate OASIS BIDS structure and generate compliance report. Checks directory structure, version detection, and modality completeness。 Inputs: input: input (directory). Registered outputs: results/output.csv.",
+      "method_ref": "reviewed.oasis-skill.validate-oasis"
+    },
+    {
+      "capability": "skill.oasis-skill",
+      "method_id": "oasis-skill-guided--smri-processing--via-reviewed-fsl-anat-fsl-tool",
+      "label": "FSL 完整结构预处理（fsl_anat）",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "选择原文委托的具体结构处理入口；不同流程分别列出，按用户所需范围执行。",
+        "source_method_id": "oasis-skill-guided--smri-processing",
+        "target_method_id": "reviewed-fsl-anat-fsl-tool"
+      },
+      "role": "Invoke the existing FSL fsl_anat workflow on a T1-weighted image and retain its structural.anat directory, including the bias-corrected brain image。 Inputs: input: T1w NIfTI (file). Registered outputs: results/structural.anat/T1_biascorr_brain.nii.gz. Fixed invocation options: --operation fsl-anat.",
+      "method_ref": "reviewed.fsl-tool.fsl-anat"
+    }
+  ],
+  "pipeline_refs": [
+    {
+      "capability": "skill.oasis-skill",
+      "method_id": "oasis-skill-guided--smri-processing--via-freesurfer-recon-all-all",
+      "label": "FreeSurfer recon-all（可执行）",
+      "default_recommended": false,
+      "default_reason": "当用户明确要求 FreeSurfer 分割/皮层重建且已提供 T1w 时，选择服务器已验证的 recon-all Runner。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "选择原文委托的具体结构处理入口；不同流程分别列出，按用户所需范围执行。",
+        "source_method_id": "oasis-skill-guided--smri-processing",
+        "target_method_id": "freesurfer-recon-all"
+      },
+      "role": "依次执行：FreeSurfer recon-all（可执行）。输入和参数由方法契约定义。",
+      "pipeline_ref": "reviewed-freesurfer-recon-all-all-9ffa727fda"
+    }
+  ],
+  "planning_capabilities": [],
+  "name": "oasis-skill",
+  "category": [
+    "数据集专属",
+    "数据集适配与质控"
+  ],
+  "scope": "dataset",
+  "keywords": [
+    "oasis-skill",
+    "FSL"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

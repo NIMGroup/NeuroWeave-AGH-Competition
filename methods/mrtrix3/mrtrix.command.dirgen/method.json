@@ -1,0 +1,263 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix.command.dirgen",
+  "version": "1",
+  "kind": "method",
+  "label": "MRtrix3 dirgen",
+  "description": "Generate a set of uniformly distributed directions using a bipolar electrostatic repulsion model\nDirections are distributed by analogy to an electrostatic repulsion system, with each direction corresponding to a single electrostatic charge (for -unipolar), or a pair of diametrically opposed charges (for the default bipolar case). The energy of the system is determined based on the Coulomb repulsion, which assumes the form 1/r^power, where r is the distance between any pair of charges, and p is the power assumed for the repulsion law (default: 1). The minimum energy state is obtained by gradient descent.",
+  "runner_id": "mrtrix.command.dirgen",
+  "parameters": [
+    {
+      "id": "ndir",
+      "argument": "",
+      "label": "ndir",
+      "description": "the number of directions to generate.",
+      "type": "integer",
+      "required": true,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/dirgen.html",
+      "minimum": 6,
+      "maximum": 2147483647
+    },
+    {
+      "id": "power",
+      "argument": "power",
+      "label": "power",
+      "description": "specify exponent to use for repulsion power law (default: 1). This must be a power of 2 (i.e. 1, 2, 4, 8, 16, ...).",
+      "type": "integer",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/dirgen.html",
+      "minimum": 1,
+      "maximum": 2147483647
+    },
+    {
+      "id": "niter",
+      "argument": "niter",
+      "label": "niter",
+      "description": "specify the maximum number of iterations to perform (default: 10000).",
+      "type": "integer",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/dirgen.html",
+      "minimum": 1,
+      "maximum": 2147483647
+    },
+    {
+      "id": "restarts",
+      "argument": "restarts",
+      "label": "restarts",
+      "description": "specify the number of restarts to perform (default: 10).",
+      "type": "integer",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/dirgen.html",
+      "minimum": 1,
+      "maximum": 2147483647
+    },
+    {
+      "id": "unipolar",
+      "argument": "-unipolar",
+      "label": "unipolar",
+      "description": "optimise assuming a unipolar electrostatic repulsion model rather than the bipolar model normally assumed in DWI",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "cartesian",
+      "argument": "-cartesian",
+      "label": "cartesian",
+      "description": "Output the directions in Cartesian coordinates [x y z] instead of [az el].",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "info",
+      "argument": "-info",
+      "label": "info",
+      "description": "display information messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "quiet",
+      "argument": "-quiet",
+      "label": "quiet",
+      "description": "do not display information messages or progress status; alternatively, this can be achieved by setting the MRTRIX_QUIET environment variable to a non-empty string.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "debug",
+      "argument": "-debug",
+      "label": "debug",
+      "description": "display debugging messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "nthreads",
+      "argument": "nthreads",
+      "label": "nthreads",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).",
+      "type": "integer",
+      "required": true,
+      "default": 1,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/dirgen.html",
+      "minimum": 0,
+      "group": "计算资源",
+      "level": "advanced"
+    }
+  ],
+  "input_slots": [],
+  "output_slots": [
+    {
+      "id": "dirs",
+      "type": "generated_file",
+      "label": "dirs",
+      "description": "the text file to write the directions to, as [ az el ] pairs. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".txt",
+      "path_template": "dirs.txt"
+    }
+  ],
+  "input_types": [],
+  "output_types": [
+    "generated_file"
+  ],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/dirgen.usage.txt",
+      "kind": "command",
+      "label": "MRtrix3 安装版原始完整帮助"
+    }
+  ],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "command": "dirgen",
+      "version": "3.0.8",
+      "positional": [
+        {
+          "source": "parameter",
+          "id": "ndir",
+          "kind": "INT",
+          "optional": false
+        },
+        {
+          "source": "output",
+          "id": "dirs",
+          "optional": false
+        }
+      ],
+      "options": [
+        {
+          "flag": "-power",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "power",
+              "kind": "INT"
+            }
+          ]
+        },
+        {
+          "flag": "-niter",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "niter",
+              "kind": "INT"
+            }
+          ]
+        },
+        {
+          "flag": "-restarts",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "restarts",
+              "kind": "INT"
+            }
+          ]
+        },
+        {
+          "flag": "-unipolar",
+          "values": [],
+          "when": {
+            "unipolar": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-cartesian",
+          "values": [],
+          "when": {
+            "cartesian": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-info",
+          "values": [],
+          "when": {
+            "info": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-quiet",
+          "values": [],
+          "when": {
+            "quiet": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-debug",
+          "values": [],
+          "when": {
+            "debug": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-nthreads",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "nthreads",
+              "kind": "INT"
+            }
+          ]
+        }
+      ],
+      "total_options": 13,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    }
+  }
+}

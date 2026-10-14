@@ -1,0 +1,571 @@
+{
+  "schema_version": 1,
+  "id": "freesurfer.command.mri_binarize",
+  "version": "1",
+  "kind": "method",
+  "label": "FreeSurfer mri_binarize",
+  "description": "Binarize, threshold and morphologically process a volume.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "freesurfer.command.mri_binarize",
+  "parameters": [
+    {
+      "id": "min",
+      "argument": "--min",
+      "label": "min",
+      "description": "Minimum included intensity.",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Minimum included intensity. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "max",
+      "argument": "--max",
+      "label": "max",
+      "description": "Maximum included intensity.",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Maximum included intensity. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "abs",
+      "argument": "--abs",
+      "label": "abs",
+      "description": "Take absolute input intensities before thresholding or matching.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Take absolute input intensities before thresholding or matching. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "inv",
+      "argument": "--inv",
+      "label": "inv",
+      "description": "Invert the output bin values: matching voxels receive 0 and non-matching voxels receive 1.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Invert the output bin values: matching voxels receive 0 and non-matching voxels receive 1. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "no_count",
+      "argument": "--no-count",
+      "label": "no_count",
+      "description": "Disable counting voxels in the first frame; useful for large volumes.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Disable counting voxels in the first frame; useful for large volumes. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "bincol",
+      "argument": "--bincol",
+      "label": "bincol",
+      "description": "Assign each selected voxel its column number instead of a uniform binary value.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Assign each selected voxel its column number instead of a uniform binary value. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "zero_edges",
+      "argument": "--zero-edges",
+      "label": "zero_edges",
+      "description": "Set the first and last planes along every dimension to 0, or to binvalnot when specified.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Set the first and last planes along every dimension to 0, or to binvalnot when specified. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "zero_slice_edges",
+      "argument": "--zero-slice-edges",
+      "label": "zero_slice_edges",
+      "description": "Apply edge zeroing only to the first and last slices, using 0 or binvalnot.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Apply edge zeroing only to the first and last slices, using 0 or binvalnot. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "dilate",
+      "argument": "--dilate",
+      "label": "dilate",
+      "description": "Morphological iteration count.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Morphological iteration count. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "erode",
+      "argument": "--erode",
+      "label": "erode",
+      "description": "Morphological iteration count.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Morphological iteration count. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "erode2d",
+      "argument": "--erode2d",
+      "label": "erode2d",
+      "description": "Morphological iteration count.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Morphological iteration count. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "binval",
+      "argument": "--binval",
+      "label": "binval",
+      "description": "Value assigned to matching voxels.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Value assigned to matching voxels. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "binvalnot",
+      "argument": "--binvalnot",
+      "label": "binvalnot",
+      "description": "Value assigned to other voxels.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Value assigned to other voxels. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "mask",
+      "type": "brain_mask",
+      "label": "mask",
+      "description": "Native command output, saved in this run’s output directory. Binarize, threshold and morphologically process a volume.",
+      "format": ".nii.gz",
+      "primary": true,
+      "path_template": "output.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "imaging_input"
+  ],
+  "output_types": [
+    "brain_mask"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/freesurfer-mri_binarize.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "freesurfer",
+      "command": "mri_binarize",
+      "version": "7.4.1",
+      "argv": [
+        {
+          "tokens": [
+            "--i",
+            {
+              "input": "input"
+            },
+            "--o",
+            {
+              "output": "mask"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "--min",
+            {
+              "parameter": "min"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "--max",
+            {
+              "parameter": "max"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "--abs"
+          ],
+          "when": {
+            "abs": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "--inv"
+          ],
+          "when": {
+            "inv": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "--no-count"
+          ],
+          "when": {
+            "no_count": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "--bincol"
+          ],
+          "when": {
+            "bincol": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "--zero-edges"
+          ],
+          "when": {
+            "zero_edges": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "--zero-slice-edges"
+          ],
+          "when": {
+            "zero_slice_edges": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "--dilate",
+            {
+              "parameter": "dilate"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "--erode",
+            {
+              "parameter": "erode"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "--erode2d",
+            {
+              "parameter": "erode2d"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "--binval",
+            {
+              "parameter": "binval"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "--binvalnot",
+            {
+              "parameter": "binvalnot"
+            }
+          ],
+          "when": {},
+          "optional": true
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

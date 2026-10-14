@@ -1,0 +1,269 @@
+{
+  "schema_version": 1,
+  "id": "fsl.command.fsl_regfilt",
+  "version": "1",
+  "kind": "method",
+  "label": "FSL fsl_regfilt",
+  "description": "Regress selected design components from a 4D time series.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "fsl.command.fsl_regfilt",
+  "parameters": [
+    {
+      "id": "f",
+      "argument": "-f",
+      "label": "f",
+      "description": "Comma-separated one-based component columns to remove.",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Comma-separated one-based component columns to remove. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "a",
+      "argument": "-a",
+      "label": "a",
+      "description": "Filter all components.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Filter all components. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "vn",
+      "argument": "--vn",
+      "label": "vn",
+      "description": "Variance-normalize the input before regression.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Variance-normalize the input before regression. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "design",
+      "type": "generated_file",
+      "label": "design",
+      "description": "Design matrix from MELODIC or another compatible source.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "mask",
+      "type": "brain_mask",
+      "label": "mask",
+      "description": "Mask in the same grid as the input image.",
+      "required": false,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "output",
+      "type": "imaging_input",
+      "label": "output",
+      "description": "Native command output, saved in this run’s output directory. Regress selected design components from a 4D time series. The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".nii.gz",
+      "primary": true,
+      "path_template": "output.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "imaging_input",
+    "generated_file",
+    "brain_mask"
+  ],
+  "output_types": [
+    "imaging_input"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/fsl-fsl_regfilt.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "fsl",
+      "command": "fsl_regfilt",
+      "version": "installed-2412.6",
+      "argv": [
+        {
+          "tokens": [
+            "-i",
+            {
+              "input": "input"
+            },
+            "-d",
+            {
+              "input": "design"
+            },
+            "-o",
+            {
+              "output": "output"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-f",
+            {
+              "parameter": "f"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-m",
+            {
+              "input": "mask"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-a"
+          ],
+          "when": {
+            "a": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "--vn"
+          ],
+          "when": {
+            "vn": [
+              true
+            ]
+          },
+          "optional": false
+        }
+      ],
+      "patterns": {
+        "f": "\\d+(,\\d+)*"
+      },
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

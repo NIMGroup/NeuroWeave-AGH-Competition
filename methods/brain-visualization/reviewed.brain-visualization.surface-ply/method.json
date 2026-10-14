@@ -1,0 +1,159 @@
+{
+  "label": "FreeSurfer 表面导出 PLY",
+  "description": "Reference script for exporting FreeSurfer surfaces to colored PLY。 Inputs: surf: FreeSurfer 表面 (file); annot: 分区标注 (file). Registered outputs: results/surface.ply.",
+  "runner_id": "reviewed.brain-visualization.surface-ply",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [],
+  "input_slots": [
+    {
+      "id": "surf",
+      "type": "analysis_input",
+      "label": "FreeSurfer 表面",
+      "description": "FreeSurfer surface file such as lh.pial or rh.pial. Required file input for FreeSurfer 表面导出 PLY; bind to port surf.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "annot",
+      "type": "analysis_input",
+      "label": "分区标注",
+      "description": "Optional FreeSurfer annotation; gray surface when omitted. Optional file input for FreeSurfer 表面导出 PLY; bind to port annot.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for FreeSurfer 表面导出 PLY. Contains this operation's generated files, including results/surface.ply; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_surface_ply",
+      "type": "generated_file",
+      "label": "surface.ply",
+      "description": "Output PLY path.: output of FreeSurfer surface export PLY. Relative run path: results/surface.ply. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": "",
+      "primary": false,
+      "path_template": "results/surface.ply",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/brain-visualization/scripts/freesurfer_ply_reference.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.brain-visualization.surface-ply",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.brain-visualization.surface-ply",
+      "script": "skills/brain-visualization/scripts/freesurfer_ply_reference.py",
+      "inputs": [
+        {
+          "id": "surf",
+          "flag": "--surf",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "annot",
+          "flag": "--annot",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [],
+      "modules": [
+        "numpy",
+        "nibabel"
+      ],
+      "expected": [
+        "surface.ply"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output",
+          "surface.ply"
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/brain-visualization/scripts/freesurfer_ply_reference.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/brain-visualization/scripts/freesurfer_ply_reference.py",
+          "source_sha256": "89b36ca51ec905207924177f2f5eb45ab418b614fcb43705136bff1e359ace25"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/brain-visualization/scripts/freesurfer_ply_reference.py",
+          "sha256": "59b3339df909354fa518ae2c2468202fc053919eba3635876933e0a581a37a6e"
+        }
+      ],
+      "artifact_types": {
+        "surface.ply": "generated_file"
+      }
+    }
+  }
+}

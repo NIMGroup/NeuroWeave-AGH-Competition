@@ -1,0 +1,268 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix.command.sh2peaks",
+  "version": "1",
+  "kind": "method",
+  "label": "MRtrix3 sh2peaks",
+  "description": "Extract the peaks of a spherical harmonic function in each voxel\nPeaks of the spherical harmonic function in each voxel are located by commencing a Newton search along each of a set of pre-specified directions\nThe spherical harmonic coefficients are stored according the conventions described the main documentation, which can be found at the following link: \nhttps://mrtrix.readthedocs.io/en/3.0.8/concepts/spherical_harmonics.html",
+  "runner_id": "mrtrix.command.sh2peaks",
+  "parameters": [
+    {
+      "id": "num",
+      "argument": "num",
+      "label": "num",
+      "description": "the number of peaks to extract (default: 3).",
+      "type": "integer",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/sh2peaks.html",
+      "minimum": 0
+    },
+    {
+      "id": "threshold",
+      "argument": "threshold",
+      "label": "threshold",
+      "description": "only peak amplitudes greater than the threshold will be considered.",
+      "type": "number",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/sh2peaks.html",
+      "minimum": 0.0
+    },
+    {
+      "id": "fast",
+      "argument": "-fast",
+      "label": "fast",
+      "description": "use lookup table to compute associated Legendre polynomials (faster, but approximate).",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "info",
+      "argument": "-info",
+      "label": "info",
+      "description": "display information messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "quiet",
+      "argument": "-quiet",
+      "label": "quiet",
+      "description": "do not display information messages or progress status; alternatively, this can be achieved by setting the MRTRIX_QUIET environment variable to a non-empty string.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "debug",
+      "argument": "-debug",
+      "label": "debug",
+      "description": "display debugging messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "nthreads",
+      "argument": "nthreads",
+      "label": "nthreads",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).",
+      "type": "integer",
+      "required": true,
+      "default": 1,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/sh2peaks.html",
+      "minimum": 0,
+      "group": "计算资源",
+      "level": "advanced"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "SH",
+      "type": "imaging_input",
+      "label": "SH",
+      "description": "the input image of SH coefficients.",
+      "required": true,
+      "binding": "file"
+    },
+    {
+      "id": "peaks",
+      "type": "imaging_input",
+      "label": "peaks",
+      "description": "the program will try to find the peaks that most closely match those in the image provided.",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "seeds",
+      "type": "generated_file",
+      "label": "seeds",
+      "description": "specify a set of directions from which to start the multiple restarts of the optimisation (by default, the built-in 60 direction set is used)",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "mask",
+      "type": "imaging_input",
+      "label": "mask",
+      "description": "only perform computation within the specified binary brain mask image.",
+      "required": false,
+      "binding": "file"
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "output",
+      "type": "imaging_input",
+      "label": "output",
+      "description": "the output image. Each volume corresponds to the x, y & z component of each peak direction vector in turn. The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".mif",
+      "path_template": "output.mif"
+    }
+  ],
+  "input_types": [
+    "imaging_input",
+    "generated_file"
+  ],
+  "output_types": [
+    "imaging_input"
+  ],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/sh2peaks.usage.txt",
+      "kind": "command",
+      "label": "MRtrix3 安装版原始完整帮助"
+    }
+  ],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "command": "sh2peaks",
+      "version": "3.0.8",
+      "positional": [
+        {
+          "source": "input",
+          "id": "SH",
+          "optional": false
+        },
+        {
+          "source": "output",
+          "id": "output",
+          "optional": false
+        }
+      ],
+      "options": [
+        {
+          "flag": "-num",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "num",
+              "kind": "INT"
+            }
+          ]
+        },
+        {
+          "flag": "-peaks",
+          "values": [
+            {
+              "source": "input",
+              "id": "peaks"
+            }
+          ]
+        },
+        {
+          "flag": "-threshold",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "threshold",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-seeds",
+          "values": [
+            {
+              "source": "input",
+              "id": "seeds"
+            }
+          ]
+        },
+        {
+          "flag": "-mask",
+          "values": [
+            {
+              "source": "input",
+              "id": "mask"
+            }
+          ]
+        },
+        {
+          "flag": "-fast",
+          "values": [],
+          "when": {
+            "fast": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-info",
+          "values": [],
+          "when": {
+            "info": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-quiet",
+          "values": [],
+          "when": {
+            "quiet": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-debug",
+          "values": [],
+          "when": {
+            "debug": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-nthreads",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "nthreads",
+              "kind": "INT"
+            }
+          ]
+        }
+      ],
+      "total_options": 15,
+      "omitted_options": {
+        "direction": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    }
+  }
+}

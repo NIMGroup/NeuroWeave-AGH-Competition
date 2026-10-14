@@ -1,0 +1,11 @@
+{
+  "method_id": "mrtrix.command.tcksift2",
+  "method_version": "1",
+  "execution_fingerprint": "7a1a5079d0cd8e05e2434b8171a652708950b55e1077b5c188d9a81c8a186588",
+  "report_path": "deploy/method-verification/reports/mrtrix-synthetic.json",
+  "report_sha256": "d6d912b68614456127212d2d91018c81fb94720ff99765a4c4e90fb76b74dee3",
+  "test_type": "synthetic",
+  "tested_at": "2026-09-23T13:39:05.650280+00:00",
+  "environment": "== tckgen 3.0.8 ==; Linux CPU, 1 thread",
+  "result": "passed"
+}

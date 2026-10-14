@@ -1,0 +1,168 @@
+{
+  "label": "beautiful-log 日志报告",
+  "description": "Generate a clean HTML conversation log for NeuroClaw sessions. This script keeps only direct User <-> NeuroClaw dialogue and filters system/tool/internal traces when they are available in the transcript format。 Inputs: input: Input transcript file (.json, .jsonl, .md, .txt) (file). Registered outputs: results/output.html.",
+  "runner_id": "reviewed.beautiful-log.beautiful-log",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "title",
+      "argument": "title",
+      "label": "title",
+      "description": "HTML page title",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": "NeuroClaw Conversation Log",
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/beautiful-log/scripts/beautiful_log.py:253。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "Input transcript file (.json, .jsonl, .md, .txt)",
+      "description": "Input transcript file (.json, .jsonl, .md, .txt). Required file input for beautiful-log 日志报告; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for beautiful-log 日志报告. Contains this operation's generated files, including results/output.html; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_output_html",
+      "type": "generated_file",
+      "label": "output.html",
+      "description": "Output HTML path: output of beautiful-log log report. Relative run path: results/output.html. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".html",
+      "primary": false,
+      "path_template": "results/output.html",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/beautiful-log/scripts/beautiful_log.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.beautiful-log.beautiful-log",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.beautiful-log.beautiful-log",
+      "script": "skills/beautiful-log/scripts/beautiful_log.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "title",
+          "flag": "--title",
+          "split": false
+        }
+      ],
+      "modules": [
+        "pandas",
+        "numpy"
+      ],
+      "expected": [
+        "output.html"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output",
+          "output.html"
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/beautiful-log/scripts/beautiful_log.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/beautiful-log/scripts/beautiful_log.py",
+          "source_sha256": "77e5300dc30aa201abc056bb51975293c1b854e19733e6bf42c82f405ae03828"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/beautiful-log/scripts/beautiful_log.py",
+          "sha256": "77e5300dc30aa201abc056bb51975293c1b854e19733e6bf42c82f405ae03828"
+        }
+      ],
+      "artifact_types": {
+        "output.html": "generated_file"
+      }
+    }
+  }
+}

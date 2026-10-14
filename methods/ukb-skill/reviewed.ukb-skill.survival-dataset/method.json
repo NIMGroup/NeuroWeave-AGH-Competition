@@ -1,0 +1,227 @@
+{
+  "label": "UKB 生存分析数据表",
+  "description": "Build survival analysis datasets from UK Biobank data。 Inputs: input: UKB 原始表 (file). Registered outputs: results/survival.csv.",
+  "runner_id": "reviewed.ukb-skill.survival-dataset",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "disease",
+      "argument": "disease",
+      "label": "疾病名称/ICD 前缀",
+      "description": "Disease key. Available: [参见原脚本动态取值]",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/ukb-skill/scripts/build_ukb_survival.py:183。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "censor_date",
+      "argument": "censor-date",
+      "label": "censor-date",
+      "description": "Administrative censoring date (default: 2023-10-31)",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "2023-10-31",
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/ukb-skill/scripts/build_ukb_survival.py:185。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "baseline_col",
+      "argument": "baseline-col",
+      "label": "baseline-col",
+      "description": "Column name for baseline assessment date",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "p53_i0",
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/ukb-skill/scripts/build_ukb_survival.py:187。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "UKB 原始表",
+      "description": "Path to UKB raw CSV. Required file input for UKB 生存分析数据表; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for UKB 生存分析数据表. Contains this operation's generated files, including results/survival.csv; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_survival_csv",
+      "type": "generated_file",
+      "label": "survival.csv",
+      "description": "Output path for survival CSV: output of UKB survival analysis data table. Relative run path: results/survival.csv. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".csv",
+      "primary": false,
+      "path_template": "results/survival.csv",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/ukb-skill/scripts/build_ukb_survival.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.ukb-skill.survival-dataset",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.ukb-skill.survival-dataset",
+      "script": "skills/ukb-skill/scripts/build_ukb_survival.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "disease",
+          "flag": "--disease"
+        },
+        {
+          "id": "censor_date",
+          "flag": "--censor-date"
+        },
+        {
+          "id": "baseline_col",
+          "flag": "--baseline-col"
+        }
+      ],
+      "modules": [
+        "numpy",
+        "pandas"
+      ],
+      "expected": [
+        "survival.csv"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output",
+          "survival.csv"
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/ukb-skill/scripts/build_ukb_survival.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/ukb-skill/scripts/build_ukb_survival.py",
+          "source_sha256": "388ffe5510772fd789d2adbb66e52b372dab3a3f54bbd8230d1c29390a758e9d"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/ukb-skill/scripts/build_ukb_survival.py",
+          "sha256": "388ffe5510772fd789d2adbb66e52b372dab3a3f54bbd8230d1c29390a758e9d"
+        }
+      ],
+      "artifact_types": {
+        "survival.csv": "generated_file"
+      }
+    }
+  }
+}

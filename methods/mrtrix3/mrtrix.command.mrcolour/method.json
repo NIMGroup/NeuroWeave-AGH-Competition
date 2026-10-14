@@ -1,0 +1,283 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix.command.mrcolour",
+  "version": "1",
+  "kind": "method",
+  "label": "MRtrix3 mrcolour",
+  "description": "Apply a colour map to an image\nUnder typical usage, this command will receive as input ad 3D greyscale image, and output a 4D image with 3 volumes corresponding to red-green-blue components; other use cases are possible, and are described in more detail below.\nBy default, the command will automatically determine the maximum and minimum intensities of the input image, and use that information to set the upper and lower bounds of the applied colourmap. This behaviour can be overridden by manually specifying these bounds using the -upper and -lower options respectively.",
+  "runner_id": "mrtrix.command.mrcolour",
+  "parameters": [
+    {
+      "id": "map",
+      "argument": "",
+      "label": "map",
+      "description": "the colourmap to apply; choices are: gray,hot,cool,jet,inferno,viridis,pet,colour,rgb",
+      "type": "string",
+      "required": true,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/mrcolour.html",
+      "control": "select",
+      "options": [
+        {
+          "value": "gray",
+          "label": "gray",
+          "description": ""
+        },
+        {
+          "value": "hot",
+          "label": "hot",
+          "description": ""
+        },
+        {
+          "value": "cool",
+          "label": "cool",
+          "description": ""
+        },
+        {
+          "value": "jet",
+          "label": "jet",
+          "description": ""
+        },
+        {
+          "value": "inferno",
+          "label": "inferno",
+          "description": ""
+        },
+        {
+          "value": "viridis",
+          "label": "viridis",
+          "description": ""
+        },
+        {
+          "value": "pet",
+          "label": "pet",
+          "description": ""
+        },
+        {
+          "value": "colour",
+          "label": "colour",
+          "description": ""
+        },
+        {
+          "value": "rgb",
+          "label": "rgb",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": "upper",
+      "argument": "upper",
+      "label": "upper",
+      "description": "manually set the upper intensity of the colour mapping",
+      "type": "number",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/mrcolour.html"
+    },
+    {
+      "id": "lower",
+      "argument": "lower",
+      "label": "lower",
+      "description": "manually set the lower intensity of the colour mapping",
+      "type": "number",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/mrcolour.html"
+    },
+    {
+      "id": "colour",
+      "argument": "colour",
+      "label": "colour",
+      "description": "set the target colour for use of the 'colour' map (three comma-separated floating-point values)",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/mrcolour.html"
+    },
+    {
+      "id": "info",
+      "argument": "-info",
+      "label": "info",
+      "description": "display information messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "quiet",
+      "argument": "-quiet",
+      "label": "quiet",
+      "description": "do not display information messages or progress status; alternatively, this can be achieved by setting the MRTRIX_QUIET environment variable to a non-empty string.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "debug",
+      "argument": "-debug",
+      "label": "debug",
+      "description": "display debugging messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "nthreads",
+      "argument": "nthreads",
+      "label": "nthreads",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).",
+      "type": "integer",
+      "required": true,
+      "default": 1,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/mrcolour.html",
+      "minimum": 0,
+      "group": "计算资源",
+      "level": "advanced"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "the input image",
+      "required": true,
+      "binding": "file"
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "output",
+      "type": "imaging_input",
+      "label": "output",
+      "description": "the output image The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".mif",
+      "path_template": "output.mif"
+    }
+  ],
+  "input_types": [
+    "imaging_input"
+  ],
+  "output_types": [
+    "imaging_input"
+  ],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/mrcolour.usage.txt",
+      "kind": "command",
+      "label": "MRtrix3 安装版原始完整帮助"
+    }
+  ],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "command": "mrcolour",
+      "version": "3.0.8",
+      "positional": [
+        {
+          "source": "input",
+          "id": "input",
+          "optional": false
+        },
+        {
+          "source": "parameter",
+          "id": "map",
+          "kind": "CHOICE",
+          "optional": false
+        },
+        {
+          "source": "output",
+          "id": "output",
+          "optional": false
+        }
+      ],
+      "options": [
+        {
+          "flag": "-upper",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "upper",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-lower",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "lower",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-colour",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "colour",
+              "kind": "FSEQ"
+            }
+          ]
+        },
+        {
+          "flag": "-info",
+          "values": [],
+          "when": {
+            "info": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-quiet",
+          "values": [],
+          "when": {
+            "quiet": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-debug",
+          "values": [],
+          "when": {
+            "debug": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-nthreads",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "nthreads",
+              "kind": "INT"
+            }
+          ]
+        }
+      ],
+      "total_options": 11,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    }
+  }
+}

@@ -1,0 +1,427 @@
+{
+  "label": "FSL FLIRT",
+  "description": "复用现有 FSL Skill 完成刚体或仿射线性配准，并输出变换矩阵。",
+  "runner_id": "fsl.flirt",
+  "input_types": [
+    "imaging_input",
+    "brain_mask"
+  ],
+  "output_types": [
+    "registered_image",
+    "transform_matrix"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "transform",
+      "argument": "transform",
+      "label": "变换模型",
+      "description": "刚体配准保留形状，仿射配准额外允许缩放和剪切。",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "rigid",
+      "options": [
+        {
+          "value": "rigid",
+          "label": "刚体（6 DOF）",
+          "description": ""
+        },
+        {
+          "value": "affine",
+          "label": "仿射（12 DOF）",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "interpolation",
+      "argument": "interpolation",
+      "label": "插值方法",
+      "description": "连续强度影像通常使用三线性插值；标签图应使用最近邻。",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "trilinear",
+      "options": [
+        {
+          "value": "trilinear",
+          "label": "三线性",
+          "description": ""
+        },
+        {
+          "value": "nearestneighbour",
+          "label": "最近邻",
+          "description": ""
+        },
+        {
+          "value": "sinc",
+          "label": "Sinc",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "cost_function",
+      "argument": "cost-function",
+      "label": "代价函数",
+      "description": "跨模态配准通常使用 mutual information，单模态可使用 correlation ratio。",
+      "type": "string",
+      "control": "select",
+      "level": "advanced",
+      "group": "优化目标",
+      "unit": "",
+      "required": true,
+      "default": "corratio",
+      "options": [
+        {
+          "value": "corratio",
+          "label": "Correlation Ratio",
+          "description": ""
+        },
+        {
+          "value": "mutualinfo",
+          "label": "Mutual Information",
+          "description": ""
+        },
+        {
+          "value": "normmi",
+          "label": "Normalized MI",
+          "description": ""
+        },
+        {
+          "value": "normcorr",
+          "label": "Normalized Correlation",
+          "description": ""
+        },
+        {
+          "value": "leastsq",
+          "label": "Least Squares",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "search_degrees",
+      "argument": "search-degrees",
+      "label": "旋转搜索范围",
+      "description": "三个轴方向初始旋转搜索的正负角度范围。",
+      "type": "number",
+      "control": "number",
+      "level": "advanced",
+      "group": "搜索范围",
+      "unit": "°",
+      "required": true,
+      "default": 90,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 180.0,
+      "step": 1.0,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "bins",
+      "argument": "bins",
+      "label": "直方图 Bin 数",
+      "description": "信息论代价函数使用的直方图分箱数量。",
+      "type": "integer",
+      "control": "number",
+      "level": "advanced",
+      "group": "优化目标",
+      "unit": "",
+      "required": true,
+      "default": 256,
+      "options": [],
+      "minimum": 16.0,
+      "maximum": 1024.0,
+      "step": 16.0,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "use_masks",
+      "argument": "use-masks",
+      "label": "使用权重 Mask",
+      "description": "为移动影像和参考影像应用配准权重 mask。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "空间约束",
+      "unit": "",
+      "required": true,
+      "default": false,
+      "options": [
+        {
+          "value": true,
+          "label": "使用",
+          "description": ""
+        },
+        {
+          "value": false,
+          "label": "不使用",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "output_dtype",
+      "argument": "output-dtype",
+      "label": "输出数据类型",
+      "description": "控制重采样影像的数据类型。",
+      "type": "string",
+      "control": "select",
+      "level": "advanced",
+      "group": "输出",
+      "unit": "",
+      "required": true,
+      "default": "float",
+      "options": [
+        {
+          "value": "input",
+          "label": "保持输入类型",
+          "description": ""
+        },
+        {
+          "value": "float",
+          "label": "Float32",
+          "description": ""
+        },
+        {
+          "value": "double",
+          "label": "Float64",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "moving_image",
+      "type": "imaging_input",
+      "label": "移动影像",
+      "description": "需要被重采样到参考空间的 NIfTI 影像。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "reference_image",
+      "type": "imaging_input",
+      "label": "参考影像",
+      "description": "定义目标空间、矩阵和体素网格的 NIfTI 影像。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "moving_mask",
+      "type": "brain_mask",
+      "label": "移动影像权重 Mask",
+      "description": "可选；启用 Mask 时限制移动影像的代价函数计算区域。",
+      "required": false,
+      "required_when": {
+        "use_masks": [
+          true
+        ]
+      },
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "reference_mask",
+      "type": "brain_mask",
+      "label": "参考影像权重 Mask",
+      "description": "可选；启用 Mask 时限制参考影像的代价函数计算区域。",
+      "required": false,
+      "required_when": {
+        "use_masks": [
+          true
+        ]
+      },
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "registered",
+      "type": "registered_image",
+      "label": "配准后影像",
+      "description": "按照参考影像网格重采样的结果。",
+      "format": ".nii.gz",
+      "primary": true,
+      "path_template": "registered.nii.gz",
+      "generated_when": {}
+    },
+    {
+      "id": "matrix",
+      "type": "transform_matrix",
+      "label": "FLIRT 变换矩阵",
+      "description": "从移动影像到参考影像的 4×4 线性变换。",
+      "format": ".mat",
+      "primary": false,
+      "path_template": "transform.mat",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "methods/fsl/fsl.flirt/method.json",
+      "label": "结构化方法声明",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "skills/fsl-tool/skill.json",
+      "label": "Skill 使用说明",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "fsl.flirt",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "builtin"
+  }
+}

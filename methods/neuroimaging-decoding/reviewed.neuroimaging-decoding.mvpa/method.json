@@ -1,0 +1,363 @@
+{
+  "label": "ROI 多变量解码",
+  "description": "Run the original MVPA mode on tabular features and an explicit target; cross-validate the selected classification or regression estimator and save metrics and predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --mode mvpa.",
+  "runner_id": "reviewed.neuroimaging-decoding.mvpa",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "task",
+      "argument": "task",
+      "label": "task",
+      "description": "原训练入口的任务类型：分类或回归；影响目标、拆分及损失函数。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "classification",
+      "options": [
+        {
+          "value": "classification",
+          "label": "classification",
+          "description": ""
+        },
+        {
+          "value": "regression",
+          "label": "regression",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 task，由结构化 Runner 映射到现有入口参数 task。 可选值：classification, regression。 平台默认值：classification；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "target",
+      "argument": "target",
+      "label": "目标列",
+      "description": "输入表中预测或分析目标的列名；必须存在且与任务类型匹配。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 target，由结构化 Runner 映射到现有入口参数 target。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "model",
+      "argument": "model",
+      "label": "model",
+      "description": "从已登记选项选择现有模型实现，模型需要与任务类型及输入数据匹配。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "svm",
+      "options": [
+        {
+          "value": "svm",
+          "label": "svm",
+          "description": ""
+        },
+        {
+          "value": "ridge",
+          "label": "ridge",
+          "description": ""
+        },
+        {
+          "value": "random_forest",
+          "label": "random_forest",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 model，由结构化 Runner 映射到现有入口参数 model。 可选值：svm, ridge, random_forest。 平台默认值：svm；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "folds",
+      "argument": "folds",
+      "label": "folds",
+      "description": "交叉验证的折数；每折须有足够样本，分类时还需满足类别数量约束。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 5,
+      "options": [],
+      "minimum": 2.0,
+      "maximum": 20.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 folds，由结构化 Runner 映射到现有入口参数 folds。 平台默认值：5；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "seed",
+      "argument": "seed",
+      "label": "seed",
+      "description": "现有入口使用的随机种子；相同种子不保证不同硬件或软件版本的结果逐位一致。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 123,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 2147483647.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 seed，由结构化 Runner 映射到现有入口参数 seed。 平台默认值：123；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "subject_col",
+      "argument": "subject-col",
+      "label": "subject-col",
+      "description": "输入表中的样本标识列名，用于按样本对应特征与标签。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "subject_id",
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 subject_col，由结构化 Runner 映射到现有入口参数 subject-col。 平台默认值：subject_id；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "features",
+      "type": "analysis_input",
+      "label": "特征 CSV",
+      "description": "特征 CSV. Required file input for ROI 多变量解码; bind to port features.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for ROI 多变量解码. Contains this operation's generated files, including results/metrics.json, results/predictions.csv; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_metrics_json",
+      "type": "generated_file",
+      "label": "metrics.json",
+      "description": "metrics.json: output of ROI multivariate decoding. Relative run path: results/metrics.json. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".json",
+      "primary": false,
+      "path_template": "results/metrics.json",
+      "generated_when": {}
+    },
+    {
+      "id": "file_predictions_csv",
+      "type": "generated_file",
+      "label": "predictions.csv",
+      "description": "predictions.csv: output of ROI multivariate decoding. Relative run path: results/predictions.csv. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".csv",
+      "primary": false,
+      "path_template": "results/predictions.csv",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/neuroimaging-decoding/scripts/train_reference.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.neuroimaging-decoding.mvpa",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.neuroimaging-decoding.mvpa",
+      "script": "skills/neuroimaging-decoding/scripts/train_reference.py",
+      "inputs": [
+        {
+          "id": "features",
+          "flag": "--features",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "task",
+          "flag": "--task"
+        },
+        {
+          "id": "target",
+          "flag": "--target"
+        },
+        {
+          "id": "model",
+          "flag": "--model"
+        },
+        {
+          "id": "folds",
+          "flag": "--folds"
+        },
+        {
+          "id": "seed",
+          "flag": "--seed"
+        },
+        {
+          "id": "subject_col",
+          "flag": "--subject-col"
+        }
+      ],
+      "modules": [
+        "numpy",
+        "pandas",
+        "scipy",
+        "sklearn",
+        "joblib",
+        "nilearn"
+      ],
+      "expected": [
+        "metrics.json",
+        "predictions.csv"
+      ],
+      "profile": "scientific",
+      "fixed_args": [
+        "--mode",
+        "mvpa"
+      ],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/neuroimaging-decoding/scripts/train_reference.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/neuroimaging-decoding/scripts/train_reference.py",
+          "source_sha256": "f8666f909b379a1f8012194d971ec73049c42b9e4f2298d9f2b7c68a0b1cd973"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/neuroimaging-decoding/scripts/train_reference.py",
+          "sha256": "f8666f909b379a1f8012194d971ec73049c42b9e4f2298d9f2b7c68a0b1cd973"
+        }
+      ],
+      "artifact_types": {
+        "metrics.json": "generated_file",
+        "predictions.csv": "generated_file"
+      }
+    }
+  }
+}

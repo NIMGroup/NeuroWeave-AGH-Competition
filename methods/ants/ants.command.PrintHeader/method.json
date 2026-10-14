@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "id": "ants.command.PrintHeader",
+  "version": "1",
+  "kind": "method",
+  "label": "ANTs PrintHeader",
+  "description": "Inspect image header fields without changing the image.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "ants.command.PrintHeader",
+  "parameters": [],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "report",
+      "type": "execution_log",
+      "label": "report",
+      "description": "Native command output, saved in this run’s output directory. Inspect image header fields without changing the image.",
+      "format": ".log",
+      "primary": true,
+      "path_template": "command.log",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "imaging_input"
+  ],
+  "output_types": [
+    "execution_log"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/ants-PrintHeader.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "ants",
+      "command": "PrintHeader",
+      "version": "2.6.5",
+      "argv": [
+        {
+          "tokens": [
+            {
+              "input": "input"
+            }
+          ],
+          "when": {},
+          "optional": false
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

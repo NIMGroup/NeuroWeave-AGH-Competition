@@ -1,0 +1,478 @@
+{
+  "schema_version": 1,
+  "id": "fsl.command.fsl_glm",
+  "version": "1",
+  "kind": "method",
+  "label": "FSL fsl_glm",
+  "description": "Fit a temporal/spatial GLM to image data using an explicitly supplied design matrix.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "fsl.command.fsl_glm",
+  "parameters": [
+    {
+      "id": "des_norm",
+      "argument": "--des_norm",
+      "label": "des_norm",
+      "description": "Normalize each design-matrix column to unit standard deviation.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Normalize each design-matrix column to unit standard deviation. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "dat_norm",
+      "argument": "--dat_norm",
+      "label": "dat_norm",
+      "description": "Normalize each data time series to unit standard deviation.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Normalize each data time series to unit standard deviation. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "vn",
+      "argument": "--vn",
+      "label": "vn",
+      "description": "Apply MELODIC variance normalization to the data.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Apply MELODIC variance normalization to the data. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "demean",
+      "argument": "--demean",
+      "label": "demean",
+      "description": "Remove the mean from both the design matrix and the data before fitting.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Remove the mean from both the design matrix and the data before fitting. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "dof",
+      "argument": "--dof",
+      "label": "dof",
+      "description": "Explicit residual degrees of freedom.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Explicit residual degrees of freedom. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "save_residuals",
+      "argument": "",
+      "label": "save_residuals",
+      "description": "Save residuals.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Save residuals. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "save_variance",
+      "argument": "",
+      "label": "save_variance",
+      "description": "Save variance.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Save variance. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "design",
+      "type": "generated_file",
+      "label": "design",
+      "description": "Design matrix; rows must match observations.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "mask",
+      "type": "brain_mask",
+      "label": "mask",
+      "description": "Mask in the same grid as the input image.",
+      "required": false,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "contrasts",
+      "type": "generated_file",
+      "label": "contrasts",
+      "description": "T-contrast matrix.",
+      "required": false,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "betas",
+      "type": "imaging_input",
+      "label": "betas",
+      "description": "Native command output, saved in this run’s output directory. Fit a temporal/spatial GLM to image data using an explicitly supplied design matrix. The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".nii.gz",
+      "primary": true,
+      "path_template": "betas.nii.gz",
+      "generated_when": {}
+    },
+    {
+      "id": "residuals",
+      "type": "imaging_input",
+      "label": "residuals",
+      "description": "Native command output, saved in this run’s output directory. Fit a temporal/spatial GLM to image data using an explicitly supplied design matrix. The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".nii.gz",
+      "primary": false,
+      "path_template": "residuals.nii.gz",
+      "generated_when": {
+        "save_residuals": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "variance",
+      "type": "imaging_input",
+      "label": "variance",
+      "description": "Native command output, saved in this run’s output directory. Fit a temporal/spatial GLM to image data using an explicitly supplied design matrix. The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".nii.gz",
+      "primary": false,
+      "path_template": "variance.nii.gz",
+      "generated_when": {
+        "save_variance": [
+          true
+        ]
+      }
+    }
+  ],
+  "input_types": [
+    "imaging_input",
+    "generated_file",
+    "brain_mask"
+  ],
+  "output_types": [
+    "imaging_input"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/fsl-fsl_glm.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "fsl",
+      "command": "fsl_glm",
+      "version": "installed-2412.6",
+      "argv": [
+        {
+          "tokens": [
+            "-i",
+            {
+              "input": "input"
+            },
+            "-d",
+            {
+              "input": "design"
+            },
+            "-o",
+            {
+              "output": "betas"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-m",
+            {
+              "input": "mask"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-c",
+            {
+              "input": "contrasts"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "--des_norm"
+          ],
+          "when": {
+            "des_norm": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "--dat_norm"
+          ],
+          "when": {
+            "dat_norm": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "--vn"
+          ],
+          "when": {
+            "vn": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "--demean"
+          ],
+          "when": {
+            "demean": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "--dof",
+            {
+              "parameter": "dof"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "--out_res",
+            {
+              "output": "residuals"
+            }
+          ],
+          "when": {
+            "save_residuals": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "--out_sigsq",
+            {
+              "output": "variance"
+            }
+          ],
+          "when": {
+            "save_variance": [
+              true
+            ]
+          },
+          "optional": false
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

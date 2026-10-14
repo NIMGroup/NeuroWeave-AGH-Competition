@@ -1,0 +1,367 @@
+{
+  "label": "FSL BEDPOSTX 纤维方向采样",
+  "description": "Run FSL BEDPOSTX on a staged copy of preprocessed DWI, a matching brain mask and FSL gradients; estimate fibre-orientation posterior samples. FSL subprocesses stay inside the allocated job。 Inputs: input: 预处理 DWI NIfTI (file); mask: 脑掩膜 (file); bval: bval (file); bvec: bvec (file). Registered outputs: results/data.bedpostX/merged_th1samples.nii.gz, results/data.bedpostX/merged_ph1samples.nii.gz, results/data.bedpostX/merged_f1samples.nii.gz. Fixed invocation options: --operation bedpostx.",
+  "runner_id": "reviewed.dwi-skill.bedpostx",
+  "input_types": [
+    "preprocessed_dwi",
+    "brain_mask",
+    "b_values",
+    "b_vectors"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "fibres",
+      "argument": "fibres",
+      "label": "fibres",
+      "description": "bedpostx 为每个体素建模的最大纤维群数量。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 2,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 3.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 fibres，由结构化 Runner 映射到现有入口参数 fibres。 平台默认值：2；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "burnin",
+      "argument": "burnin",
+      "label": "burnin",
+      "description": "bedpostx 在保留后验样本前的预热迭代数，传入现有 burn-in 参数。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 1000,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 100000.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 burnin，由结构化 Runner 映射到现有入口参数 burnin。 平台默认值：1000；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "jumps",
+      "argument": "jumps",
+      "label": "jumps",
+      "description": "bedpostx 采样阶段的迭代数量。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 1250,
+      "options": [],
+      "minimum": 25.0,
+      "maximum": 100000.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 jumps，由结构化 Runner 映射到现有入口参数 jumps。 平台默认值：1250；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "sample_every",
+      "argument": "sample-every",
+      "label": "sample-every",
+      "description": "bedpostx 后验样本的保存间隔迭代数。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 25,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 1000.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 sample_every，由结构化 Runner 映射到现有入口参数 sample-every。 平台默认值：25；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "preprocessed_dwi",
+      "label": "预处理 DWI NIfTI",
+      "description": "预处理 DWI NIfTI. Required file input for FSL BEDPOSTX 纤维方向采样; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "mask",
+      "type": "brain_mask",
+      "label": "脑掩膜",
+      "description": "脑掩膜. Required file input for FSL BEDPOSTX 纤维方向采样; bind to port mask.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "bval",
+      "type": "b_values",
+      "label": "bval",
+      "description": "bval. Required file input for FSL BEDPOSTX 纤维方向采样; bind to port bval.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "bvec",
+      "type": "b_vectors",
+      "label": "bvec",
+      "description": "bvec. Required file input for FSL BEDPOSTX 纤维方向采样; bind to port bvec.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for FSL BEDPOSTX 纤维方向采样. Contains this operation's generated files, including results/data.bedpostX/merged_th1samples.nii.gz, results/data.bedpostX/merged_ph1samples.nii.gz, results/data.bedpostX/merged_f1samples.nii.gz; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_data_bedpostX_merged_th1samples_nii_gz",
+      "type": "generated_file",
+      "label": "data.bedpostX/merged_th1samples.nii.gz",
+      "description": "data.bedpostX/merged_th1samples.nii.gz: output of FSL BEDPOSTX fiber orientation sampling. Relative run path: results/data.bedpostX/merged_th1samples.nii.gz. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".nii.gz",
+      "primary": false,
+      "path_template": "results/data.bedpostX/merged_th1samples.nii.gz",
+      "generated_when": {}
+    },
+    {
+      "id": "file_data_bedpostX_merged_ph1samples_nii_gz",
+      "type": "generated_file",
+      "label": "data.bedpostX/merged_ph1samples.nii.gz",
+      "description": "data.bedpostX/merged_ph1samples.nii.gz: output of FSL BEDPOSTX fiber orientation sampling. Relative run path: results/data.bedpostX/merged_ph1samples.nii.gz. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".nii.gz",
+      "primary": false,
+      "path_template": "results/data.bedpostX/merged_ph1samples.nii.gz",
+      "generated_when": {}
+    },
+    {
+      "id": "file_data_bedpostX_merged_f1samples_nii_gz",
+      "type": "generated_file",
+      "label": "data.bedpostX/merged_f1samples.nii.gz",
+      "description": "data.bedpostX/merged_f1samples.nii.gz: output of FSL BEDPOSTX fiber orientation sampling. Relative run path: results/data.bedpostX/merged_f1samples.nii.gz. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".nii.gz",
+      "primary": false,
+      "path_template": "results/data.bedpostX/merged_f1samples.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "bakend/app/execution/planning_native_worker.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.dwi-skill.bedpostx",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.dwi-skill.bedpostx",
+      "script": "bakend/app/execution/planning_native_worker.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "mask",
+          "flag": "--mask",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "bval",
+          "flag": "--bval",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "bvec",
+          "flag": "--bvec",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "fibres",
+          "flag": "--fibres"
+        },
+        {
+          "id": "burnin",
+          "flag": "--burnin"
+        },
+        {
+          "id": "jumps",
+          "flag": "--jumps"
+        },
+        {
+          "id": "sample_every",
+          "flag": "--sample-every"
+        }
+      ],
+      "modules": [
+        "nibabel"
+      ],
+      "expected": [
+        "data.bedpostX/merged_th1samples.nii.gz",
+        "data.bedpostX/merged_ph1samples.nii.gz",
+        "data.bedpostX/merged_f1samples.nii.gz"
+      ],
+      "profile": "scientific",
+      "fixed_args": [
+        "--operation",
+        "bedpostx"
+      ],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [
+        "/opt/software/fsl/bin/bedpostx",
+        "/opt/software/fsl/bin/fsl_sub",
+        "/opt/software/fsl/bin/bedpostx_preproc.sh",
+        "/opt/software/fsl/bin/bedpostx_single_slice.sh",
+        "/opt/software/fsl/bin/bedpostx_postproc.sh",
+        "/opt/software/fsl/bin/xfibres"
+      ],
+      "input_artifact_types": {
+        "input": "preprocessed_dwi"
+      },
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "software_command",
+        "entrypoints": [
+          "/opt/software/fsl/bin/bedpostx",
+          "/opt/software/fsl/bin/fsl_sub",
+          "/opt/software/fsl/bin/bedpostx_preproc.sh",
+          "/opt/software/fsl/bin/bedpostx_single_slice.sh",
+          "/opt/software/fsl/bin/bedpostx_postproc.sh",
+          "/opt/software/fsl/bin/xfibres"
+        ],
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "bakend/app/execution/planning_native_worker.py",
+          "sha256": "b8758b07bf02f10c8fbcc5ddbc2ade3486bb0cc12fc6bd31bc6f957669f6dd8d"
+        }
+      ],
+      "artifact_types": {
+        "data.bedpostX/merged_th1samples.nii.gz": "generated_file",
+        "data.bedpostX/merged_ph1samples.nii.gz": "generated_file",
+        "data.bedpostX/merged_f1samples.nii.gz": "generated_file"
+      }
+    }
+  }
+}

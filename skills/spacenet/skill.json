@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "spacenet",
+  "description": "spacenet 统筹已登记的独立方法和可复用流程。支持：SpaceNet 空间正则分类。",
+  "method_refs": [
+    {
+      "capability": "skill.spacenet",
+      "method_id": "reviewed-spacenet-nilearn-tool",
+      "label": "SpaceNet 空间正则分类",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Reference Nilearn snippet for SpaceNet disease classification。 Inputs: input_list: 影像路径清单 (file); labels: 标签表 (file); mask: 脑掩膜 (file). Registered outputs: results/coef_map.nii.gz.",
+      "method_ref": "reviewed.nilearn-tool.spacenet"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "name": "spacenet",
+  "category": [
+    "任务能力",
+    "spacenet"
+  ],
+  "scope": "model",
+  "keywords": [
+    "spacenet"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

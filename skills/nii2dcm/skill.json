@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "nii2dcm",
+  "description": "nii2dcm 统筹已登记的独立方法和可复用流程。支持：nii2dcm 实际转换。",
+  "method_refs": [
+    {
+      "capability": "skill.nii2dcm",
+      "method_id": "nii2dcm-local-environment",
+      "label": "nii2dcm 实际转换",
+      "default_recommended": true,
+      "default_reason": "配置已有 nii2dcm 环境后可直接启用；当前环境缺失时会明确禁用。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "把一个 3D NIfTI 转换为研究用途的单帧 DICOM 序列；可从参考 DICOM 复制元数据。",
+      "method_ref": "nii2dcm.convert"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "name": "nii2dcm",
+  "category": [
+    "软件工具",
+    "nii2dcm"
+  ],
+  "scope": "software",
+  "limitations": [
+    "当前转换入口只接受单个 3D NIfTI；4D fMRI 或 DWI 不能直接作为单个 DICOM 序列转换。"
+  ],
+  "keywords": [
+    "nii2dcm",
+    "NIfTI",
+    "DICOM",
+    "格式转换"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

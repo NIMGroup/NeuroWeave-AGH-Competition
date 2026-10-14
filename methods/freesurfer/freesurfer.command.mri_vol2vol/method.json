@@ -1,0 +1,239 @@
+{
+  "schema_version": 1,
+  "id": "freesurfer.command.mri_vol2vol",
+  "version": "1",
+  "kind": "method",
+  "label": "FreeSurfer mri_vol2vol",
+  "description": "Resample a moving volume into a target grid with an explicit LTA registration.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "freesurfer.command.mri_vol2vol",
+  "parameters": [
+    {
+      "id": "interp",
+      "argument": "--interp",
+      "label": "interp",
+      "description": "Resampling interpolation.",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": "trilin",
+      "options": [
+        {
+          "value": "trilin",
+          "label": "trilin",
+          "description": ""
+        },
+        {
+          "value": "nearest",
+          "label": "nearest",
+          "description": ""
+        },
+        {
+          "value": "cubic",
+          "label": "cubic",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Resampling interpolation. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "inv",
+      "argument": "--inv",
+      "label": "inv",
+      "description": "Invert the supplied registration.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Invert the supplied registration. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "moving",
+      "type": "imaging_input",
+      "label": "moving",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "target",
+      "type": "imaging_input",
+      "label": "target",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "transform",
+      "type": "transform_matrix",
+      "label": "transform",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "registered",
+      "type": "registered_image",
+      "label": "registered",
+      "description": "Native command output, saved in this run’s output directory. Resample a moving volume into a target grid with an explicit LTA registration.",
+      "format": ".nii.gz",
+      "primary": true,
+      "path_template": "output.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "imaging_input",
+    "transform_matrix"
+  ],
+  "output_types": [
+    "registered_image"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/freesurfer-mri_vol2vol.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "freesurfer",
+      "command": "mri_vol2vol",
+      "version": "7.4.1",
+      "argv": [
+        {
+          "tokens": [
+            "--mov",
+            {
+              "input": "moving"
+            },
+            "--targ",
+            {
+              "input": "target"
+            },
+            "--lta",
+            {
+              "input": "transform"
+            },
+            "--o",
+            {
+              "output": "registered"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "--interp",
+            {
+              "parameter": "interp"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "--inv"
+          ],
+          "when": {
+            "inv": [
+              true
+            ]
+          },
+          "optional": false
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

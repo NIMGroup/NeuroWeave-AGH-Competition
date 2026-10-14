@@ -1,0 +1,11 @@
+{
+  "method_id": "freesurfer.command.mri_mask",
+  "method_version": "1",
+  "execution_fingerprint": "b5dcf56efe11f93abb69b3e6b8b866592928989899ff6d840a420d52f101dbe4",
+  "report_path": "deploy/method-verification/reports/catalog-flags-synthetic.json",
+  "report_sha256": "b0eb6a400469f5c2018ad40ab3fc5f094ac75d176bd483a577be7ea48e463181",
+  "test_type": "synthetic",
+  "tested_at": "2026-09-24T14:41:11.239330+00:00",
+  "environment": "mgr Linux CPU, 1 thread; isolated synthetic inputs",
+  "result": "passed"
+}

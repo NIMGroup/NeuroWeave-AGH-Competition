@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix3.command.peaks2fixel",
+  "version": "1",
+  "kind": "method",
+  "label": "MRtrix3 peaks2fixel",
+  "description": "Convert peak directions image to a fixel directory\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "mrtrix3.command.peaks2fixel",
+  "parameters": [
+    {
+      "id": "nthreads",
+      "argument": "",
+      "label": "nthreads",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading). ",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 1,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 128.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).  Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "directions",
+      "type": "imaging_input",
+      "label": "directions",
+      "description": "the input directions image; each volume corresponds to the x, y & z component of each direction vector in turn.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "fixels",
+      "type": "generated_folder",
+      "label": "fixels",
+      "description": "Native command output, saved in this run’s output directory. Convert peak directions image to a fixel directory",
+      "format": "directory",
+      "primary": true,
+      "path_template": "fixels",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "imaging_input"
+  ],
+  "output_types": [
+    "generated_folder"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/peaks2fixel.usage.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "mrtrix3",
+      "command": "peaks2fixel",
+      "version": "3.0.8",
+      "argv": [
+        {
+          "tokens": [
+            {
+              "input": "directions"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "output": "fixels"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-nthreads",
+            {
+              "parameter": "nthreads"
+            }
+          ],
+          "when": {},
+          "optional": true
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "dataname": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "info": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "quiet": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "debug": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "force": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "config": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "help": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "version": "Managed by the platform or requires a specialized repeated/text argument contract."
+      }
+    }
+  }
+}

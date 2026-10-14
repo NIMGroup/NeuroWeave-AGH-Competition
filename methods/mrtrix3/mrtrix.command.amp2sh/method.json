@@ -1,0 +1,297 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix.command.amp2sh",
+  "version": "1",
+  "kind": "method",
+  "label": "MRtrix3 amp2sh",
+  "description": "Convert a set of amplitudes (defined along a set of corresponding directions) to their spherical harmonic representation\nThe spherical harmonic decomposition is calculated by least-squares linear fitting to the amplitude data.\nThe directions can be defined either as a DW gradient scheme (for example to compute the SH representation of the DW signal), a set of [az el] pairs as output by the dirgen command, or a set of [ x y z ] directions in Cartesian coordinates. The DW gradient scheme or direction set can be supplied within the input image header or using the -gradient or -directions option. Note that if a direction set and DW gradient scheme can be found, the direction set will be used by default.\nThe spherical harmonic coefficients are stored according the conventions described the main documentation, which can be found at the following link: \nhttps://mrtrix.readthedocs.io/en/3.0.8/concepts/spherical_harmonics.html",
+  "runner_id": "mrtrix.command.amp2sh",
+  "parameters": [
+    {
+      "id": "lmax",
+      "argument": "lmax",
+      "label": "lmax",
+      "description": "set the maximum harmonic order for the output series. By default, the program will use the highest possible lmax given the number of diffusion-weighted images, up to a maximum of 8.",
+      "type": "integer",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/amp2sh.html",
+      "minimum": 0,
+      "maximum": 30
+    },
+    {
+      "id": "normalise",
+      "argument": "-normalise",
+      "label": "normalise",
+      "description": "normalise the DW signal to the b=0 image",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "shells",
+      "argument": "shells",
+      "label": "shells",
+      "description": "specify one or more b-values to use during processing, as a comma-separated list of the desired approximate b-values (b-values are clustered to allow for small deviations). Note that some commands are incompatible with multiple b-values, and will report an error if more than one b-value is provided. \nWARNING: note that, even though the b=0 volumes are never referred to as shells in the literature, they still have to be explicitly included in the list of b-values as provided to the -shell option! Several algorithms which include the b=0 volumes in their computations may otherwise return an undesired result.",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/amp2sh.html"
+    },
+    {
+      "id": "info",
+      "argument": "-info",
+      "label": "info",
+      "description": "display information messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "quiet",
+      "argument": "-quiet",
+      "label": "quiet",
+      "description": "do not display information messages or progress status; alternatively, this can be achieved by setting the MRTRIX_QUIET environment variable to a non-empty string.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "debug",
+      "argument": "-debug",
+      "label": "debug",
+      "description": "display debugging messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "nthreads",
+      "argument": "nthreads",
+      "label": "nthreads",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).",
+      "type": "integer",
+      "required": true,
+      "default": 1,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/amp2sh.html",
+      "minimum": 0,
+      "group": "计算资源",
+      "level": "advanced"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "amp",
+      "type": "imaging_input",
+      "label": "amp",
+      "description": "the input amplitude image.",
+      "required": true,
+      "binding": "file"
+    },
+    {
+      "id": "directions",
+      "type": "generated_file",
+      "label": "directions",
+      "description": "the directions corresponding to the input amplitude image used to sample AFD. By default this option is not required providing the direction set is supplied in the amplitude image. This should be supplied as a list of directions [az el], as generated using the dirgen command, or as a list of [ x y z ] Cartesian coordinates.",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "rician",
+      "type": "imaging_input",
+      "label": "rician",
+      "description": "correct for Rician noise induced bias, using noise map supplied",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "grad",
+      "type": "generated_file",
+      "label": "grad",
+      "description": "Provide the diffusion-weighted gradient scheme used in the acquisition in a text file. This should be supplied as a 4xN text file with each line is in the format [ X Y Z b ], where [ X Y Z ] describe the direction of the applied gradient, and b gives the b-value in units of s/mm^2. If a diffusion gradient scheme is present in the input image header, the data provided with this option will be instead used.",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "fslgrad_bvecs",
+      "type": "generated_file",
+      "label": "fslgrad_bvecs",
+      "description": "Provide the diffusion-weighted gradient scheme used in the acquisition in FSL bvecs/bvals format files. If a diffusion gradient scheme is present in the input image header, the data provided with this option will be instead used.",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "fslgrad_bvals",
+      "type": "generated_file",
+      "label": "fslgrad_bvals",
+      "description": "Provide the diffusion-weighted gradient scheme used in the acquisition in FSL bvecs/bvals format files. If a diffusion gradient scheme is present in the input image header, the data provided with this option will be instead used.",
+      "required": false,
+      "binding": "file"
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "SH",
+      "type": "imaging_input",
+      "label": "SH",
+      "description": "the output spherical harmonics coefficients image. The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".mif",
+      "path_template": "SH.mif"
+    }
+  ],
+  "input_types": [
+    "imaging_input",
+    "generated_file"
+  ],
+  "output_types": [
+    "imaging_input"
+  ],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/amp2sh.usage.txt",
+      "kind": "command",
+      "label": "MRtrix3 安装版原始完整帮助"
+    }
+  ],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "command": "amp2sh",
+      "version": "3.0.8",
+      "positional": [
+        {
+          "source": "input",
+          "id": "amp",
+          "optional": false
+        },
+        {
+          "source": "output",
+          "id": "SH",
+          "optional": false
+        }
+      ],
+      "options": [
+        {
+          "flag": "-lmax",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "lmax",
+              "kind": "INT"
+            }
+          ]
+        },
+        {
+          "flag": "-normalise",
+          "values": [],
+          "when": {
+            "normalise": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-directions",
+          "values": [
+            {
+              "source": "input",
+              "id": "directions"
+            }
+          ]
+        },
+        {
+          "flag": "-rician",
+          "values": [
+            {
+              "source": "input",
+              "id": "rician"
+            }
+          ]
+        },
+        {
+          "flag": "-grad",
+          "values": [
+            {
+              "source": "input",
+              "id": "grad"
+            }
+          ]
+        },
+        {
+          "flag": "-fslgrad",
+          "values": [
+            {
+              "source": "input",
+              "id": "fslgrad_bvecs"
+            },
+            {
+              "source": "input",
+              "id": "fslgrad_bvals"
+            }
+          ]
+        },
+        {
+          "flag": "-shells",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "shells",
+              "kind": "FSEQ"
+            }
+          ]
+        },
+        {
+          "flag": "-info",
+          "values": [],
+          "when": {
+            "info": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-quiet",
+          "values": [],
+          "when": {
+            "quiet": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-debug",
+          "values": [],
+          "when": {
+            "debug": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-nthreads",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "nthreads",
+              "kind": "INT"
+            }
+          ]
+        }
+      ],
+      "total_options": 16,
+      "omitted_options": {
+        "strides": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    }
+  }
+}

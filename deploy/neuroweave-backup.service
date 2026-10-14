@@ -1,0 +1,9 @@
+[Unit]
+Description=NeuroWeave verified online database backup
+
+[Service]
+Type=oneshot
+UMask=0077
+Nice=10
+IOSchedulingClass=idle
+ExecStart=/usr/bin/python3 /home/hipeson/LocalFlow/scripts/maintain_storage.py backup --database /home/hipeson/LocalFlow/runtime/localflow.db --directory /home/data/neuroweave/backups/hipeson --keep 14 --expire-checks-days 14

@@ -1,0 +1,223 @@
+{
+  "label": "aomic 表型/刺激提取",
+  "description": "Extract and merge AOMIC phenotype tables for downstream analysis. Reads AOMIC phenotype files (Big Five personality, Raven's progressive matrices, demographics), selects columns, and optionally cross-references with imaging subject lists。 Inputs: phenotype_dir: Directory containing AOMIC phenotype CSV/TSV files (directory); imaging_ids: Path to BIDS participants.tsv or file with imaging subject IDs (file). Registered outputs: results/output.csv.",
+  "runner_id": "reviewed.aomic-skill.extract-aomic-phenotype",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "columns",
+      "argument": "columns",
+      "label": "columns",
+      "description": "Comma-separated list of columns to select (default: all)",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/aomic-skill/scripts/extract_aomic_phenotype.py:238。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "missing_threshold",
+      "argument": "missing-threshold",
+      "label": "missing-threshold",
+      "description": "Drop columns with more than this fraction of missing values (default: 0.5)",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 0.5,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 1000000.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/aomic-skill/scripts/extract_aomic_phenotype.py:246。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "phenotype_dir",
+      "type": "analysis_input",
+      "label": "Directory containing AOMIC phenotype CSV/TSV files",
+      "description": "Directory containing AOMIC phenotype CSV/TSV files. Required directory input for aomic 表型/刺激提取; bind to port phenotype_dir.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "folder",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "imaging_ids",
+      "type": "analysis_input",
+      "label": "Path to BIDS participants.tsv or file with imaging subject IDs",
+      "description": "Path to BIDS participants.tsv or file with imaging subject IDs. Optional file input for aomic 表型/刺激提取; bind to port imaging_ids.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for aomic 表型/刺激提取. Contains this operation's generated files, including results/output.csv; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_output_csv",
+      "type": "generated_file",
+      "label": "output.csv",
+      "description": "Output path for merged phenotype CSV: output of aomic phenotype/stimulus extraction. Relative run path: results/output.csv. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".csv",
+      "primary": false,
+      "path_template": "results/output.csv",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/aomic-skill/scripts/extract_aomic_phenotype.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.aomic-skill.extract-aomic-phenotype",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.aomic-skill.extract-aomic-phenotype",
+      "script": "skills/aomic-skill/scripts/extract_aomic_phenotype.py",
+      "inputs": [
+        {
+          "id": "phenotype_dir",
+          "flag": "--phenotype-dir",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "imaging_ids",
+          "flag": "--imaging-ids",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "columns",
+          "flag": "--columns",
+          "split": false
+        },
+        {
+          "id": "missing_threshold",
+          "flag": "--missing-threshold",
+          "split": false
+        }
+      ],
+      "modules": [
+        "pandas",
+        "numpy"
+      ],
+      "expected": [
+        "output.csv"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output",
+          "output.csv"
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/aomic-skill/scripts/extract_aomic_phenotype.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/aomic-skill/scripts/extract_aomic_phenotype.py",
+          "source_sha256": "18a7e544c62ec71aaa2a55d74d398aa83311c8aed6b58eb1b9dc6213f271289c"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/aomic-skill/scripts/extract_aomic_phenotype.py",
+          "sha256": "8a131185a2af6b929acdc13ee01fd40c2c07fa373cb50a5d3a82edb67aabe25d"
+        }
+      ],
+      "artifact_types": {
+        "output.csv": "generated_file"
+      }
+    }
+  }
+}

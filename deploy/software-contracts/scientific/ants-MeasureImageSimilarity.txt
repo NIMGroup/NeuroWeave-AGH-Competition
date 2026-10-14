@@ -1,0 +1,22 @@
+
+COMMAND: 
+     MeasureImageSimilarity
+
+OPTIONS: 
+     -d, --dimensionality 2/3/4
+     -m, --metric CC[fixedImage,movingImage,metricWeight,radius,<samplingStrategy={None,Regular,Random}>,<samplingPercentage=[0,1]>]
+                  MI[fixedImage,movingImage,metricWeight,numberOfBins,<samplingStrategy={None,Regular,Random}>,<samplingPercentage=[0,1]>]
+                  Mattes[fixedImage,movingImage,metricWeight,numberOfBins,<samplingStrategy={None,Regular,Random}>,<samplingPercentage=[0,1]>]
+                  MeanSquares[fixedImage,movingImage,metricWeight,radius=NA,<samplingStrategy={None,Regular,Random}>,<samplingPercentage=[0,1]>]
+                  Demons[fixedImage,movingImage,metricWeight,radius=NA,<samplingStrategy={None,Regular,Random}>,<samplingPercentage=[0,1]>]
+                  GC[fixedImage,movingImage,metricWeight,radius=NA,<samplingStrategy={None,Regular,Random}>,<samplingPercentage=[0,1]>]
+                  ICP[fixedPointSet,movingPointSet,metricWeight]
+                  PSE[fixedPointSet,movingPointSet,metricWeight,<pointSetSigma=1>,<kNeighborhood=50>]
+                  JHCT[fixedPointSet,movingPointSet,metricWeight,<pointSetSigma=1>,<kNeighborhood=50>,<alpha=1.1>,<useAnisotropicCovariances=1>]
+     -x, --masks fixedImageMask
+                 [fixedImageMask,movingImageMask]
+                 [fixedImageMask,NULL]
+     -v, --verbose (0)/1
+     -o, --output gradientImage
+     -h 
+     --help 

@@ -1,0 +1,171 @@
+{
+  "checked_at": "2026-09-07T04:06:06.231751+00:00",
+  "worker_revision": "c58b1858c0f5f74b5b3b3e63785d2efd7fe24f02",
+  "gpu_jobs": [
+    {
+      "node": "node01",
+      "job_id": "12",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "gpu_allocation": "gres:gpu:1",
+      "runtime": "00:00:29"
+    },
+    {
+      "node": "node02",
+      "job_id": "13",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "gpu_allocation": "gres:gpu:1",
+      "runtime": "00:00:29"
+    },
+    {
+      "node": "node03",
+      "job_id": "14",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "gpu_allocation": "gres:gpu:1",
+      "runtime": "00:00:30"
+    }
+  ],
+  "workflow_cases": [
+    {
+      "case": "success",
+      "passed": true,
+      "run_id": "run_85aa1166ca40",
+      "job_ids": [
+        "15"
+      ],
+      "elapsed_seconds": 3.023
+    },
+    {
+      "case": "missing_dataset",
+      "passed": true,
+      "run_id": "run_9451c973e687",
+      "job_ids": [
+        "16"
+      ],
+      "elapsed_seconds": 14.354
+    },
+    {
+      "case": "cancel_pending",
+      "passed": true,
+      "run_id": "run_2ee95ae859e1",
+      "job_ids": [
+        "17"
+      ],
+      "elapsed_seconds": 10.44
+    },
+    {
+      "case": "restart_resume",
+      "passed": true,
+      "run_id": "run_30308a19fa9e",
+      "job_ids": [
+        "18"
+      ],
+      "elapsed_seconds": 28.372,
+      "job_id_before_restart": "18",
+      "job_id_after_restart": "18",
+      "additional_submissions_after_restart": 0
+    }
+  ],
+  "gpu_runner": {
+    "passed": true,
+    "run_id": "run_ef430f7fee0d",
+    "scheduler": {
+      "submission_token": "7daf4fe5a2664ecabec28bbb18c96f0c",
+      "job_directory": "/home/data/neuroweave/smoke/gpu-runner-20260907T040314Z/runs/run_ef430f7fee0d/dwi_inspect/.slurm/7daf4fe5a2664ecabec28bbb18c96f0c",
+      "state": "COMPLETED",
+      "submitted_at": 1788753795.736485,
+      "worker_root": "/opt/neuroweave/worker/c58b1858c0f5f74b5b3b3e63785d2efd7fe24f02",
+      "options": {
+        "backend": "slurm",
+        "partition": "all",
+        "cpus": 2,
+        "memory_gb": 4,
+        "gpus": 1,
+        "time_minutes": 2
+      },
+      "payload_sha256": "6e1068cd0d23c323d1839c949c26b450ca937a7eb123279c1cafa790ce052767",
+      "job_id": "19",
+      "exit_code": "0:0",
+      "node_list": "node01",
+      "reason": "None",
+      "source": "scontrol",
+      "terminal": {
+        "state": "COMPLETED",
+        "exit_code": "0:0",
+        "node_list": "node01",
+        "reason": "None",
+        "source": "scontrol",
+        "job_id": "19",
+        "submission_token": "7daf4fe5a2664ecabec28bbb18c96f0c",
+        "observed_at": 1788753797.9819722
+      }
+    },
+    "requested_gpus": 1
+  },
+  "execution_backends": {
+    "local": {
+      "available": true
+    },
+    "slurm": {
+      "enabled": true,
+      "available": true,
+      "reason": "Slurm 与共享 Worker 可用；具体方法将在计算节点预检",
+      "partitions": [
+        "all"
+      ],
+      "gpu_available": true,
+      "nodes": [
+        {
+          "name": "mgr",
+          "partition": "all",
+          "state": "idle",
+          "gres": "(null)",
+          "schedulable": true
+        },
+        {
+          "name": "node01",
+          "partition": "all",
+          "state": "idle",
+          "gres": "gpu:1",
+          "schedulable": true
+        },
+        {
+          "name": "node02",
+          "partition": "all",
+          "state": "idle",
+          "gres": "gpu:1",
+          "schedulable": true
+        },
+        {
+          "name": "node03",
+          "partition": "all",
+          "state": "idle",
+          "gres": "gpu:1",
+          "schedulable": true
+        }
+      ],
+      "worker_root": "/opt/neuroweave/worker/c58b1858c0f5f74b5b3b3e63785d2efd7fe24f02",
+      "python": "/opt/neuroweave/envs/scientific-py311/bin/python",
+      "output_root": "/home/data/neuroweave/runs/hipeson"
+    }
+  },
+  "runner_count": 22,
+  "ready_runner_count": 19,
+  "production_run_states": [
+    [
+      "failed",
+      6
+    ],
+    [
+      "succeeded",
+      4
+    ]
+  ],
+  "evidence_roots": [
+    "/home/data/neuroweave/smoke/gpu-20260907T035944Z",
+    "/home/data/neuroweave/smoke/20260907T040028Z-2429c14b",
+    "/home/data/neuroweave/smoke/gpu-runner-20260907T040314Z"
+  ]
+}

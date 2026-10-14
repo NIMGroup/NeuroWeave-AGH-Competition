@@ -1,0 +1,460 @@
+{
+  "schema_version": 1,
+  "id": "fsl.command.fslstats",
+  "version": "1",
+  "kind": "method",
+  "label": "FSL fslstats",
+  "description": "Image summary statistics. Results are captured in the command report.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "fsl.command.fslstats",
+  "parameters": [
+    {
+      "id": "t",
+      "argument": "-t",
+      "label": "t",
+      "description": "Report each volume of a 4D image separately.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Report each volume of a 4D image separately. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "l",
+      "argument": "-l",
+      "label": "l",
+      "description": "Exclusive lower/upper intensity threshold.",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Exclusive lower/upper intensity threshold. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "u",
+      "argument": "-u",
+      "label": "u",
+      "description": "Exclusive lower/upper intensity threshold.",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Exclusive lower/upper intensity threshold. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "statistic",
+      "argument": "",
+      "label": "statistic",
+      "description": "Native statistic to print. Uppercase variants often exclude zero voxels; consult help.",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": "-M",
+      "options": [
+        {
+          "value": "-r",
+          "label": "-r",
+          "description": ""
+        },
+        {
+          "value": "-R",
+          "label": "-R",
+          "description": ""
+        },
+        {
+          "value": "-e",
+          "label": "-e",
+          "description": ""
+        },
+        {
+          "value": "-E",
+          "label": "-E",
+          "description": ""
+        },
+        {
+          "value": "-v",
+          "label": "-v",
+          "description": ""
+        },
+        {
+          "value": "-V",
+          "label": "-V",
+          "description": ""
+        },
+        {
+          "value": "-m",
+          "label": "-m",
+          "description": ""
+        },
+        {
+          "value": "-M",
+          "label": "-M",
+          "description": ""
+        },
+        {
+          "value": "-s",
+          "label": "-s",
+          "description": ""
+        },
+        {
+          "value": "-S",
+          "label": "-S",
+          "description": ""
+        },
+        {
+          "value": "-w",
+          "label": "-w",
+          "description": ""
+        },
+        {
+          "value": "-x",
+          "label": "-x",
+          "description": ""
+        },
+        {
+          "value": "-X",
+          "label": "-X",
+          "description": ""
+        },
+        {
+          "value": "-c",
+          "label": "-c",
+          "description": ""
+        },
+        {
+          "value": "-C",
+          "label": "-C",
+          "description": ""
+        },
+        {
+          "value": "-p",
+          "label": "-p",
+          "description": ""
+        },
+        {
+          "value": "-P",
+          "label": "-P",
+          "description": ""
+        },
+        {
+          "value": "-h",
+          "label": "-h",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Native statistic to print. Uppercase variants often exclude zero voxels; consult help. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "percentile",
+      "argument": "",
+      "label": "percentile",
+      "description": "Percentile in [0,100].",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 50,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 100.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "statistic": [
+          "-p",
+          "-P"
+        ]
+      },
+      "required_when": {
+        "statistic": [
+          "-p",
+          "-P"
+        ]
+      },
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "Required only for the selected operation.",
+      "usage": "Percentile in [0,100]. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "bins",
+      "argument": "",
+      "label": "bins",
+      "description": "Histogram bin count.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 100,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "statistic": [
+          "-h"
+        ]
+      },
+      "required_when": {
+        "statistic": [
+          "-h"
+        ]
+      },
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "Required only for the selected operation.",
+      "usage": "Histogram bin count. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "mask",
+      "type": "brain_mask",
+      "label": "mask",
+      "description": "Mask in the same grid as the input image.",
+      "required": false,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "report",
+      "type": "execution_log",
+      "label": "report",
+      "description": "Native command output, saved in this run’s output directory. Image summary statistics. Results are captured in the command report.",
+      "format": ".log",
+      "primary": true,
+      "path_template": "command.log",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "imaging_input",
+    "brain_mask"
+  ],
+  "output_types": [
+    "execution_log"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/fsl-fslstats.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "fsl",
+      "command": "fslstats",
+      "version": "installed-2412.6",
+      "argv": [
+        {
+          "tokens": [
+            "-t"
+          ],
+          "when": {
+            "t": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "input": "input"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-k",
+            {
+              "input": "mask"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-l",
+            {
+              "parameter": "l"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-u",
+            {
+              "parameter": "u"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            {
+              "parameter": "statistic"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "parameter": "percentile"
+            }
+          ],
+          "when": {
+            "statistic": [
+              "-p",
+              "-P"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "parameter": "bins"
+            }
+          ],
+          "when": {
+            "statistic": [
+              "-h"
+            ]
+          },
+          "optional": false
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

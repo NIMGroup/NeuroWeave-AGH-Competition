@@ -1,0 +1,164 @@
+{
+  "label": "MRtrix3 5ttgen（FSL）",
+  "description": "由 T1w 结构像生成 ACT 纤维追踪使用的五组织类型影像。",
+  "runner_id": "mrtrix.5ttgen",
+  "input_types": [
+    "t1w_image"
+  ],
+  "output_types": [
+    "five_tt_image",
+    "execution_log"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "algorithm",
+      "argument": "algorithm",
+      "label": "分割后端",
+      "description": "当前可信入口固定使用 FSL 后端。",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "fsl",
+      "options": [
+        {
+          "value": "fsl",
+          "label": "FSL",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "nocrop",
+      "argument": "nocrop",
+      "label": "不裁剪输出",
+      "description": "保留 T1w 原始空间范围。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "输出",
+      "unit": "",
+      "required": true,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "threads",
+      "argument": "nthreads",
+      "label": "线程数",
+      "description": "MRtrix3 使用的 CPU 线程数。",
+      "type": "integer",
+      "control": "number",
+      "level": "advanced",
+      "group": "计算资源",
+      "unit": "",
+      "required": true,
+      "default": 4,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 128.0,
+      "step": 1.0,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "t1w",
+      "type": "t1w_image",
+      "label": "T1w 结构像",
+      "description": "用于组织分割的 3D T1w NIfTI。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "five_tt",
+      "type": "five_tt_image",
+      "label": "5TT 影像",
+      "description": "ACT 追踪所需五组织类型影像。",
+      "format": ".mif",
+      "primary": true,
+      "path_template": "5tt.mif",
+      "generated_when": {}
+    },
+    {
+      "id": "log",
+      "type": "execution_log",
+      "label": "5TT 日志",
+      "description": "5ttgen 完整输出。",
+      "format": "",
+      "primary": false,
+      "path_template": "5ttgen.log",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/dwi-skill/skill.json",
+      "label": "DWI Skill",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "mrtrix.5ttgen",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "builtin"
+  }
+}

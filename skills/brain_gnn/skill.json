@@ -1,0 +1,409 @@
+{
+  "schema_version": 1,
+  "id": "braingnn",
+  "description": "braingnn 的领域规划与方法选择指导。覆盖：Braingnn 受约束方案。当前没有独立执行 Method，不能直接提交计算任务。",
+  "method_refs": [],
+  "pipeline_refs": [],
+  "planning_capabilities": [
+    {
+      "capability": "skill.braingnn",
+      "method_id": "braingnn-guided",
+      "skill_id": "braingnn",
+      "label": "Braingnn 受约束方案",
+      "description": "该入口为规划能力；用于讨论Braingnn 受约束方案的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": true,
+      "default_reason": "根据当前 Skill 的适用条件进行规划；实际执行需要独立 Method。",
+      "parameters": [
+        {
+          "id": "evaluation_scope",
+          "argument": "evaluation-scope",
+          "label": "评估范围",
+          "description": "选择单次划分、交叉验证或多方法基准比较。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "cross_validation",
+          "options": [
+            {
+              "value": "single_split",
+              "label": "单次划分",
+              "description": ""
+            },
+            {
+              "value": "cross_validation",
+              "label": "交叉验证",
+              "description": ""
+            },
+            {
+              "value": "benchmark",
+              "label": "基准比较",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "reproducibility",
+          "argument": "reproducibility",
+          "label": "记录复现信息",
+          "description": "保留随机种子、数据划分、依赖和参数快照。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "记录",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不记录",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "validation_folds",
+          "argument": "validation-folds",
+          "label": "交叉验证折数",
+          "description": "交叉验证或基准比较使用的折数。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "验证设计",
+          "unit": "",
+          "required": true,
+          "default": 5,
+          "options": [],
+          "minimum": 2.0,
+          "maximum": 20.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {
+            "evaluation_scope": [
+              "cross_validation",
+              "benchmark"
+            ]
+          },
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "random_seed",
+          "argument": "random-seed",
+          "label": "随机种子",
+          "description": "控制数据划分、初始化和可复现实验。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "验证设计",
+          "unit": "",
+          "required": true,
+          "default": 42,
+          "options": [],
+          "minimum": 0.0,
+          "maximum": 2147483647.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "hyperparameter_search",
+          "argument": "hyperparameter-search",
+          "label": "超参数搜索",
+          "description": "选择固定参数、网格搜索或贝叶斯搜索。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "模型优化",
+          "unit": "",
+          "required": true,
+          "default": "fixed",
+          "options": [
+            {
+              "value": "fixed",
+              "label": "固定参数",
+              "description": ""
+            },
+            {
+              "value": "grid",
+              "label": "网格搜索",
+              "description": ""
+            },
+            {
+              "value": "bayesian",
+              "label": "贝叶斯搜索",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "class_balance",
+          "argument": "class-balance",
+          "label": "类别不平衡处理",
+          "description": "分类任务中对类别不平衡的处理方式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "模型优化",
+          "unit": "",
+          "required": true,
+          "default": "none",
+          "options": [
+            {
+              "value": "none",
+              "label": "不处理",
+              "description": ""
+            },
+            {
+              "value": "class_weight",
+              "label": "类别权重",
+              "description": ""
+            },
+            {
+              "value": "resample",
+              "label": "重采样",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "explainability",
+          "argument": "explainability",
+          "label": "生成解释结果",
+          "description": "在支持时生成特征重要性、显著性或模型解释。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "输出与解释",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "生成",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不生成",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "analysis_input",
+          "label": "分析输入",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "artifact",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/braingnn/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/brain_gnn/scripts/data_adapter_reference.py",
+          "label": "data_adapter_reference.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/brain_gnn/scripts/hypothesis_label_mapper.py",
+          "label": "hypothesis_label_mapper.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/brain_gnn/scripts/region_roi_mapper.py",
+          "label": "region_roi_mapper.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/brain_gnn/scripts/run_atom_task_validation.py",
+          "label": "run_atom_task_validation.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/brain_gnn/scripts/run_ibgnn_tune.py",
+          "label": "run_ibgnn_tune.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/brain_gnn/scripts/run_lifespan_age.py",
+          "label": "run_lifespan_age.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/brain_gnn/scripts/run_lifespan_new_models_search.py",
+          "label": "run_lifespan_new_models_search.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/brain_gnn/scripts/train_reference.py",
+          "label": "train_reference.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [
+        "fmri-skill",
+        "run_models"
+      ],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_runtime",
+        "reason": "原项目图模型训练需要 torch_geometric 及匹配 PyTorch/CUDA 的图算子；当前公共环境缺失这些依赖。",
+        "source_method_id": "braingnn-guided",
+        "requirements": [
+          "torch_geometric",
+          "匹配版本的 torch_scatter / torch_sparse 等原训练入口依赖"
+        ]
+      }
+    }
+  ],
+  "name": "braingnn",
+  "category": [
+    "任务能力",
+    "braingnn"
+  ],
+  "scope": "model",
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

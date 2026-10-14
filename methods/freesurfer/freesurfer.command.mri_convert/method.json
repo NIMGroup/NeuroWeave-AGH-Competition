@@ -1,0 +1,209 @@
+{
+  "schema_version": 1,
+  "id": "freesurfer.command.mri_convert",
+  "version": "1",
+  "kind": "method",
+  "label": "FreeSurfer mri_convert",
+  "description": "Convert volume format, voxel size and orientation using a new output file.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "freesurfer.command.mri_convert",
+  "parameters": [
+    {
+      "id": "out_orientation",
+      "argument": "--out_orientation",
+      "label": "out_orientation",
+      "description": "Target orientation code.",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [
+        {
+          "value": "RAS",
+          "label": "RAS",
+          "description": ""
+        },
+        {
+          "value": "LPS",
+          "label": "LPS",
+          "description": ""
+        },
+        {
+          "value": "LAS",
+          "label": "LAS",
+          "description": ""
+        },
+        {
+          "value": "RPI",
+          "label": "RPI",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Target orientation code. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "resample_type",
+      "argument": "--resample_type",
+      "label": "resample_type",
+      "description": "Resampling interpolation.",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [
+        {
+          "value": "nearest",
+          "label": "nearest",
+          "description": ""
+        },
+        {
+          "value": "trilinear",
+          "label": "trilinear",
+          "description": ""
+        },
+        {
+          "value": "cubic",
+          "label": "cubic",
+          "description": ""
+        },
+        {
+          "value": "weighted",
+          "label": "weighted",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Resampling interpolation. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "output",
+      "type": "imaging_input",
+      "label": "output",
+      "description": "Native command output, saved in this run’s output directory. Convert volume format, voxel size and orientation using a new output file. The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".nii.gz",
+      "primary": true,
+      "path_template": "output.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "imaging_input"
+  ],
+  "output_types": [
+    "imaging_input"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/freesurfer-mri_convert.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "freesurfer",
+      "command": "mri_convert",
+      "version": "7.4.1",
+      "argv": [
+        {
+          "tokens": [
+            "--out_orientation",
+            {
+              "parameter": "out_orientation"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "--resample_type",
+            {
+              "parameter": "resample_type"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            {
+              "input": "input"
+            },
+            {
+              "output": "output"
+            }
+          ],
+          "when": {},
+          "optional": false
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

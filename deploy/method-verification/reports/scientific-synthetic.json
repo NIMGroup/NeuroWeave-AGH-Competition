@@ -1,0 +1,559 @@
+{
+  "tested_at": "2026-09-23T13:35:29.692029+00:00",
+  "environment": "mgr Linux CPU, 1 thread; isolated synthetic inputs",
+  "checks": [
+    {
+      "method_id": "freesurfer.command.mri_robust_register",
+      "command": "mri_robust_register",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.47
+    },
+    {
+      "method_id": "fsl.command.convertwarp",
+      "command": "convertwarp",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.016
+    },
+    {
+      "method_id": "mrtrix3.command.fod2fixel",
+      "command": "fod2fixel",
+      "status": "passed",
+      "artifacts": 2,
+      "seconds": 1.309
+    },
+    {
+      "method_id": "ants.command.Atropos",
+      "command": "Atropos",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.031
+    },
+    {
+      "method_id": "ants.command.AverageImages",
+      "command": "AverageImages",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.026
+    },
+    {
+      "method_id": "ants.command.ConvertImagePixelType",
+      "command": "ConvertImagePixelType",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.021
+    },
+    {
+      "method_id": "ants.command.ConvertTransformFile",
+      "command": "ConvertTransformFile",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.026
+    },
+    {
+      "method_id": "ants.command.DenoiseImage",
+      "command": "DenoiseImage",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.03
+    },
+    {
+      "method_id": "ants.command.ExtractRegionFromImage",
+      "command": "ExtractRegionFromImage",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.022
+    },
+    {
+      "method_id": "ants.command.ExtractSliceFromImage",
+      "command": "ExtractSliceFromImage",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.02
+    },
+    {
+      "method_id": "ants.command.ImageIntensityStatistics",
+      "command": "ImageIntensityStatistics",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.021
+    },
+    {
+      "method_id": "ants.command.ImageMath",
+      "command": "ImageMath",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.025
+    },
+    {
+      "method_id": "ants.command.LabelGeometryMeasures",
+      "command": "LabelGeometryMeasures",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.023
+    },
+    {
+      "method_id": "ants.command.LabelOverlapMeasures",
+      "command": "LabelOverlapMeasures",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.02
+    },
+    {
+      "method_id": "ants.command.MultiplyImages",
+      "command": "MultiplyImages",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.022
+    },
+    {
+      "method_id": "ants.command.N4BiasFieldCorrection",
+      "command": "N4BiasFieldCorrection",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.029
+    },
+    {
+      "method_id": "ants.command.PrintHeader",
+      "command": "PrintHeader",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.021
+    },
+    {
+      "method_id": "ants.command.ResampleImage",
+      "command": "ResampleImage",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.022
+    },
+    {
+      "method_id": "ants.command.SmoothImage",
+      "command": "SmoothImage",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.021
+    },
+    {
+      "method_id": "ants.command.ThresholdImage",
+      "command": "ThresholdImage",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.042
+    },
+    {
+      "method_id": "freesurfer.command.mri_binarize",
+      "command": "mri_binarize",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.008
+    },
+    {
+      "method_id": "freesurfer.command.mri_concat",
+      "command": "mri_concat",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.009
+    },
+    {
+      "method_id": "freesurfer.command.mri_convert",
+      "command": "mri_convert",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.007
+    },
+    {
+      "method_id": "freesurfer.command.mri_info",
+      "command": "mri_info",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.006
+    },
+    {
+      "method_id": "freesurfer.command.mri_mask",
+      "command": "mri_mask",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.008
+    },
+    {
+      "method_id": "freesurfer.command.mri_normalize",
+      "command": "mri_normalize",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.445
+    },
+    {
+      "method_id": "freesurfer.command.mri_pretess",
+      "command": "mri_pretess",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.008
+    },
+    {
+      "method_id": "freesurfer.command.mri_segstats",
+      "command": "mri_segstats",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.008
+    },
+    {
+      "method_id": "freesurfer.command.mri_tessellate",
+      "command": "mri_tessellate",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.007
+    },
+    {
+      "method_id": "freesurfer.command.mri_vol2vol",
+      "command": "mri_vol2vol",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.04
+    },
+    {
+      "method_id": "freesurfer.command.mris_convert",
+      "command": "mris_convert",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.009
+    },
+    {
+      "method_id": "freesurfer.command.mris_extract_main_component",
+      "command": "mris_extract_main_component",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.008
+    },
+    {
+      "method_id": "freesurfer.command.mris_smooth",
+      "command": "mris_smooth",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.009
+    },
+    {
+      "method_id": "fsl.command.convert_xfm",
+      "command": "convert_xfm",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.012
+    },
+    {
+      "method_id": "fsl.command.fsl_glm",
+      "command": "fsl_glm",
+      "status": "passed",
+      "artifacts": 2,
+      "seconds": 0.025
+    },
+    {
+      "method_id": "fsl.command.fsl_regfilt",
+      "command": "fsl_regfilt",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.019
+    },
+    {
+      "method_id": "fsl.command.fslcc",
+      "command": "fslcc",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.011
+    },
+    {
+      "method_id": "fsl.command.fslchfiletype",
+      "command": "fslchfiletype",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.541
+    },
+    {
+      "method_id": "fsl.command.fslhd",
+      "command": "fslhd",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.012
+    },
+    {
+      "method_id": "fsl.command.fslinfo",
+      "command": "fslinfo",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.014
+    },
+    {
+      "method_id": "fsl.command.fslmaths",
+      "command": "fslmaths",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.018
+    },
+    {
+      "method_id": "fsl.command.fslmeants",
+      "command": "fslmeants",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.013
+    },
+    {
+      "method_id": "fsl.command.fslmerge",
+      "command": "fslmerge",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.012
+    },
+    {
+      "method_id": "fsl.command.fslorient",
+      "command": "fslorient",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.009
+    },
+    {
+      "method_id": "fsl.command.fslpspec",
+      "command": "fslpspec",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.012
+    },
+    {
+      "method_id": "fsl.command.fslreorient2std",
+      "command": "fslreorient2std",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.615
+    },
+    {
+      "method_id": "fsl.command.fslroi",
+      "command": "fslroi",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.013
+    },
+    {
+      "method_id": "fsl.command.fslsplit",
+      "command": "fslsplit",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.015
+    },
+    {
+      "method_id": "fsl.command.fslstats",
+      "command": "fslstats",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.01
+    },
+    {
+      "method_id": "fsl.command.fslval",
+      "command": "fslval",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.013
+    },
+    {
+      "method_id": "fsl.command.invwarp",
+      "command": "invwarp",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.018
+    },
+    {
+      "method_id": "fsl.command.randomise",
+      "command": "randomise",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.013
+    },
+    {
+      "method_id": "fsl.command.smoothest",
+      "command": "smoothest",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.011
+    },
+    {
+      "method_id": "mrtrix3.command.5ttcheck",
+      "command": "5ttcheck",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.011
+    },
+    {
+      "method_id": "mrtrix3.command.amp2response",
+      "command": "amp2response",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.012
+    },
+    {
+      "method_id": "mrtrix3.command.dcminfo",
+      "command": "dcminfo",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.009
+    },
+    {
+      "method_id": "mrtrix3.command.dirstat",
+      "command": "dirstat",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.008
+    },
+    {
+      "method_id": "mrtrix3.command.fixelconnectivity",
+      "command": "fixelconnectivity",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.014
+    },
+    {
+      "method_id": "mrtrix3.command.fixelcrop",
+      "command": "fixelcrop",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.015
+    },
+    {
+      "method_id": "mrtrix3.command.fixelreorient",
+      "command": "fixelreorient",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.014
+    },
+    {
+      "method_id": "mrtrix3.command.labelstats",
+      "command": "labelstats",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.01
+    },
+    {
+      "method_id": "mrtrix3.command.mraverageheader",
+      "command": "mraverageheader",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.009
+    },
+    {
+      "method_id": "mrtrix3.command.mrcalc",
+      "command": "mrcalc",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.01
+    },
+    {
+      "method_id": "mrtrix3.command.mrcat",
+      "command": "mrcat",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.014
+    },
+    {
+      "method_id": "mrtrix3.command.mrcentroid",
+      "command": "mrcentroid",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.011
+    },
+    {
+      "method_id": "mrtrix3.command.mrfilter",
+      "command": "mrfilter",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.013
+    },
+    {
+      "method_id": "mrtrix3.command.mrinfo",
+      "command": "mrinfo",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.009
+    },
+    {
+      "method_id": "mrtrix3.command.mrmath",
+      "command": "mrmath",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.023
+    },
+    {
+      "method_id": "mrtrix3.command.mrmetric",
+      "command": "mrmetric",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.01
+    },
+    {
+      "method_id": "mrtrix3.command.mrregister",
+      "command": "mrregister",
+      "status": "passed",
+      "artifacts": 2,
+      "seconds": 0.02
+    },
+    {
+      "method_id": "mrtrix3.command.mrstats",
+      "command": "mrstats",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.01
+    },
+    {
+      "method_id": "mrtrix3.command.mtnormalise",
+      "command": "mtnormalise",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.015
+    },
+    {
+      "method_id": "mrtrix3.command.peaks2fixel",
+      "command": "peaks2fixel",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.012
+    },
+    {
+      "method_id": "mrtrix3.command.tckconvert",
+      "command": "tckconvert",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.01
+    },
+    {
+      "method_id": "mrtrix3.command.tckedit",
+      "command": "tckedit",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.01
+    },
+    {
+      "method_id": "mrtrix3.command.tckinfo",
+      "command": "tckinfo",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.01
+    },
+    {
+      "method_id": "mrtrix3.command.tsfinfo",
+      "command": "tsfinfo",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.009
+    },
+    {
+      "method_id": "mrtrix3.command.tsfmult",
+      "command": "tsfmult",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.01
+    },
+    {
+      "method_id": "mrtrix3.command.tsfvalidate",
+      "command": "tsfvalidate",
+      "status": "passed",
+      "artifacts": 1,
+      "seconds": 0.009
+    }
+  ]
+}

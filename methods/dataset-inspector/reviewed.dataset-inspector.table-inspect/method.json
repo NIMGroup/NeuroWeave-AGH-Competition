@@ -1,0 +1,141 @@
+{
+  "label": "表字段、缺失和主键候选检查",
+  "description": "Inspect CSV/TSV columns, data types, missing values, duplicate rows and unique non-null key candidates with pandas; write the findings as a JSON report。 Inputs: input: CSV/TSV 表格 (file). Registered outputs: results/table_report.json. Fixed invocation options: --operation inspect.",
+  "runner_id": "reviewed.dataset-inspector.table-inspect",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "CSV/TSV 表格",
+      "description": "CSV/TSV 表格. Required file input for 表字段、缺失和主键候选检查; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for 表字段、缺失和主键候选检查. Contains this operation's generated files, including results/table_report.json; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_table_report_json",
+      "type": "generated_file",
+      "label": "table_report.json",
+      "description": "table_report.json: output of table field, missingness, and primary key candidate checks. Relative run path: results/table_report.json. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".json",
+      "primary": false,
+      "path_template": "results/table_report.json",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "bakend/app/execution/table_inspection_worker.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.dataset-inspector.table-inspect",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.dataset-inspector.table-inspect",
+      "script": "bakend/app/execution/table_inspection_worker.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [],
+      "modules": [
+        "pandas"
+      ],
+      "expected": [
+        "table_report.json"
+      ],
+      "profile": "scientific",
+      "fixed_args": [
+        "--operation",
+        "inspect"
+      ],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [
+        [
+          "pandas",
+          "read_csv"
+        ],
+        [
+          "pandas",
+          "DataFrame.duplicated"
+        ]
+      ],
+      "implementation_source": {
+        "kind": "library_api",
+        "entrypoints": [
+          "pandas.read_csv",
+          "pandas.DataFrame.duplicated"
+        ],
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "bakend/app/execution/table_inspection_worker.py",
+          "sha256": "e89679c9fb7441583c9eafd6777ae65b9644d06e863b61707b6ec51647c59814"
+        }
+      ],
+      "artifact_types": {
+        "table_report.json": "generated_file"
+      }
+    }
+  }
+}

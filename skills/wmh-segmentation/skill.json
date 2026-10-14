@@ -1,0 +1,988 @@
+{
+  "schema_version": 1,
+  "id": "wmh-segmentation",
+  "description": "wmh-segmentation 的领域规划与方法选择指导。覆盖：Standard WMH segmentation；Already co-registered images；CPU-only fallback。当前没有独立执行 Method，不能直接提交计算任务。",
+  "method_refs": [],
+  "pipeline_refs": [],
+  "planning_capabilities": [
+    {
+      "capability": "skill.wmh-segmentation",
+      "method_id": "wmh-segmentation-guided--standard-wmh-segmentation",
+      "skill_id": "wmh-segmentation",
+      "label": "Standard WMH segmentation",
+      "description": "该入口为规划能力；用于讨论Standard WMH segmentation的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": true,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "standard-wmh-segmentation",
+          "options": [
+            {
+              "value": "standard-wmh-segmentation",
+              "label": "Standard WMH segmentation",
+              "description": "规划选项：Standard WMH segmentation；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "processing_level",
+          "argument": "processing-level",
+          "label": "处理级别",
+          "description": "控制方案中启用的步骤深度，不会直接启动对应软件。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "minimal",
+              "label": "最小必要步骤",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准流程",
+              "description": ""
+            },
+            {
+              "value": "advanced",
+              "label": "高级选项",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "quality_control",
+          "argument": "quality-control",
+          "label": "包含质量控制",
+          "description": "要求规划结果包含工具输出的质量检查。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "resource_profile",
+          "argument": "resource-profile",
+          "label": "资源配置",
+          "description": "选择偏向低内存、平衡或高性能的工具运行方案。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": "balanced",
+          "options": [
+            {
+              "value": "conservative",
+              "label": "低资源",
+              "description": ""
+            },
+            {
+              "value": "balanced",
+              "label": "平衡",
+              "description": ""
+            },
+            {
+              "value": "performance",
+              "label": "高性能",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "threads",
+          "argument": "threads",
+          "label": "线程数",
+          "description": "工具支持时使用的 CPU 线程数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": 4,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 128.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "memory_limit_gb",
+          "argument": "memory-limit-gb",
+          "label": "内存上限",
+          "description": "规划任务可使用的内存上限。",
+          "type": "number",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "GB",
+          "required": true,
+          "default": 8,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 1024.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "keep_intermediates",
+          "argument": "keep-intermediates",
+          "label": "保留中间文件",
+          "description": "保留关键中间结果以便复核和断点恢复。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "输出与复现",
+          "unit": "",
+          "required": true,
+          "default": false,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "imaging_input",
+          "label": "影像或工具输入",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "artifact",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/wmh-segmentation/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/wmh-segmentation/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_runtime",
+        "reason": "原 WMH 分割软件和对应模型权重未部署；不能用现有通用分割库代替。",
+        "source_method_id": "wmh-segmentation-guided--standard-wmh-segmentation",
+        "requirements": [
+          "原 WMH 软件/容器",
+          "匹配的模型权重"
+        ]
+      }
+    },
+    {
+      "capability": "skill.wmh-segmentation",
+      "method_id": "wmh-segmentation-guided--already-co-registered-images",
+      "skill_id": "wmh-segmentation",
+      "label": "Already co-registered images",
+      "description": "该入口为规划能力；用于讨论Already co-registered images的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "already-co-registered-images",
+          "options": [
+            {
+              "value": "already-co-registered-images",
+              "label": "Already co-registered images",
+              "description": "规划选项：Already co-registered images；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "processing_level",
+          "argument": "processing-level",
+          "label": "处理级别",
+          "description": "控制方案中启用的步骤深度，不会直接启动对应软件。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "minimal",
+              "label": "最小必要步骤",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准流程",
+              "description": ""
+            },
+            {
+              "value": "advanced",
+              "label": "高级选项",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "quality_control",
+          "argument": "quality-control",
+          "label": "包含质量控制",
+          "description": "要求规划结果包含工具输出的质量检查。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "resource_profile",
+          "argument": "resource-profile",
+          "label": "资源配置",
+          "description": "选择偏向低内存、平衡或高性能的工具运行方案。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": "balanced",
+          "options": [
+            {
+              "value": "conservative",
+              "label": "低资源",
+              "description": ""
+            },
+            {
+              "value": "balanced",
+              "label": "平衡",
+              "description": ""
+            },
+            {
+              "value": "performance",
+              "label": "高性能",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "threads",
+          "argument": "threads",
+          "label": "线程数",
+          "description": "工具支持时使用的 CPU 线程数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": 4,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 128.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "memory_limit_gb",
+          "argument": "memory-limit-gb",
+          "label": "内存上限",
+          "description": "规划任务可使用的内存上限。",
+          "type": "number",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "GB",
+          "required": true,
+          "default": 8,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 1024.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "keep_intermediates",
+          "argument": "keep-intermediates",
+          "label": "保留中间文件",
+          "description": "保留关键中间结果以便复核和断点恢复。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "输出与复现",
+          "unit": "",
+          "required": true,
+          "default": false,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "imaging_input",
+          "label": "影像或工具输入",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "artifact",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/wmh-segmentation/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/wmh-segmentation/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_runtime",
+        "reason": "原 WMH 分割软件和对应模型权重未部署；不能用现有通用分割库代替。",
+        "source_method_id": "wmh-segmentation-guided--already-co-registered-images",
+        "requirements": [
+          "原 WMH 软件/容器",
+          "匹配的模型权重"
+        ]
+      }
+    },
+    {
+      "capability": "skill.wmh-segmentation",
+      "method_id": "wmh-segmentation-guided--cpu-only-fallback",
+      "skill_id": "wmh-segmentation",
+      "label": "CPU-only fallback",
+      "description": "该入口为规划能力；用于讨论CPU-only fallback的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "cpu-only-fallback",
+          "options": [
+            {
+              "value": "cpu-only-fallback",
+              "label": "CPU-only fallback",
+              "description": "规划选项：CPU-only fallback；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "processing_level",
+          "argument": "processing-level",
+          "label": "处理级别",
+          "description": "控制方案中启用的步骤深度，不会直接启动对应软件。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "minimal",
+              "label": "最小必要步骤",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准流程",
+              "description": ""
+            },
+            {
+              "value": "advanced",
+              "label": "高级选项",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "quality_control",
+          "argument": "quality-control",
+          "label": "包含质量控制",
+          "description": "要求规划结果包含工具输出的质量检查。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "resource_profile",
+          "argument": "resource-profile",
+          "label": "资源配置",
+          "description": "选择偏向低内存、平衡或高性能的工具运行方案。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": "balanced",
+          "options": [
+            {
+              "value": "conservative",
+              "label": "低资源",
+              "description": ""
+            },
+            {
+              "value": "balanced",
+              "label": "平衡",
+              "description": ""
+            },
+            {
+              "value": "performance",
+              "label": "高性能",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "threads",
+          "argument": "threads",
+          "label": "线程数",
+          "description": "工具支持时使用的 CPU 线程数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": 4,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 128.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "memory_limit_gb",
+          "argument": "memory-limit-gb",
+          "label": "内存上限",
+          "description": "规划任务可使用的内存上限。",
+          "type": "number",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "GB",
+          "required": true,
+          "default": 8,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 1024.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "keep_intermediates",
+          "argument": "keep-intermediates",
+          "label": "保留中间文件",
+          "description": "保留关键中间结果以便复核和断点恢复。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "输出与复现",
+          "unit": "",
+          "required": true,
+          "default": false,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "imaging_input",
+          "label": "影像或工具输入",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "artifact",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/wmh-segmentation/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/wmh-segmentation/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_runtime",
+        "reason": "原 WMH 分割软件和对应模型权重未部署；不能用现有通用分割库代替。",
+        "source_method_id": "wmh-segmentation-guided--cpu-only-fallback",
+        "requirements": [
+          "原 WMH 软件/容器",
+          "匹配的模型权重"
+        ]
+      }
+    }
+  ],
+  "name": "wmh-segmentation",
+  "category": [
+    "软件工具",
+    "wmh"
+  ],
+  "scope": "software",
+  "keywords": [
+    "wmh-segmentation",
+    "WMH",
+    "FLAIR",
+    "白质高信号"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

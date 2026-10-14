@@ -1,0 +1,863 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix.command.mrtransform",
+  "version": "3",
+  "kind": "method",
+  "label": "MRtrix3 mrtransform",
+  "description": "Apply spatial transformations to an image\nIf a linear transform is applied without a template image the command will modify the image header transform matrix\nFOD reorientation (with apodised point spread functions) can be performed if the number of volumes in the 4th dimension equals the number of coefficients in an antipodally symmetric spherical harmonic series (e.g. 6, 15, 28 etc). For such data, the -reorient_fod yes/no option must be used to specify if reorientation is required.\nThe output image intensity can be modulated using the (local or global) volume change if a linear or nonlinear transformation is applied. 'FOD' modulation preserves the apparent fibre density across the fibre bundle width and can only be applied if FOD reorientation is used. Alternatively, non-directional scaling by the Jacobian determinant can be applied to any image type. \nIf a DW scheme is contained in the header (or specified separately), and the number of directions matches the number of volumes in the images, any transformation applied using the -linear option will also be applied to the directions.\nWhen the -template option is used to specify the target image grid, the image provided via this option will not influence the axis data strides of the output image; these are determined based on the input image, or the input to the -strides option.",
+  "runner_id": "mrtrix.command.mrtransform",
+  "parameters": [
+    {
+      "id": "flip",
+      "argument": "flip",
+      "label": "flip",
+      "description": "flip the specified axes, provided as a comma-separated list of indices (0:x, 1:y, 2:z).",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/mrtransform.html"
+    },
+    {
+      "id": "inverse",
+      "argument": "-inverse",
+      "label": "inverse",
+      "description": "apply the inverse transformation",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "half",
+      "argument": "-half",
+      "label": "half",
+      "description": "apply the matrix square root of the transformation. This can be combined with the inverse option.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "identity",
+      "argument": "-identity",
+      "label": "identity",
+      "description": "set the header transform of the image to the identity matrix",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "midway_space",
+      "argument": "-midway_space",
+      "label": "midway_space",
+      "description": "reslice the input image to the midway space. Requires either the -template or -warp option. If used with -template and -linear option the input image will be resliced onto the grid halfway between the input and template. If used with the -warp option the input will be warped to the midway space defined by the grid of the input warp (i.e. half way between image1 and image2)",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "interp",
+      "argument": "interp",
+      "label": "interp",
+      "description": "set the interpolation method to use when reslicing (choices: nearest, linear, cubic, sinc. Default: cubic).",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/mrtransform.html",
+      "control": "select",
+      "options": [
+        {
+          "value": "nearest",
+          "label": "nearest",
+          "description": ""
+        },
+        {
+          "value": "linear",
+          "label": "linear",
+          "description": ""
+        },
+        {
+          "value": "cubic",
+          "label": "cubic",
+          "description": ""
+        },
+        {
+          "value": "sinc",
+          "label": "sinc",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": "oversample",
+      "argument": "oversample",
+      "label": "oversample",
+      "description": "set the amount of over-sampling (in the target space) to perform when regridding. This is particularly relevant when downsamping a high-resolution image to a low-resolution image, to avoid aliasing artefacts. This can consist of a single integer, or a comma-separated list of 3 integers if different oversampling factors are desired along the different axes. Default is determined from ratio of voxel dimensions (disabled for nearest-neighbour interpolation).",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/mrtransform.html"
+    },
+    {
+      "id": "from",
+      "argument": "from",
+      "label": "from",
+      "description": "used to define which space the input image is when using the -warp_mid option. Use -from 1 to warp from image1 or -from 2 to warp from image2",
+      "type": "integer",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/mrtransform.html",
+      "minimum": 1,
+      "maximum": 2
+    },
+    {
+      "id": "modulate",
+      "argument": "-modulate",
+      "label": "modulate",
+      "description": "Intensity modulation mode: fod for FOD reorientation, or jac for Jacobian scaling. Omit to preserve intensity values; modulation must not be used for categorical labels.",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "control": "select",
+      "options": [
+        {
+          "value": "fod",
+          "label": "fod",
+          "description": "Preserve apparent fibre density during FOD reorientation."
+        },
+        {
+          "value": "jac",
+          "label": "jac",
+          "description": "Scale image intensities by the Jacobian determinant."
+        }
+      ]
+    },
+    {
+      "id": "reorient_fod",
+      "argument": "reorient_fod",
+      "label": "reorient_fod",
+      "description": "specify whether to perform FOD reorientation. This is required if the number of volumes in the 4th dimension corresponds to the number of coefficients in an antipodally symmetric spherical harmonic series with lmax >= 2 (i.e. 6, 15, 28, 45, 66 volumes).",
+      "type": "boolean",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/mrtransform.html",
+      "required_when": {
+        "modulate": [
+          "fod"
+        ]
+      }
+    },
+    {
+      "id": "save_export_grad_mrtrix",
+      "argument": "-export_grad_mrtrix",
+      "label": "生成 export_grad_mrtrix",
+      "description": "export the diffusion-weighted gradient table to file in MRtrix format",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "save_export_grad_fsl",
+      "argument": "-export_grad_fsl",
+      "label": "生成 export_grad_fsl",
+      "description": "export the diffusion-weighted gradient table to files in FSL (bvecs / bvals) format",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "datatype",
+      "argument": "datatype",
+      "label": "datatype",
+      "description": "specify output image data type. Valid choices are: float32, float32le, float32be, float64, float64le, float64be, int64, uint64, int64le, uint64le, int64be, uint64be, int32, uint32, int32le, uint32le, int32be, uint32be, int16, uint16, int16le, uint16le, int16be, uint16be, cfloat32, cfloat32le, cfloat32be, cfloat64, cfloat64le, cfloat64be, int8, uint8, bit.",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/mrtransform.html",
+      "control": "select",
+      "options": [
+        {
+          "value": "float32",
+          "label": "float32",
+          "description": ""
+        },
+        {
+          "value": "float32le",
+          "label": "float32le",
+          "description": ""
+        },
+        {
+          "value": "float32be",
+          "label": "float32be",
+          "description": ""
+        },
+        {
+          "value": "float64",
+          "label": "float64",
+          "description": ""
+        },
+        {
+          "value": "float64le",
+          "label": "float64le",
+          "description": ""
+        },
+        {
+          "value": "float64be",
+          "label": "float64be",
+          "description": ""
+        },
+        {
+          "value": "int64",
+          "label": "int64",
+          "description": ""
+        },
+        {
+          "value": "uint64",
+          "label": "uint64",
+          "description": ""
+        },
+        {
+          "value": "int64le",
+          "label": "int64le",
+          "description": ""
+        },
+        {
+          "value": "uint64le",
+          "label": "uint64le",
+          "description": ""
+        },
+        {
+          "value": "int64be",
+          "label": "int64be",
+          "description": ""
+        },
+        {
+          "value": "uint64be",
+          "label": "uint64be",
+          "description": ""
+        },
+        {
+          "value": "int32",
+          "label": "int32",
+          "description": ""
+        },
+        {
+          "value": "uint32",
+          "label": "uint32",
+          "description": ""
+        },
+        {
+          "value": "int32le",
+          "label": "int32le",
+          "description": ""
+        },
+        {
+          "value": "uint32le",
+          "label": "uint32le",
+          "description": ""
+        },
+        {
+          "value": "int32be",
+          "label": "int32be",
+          "description": ""
+        },
+        {
+          "value": "uint32be",
+          "label": "uint32be",
+          "description": ""
+        },
+        {
+          "value": "int16",
+          "label": "int16",
+          "description": ""
+        },
+        {
+          "value": "uint16",
+          "label": "uint16",
+          "description": ""
+        },
+        {
+          "value": "int16le",
+          "label": "int16le",
+          "description": ""
+        },
+        {
+          "value": "uint16le",
+          "label": "uint16le",
+          "description": ""
+        },
+        {
+          "value": "int16be",
+          "label": "int16be",
+          "description": ""
+        },
+        {
+          "value": "uint16be",
+          "label": "uint16be",
+          "description": ""
+        },
+        {
+          "value": "cfloat32",
+          "label": "cfloat32",
+          "description": ""
+        },
+        {
+          "value": "cfloat32le",
+          "label": "cfloat32le",
+          "description": ""
+        },
+        {
+          "value": "cfloat32be",
+          "label": "cfloat32be",
+          "description": ""
+        },
+        {
+          "value": "cfloat64",
+          "label": "cfloat64",
+          "description": ""
+        },
+        {
+          "value": "cfloat64le",
+          "label": "cfloat64le",
+          "description": ""
+        },
+        {
+          "value": "cfloat64be",
+          "label": "cfloat64be",
+          "description": ""
+        },
+        {
+          "value": "int8",
+          "label": "int8",
+          "description": ""
+        },
+        {
+          "value": "uint8",
+          "label": "uint8",
+          "description": ""
+        },
+        {
+          "value": "bit",
+          "label": "bit",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": "nan",
+      "argument": "-nan",
+      "label": "nan",
+      "description": "Use NaN as the out of bounds value (Default: 0.0)",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "no_reorientation",
+      "argument": "-no_reorientation",
+      "label": "no_reorientation",
+      "description": "deprecated, use -reorient_fod instead",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "info",
+      "argument": "-info",
+      "label": "info",
+      "description": "display information messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "quiet",
+      "argument": "-quiet",
+      "label": "quiet",
+      "description": "do not display information messages or progress status; alternatively, this can be achieved by setting the MRTRIX_QUIET environment variable to a non-empty string.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "debug",
+      "argument": "-debug",
+      "label": "debug",
+      "description": "display debugging messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "nthreads",
+      "argument": "nthreads",
+      "label": "nthreads",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).",
+      "type": "integer",
+      "required": true,
+      "default": 1,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/mrtransform.html",
+      "minimum": 0,
+      "group": "计算资源",
+      "level": "advanced"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "input image to be transformed.",
+      "required": true,
+      "binding": "file"
+    },
+    {
+      "id": "linear",
+      "type": "generated_file",
+      "label": "linear",
+      "description": "specify a linear transform to apply, in the form of a 3x4 or 4x4 ascii file. Note the standard 'reverse' convention is used, where the transform maps points in the template image to the moving image. Note that the reverse convention is still assumed even if no -template image is supplied",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "replace",
+      "type": "generated_file",
+      "label": "replace",
+      "description": "replace the linear transform of the original image by that specified, rather than applying it to the original image. The specified transform can be either a template image, or a 3x4 or 4x4 ascii file.",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "template",
+      "type": "imaging_input",
+      "label": "template",
+      "description": "reslice the input image to match the specified template image grid.",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "warp",
+      "type": "imaging_input",
+      "label": "warp",
+      "description": "apply a non-linear 4D deformation field to warp the input image. Each voxel in the deformation field must define the scanner space position that will be used to interpolate the input image during warping (i.e. pull-back/reverse warp convention). If the -template image is also supplied the deformation field will be resliced first to the template image grid. If no -template option is supplied then the output image will have the same image grid as the deformation field. This option can be used in combination with the -affine option, in which case the affine will be applied first)",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "warp_full",
+      "type": "imaging_input",
+      "label": "warp_full",
+      "description": "warp the input image using a 5D warp file output from mrregister. Any linear transforms in the warp image header will also be applied. The -warp_full option must be used in combination with either the -template option or the -midway_space option. If a -template image is supplied then the full warp will be used. By default the image1->image2 transform will be applied, however the -from 2 option can be used to apply the image2->image1 transform. Use the -midway_space option to warp the input image to the midway space. The -from option can also be used to define which warp to use when transforming to midway space",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "directions",
+      "type": "generated_file",
+      "label": "directions",
+      "description": "directions defining the number and orientation of the apodised point spread functions used in FOD reorientation (Default: 300 directions)",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "grad",
+      "type": "generated_file",
+      "label": "grad",
+      "description": "Provide the diffusion-weighted gradient scheme used in the acquisition in a text file. This should be supplied as a 4xN text file with each line is in the format [ X Y Z b ], where [ X Y Z ] describe the direction of the applied gradient, and b gives the b-value in units of s/mm^2. If a diffusion gradient scheme is present in the input image header, the data provided with this option will be instead used.",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "fslgrad_bvecs",
+      "type": "generated_file",
+      "label": "fslgrad_bvecs",
+      "description": "Provide the diffusion-weighted gradient scheme used in the acquisition in FSL bvecs/bvals format files. If a diffusion gradient scheme is present in the input image header, the data provided with this option will be instead used.",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "fslgrad_bvals",
+      "type": "generated_file",
+      "label": "fslgrad_bvals",
+      "description": "Provide the diffusion-weighted gradient scheme used in the acquisition in FSL bvecs/bvals format files. If a diffusion gradient scheme is present in the input image header, the data provided with this option will be instead used.",
+      "required": false,
+      "binding": "file"
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "output",
+      "type": "imaging_input",
+      "label": "output",
+      "description": "the output image. The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".mif",
+      "path_template": "output.mif"
+    },
+    {
+      "id": "export_grad_mrtrix",
+      "type": "gradient_table",
+      "label": "export_grad_mrtrix",
+      "description": "export the diffusion-weighted gradient table to file in MRtrix format",
+      "format": ".txt",
+      "path_template": "export_grad_mrtrix.txt",
+      "generated_when": {
+        "save_export_grad_mrtrix": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "export_grad_fsl_bvecs_path",
+      "type": "b_vectors",
+      "label": "export_grad_fsl_bvecs_path",
+      "description": "export the diffusion-weighted gradient table to files in FSL (bvecs / bvals) format",
+      "format": ".txt",
+      "path_template": "export_grad_fsl_bvecs_path.txt",
+      "generated_when": {
+        "save_export_grad_fsl": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "export_grad_fsl_bvals_path",
+      "type": "b_values",
+      "label": "export_grad_fsl_bvals_path",
+      "description": "export the diffusion-weighted gradient table to files in FSL (bvecs / bvals) format",
+      "format": ".txt",
+      "path_template": "export_grad_fsl_bvals_path.txt",
+      "generated_when": {
+        "save_export_grad_fsl": [
+          true
+        ]
+      }
+    }
+  ],
+  "input_types": [
+    "imaging_input",
+    "generated_file"
+  ],
+  "output_types": [
+    "imaging_input",
+    "gradient_table",
+    "b_vectors",
+    "b_values"
+  ],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/mrtransform.usage.txt",
+      "kind": "command",
+      "label": "MRtrix3 安装版原始完整帮助"
+    }
+  ],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "command": "mrtransform",
+      "version": "3.0.8",
+      "positional": [
+        {
+          "source": "input",
+          "id": "input",
+          "optional": false
+        },
+        {
+          "source": "output",
+          "id": "output",
+          "optional": false
+        }
+      ],
+      "options": [
+        {
+          "flag": "-linear",
+          "values": [
+            {
+              "source": "input",
+              "id": "linear"
+            }
+          ]
+        },
+        {
+          "flag": "-flip",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "flip",
+              "kind": "ISEQ"
+            }
+          ]
+        },
+        {
+          "flag": "-inverse",
+          "values": [],
+          "when": {
+            "inverse": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-half",
+          "values": [],
+          "when": {
+            "half": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-replace",
+          "values": [
+            {
+              "source": "input",
+              "id": "replace"
+            }
+          ]
+        },
+        {
+          "flag": "-identity",
+          "values": [],
+          "when": {
+            "identity": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-template",
+          "values": [
+            {
+              "source": "input",
+              "id": "template"
+            }
+          ]
+        },
+        {
+          "flag": "-midway_space",
+          "values": [],
+          "when": {
+            "midway_space": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-interp",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "interp",
+              "kind": "CHOICE"
+            }
+          ]
+        },
+        {
+          "flag": "-oversample",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "oversample",
+              "kind": "ISEQ"
+            }
+          ]
+        },
+        {
+          "flag": "-warp",
+          "values": [
+            {
+              "source": "input",
+              "id": "warp"
+            }
+          ]
+        },
+        {
+          "flag": "-warp_full",
+          "values": [
+            {
+              "source": "input",
+              "id": "warp_full"
+            }
+          ]
+        },
+        {
+          "flag": "-from",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "from",
+              "kind": "INT"
+            }
+          ]
+        },
+        {
+          "flag": "-modulate",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "modulate",
+              "kind": "CHOICE"
+            }
+          ]
+        },
+        {
+          "flag": "-directions",
+          "values": [
+            {
+              "source": "input",
+              "id": "directions"
+            }
+          ]
+        },
+        {
+          "flag": "-reorient_fod",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "reorient_fod",
+              "kind": "BOOL"
+            }
+          ]
+        },
+        {
+          "flag": "-grad",
+          "values": [
+            {
+              "source": "input",
+              "id": "grad"
+            }
+          ]
+        },
+        {
+          "flag": "-fslgrad",
+          "values": [
+            {
+              "source": "input",
+              "id": "fslgrad_bvecs"
+            },
+            {
+              "source": "input",
+              "id": "fslgrad_bvals"
+            }
+          ]
+        },
+        {
+          "flag": "-export_grad_mrtrix",
+          "values": [
+            {
+              "source": "output",
+              "id": "export_grad_mrtrix"
+            }
+          ],
+          "when": {
+            "save_export_grad_mrtrix": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-export_grad_fsl",
+          "values": [
+            {
+              "source": "output",
+              "id": "export_grad_fsl_bvecs_path"
+            },
+            {
+              "source": "output",
+              "id": "export_grad_fsl_bvals_path"
+            }
+          ],
+          "when": {
+            "save_export_grad_fsl": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-datatype",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "datatype",
+              "kind": "CHOICE"
+            }
+          ]
+        },
+        {
+          "flag": "-nan",
+          "values": [],
+          "when": {
+            "nan": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-no_reorientation",
+          "values": [],
+          "when": {
+            "no_reorientation": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-info",
+          "values": [],
+          "when": {
+            "info": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-quiet",
+          "values": [],
+          "when": {
+            "quiet": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-debug",
+          "values": [],
+          "when": {
+            "debug": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-nthreads",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "nthreads",
+              "kind": "INT"
+            }
+          ]
+        }
+      ],
+      "total_options": 32,
+      "omitted_options": {
+        "strides": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    }
+  }
+}

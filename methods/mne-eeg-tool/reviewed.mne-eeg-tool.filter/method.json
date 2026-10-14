@@ -1,0 +1,269 @@
+{
+  "label": "EEG/MEG 滤波与降采样",
+  "description": "Apply MNE IIR band-pass filtering, optional notch filtering and optional downsampling to continuous data; validate cutoffs against the original and requested Nyquist frequencies。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file). Registered outputs: results/processed-raw.fif. Fixed invocation options: --operation filter.",
+  "runner_id": "reviewed.mne-eeg-tool.filter",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "high_pass",
+      "argument": "high-pass",
+      "label": "high-pass",
+      "description": "高通截止频率，单位为 Hz；0 表示不进行高通，必须低于低通截止频率。",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 0.5,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 100.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 high_pass，由结构化 Runner 映射到现有入口参数 high-pass。 平台默认值：0.5；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "low_pass",
+      "argument": "low-pass",
+      "label": "low-pass",
+      "description": "低通截止频率，单位为 Hz；必须高于高通且低于 Nyquist 频率。",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 40.0,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 1000.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 low_pass，由结构化 Runner 映射到现有入口参数 low-pass。 平台默认值：40.0；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "notch",
+      "argument": "notch",
+      "label": "notch",
+      "description": "陷波中心频率，单位为 Hz；0 表示不启用陷波。",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 0.0,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 120.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 notch，由结构化 Runner 映射到现有入口参数 notch。 平台默认值：0.0；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "sfreq",
+      "argument": "sfreq",
+      "label": "sfreq",
+      "description": "目标采样率，单位为 Hz；0 保留原采样率，现有入口只在低于原采样率时重采样。",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 0.0,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 10000.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 sfreq，由结构化 Runner 映射到现有入口参数 sfreq。 平台默认值：0.0；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "EEG/MEG 原始文件（FIF/EDF/BDF/SET）",
+      "description": "EEG/MEG 原始文件（FIF/EDF/BDF/SET）. Required file input for EEG/MEG 滤波与降采样; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for EEG/MEG 滤波与降采样. Contains this operation's generated files, including results/processed-raw.fif; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_processed_raw_fif",
+      "type": "generated_file",
+      "label": "processed-raw.fif",
+      "description": "processed-raw.fif: output of EEG/MEG filtering and downsampling. Relative run path: results/processed-raw.fif. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": "",
+      "primary": false,
+      "path_template": "results/processed-raw.fif",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "bakend/app/execution/eeg_worker.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.mne-eeg-tool.filter",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.mne-eeg-tool.filter",
+      "script": "bakend/app/execution/eeg_worker.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "high_pass",
+          "flag": "--high-pass"
+        },
+        {
+          "id": "low_pass",
+          "flag": "--low-pass"
+        },
+        {
+          "id": "notch",
+          "flag": "--notch"
+        },
+        {
+          "id": "sfreq",
+          "flag": "--sfreq"
+        }
+      ],
+      "modules": [
+        "numpy",
+        "mne"
+      ],
+      "expected": [
+        "processed-raw.fif"
+      ],
+      "profile": "scientific",
+      "fixed_args": [
+        "--operation",
+        "filter"
+      ],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [
+        [
+          "mne.io",
+          "BaseRaw.filter"
+        ],
+        [
+          "mne.io",
+          "BaseRaw.notch_filter"
+        ],
+        [
+          "mne.io",
+          "BaseRaw.resample"
+        ]
+      ],
+      "implementation_source": {
+        "kind": "library_api",
+        "entrypoints": [
+          "mne.io.BaseRaw.filter",
+          "mne.io.BaseRaw.notch_filter",
+          "mne.io.BaseRaw.resample"
+        ],
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "bakend/app/execution/eeg_worker.py",
+          "sha256": "b15760e312712683a17dfa2466294b0e451372f0502dd498a942c6725a4ec021"
+        }
+      ],
+      "artifact_types": {
+        "processed-raw.fif": "generated_file"
+      }
+    }
+  }
+}

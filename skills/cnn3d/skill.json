@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "id": "cnn3d",
+  "description": "cnn3d 统筹已登记的独立方法和可复用流程。支持：3D CNN 训练。",
+  "method_refs": [
+    {
+      "capability": "skill.cnn3d",
+      "method_id": "reviewed-train-cnn3d",
+      "label": "3D CNN 训练",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-validated trainer for the canonical CNN3D model。 Inputs: input: NPZ 训练数据（X、y） (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.cnn3d.train"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "name": "cnn3d",
+  "category": [
+    "任务能力",
+    "cnn3d"
+  ],
+  "scope": "model",
+  "keywords": [
+    "cnn3d",
+    "CNN"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

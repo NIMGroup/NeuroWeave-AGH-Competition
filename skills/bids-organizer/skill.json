@@ -1,0 +1,1381 @@
+{
+  "schema_version": 1,
+  "id": "bids-organizer",
+  "description": "bids-organizer 统筹已登记的独立方法和可复用流程。支持：BIDS Organizer；BIDS 元数据生成；按用户文件映射整理 BIDS（文件名检查）。",
+  "method_refs": [
+    {
+      "capability": "dwi.bids",
+      "method_id": "bids_organizer",
+      "label": "BIDS Organizer",
+      "default_recommended": true,
+      "default_reason": "标准化输入可以减少预处理工具之间的差异。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "把已有 NIfTI/BIDS 数据复制到隔离输出目录，补齐 dataset_description.json、清理敏感 sidecar 字段并执行基础结构校验。DICOM 应先使用 dcm2niix 转换。",
+      "method_ref": "bids.prepare"
+    },
+    {
+      "capability": "skill.bids-organizer",
+      "method_id": "reviewed-explicit-metadata-bids-organizer",
+      "label": "BIDS 元数据生成",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Generate dataset_description.json with the supplied dataset name and a staging report. This operation does not copy images or validate full BIDS compliance。 Inputs: input: 源数据集目录 (directory). Registered outputs: results/dataset_description.json, results/staging_report.json. Fixed invocation options: --operation metadata.",
+      "method_ref": "reviewed.bids-organizer.explicit-metadata"
+    },
+    {
+      "capability": "skill.bids-organizer",
+      "method_id": "reviewed-explicit-stage-bids-organizer",
+      "label": "按用户文件映射整理 BIDS（文件名检查）",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Copy files according to an explicit source-relative to BIDS-relative JSON mapping, check destination filenames with BIDSValidator, and write dataset metadata and a staging report. It does not infer missing entities or perform full dataset validation。 Inputs: input: 源数据集目录 (directory); mapping: 显式文件映射 JSON（源相对路径 → BIDS 相对路径） (file). Registered outputs: results/dataset_description.json, results/staging_report.json. Fixed invocation options: --operation stage.",
+      "method_ref": "reviewed.bids-organizer.explicit-stage"
+    },
+    {
+      "capability": "skill.bids-organizer",
+      "method_id": "linked-bids_organizer",
+      "label": "BIDS Organizer",
+      "default_recommended": false,
+      "default_reason": "标准化输入可以减少预处理工具之间的差异。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "把已有 NIfTI/BIDS 数据复制到隔离输出目录，补齐 dataset_description.json、清理敏感 sidecar 字段并执行基础结构校验。DICOM 应先使用 dcm2niix 转换。",
+      "method_ref": "bids.prepare"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [
+    {
+      "capability": "skill.bids-organizer",
+      "method_id": "bids-organizer-guided--dicom-to-bids",
+      "skill_id": "bids-organizer",
+      "label": "DICOM to BIDS",
+      "description": "该入口为规划能力；用于讨论DICOM to BIDS的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": true,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "dicom-to-bids",
+          "options": [
+            {
+              "value": "dicom-to-bids",
+              "label": "DICOM to BIDS",
+              "description": "规划选项：DICOM to BIDS；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_policy",
+          "argument": "output-policy",
+          "label": "输出策略",
+          "description": "规划阶段默认保留原始数据，并把结果写入新目录。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "new_output",
+          "options": [
+            {
+              "value": "preview_only",
+              "label": "只预览变更",
+              "description": ""
+            },
+            {
+              "value": "copy_then_modify",
+              "label": "复制后处理",
+              "description": ""
+            },
+            {
+              "value": "new_output",
+              "label": "写入新输出目录",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "validation_level",
+          "argument": "validation-level",
+          "label": "输出验证",
+          "description": "选择基础结构检查或包含模式、计数和元数据的严格验证。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "strict",
+          "options": [
+            {
+              "value": "basic",
+              "label": "基础验证",
+              "description": ""
+            },
+            {
+              "value": "strict",
+              "label": "严格验证",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "metadata_policy",
+          "argument": "metadata-policy",
+          "label": "元数据处理",
+          "description": "控制缺失或冲突元数据的处理方式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "结构与元数据",
+          "unit": "",
+          "required": true,
+          "default": "preserve_and_report",
+          "options": [
+            {
+              "value": "preserve_and_report",
+              "label": "保留并报告",
+              "description": ""
+            },
+            {
+              "value": "normalize",
+              "label": "规范化字段",
+              "description": ""
+            },
+            {
+              "value": "strict",
+              "label": "严格拒绝冲突",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "naming_template",
+          "argument": "naming-template",
+          "label": "命名模板",
+          "description": "可选的输出文件或实体命名模板。",
+          "type": "string",
+          "control": "text",
+          "level": "advanced",
+          "group": "结构与元数据",
+          "unit": "",
+          "required": false,
+          "default": "",
+          "options": [],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "例如：sub-{subject}_ses-{session}",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "collision_policy",
+          "argument": "collision-policy",
+          "label": "命名冲突策略",
+          "description": "目标位置已经存在同名文件时的处理方式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "安全策略",
+          "unit": "",
+          "required": true,
+          "default": "stop",
+          "options": [
+            {
+              "value": "stop",
+              "label": "停止并报告",
+              "description": ""
+            },
+            {
+              "value": "rename",
+              "label": "自动追加编号",
+              "description": ""
+            },
+            {
+              "value": "replace_copy",
+              "label": "替换输出副本",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "worker_count",
+          "argument": "worker-count",
+          "label": "并行处理数",
+          "description": "批量转换或清洗时允许的并行任务数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "性能",
+          "unit": "",
+          "required": true,
+          "default": 2,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 64.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "dataset_folder",
+          "label": "输入数据集",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "folder",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/bids-organizer/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/bids-organizer/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [
+        "dcm2nii"
+      ],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "needs_protocol",
+        "reason": "原文没有定义 DICOM 序列到 BIDS 实体的确定映射。dcm2niix 转换和显式文件映射整理已可分别运行；完整自动组织还需采集规则和完整 BIDS 验证器。",
+        "source_method_id": "bids-organizer-guided--dicom-to-bids",
+        "requirements": [
+          "序列/样本/会话/任务映射",
+          "完整 BIDS Validator CLI"
+        ]
+      }
+    },
+    {
+      "capability": "skill.bids-organizer",
+      "method_id": "bids-organizer-guided--eeg-to-bids",
+      "skill_id": "bids-organizer",
+      "label": "EEG to BIDS",
+      "description": "该入口为规划能力；用于讨论EEG to BIDS的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "eeg-to-bids",
+          "options": [
+            {
+              "value": "eeg-to-bids",
+              "label": "EEG to BIDS",
+              "description": "规划选项：EEG to BIDS；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_policy",
+          "argument": "output-policy",
+          "label": "输出策略",
+          "description": "规划阶段默认保留原始数据，并把结果写入新目录。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "new_output",
+          "options": [
+            {
+              "value": "preview_only",
+              "label": "只预览变更",
+              "description": ""
+            },
+            {
+              "value": "copy_then_modify",
+              "label": "复制后处理",
+              "description": ""
+            },
+            {
+              "value": "new_output",
+              "label": "写入新输出目录",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "validation_level",
+          "argument": "validation-level",
+          "label": "输出验证",
+          "description": "选择基础结构检查或包含模式、计数和元数据的严格验证。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "strict",
+          "options": [
+            {
+              "value": "basic",
+              "label": "基础验证",
+              "description": ""
+            },
+            {
+              "value": "strict",
+              "label": "严格验证",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "metadata_policy",
+          "argument": "metadata-policy",
+          "label": "元数据处理",
+          "description": "控制缺失或冲突元数据的处理方式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "结构与元数据",
+          "unit": "",
+          "required": true,
+          "default": "preserve_and_report",
+          "options": [
+            {
+              "value": "preserve_and_report",
+              "label": "保留并报告",
+              "description": ""
+            },
+            {
+              "value": "normalize",
+              "label": "规范化字段",
+              "description": ""
+            },
+            {
+              "value": "strict",
+              "label": "严格拒绝冲突",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "naming_template",
+          "argument": "naming-template",
+          "label": "命名模板",
+          "description": "可选的输出文件或实体命名模板。",
+          "type": "string",
+          "control": "text",
+          "level": "advanced",
+          "group": "结构与元数据",
+          "unit": "",
+          "required": false,
+          "default": "",
+          "options": [],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "例如：sub-{subject}_ses-{session}",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "collision_policy",
+          "argument": "collision-policy",
+          "label": "命名冲突策略",
+          "description": "目标位置已经存在同名文件时的处理方式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "安全策略",
+          "unit": "",
+          "required": true,
+          "default": "stop",
+          "options": [
+            {
+              "value": "stop",
+              "label": "停止并报告",
+              "description": ""
+            },
+            {
+              "value": "rename",
+              "label": "自动追加编号",
+              "description": ""
+            },
+            {
+              "value": "replace_copy",
+              "label": "替换输出副本",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "worker_count",
+          "argument": "worker-count",
+          "label": "并行处理数",
+          "description": "批量转换或清洗时允许的并行任务数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "性能",
+          "unit": "",
+          "required": true,
+          "default": 2,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 64.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "dataset_folder",
+          "label": "输入数据集",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "folder",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/bids-organizer/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/bids-organizer/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_runtime",
+        "reason": "BIDS EEG 写入需要 mne-bids 及明确的受试者、任务、事件和电极元数据；当前未安装 mne_bids。",
+        "source_method_id": "bids-organizer-guided--eeg-to-bids",
+        "requirements": [
+          "mne_bids.write_raw_bids",
+          "BIDS EEG 实体和采集元数据"
+        ]
+      }
+    },
+    {
+      "capability": "skill.bids-organizer",
+      "method_id": "bids-organizer-guided--validate-bids-dataset",
+      "skill_id": "bids-organizer",
+      "label": "Validate BIDS dataset",
+      "description": "该入口为规划能力；用于讨论Validate BIDS dataset的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "validate-bids-dataset",
+          "options": [
+            {
+              "value": "validate-bids-dataset",
+              "label": "Validate BIDS dataset",
+              "description": "规划选项：Validate BIDS dataset；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_policy",
+          "argument": "output-policy",
+          "label": "输出策略",
+          "description": "规划阶段默认保留原始数据，并把结果写入新目录。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "new_output",
+          "options": [
+            {
+              "value": "preview_only",
+              "label": "只预览变更",
+              "description": ""
+            },
+            {
+              "value": "copy_then_modify",
+              "label": "复制后处理",
+              "description": ""
+            },
+            {
+              "value": "new_output",
+              "label": "写入新输出目录",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "validation_level",
+          "argument": "validation-level",
+          "label": "输出验证",
+          "description": "选择基础结构检查或包含模式、计数和元数据的严格验证。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "strict",
+          "options": [
+            {
+              "value": "basic",
+              "label": "基础验证",
+              "description": ""
+            },
+            {
+              "value": "strict",
+              "label": "严格验证",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "metadata_policy",
+          "argument": "metadata-policy",
+          "label": "元数据处理",
+          "description": "控制缺失或冲突元数据的处理方式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "结构与元数据",
+          "unit": "",
+          "required": true,
+          "default": "preserve_and_report",
+          "options": [
+            {
+              "value": "preserve_and_report",
+              "label": "保留并报告",
+              "description": ""
+            },
+            {
+              "value": "normalize",
+              "label": "规范化字段",
+              "description": ""
+            },
+            {
+              "value": "strict",
+              "label": "严格拒绝冲突",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "naming_template",
+          "argument": "naming-template",
+          "label": "命名模板",
+          "description": "可选的输出文件或实体命名模板。",
+          "type": "string",
+          "control": "text",
+          "level": "advanced",
+          "group": "结构与元数据",
+          "unit": "",
+          "required": false,
+          "default": "",
+          "options": [],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "例如：sub-{subject}_ses-{session}",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "collision_policy",
+          "argument": "collision-policy",
+          "label": "命名冲突策略",
+          "description": "目标位置已经存在同名文件时的处理方式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "安全策略",
+          "unit": "",
+          "required": true,
+          "default": "stop",
+          "options": [
+            {
+              "value": "stop",
+              "label": "停止并报告",
+              "description": ""
+            },
+            {
+              "value": "rename",
+              "label": "自动追加编号",
+              "description": ""
+            },
+            {
+              "value": "replace_copy",
+              "label": "替换输出副本",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "worker_count",
+          "argument": "worker-count",
+          "label": "并行处理数",
+          "description": "批量转换或清洗时允许的并行任务数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "性能",
+          "unit": "",
+          "required": true,
+          "default": 2,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 64.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "dataset_folder",
+          "label": "输入数据集",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "folder",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/bids-organizer/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/bids-organizer/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_runtime",
+        "reason": "原流程要求完整 bids-validator CLI；已安装的 Python bids_validator 只验证文件名，不能替代整个 BIDS 数据集验证器。",
+        "source_method_id": "bids-organizer-guided--validate-bids-dataset",
+        "requirements": [
+          "完整 BIDS Validator CLI（包括 schema/元数据检查）"
+        ]
+      }
+    },
+    {
+      "capability": "skill.bids-organizer",
+      "method_id": "bids-organizer-guided--full-automatic-organization",
+      "skill_id": "bids-organizer",
+      "label": "Full automatic organization",
+      "description": "该入口为规划能力；用于讨论Full automatic organization的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "full-automatic-organization",
+          "options": [
+            {
+              "value": "full-automatic-organization",
+              "label": "Full automatic organization",
+              "description": "规划选项：Full automatic organization；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_policy",
+          "argument": "output-policy",
+          "label": "输出策略",
+          "description": "规划阶段默认保留原始数据，并把结果写入新目录。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "new_output",
+          "options": [
+            {
+              "value": "preview_only",
+              "label": "只预览变更",
+              "description": ""
+            },
+            {
+              "value": "copy_then_modify",
+              "label": "复制后处理",
+              "description": ""
+            },
+            {
+              "value": "new_output",
+              "label": "写入新输出目录",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "validation_level",
+          "argument": "validation-level",
+          "label": "输出验证",
+          "description": "选择基础结构检查或包含模式、计数和元数据的严格验证。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "strict",
+          "options": [
+            {
+              "value": "basic",
+              "label": "基础验证",
+              "description": ""
+            },
+            {
+              "value": "strict",
+              "label": "严格验证",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "metadata_policy",
+          "argument": "metadata-policy",
+          "label": "元数据处理",
+          "description": "控制缺失或冲突元数据的处理方式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "结构与元数据",
+          "unit": "",
+          "required": true,
+          "default": "preserve_and_report",
+          "options": [
+            {
+              "value": "preserve_and_report",
+              "label": "保留并报告",
+              "description": ""
+            },
+            {
+              "value": "normalize",
+              "label": "规范化字段",
+              "description": ""
+            },
+            {
+              "value": "strict",
+              "label": "严格拒绝冲突",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "naming_template",
+          "argument": "naming-template",
+          "label": "命名模板",
+          "description": "可选的输出文件或实体命名模板。",
+          "type": "string",
+          "control": "text",
+          "level": "advanced",
+          "group": "结构与元数据",
+          "unit": "",
+          "required": false,
+          "default": "",
+          "options": [],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "例如：sub-{subject}_ses-{session}",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "collision_policy",
+          "argument": "collision-policy",
+          "label": "命名冲突策略",
+          "description": "目标位置已经存在同名文件时的处理方式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "安全策略",
+          "unit": "",
+          "required": true,
+          "default": "stop",
+          "options": [
+            {
+              "value": "stop",
+              "label": "停止并报告",
+              "description": ""
+            },
+            {
+              "value": "rename",
+              "label": "自动追加编号",
+              "description": ""
+            },
+            {
+              "value": "replace_copy",
+              "label": "替换输出副本",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "worker_count",
+          "argument": "worker-count",
+          "label": "并行处理数",
+          "description": "批量转换或清洗时允许的并行任务数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "性能",
+          "unit": "",
+          "required": true,
+          "default": 2,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 64.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "dataset_folder",
+          "label": "输入数据集",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "folder",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/bids-organizer/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/bids-organizer/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "needs_protocol",
+        "reason": "原文没有定义 DICOM 序列到 BIDS 实体的确定映射。dcm2niix 转换和显式文件映射整理已可分别运行；完整自动组织还需采集规则和完整 BIDS 验证器。",
+        "source_method_id": "bids-organizer-guided--full-automatic-organization",
+        "requirements": [
+          "序列/样本/会话/任务映射",
+          "完整 BIDS Validator CLI"
+        ]
+      }
+    }
+  ],
+  "selection_rules": [
+    "已有文件需重新命名或分配 subject/session 时使用显式文件映射；原始 DICOM 转换交给 dcm2nii。"
+  ],
+  "name": "bids-organizer",
+  "category": [
+    "软件工具",
+    "bids"
+  ],
+  "scope": "software",
+  "limitations": [
+    "文件名检查和补齐 dataset_description.json 不构成完整 BIDS 验证，也不能恢复缺失的采集元数据。"
+  ],
+  "keywords": [
+    "bids-organizer",
+    "BIDS",
+    "数据整理",
+    "数据组织",
+    "Organizer"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

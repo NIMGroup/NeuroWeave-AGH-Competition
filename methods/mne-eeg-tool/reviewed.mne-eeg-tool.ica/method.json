@@ -1,0 +1,214 @@
+{
+  "label": "MNE ICA 分解与指定成分去除",
+  "description": "Fit MNE ICA on a high-pass-filtered copy, identify EOG/ECG-related components when corresponding channels exist, combine explicit exclusions and apply the fitted cleaning to the recording。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file). Registered outputs: results/processed-raw.fif. Fixed invocation options: --operation ica.",
+  "runner_id": "reviewed.mne-eeg-tool.ica",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "components",
+      "argument": "components",
+      "label": "components",
+      "description": "ICA 请求的成分数；现有入口实际取该值与有效通道数减 1 的较小值。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 10,
+      "options": [],
+      "minimum": 2.0,
+      "maximum": 200.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 components，由结构化 Runner 映射到现有入口参数 components。 平台默认值：10；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "exclude_components",
+      "argument": "exclude-components",
+      "label": "exclude-components",
+      "description": "显式排除的 ICA 成分索引，使用逗号分隔、从 0 开始；不能超出实际成分数。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": "",
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 exclude_components，由结构化 Runner 映射到现有入口参数 exclude-components。 平台默认值：；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "EEG/MEG 原始文件（FIF/EDF/BDF/SET）",
+      "description": "EEG/MEG 原始文件（FIF/EDF/BDF/SET）. Required file input for MNE ICA 分解与指定成分去除; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for MNE ICA 分解与指定成分去除. Contains this operation's generated files, including results/processed-raw.fif; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_processed_raw_fif",
+      "type": "generated_file",
+      "label": "processed-raw.fif",
+      "description": "processed-raw.fif: output of MNE ICA decomposition and specified component removal. Relative run path: results/processed-raw.fif. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": "",
+      "primary": false,
+      "path_template": "results/processed-raw.fif",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "bakend/app/execution/eeg_worker.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.mne-eeg-tool.ica",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.mne-eeg-tool.ica",
+      "script": "bakend/app/execution/eeg_worker.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "components",
+          "flag": "--components"
+        },
+        {
+          "id": "exclude_components",
+          "flag": "--exclude-components"
+        }
+      ],
+      "modules": [
+        "numpy",
+        "mne"
+      ],
+      "expected": [
+        "processed-raw.fif"
+      ],
+      "profile": "scientific",
+      "fixed_args": [
+        "--operation",
+        "ica"
+      ],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [
+        [
+          "mne.preprocessing",
+          "ICA.fit"
+        ],
+        [
+          "mne.preprocessing",
+          "ICA.apply"
+        ],
+        [
+          "mne.preprocessing",
+          "ICA.find_bads_eog"
+        ],
+        [
+          "mne.preprocessing",
+          "ICA.find_bads_ecg"
+        ]
+      ],
+      "implementation_source": {
+        "kind": "library_api",
+        "entrypoints": [
+          "mne.preprocessing.ICA.fit",
+          "mne.preprocessing.ICA.apply",
+          "mne.preprocessing.ICA.find_bads_eog",
+          "mne.preprocessing.ICA.find_bads_ecg"
+        ],
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "bakend/app/execution/eeg_worker.py",
+          "sha256": "b15760e312712683a17dfa2466294b0e451372f0502dd498a942c6725a4ec021"
+        }
+      ],
+      "artifact_types": {
+        "processed-raw.fif": "generated_file"
+      }
+    }
+  }
+}

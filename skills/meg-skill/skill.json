@@ -1,0 +1,492 @@
+{
+  "schema_version": 1,
+  "id": "meg-skill",
+  "description": "meg-skill 统筹已登记的独立方法和可复用流程。支持：EEG/MEG 数据检查；EEG/MEG 滤波与降采样；MNE ICA 分解与指定成分去除；重参考与分段；Epoch AutoReject 自动质控；传感器 PLV/相干/wPLI；Morlet 时频功率与 ITC；MEG Maxwell 滤波；其他方法可在详情中分页查询。",
+  "method_refs": [
+    {
+      "capability": "skill.meg-skill",
+      "method_id": "reviewed-inspect-mne-eeg-tool",
+      "label": "EEG/MEG 数据检查",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "loadeeg",
+        "load-validation",
+        "load-basic-validation"
+      ],
+      "execution_resolution": {},
+      "role": "Read a supported continuous EEG/MEG recording, reject non-finite data, report channel/sample counts and sampling frequency, and save the recording as FIF。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file). Registered outputs: results/processed-raw.fif. Fixed invocation options: --operation inspect.",
+      "method_ref": "reviewed.mne-eeg-tool.inspect"
+    },
+    {
+      "capability": "skill.meg-skill",
+      "method_id": "reviewed-filter-mne-eeg-tool",
+      "label": "EEG/MEG 滤波与降采样",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "preprocessfiltering",
+        "downsampling-filtering",
+        "filtering"
+      ],
+      "execution_resolution": {},
+      "role": "Apply MNE IIR band-pass filtering, optional notch filtering and optional downsampling to continuous data; validate cutoffs against the original and requested Nyquist frequencies。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file). Registered outputs: results/processed-raw.fif. Fixed invocation options: --operation filter.",
+      "method_ref": "reviewed.mne-eeg-tool.filter"
+    },
+    {
+      "capability": "skill.meg-skill",
+      "method_id": "reviewed-ica-mne-eeg-tool",
+      "label": "MNE ICA 分解与指定成分去除",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Fit MNE ICA on a high-pass-filtered copy, identify EOG/ECG-related components when corresponding channels exist, combine explicit exclusions and apply the fitted cleaning to the recording。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file). Registered outputs: results/processed-raw.fif. Fixed invocation options: --operation ica.",
+      "method_ref": "reviewed.mne-eeg-tool.ica"
+    },
+    {
+      "capability": "skill.meg-skill",
+      "method_id": "reviewed-epoch-mne-eeg-tool",
+      "label": "重参考与分段",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "rereferenceandepoch",
+        "re-referencing-epoching",
+        "epoching"
+      ],
+      "execution_resolution": {},
+      "role": "Create MNE epochs from supplied events and time limits, or fixed-duration epochs when events are absent; apply average EEG referencing and save accepted epochs as FIF。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file); events: MNE 事件文件 (file). Registered outputs: results/processed-epo.fif. Fixed invocation options: --operation epoch.",
+      "method_ref": "reviewed.mne-eeg-tool.epoch"
+    },
+    {
+      "capability": "skill.meg-skill",
+      "method_id": "reviewed-autoreject-mne-eeg-tool",
+      "label": "Epoch AutoReject 自动质控",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Create epochs and run AutoReject with cross-validation to repair/reject contaminated epochs. At least four epochs and valid sensor positions are required。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file); events: MNE 事件文件 (file). Registered outputs: results/processed-epo.fif. Fixed invocation options: --operation autoreject.",
+      "method_ref": "reviewed.mne-eeg-tool.autoreject"
+    },
+    {
+      "capability": "skill.meg-skill",
+      "method_id": "reviewed-connectivity-mne-eeg-tool",
+      "label": "传感器 PLV/相干/wPLI",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "computeconnectivity",
+        "sensor-level-connectivity"
+      ],
+      "execution_resolution": {},
+      "role": "Create epochs and compute spectral PLV, coherence and wPLI in the requested frequency band using mne-connectivity; export matrices and channel names in NPZ。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file); events: MNE 事件文件 (file). Registered outputs: results/connectivity.npz. Fixed invocation options: --operation connectivity.",
+      "method_ref": "reviewed.mne-eeg-tool.connectivity"
+    },
+    {
+      "capability": "skill.meg-skill",
+      "method_id": "reviewed-time-frequency-mne-eeg-tool",
+      "label": "Morlet 时频功率与 ITC",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "time-frequency-analysis"
+      ],
+      "execution_resolution": {},
+      "role": "Compute averaged Morlet time-frequency power and inter-trial coherence from epochs at twelve frequencies spanning the selected band; export power, ITC, frequencies and times。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file); events: MNE 事件文件 (file). Registered outputs: results/time_frequency.npz. Fixed invocation options: --operation time-frequency.",
+      "method_ref": "reviewed.mne-eeg-tool.time-frequency"
+    },
+    {
+      "capability": "skill.meg-skill",
+      "method_id": "reviewed-maxwell-mne-eeg-tool",
+      "label": "MEG Maxwell 滤波",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "maxwell-filtering"
+      ],
+      "execution_resolution": {},
+      "role": "Apply MNE Maxwell filtering to continuous MEG using the adapter origin (0, 0, 0.04 m); MEG sensors and a device-to-head transform are required。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file). Registered outputs: results/processed-raw.fif. Fixed invocation options: --operation maxwell.",
+      "method_ref": "reviewed.mne-eeg-tool.maxwell"
+    },
+    {
+      "capability": "skill.meg-skill",
+      "method_id": "reviewed-source-mne-eeg-tool",
+      "label": "dSPM 源定位（需前向模型和噪声协方差）",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "source-localization"
+      ],
+      "execution_resolution": {},
+      "role": "Construct an MNE inverse operator from the supplied forward solution and noise covariance, then apply dSPM to continuous data with lambda2=1/9; export source amplitudes, times and vertices。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file); forward: 前向模型 FIF (file); noise_cov: 噪声协方差 FIF (file). Registered outputs: results/source.npz. Fixed invocation options: --operation source.",
+      "method_ref": "reviewed.mne-eeg-tool.source"
+    },
+    {
+      "capability": "skill.meg-skill",
+      "method_id": "reviewed-evoked-existing-meg-skill",
+      "label": "MNE 已有 Epochs 平均诱发响应",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Read existing MNE epochs and call the library's existing evoked average API。 Inputs: input: 已分段 Epochs FIF (file). Registered outputs: results/average-ave.fif.",
+      "method_ref": "reviewed.meg-skill.evoked-existing"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [
+    {
+      "capability": "skill.meg-skill",
+      "method_id": "meg-skill-guided--source-space-connectivity",
+      "skill_id": "meg-skill",
+      "label": "Source-space connectivity",
+      "description": "该入口为规划能力；用于讨论Source-space connectivity的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "source-space-connectivity",
+          "options": [
+            {
+              "value": "source-space-connectivity",
+              "label": "Source-space connectivity",
+              "description": "规划选项：Source-space connectivity；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "workflow_scope",
+          "argument": "workflow-scope",
+          "label": "工作流范围",
+          "description": "选择只做预处理、提取特征或规划端到端模态流程。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "end_to_end",
+          "options": [
+            {
+              "value": "preprocess",
+              "label": "仅预处理",
+              "description": ""
+            },
+            {
+              "value": "features",
+              "label": "特征提取",
+              "description": ""
+            },
+            {
+              "value": "end_to_end",
+              "label": "端到端流程",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "quality_control",
+          "argument": "quality-control",
+          "label": "包含质量控制",
+          "description": "在流程方案中保留输入检查、中间 QC 和结果核验步骤。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "artifact_strategy",
+          "argument": "artifact-strategy",
+          "label": "伪影处理策略",
+          "description": "选择保守标记、自动校正或排除受影响数据。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "预处理细节",
+          "unit": "",
+          "required": true,
+          "default": "correct",
+          "options": [
+            {
+              "value": "flag",
+              "label": "仅标记",
+              "description": ""
+            },
+            {
+              "value": "correct",
+              "label": "自动校正",
+              "description": ""
+            },
+            {
+              "value": "exclude",
+              "label": "排除受影响数据",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "normalization_space",
+          "argument": "normalization-space",
+          "label": "标准空间",
+          "description": "规划空间标准化目标；原生空间不会应用模板归一化。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "空间与输出",
+          "unit": "",
+          "required": true,
+          "default": "native",
+          "options": [
+            {
+              "value": "native",
+              "label": "原生空间",
+              "description": ""
+            },
+            {
+              "value": "template",
+              "label": "标准模板空间",
+              "description": ""
+            },
+            {
+              "value": "both",
+              "label": "同时保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "smoothing_extent",
+          "argument": "smoothing-extent",
+          "label": "平滑尺度",
+          "description": "按模态解释为空间或时间平滑尺度；0 表示关闭。",
+          "type": "number",
+          "control": "number",
+          "level": "advanced",
+          "group": "空间与输出",
+          "unit": "",
+          "required": true,
+          "default": 0,
+          "options": [],
+          "minimum": 0.0,
+          "maximum": 20.0,
+          "step": 0.5,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "compute_threads",
+          "argument": "compute-threads",
+          "label": "计算线程数",
+          "description": "为支持并行的软件规划线程数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": 4,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 128.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "dataset_folder",
+          "label": "输入数据集",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "folder",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/meg-skill/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/meg-skill/scripts/time_frequency.py",
+          "label": "time_frequency.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "needs_protocol",
+        "reason": "原文要求源空间 parcel 连接；当前连接入口处理传感器 Epochs，不能当作源空间结果。需要源估计、分区与连接方式的明确契约。",
+        "source_method_id": "meg-skill-guided--source-space-connectivity",
+        "requirements": [
+          "源空间/分区定义",
+          "源时间序列及连接方式"
+        ]
+      }
+    }
+  ],
+  "selection_rules": [
+    "需要 evoked 结果时可复用已有 Epochs；传感器层分析与源空间分析需分别确认所需输入。"
+  ],
+  "name": "meg-skill",
+  "category": [
+    "任务能力",
+    "meg"
+  ],
+  "scope": "modality",
+  "keywords": [
+    "meg-skill",
+    "MEG",
+    "脑磁",
+    "源定位",
+    "时频分析",
+    "EEG",
+    "MNE",
+    "ICA"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

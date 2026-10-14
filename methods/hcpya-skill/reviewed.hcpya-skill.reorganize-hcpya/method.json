@@ -1,0 +1,122 @@
+{
+  "label": "hcpya 复制整理为 BIDS 目录",
+  "description": "Reorganize HCP Young Adult (HCP1200) native layout to BIDS structure. Converts HCP-YA directory layout (e.g., 100307/T1w/, 100307/MNINonLinear/) to BIDS-style structure (sub-100307/anat/, sub-100307/func/)。 Inputs: input: Path to HCP-YA raw directory (directory). Registered outputs: results/.",
+  "runner_id": "reviewed.hcpya-skill.reorganize-hcpya",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder"
+  ],
+  "requires_features": [],
+  "parameters": [],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "Path to HCP-YA raw directory",
+      "description": "Path to HCP-YA raw directory. Required directory input for hcpya 复制整理为 BIDS 目录; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "folder",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for hcpya 复制整理为 BIDS 目录. Contains this operation's generated files, including results/; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/hcpya-skill/scripts/reorganize_hcpya.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.hcpya-skill.reorganize-hcpya",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.hcpya-skill.reorganize-hcpya",
+      "script": "skills/hcpya-skill/scripts/reorganize_hcpya.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [],
+      "modules": [
+        "pandas",
+        "numpy"
+      ],
+      "expected": [
+        "bids/**/*.nii*"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output",
+          "bids"
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/hcpya-skill/scripts/reorganize_hcpya.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/hcpya-skill/scripts/reorganize_hcpya.py",
+          "source_sha256": "258b47989bd7c8b9f11cb5f6cfce8e3c8664509cd8b7f3e25c3967dea5e0ab25"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/hcpya-skill/scripts/reorganize_hcpya.py",
+          "sha256": "ec5b5823aee148a1a214f28f3700b623c24fbb4b1dba4cf44f237fa2ff8ed698"
+        }
+      ],
+      "artifact_types": {}
+    }
+  }
+}

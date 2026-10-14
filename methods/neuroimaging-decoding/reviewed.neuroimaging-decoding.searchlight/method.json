@@ -1,0 +1,283 @@
+{
+  "label": "SearchLight 分类",
+  "description": "Run the original SearchLight implementation on the supplied image list, mask and row-aligned target labels with the selected number of cross-validation folds; export the score image. Inputs: images_list: 影像路径清单 (file); features: 特征 CSV (file); mask: 脑掩膜 (file). Registered outputs: results/searchlight_scores.nii.gz. Fixed invocation options: --mode searchlight.",
+  "runner_id": "reviewed.neuroimaging-decoding.searchlight",
+  "input_types": [
+    "analysis_input",
+    "brain_mask"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "target",
+      "argument": "target",
+      "label": "标签列",
+      "description": "输入表中预测或分析目标的列名；必须存在且与任务类型匹配。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 target，由结构化 Runner 映射到现有入口参数 target。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "folds",
+      "argument": "folds",
+      "label": "folds",
+      "description": "交叉验证的折数；每折须有足够样本，分类时还需满足类别数量约束。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 5,
+      "options": [],
+      "minimum": 2.0,
+      "maximum": 20.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 folds，由结构化 Runner 映射到现有入口参数 folds。 平台默认值：5；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "seed",
+      "argument": "seed",
+      "label": "seed",
+      "description": "现有入口使用的随机种子；相同种子不保证不同硬件或软件版本的结果逐位一致。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 123,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 2147483647.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 seed，由结构化 Runner 映射到现有入口参数 seed。 平台默认值：123；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "images_list",
+      "type": "analysis_input",
+      "label": "影像路径清单",
+      "description": "影像路径清单. Required file input for SearchLight 分类; bind to port images_list.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "features",
+      "type": "analysis_input",
+      "label": "特征 CSV",
+      "description": "特征 CSV. Required file input for SearchLight 分类; bind to port features.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "mask",
+      "type": "brain_mask",
+      "label": "脑掩膜",
+      "description": "脑掩膜. Required file input for SearchLight 分类; bind to port mask.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for SearchLight 分类. Contains this operation's generated files, including results/searchlight_scores.nii.gz; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_searchlight_scores_nii_gz",
+      "type": "generated_file",
+      "label": "searchlight_scores.nii.gz",
+      "description": "searchlight_scores.nii.gz: output of SearchLight classification. Relative run path: results/searchlight_scores.nii.gz. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".nii.gz",
+      "primary": false,
+      "path_template": "results/searchlight_scores.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/neuroimaging-decoding/scripts/train_reference.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.neuroimaging-decoding.searchlight",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.neuroimaging-decoding.searchlight",
+      "script": "skills/neuroimaging-decoding/scripts/train_reference.py",
+      "inputs": [
+        {
+          "id": "images_list",
+          "flag": "--images-list",
+          "path_list": true,
+          "many_args": false
+        },
+        {
+          "id": "features",
+          "flag": "--features",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "mask",
+          "flag": "--mask",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "target",
+          "flag": "--target"
+        },
+        {
+          "id": "folds",
+          "flag": "--folds"
+        },
+        {
+          "id": "seed",
+          "flag": "--seed"
+        }
+      ],
+      "modules": [
+        "numpy",
+        "pandas",
+        "scipy",
+        "sklearn",
+        "joblib",
+        "nilearn"
+      ],
+      "expected": [
+        "searchlight_scores.nii.gz"
+      ],
+      "profile": "scientific",
+      "fixed_args": [
+        "--mode",
+        "searchlight"
+      ],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/neuroimaging-decoding/scripts/train_reference.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/neuroimaging-decoding/scripts/train_reference.py",
+          "source_sha256": "f8666f909b379a1f8012194d971ec73049c42b9e4f2298d9f2b7c68a0b1cd973"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/neuroimaging-decoding/scripts/train_reference.py",
+          "sha256": "f8666f909b379a1f8012194d971ec73049c42b9e4f2298d9f2b7c68a0b1cd973"
+        }
+      ],
+      "artifact_types": {
+        "searchlight_scores.nii.gz": "generated_file"
+      }
+    }
+  }
+}

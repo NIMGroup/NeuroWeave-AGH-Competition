@@ -1,0 +1,308 @@
+{
+  "schema_version": 1,
+  "id": "reviewed-response-fod-21ed9aded5",
+  "version": "1",
+  "kind": "pipeline",
+  "description": "依次执行：MRtrix3 响应函数估计 → MRtrix3 CSD / MSMT-CSD。输入和参数由方法契约定义。",
+  "label": "预处理 DWI → 响应函数 → MSMT-CSD FOD",
+  "parameters": [
+    {
+      "id": "threads",
+      "argument": "nthreads",
+      "label": "线程数",
+      "description": "MRtrix3 使用的 CPU 线程数。",
+      "type": "integer",
+      "control": "number",
+      "level": "advanced",
+      "group": "MRtrix3 响应函数估计",
+      "unit": "",
+      "required": true,
+      "default": 4,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 128.0,
+      "step": 1.0,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "fod_lmax",
+      "argument": "lmax",
+      "label": "球谐最高阶数",
+      "description": "FOD 球谐展开的最大偶数阶。",
+      "type": "integer",
+      "control": "select",
+      "level": "basic",
+      "group": "MRtrix3 CSD / MSMT-CSD",
+      "unit": "",
+      "required": true,
+      "default": 8,
+      "options": [
+        {
+          "value": 6,
+          "label": "6",
+          "description": ""
+        },
+        {
+          "value": 8,
+          "label": "8",
+          "description": ""
+        },
+        {
+          "value": 10,
+          "label": "10",
+          "description": ""
+        },
+        {
+          "value": 12,
+          "label": "12",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "dwi",
+      "type": "preprocessed_dwi",
+      "label": "预处理 DWI",
+      "description": "完成畸变与运动校正的 4D DWI。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "mask",
+      "type": "brain_mask",
+      "label": "DWI Mask",
+      "description": "与 DWI 空间一致的脑掩膜。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "bvecs",
+      "type": "gradient_table",
+      "label": "bvec",
+      "description": "FSL 格式梯度方向。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".bvec",
+        ".txt"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "bvals",
+      "type": "gradient_table",
+      "label": "bval",
+      "description": "扩散梯度强度。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".bval",
+        ".txt"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "wm_fod",
+      "type": "fod_image",
+      "label": "白质 FOD",
+      "description": "可直接传给 tckgen。",
+      "format": ".mif",
+      "primary": true,
+      "path_template": "wm_fod.mif",
+      "generated_when": {}
+    }
+  ],
+  "steps": [
+    {
+      "id": "response",
+      "title": "MRtrix3 响应函数估计",
+      "fixed_parameters": {
+        "algorithm": "dhollander"
+      },
+      "parameter_bindings": {
+        "threads": "threads"
+      },
+      "inherit_parameters": false,
+      "input_bindings": {
+        "dwi": {
+          "source": "workflow_input",
+          "slot_id": "dwi",
+          "step_id": null,
+          "output_slot_id": null
+        },
+        "mask": {
+          "source": "workflow_input",
+          "slot_id": "mask",
+          "step_id": null,
+          "output_slot_id": null
+        },
+        "bvecs": {
+          "source": "workflow_input",
+          "slot_id": "bvecs",
+          "step_id": null,
+          "output_slot_id": null
+        },
+        "bvals": {
+          "source": "workflow_input",
+          "slot_id": "bvals",
+          "step_id": null,
+          "output_slot_id": null
+        }
+      },
+      "workspace": "response",
+      "method_ref": "mrtrix.dwi2response",
+      "method_version": "1",
+      "capability": "dwi.response"
+    },
+    {
+      "id": "fod",
+      "title": "MRtrix3 CSD / MSMT-CSD",
+      "fixed_parameters": {
+        "algorithm": "msmt_csd"
+      },
+      "parameter_bindings": {
+        "lmax": "fod_lmax",
+        "threads": "threads"
+      },
+      "inherit_parameters": false,
+      "input_bindings": {
+        "dwi": {
+          "source": "workflow_input",
+          "slot_id": "dwi",
+          "step_id": null,
+          "output_slot_id": null
+        },
+        "mask": {
+          "source": "workflow_input",
+          "slot_id": "mask",
+          "step_id": null,
+          "output_slot_id": null
+        },
+        "bvecs": {
+          "source": "workflow_input",
+          "slot_id": "bvecs",
+          "step_id": null,
+          "output_slot_id": null
+        },
+        "bvals": {
+          "source": "workflow_input",
+          "slot_id": "bvals",
+          "step_id": null,
+          "output_slot_id": null
+        },
+        "wm_response": {
+          "source": "step_output",
+          "slot_id": null,
+          "step_id": "response",
+          "output_slot_id": "wm_response"
+        },
+        "gm_response": {
+          "source": "step_output",
+          "slot_id": null,
+          "step_id": "response",
+          "output_slot_id": "gm_response"
+        },
+        "csf_response": {
+          "source": "step_output",
+          "slot_id": null,
+          "step_id": "response",
+          "output_slot_id": "csf_response"
+        }
+      },
+      "workspace": "fod",
+      "method_ref": "mrtrix.dwi2fod",
+      "method_version": "1",
+      "capability": "dwi.fod"
+    }
+  ],
+  "output_bindings": {
+    "wm_fod": {
+      "step_id": "fod",
+      "output_slot_id": "wm_fod"
+    }
+  },
+  "included_capabilities": [
+    "dwi.response",
+    "dwi.fod"
+  ],
+  "category": [
+    "内置 Pipeline",
+    "MRtrix3"
+  ]
+}

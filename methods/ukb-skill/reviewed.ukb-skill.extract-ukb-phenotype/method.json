@@ -1,0 +1,254 @@
+{
+  "label": "ukb 表型/刺激提取",
+  "description": "Extract and preprocess UK Biobank phenotype data for brain-related analysis。 Inputs: input: Path to UKB raw CSV (file); custom_mapping: JSON file with custom variable mappings (file). Registered outputs: results/output.csv.",
+  "runner_id": "reviewed.ukb-skill.extract-ukb-phenotype",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "variables",
+      "argument": "variables",
+      "label": "variables",
+      "description": "Comma-separated variable names (default: core covariates)",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/ukb-skill/scripts/extract_ukb_phenotype.py:196。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "drop_missing",
+      "argument": "drop-missing",
+      "label": "drop-missing",
+      "description": "Drop rows with missing values",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/ukb-skill/scripts/extract_ukb_phenotype.py:198。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "list_variables",
+      "argument": "list-variables",
+      "label": "list-variables",
+      "description": "List available variables and exit",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/ukb-skill/scripts/extract_ukb_phenotype.py:199。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "Path to UKB raw CSV",
+      "description": "Path to UKB raw CSV. Required file input for ukb 表型/刺激提取; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "custom_mapping",
+      "type": "analysis_input",
+      "label": "JSON file with custom variable mappings",
+      "description": "JSON file with custom variable mappings. Optional file input for ukb 表型/刺激提取; bind to port custom_mapping.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for ukb 表型/刺激提取. Contains this operation's generated files, including results/output.csv; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_output_csv",
+      "type": "generated_file",
+      "label": "output.csv",
+      "description": "Output path for phenotype CSV: output of ukb phenotype/stimulus extraction. Relative run path: results/output.csv. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".csv",
+      "primary": false,
+      "path_template": "results/output.csv",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/ukb-skill/scripts/extract_ukb_phenotype.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.ukb-skill.extract-ukb-phenotype",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.ukb-skill.extract-ukb-phenotype",
+      "script": "skills/ukb-skill/scripts/extract_ukb_phenotype.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "custom_mapping",
+          "flag": "--custom-mapping",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "variables",
+          "flag": "--variables",
+          "split": false
+        },
+        {
+          "id": "drop_missing",
+          "flag": "--drop-missing",
+          "flag_when": true
+        },
+        {
+          "id": "list_variables",
+          "flag": "--list-variables",
+          "flag_when": true
+        }
+      ],
+      "modules": [
+        "pandas",
+        "numpy"
+      ],
+      "expected": [
+        "output.csv"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output",
+          "output.csv"
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/ukb-skill/scripts/extract_ukb_phenotype.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/ukb-skill/scripts/extract_ukb_phenotype.py",
+          "source_sha256": "797c737c1d694dfc29720acc715e9ec7698c3bff3bdd72fef6d0cc38123e6ea1"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/ukb-skill/scripts/extract_ukb_phenotype.py",
+          "sha256": "797c737c1d694dfc29720acc715e9ec7698c3bff3bdd72fef6d0cc38123e6ea1"
+        }
+      ],
+      "artifact_types": {
+        "output.csv": "generated_file"
+      }
+    }
+  }
+}

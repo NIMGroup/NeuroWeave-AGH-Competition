@@ -1,0 +1,31 @@
+{
+  "client": {
+    "entry": "./client/index.js",
+    "styles": [],
+    "slots": [
+      "conversation.input.left",
+      "conversation.hero.agentPreset",
+      "shell.overlay",
+      "sidebar.footer.action"
+    ],
+    "slotCatalogVersion": "dsh-client-slots/v1",
+    "services": [
+      "nw.panel.query",
+      "nw.panel.edit",
+      "nw.session.context",
+      "nw.session.select",
+      "nw.action.prepare",
+      "nw.action.read",
+      "nw.action.submit",
+      "nw.action.status",
+      "nw.workspace.query",
+      "nw.workspace.edit",
+      "nw.workspace.remove",
+      "nw.session.removalcheck"
+    ],
+    "projections": [],
+    "publicConfig": {
+      "label": "NeuroWeave server workbench"
+    }
+  }
+}

@@ -1,0 +1,2328 @@
+{
+  "schema_version": 1,
+  "id": "hcppipeline-tool",
+  "description": "hcppipeline-tool 的领域规划与方法选择指导。覆盖：HCP Diffusion Pipeline；Structural preprocessing；Functional preprocessing；Diffusion preprocessing；Surface-based registration；Full HCP-style multimodal pipeline。当前没有独立执行 Method，不能直接提交计算任务。",
+  "method_refs": [],
+  "pipeline_refs": [],
+  "planning_capabilities": [
+    {
+      "capability": "dwi.preprocess",
+      "method_id": "hcp_pipeline",
+      "skill_id": "hcppipeline-tool",
+      "label": "HCP Diffusion Pipeline",
+      "description": "适合满足 HCP 采集、结构像和资源约束的数据。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "bids_dwi"
+      ],
+      "output_types": [
+        "preprocessed_dwi",
+        "preprocess_qc"
+      ],
+      "requires_features": [
+        "has_t1w"
+      ],
+      "default_recommended": false,
+      "default_reason": "只有输入满足 HCP 约定时才建议选择。",
+      "parameters": [
+        {
+          "id": "processing_mode",
+          "argument": "processing-mode",
+          "label": "处理模式",
+          "description": "选择标准或兼容旧数据的处理配置。",
+          "type": "string",
+          "control": "select",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "standard",
+              "label": "Standard",
+              "description": ""
+            },
+            {
+              "value": "legacy",
+              "label": "Legacy compatibility",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "gradient_distortion",
+          "argument": "gradient-distortion",
+          "label": "梯度非线性校正",
+          "description": "有厂商梯度系数文件时启用梯度非线性校正。",
+          "type": "string",
+          "control": "select",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "自动检测",
+              "description": ""
+            },
+            {
+              "value": "on",
+              "label": "启用",
+              "description": ""
+            },
+            {
+              "value": "off",
+              "label": "关闭",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "combine_runs",
+          "argument": "combine-runs",
+          "label": "合并 DWI Runs",
+          "description": "在方向与相位编码兼容时合并多个 DWI run。",
+          "type": "boolean",
+          "control": "switch",
+          "level": "advanced",
+          "group": "输入组织",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "合并",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "分别处理",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "b0_max_bval",
+          "argument": "b0-max-bval",
+          "label": "b0 最大 b-value",
+          "description": "识别 b0 体积时允许的最大 b-value。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "输入组织",
+          "unit": "s/mm²",
+          "required": true,
+          "default": 50,
+          "options": [],
+          "minimum": 0.0,
+          "maximum": 500.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "eddy_backend",
+          "argument": "eddy-backend",
+          "label": "Eddy 后端",
+          "description": "选择 CPU 或 CUDA 版 eddy。",
+          "type": "string",
+          "control": "select",
+          "level": "advanced",
+          "group": "校正与资源",
+          "unit": "",
+          "required": true,
+          "default": "cuda",
+          "options": [
+            {
+              "value": "cuda",
+              "label": "CUDA GPU",
+              "description": ""
+            },
+            {
+              "value": "cpu",
+              "label": "CPU",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "outlier_replacement",
+          "argument": "outlier-replacement",
+          "label": "离群切片替换",
+          "description": "启用 eddy 的离群切片检测与替换。",
+          "type": "boolean",
+          "control": "switch",
+          "level": "advanced",
+          "group": "校正与资源",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "启用",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "关闭",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "threads",
+          "argument": "threads",
+          "label": "线程数",
+          "description": "CPU 阶段允许使用的线程数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "校正与资源",
+          "unit": "",
+          "required": true,
+          "default": 8,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 128.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "bids_dataset",
+          "type": "bids_dwi",
+          "label": "BIDS DWI 数据集",
+          "description": "符合 HCP 采集与命名约束的 DWI 输入。",
+          "required": true,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "folder",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists",
+            "bids_dwi_complete"
+          ]
+        },
+        {
+          "id": "t1w",
+          "type": "t1w_image",
+          "label": "T1w 结构像",
+          "description": "HCP Diffusion Pipeline 所需的结构像输入。",
+          "required": true,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "file",
+          "formats": [
+            ".nii",
+            ".nii.gz"
+          ],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path"
+          ],
+          "validation": [
+            "path_exists",
+            "nifti_readable"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "preprocessed_dwi",
+          "type": "preprocessed_dwi",
+          "label": "HCP 预处理 DWI",
+          "description": "完成 HCP 风格校正和空间处理的 DWI。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/hcp/{subject}/Diffusion/",
+          "generated_when": {}
+        },
+        {
+          "id": "preprocess_qc",
+          "type": "preprocess_qc",
+          "label": "HCP 预处理 QC",
+          "description": "HCP 预处理过程的质量控制与日志。",
+          "format": "",
+          "primary": false,
+          "path_template": "derivatives/hcp/{subject}/QC/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "reviewed",
+      "source_references": [
+        {
+          "path": "skills/hcppipeline-tool/tool.manifest.json",
+          "label": "结构化方法声明",
+          "kind": "skill",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {}
+    },
+    {
+      "capability": "skill.hcppipeline-tool",
+      "method_id": "linked-hcp_pipeline",
+      "skill_id": "hcppipeline-tool",
+      "label": "HCP Diffusion Pipeline",
+      "description": "适合满足 HCP 采集、结构像和资源约束的数据。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "bids_dwi"
+      ],
+      "output_types": [
+        "preprocessed_dwi",
+        "preprocess_qc"
+      ],
+      "requires_features": [
+        "has_t1w"
+      ],
+      "default_recommended": false,
+      "default_reason": "只有输入满足 HCP 约定时才建议选择。",
+      "parameters": [
+        {
+          "id": "processing_mode",
+          "argument": "processing-mode",
+          "label": "处理模式",
+          "description": "选择标准或兼容旧数据的处理配置。",
+          "type": "string",
+          "control": "select",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "standard",
+              "label": "Standard",
+              "description": ""
+            },
+            {
+              "value": "legacy",
+              "label": "Legacy compatibility",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "gradient_distortion",
+          "argument": "gradient-distortion",
+          "label": "梯度非线性校正",
+          "description": "有厂商梯度系数文件时启用梯度非线性校正。",
+          "type": "string",
+          "control": "select",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "自动检测",
+              "description": ""
+            },
+            {
+              "value": "on",
+              "label": "启用",
+              "description": ""
+            },
+            {
+              "value": "off",
+              "label": "关闭",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "combine_runs",
+          "argument": "combine-runs",
+          "label": "合并 DWI Runs",
+          "description": "在方向与相位编码兼容时合并多个 DWI run。",
+          "type": "boolean",
+          "control": "switch",
+          "level": "advanced",
+          "group": "输入组织",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "合并",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "分别处理",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "b0_max_bval",
+          "argument": "b0-max-bval",
+          "label": "b0 最大 b-value",
+          "description": "识别 b0 体积时允许的最大 b-value。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "输入组织",
+          "unit": "s/mm²",
+          "required": true,
+          "default": 50,
+          "options": [],
+          "minimum": 0.0,
+          "maximum": 500.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "eddy_backend",
+          "argument": "eddy-backend",
+          "label": "Eddy 后端",
+          "description": "选择 CPU 或 CUDA 版 eddy。",
+          "type": "string",
+          "control": "select",
+          "level": "advanced",
+          "group": "校正与资源",
+          "unit": "",
+          "required": true,
+          "default": "cuda",
+          "options": [
+            {
+              "value": "cuda",
+              "label": "CUDA GPU",
+              "description": ""
+            },
+            {
+              "value": "cpu",
+              "label": "CPU",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "outlier_replacement",
+          "argument": "outlier-replacement",
+          "label": "离群切片替换",
+          "description": "启用 eddy 的离群切片检测与替换。",
+          "type": "boolean",
+          "control": "switch",
+          "level": "advanced",
+          "group": "校正与资源",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "启用",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "关闭",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "threads",
+          "argument": "threads",
+          "label": "线程数",
+          "description": "CPU 阶段允许使用的线程数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "校正与资源",
+          "unit": "",
+          "required": true,
+          "default": 8,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 128.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "bids_dataset",
+          "type": "bids_dwi",
+          "label": "BIDS DWI 数据集",
+          "description": "符合 HCP 采集与命名约束的 DWI 输入。",
+          "required": true,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "folder",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists",
+            "bids_dwi_complete"
+          ]
+        },
+        {
+          "id": "t1w",
+          "type": "t1w_image",
+          "label": "T1w 结构像",
+          "description": "HCP Diffusion Pipeline 所需的结构像输入。",
+          "required": true,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "file",
+          "formats": [
+            ".nii",
+            ".nii.gz"
+          ],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path"
+          ],
+          "validation": [
+            "path_exists",
+            "nifti_readable"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "preprocessed_dwi",
+          "type": "preprocessed_dwi",
+          "label": "HCP 预处理 DWI",
+          "description": "完成 HCP 风格校正和空间处理的 DWI。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/hcp/{subject}/Diffusion/",
+          "generated_when": {}
+        },
+        {
+          "id": "preprocess_qc",
+          "type": "preprocess_qc",
+          "label": "HCP 预处理 QC",
+          "description": "HCP 预处理过程的质量控制与日志。",
+          "format": "",
+          "primary": false,
+          "path_template": "derivatives/hcp/{subject}/QC/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "reviewed",
+      "source_references": [
+        {
+          "path": "skills/hcppipeline-tool/execution.manifest.json",
+          "label": "结构化方法声明",
+          "kind": "skill",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {}
+    },
+    {
+      "capability": "skill.hcppipeline-tool",
+      "method_id": "hcppipeline-tool-guided--structural-preprocessing",
+      "skill_id": "hcppipeline-tool",
+      "label": "Structural preprocessing",
+      "description": "该入口为规划能力；用于讨论Structural preprocessing的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": true,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "structural-preprocessing",
+          "options": [
+            {
+              "value": "structural-preprocessing",
+              "label": "Structural preprocessing",
+              "description": "规划选项：Structural preprocessing；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "processing_level",
+          "argument": "processing-level",
+          "label": "处理级别",
+          "description": "控制方案中启用的步骤深度，不会直接启动对应软件。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "minimal",
+              "label": "最小必要步骤",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准流程",
+              "description": ""
+            },
+            {
+              "value": "advanced",
+              "label": "高级选项",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "quality_control",
+          "argument": "quality-control",
+          "label": "包含质量控制",
+          "description": "要求规划结果包含工具输出的质量检查。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "resource_profile",
+          "argument": "resource-profile",
+          "label": "资源配置",
+          "description": "选择偏向低内存、平衡或高性能的工具运行方案。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": "balanced",
+          "options": [
+            {
+              "value": "conservative",
+              "label": "低资源",
+              "description": ""
+            },
+            {
+              "value": "balanced",
+              "label": "平衡",
+              "description": ""
+            },
+            {
+              "value": "performance",
+              "label": "高性能",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "threads",
+          "argument": "threads",
+          "label": "线程数",
+          "description": "工具支持时使用的 CPU 线程数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": 4,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 128.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "memory_limit_gb",
+          "argument": "memory-limit-gb",
+          "label": "内存上限",
+          "description": "规划任务可使用的内存上限。",
+          "type": "number",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "GB",
+          "required": true,
+          "default": 8,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 1024.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "keep_intermediates",
+          "argument": "keep-intermediates",
+          "label": "保留中间文件",
+          "description": "保留关键中间结果以便复核和断点恢复。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "输出与复现",
+          "unit": "",
+          "required": true,
+          "default": false,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "imaging_input",
+          "label": "影像或工具输入",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "artifact",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/hcppipeline-tool/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/hcppipeline-tool/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_runtime",
+        "reason": "HCP Pipelines、Workbench/MSM/FIX 及其模板/分类器尚未完整配置；已有 FSL/FreeSurfer 不能替代 HCP 的完整流程。",
+        "source_method_id": "hcppipeline-tool-guided--structural-preprocessing",
+        "requirements": [
+          "HCP Pipelines",
+          "Workbench / MSM / ICA-FIX（按阶段）",
+          "模板、配置与分类器"
+        ]
+      }
+    },
+    {
+      "capability": "skill.hcppipeline-tool",
+      "method_id": "hcppipeline-tool-guided--functional-preprocessing",
+      "skill_id": "hcppipeline-tool",
+      "label": "Functional preprocessing",
+      "description": "该入口为规划能力；用于讨论Functional preprocessing的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "functional-preprocessing",
+          "options": [
+            {
+              "value": "functional-preprocessing",
+              "label": "Functional preprocessing",
+              "description": "规划选项：Functional preprocessing；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "processing_level",
+          "argument": "processing-level",
+          "label": "处理级别",
+          "description": "控制方案中启用的步骤深度，不会直接启动对应软件。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "minimal",
+              "label": "最小必要步骤",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准流程",
+              "description": ""
+            },
+            {
+              "value": "advanced",
+              "label": "高级选项",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "quality_control",
+          "argument": "quality-control",
+          "label": "包含质量控制",
+          "description": "要求规划结果包含工具输出的质量检查。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "resource_profile",
+          "argument": "resource-profile",
+          "label": "资源配置",
+          "description": "选择偏向低内存、平衡或高性能的工具运行方案。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": "balanced",
+          "options": [
+            {
+              "value": "conservative",
+              "label": "低资源",
+              "description": ""
+            },
+            {
+              "value": "balanced",
+              "label": "平衡",
+              "description": ""
+            },
+            {
+              "value": "performance",
+              "label": "高性能",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "threads",
+          "argument": "threads",
+          "label": "线程数",
+          "description": "工具支持时使用的 CPU 线程数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": 4,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 128.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "memory_limit_gb",
+          "argument": "memory-limit-gb",
+          "label": "内存上限",
+          "description": "规划任务可使用的内存上限。",
+          "type": "number",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "GB",
+          "required": true,
+          "default": 8,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 1024.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "keep_intermediates",
+          "argument": "keep-intermediates",
+          "label": "保留中间文件",
+          "description": "保留关键中间结果以便复核和断点恢复。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "输出与复现",
+          "unit": "",
+          "required": true,
+          "default": false,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "imaging_input",
+          "label": "影像或工具输入",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "artifact",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/hcppipeline-tool/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/hcppipeline-tool/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_runtime",
+        "reason": "HCP Pipelines、Workbench/MSM/FIX 及其模板/分类器尚未完整配置；已有 FSL/FreeSurfer 不能替代 HCP 的完整流程。",
+        "source_method_id": "hcppipeline-tool-guided--functional-preprocessing",
+        "requirements": [
+          "HCP Pipelines",
+          "Workbench / MSM / ICA-FIX（按阶段）",
+          "模板、配置与分类器"
+        ]
+      }
+    },
+    {
+      "capability": "skill.hcppipeline-tool",
+      "method_id": "hcppipeline-tool-guided--diffusion-preprocessing",
+      "skill_id": "hcppipeline-tool",
+      "label": "Diffusion preprocessing",
+      "description": "该入口为规划能力；用于讨论Diffusion preprocessing的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "diffusion-preprocessing",
+          "options": [
+            {
+              "value": "diffusion-preprocessing",
+              "label": "Diffusion preprocessing",
+              "description": "规划选项：Diffusion preprocessing；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "processing_level",
+          "argument": "processing-level",
+          "label": "处理级别",
+          "description": "控制方案中启用的步骤深度，不会直接启动对应软件。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "minimal",
+              "label": "最小必要步骤",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准流程",
+              "description": ""
+            },
+            {
+              "value": "advanced",
+              "label": "高级选项",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "quality_control",
+          "argument": "quality-control",
+          "label": "包含质量控制",
+          "description": "要求规划结果包含工具输出的质量检查。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "resource_profile",
+          "argument": "resource-profile",
+          "label": "资源配置",
+          "description": "选择偏向低内存、平衡或高性能的工具运行方案。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": "balanced",
+          "options": [
+            {
+              "value": "conservative",
+              "label": "低资源",
+              "description": ""
+            },
+            {
+              "value": "balanced",
+              "label": "平衡",
+              "description": ""
+            },
+            {
+              "value": "performance",
+              "label": "高性能",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "threads",
+          "argument": "threads",
+          "label": "线程数",
+          "description": "工具支持时使用的 CPU 线程数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": 4,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 128.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "memory_limit_gb",
+          "argument": "memory-limit-gb",
+          "label": "内存上限",
+          "description": "规划任务可使用的内存上限。",
+          "type": "number",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "GB",
+          "required": true,
+          "default": 8,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 1024.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "keep_intermediates",
+          "argument": "keep-intermediates",
+          "label": "保留中间文件",
+          "description": "保留关键中间结果以便复核和断点恢复。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "输出与复现",
+          "unit": "",
+          "required": true,
+          "default": false,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "imaging_input",
+          "label": "影像或工具输入",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "artifact",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/hcppipeline-tool/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/hcppipeline-tool/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_runtime",
+        "reason": "HCP Pipelines、Workbench/MSM/FIX 及其模板/分类器尚未完整配置；已有 FSL/FreeSurfer 不能替代 HCP 的完整流程。",
+        "source_method_id": "hcppipeline-tool-guided--diffusion-preprocessing",
+        "requirements": [
+          "HCP Pipelines",
+          "Workbench / MSM / ICA-FIX（按阶段）",
+          "模板、配置与分类器"
+        ]
+      }
+    },
+    {
+      "capability": "skill.hcppipeline-tool",
+      "method_id": "hcppipeline-tool-guided--surface-based-registration",
+      "skill_id": "hcppipeline-tool",
+      "label": "Surface-based registration",
+      "description": "该入口为规划能力；用于讨论Surface-based registration的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "surface-based-registration",
+          "options": [
+            {
+              "value": "surface-based-registration",
+              "label": "Surface-based registration",
+              "description": "规划选项：Surface-based registration；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "processing_level",
+          "argument": "processing-level",
+          "label": "处理级别",
+          "description": "控制方案中启用的步骤深度，不会直接启动对应软件。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "minimal",
+              "label": "最小必要步骤",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准流程",
+              "description": ""
+            },
+            {
+              "value": "advanced",
+              "label": "高级选项",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "quality_control",
+          "argument": "quality-control",
+          "label": "包含质量控制",
+          "description": "要求规划结果包含工具输出的质量检查。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "resource_profile",
+          "argument": "resource-profile",
+          "label": "资源配置",
+          "description": "选择偏向低内存、平衡或高性能的工具运行方案。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": "balanced",
+          "options": [
+            {
+              "value": "conservative",
+              "label": "低资源",
+              "description": ""
+            },
+            {
+              "value": "balanced",
+              "label": "平衡",
+              "description": ""
+            },
+            {
+              "value": "performance",
+              "label": "高性能",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "threads",
+          "argument": "threads",
+          "label": "线程数",
+          "description": "工具支持时使用的 CPU 线程数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": 4,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 128.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "memory_limit_gb",
+          "argument": "memory-limit-gb",
+          "label": "内存上限",
+          "description": "规划任务可使用的内存上限。",
+          "type": "number",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "GB",
+          "required": true,
+          "default": 8,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 1024.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "keep_intermediates",
+          "argument": "keep-intermediates",
+          "label": "保留中间文件",
+          "description": "保留关键中间结果以便复核和断点恢复。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "输出与复现",
+          "unit": "",
+          "required": true,
+          "default": false,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "imaging_input",
+          "label": "影像或工具输入",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "artifact",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/hcppipeline-tool/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/hcppipeline-tool/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_runtime",
+        "reason": "HCP Pipelines、Workbench/MSM/FIX 及其模板/分类器尚未完整配置；已有 FSL/FreeSurfer 不能替代 HCP 的完整流程。",
+        "source_method_id": "hcppipeline-tool-guided--surface-based-registration",
+        "requirements": [
+          "HCP Pipelines",
+          "Workbench / MSM / ICA-FIX（按阶段）",
+          "模板、配置与分类器"
+        ]
+      }
+    },
+    {
+      "capability": "skill.hcppipeline-tool",
+      "method_id": "hcppipeline-tool-guided--full-hcp-style-multimodal-pipeline",
+      "skill_id": "hcppipeline-tool",
+      "label": "Full HCP-style multimodal pipeline",
+      "description": "该入口为规划能力；用于讨论Full HCP-style multimodal pipeline的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "full-hcp-style-multimodal-pipeline",
+          "options": [
+            {
+              "value": "full-hcp-style-multimodal-pipeline",
+              "label": "Full HCP-style multimodal pipeline",
+              "description": "规划选项：Full HCP-style multimodal pipeline；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "processing_level",
+          "argument": "processing-level",
+          "label": "处理级别",
+          "description": "控制方案中启用的步骤深度，不会直接启动对应软件。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "minimal",
+              "label": "最小必要步骤",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准流程",
+              "description": ""
+            },
+            {
+              "value": "advanced",
+              "label": "高级选项",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "quality_control",
+          "argument": "quality-control",
+          "label": "包含质量控制",
+          "description": "要求规划结果包含工具输出的质量检查。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "resource_profile",
+          "argument": "resource-profile",
+          "label": "资源配置",
+          "description": "选择偏向低内存、平衡或高性能的工具运行方案。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": "balanced",
+          "options": [
+            {
+              "value": "conservative",
+              "label": "低资源",
+              "description": ""
+            },
+            {
+              "value": "balanced",
+              "label": "平衡",
+              "description": ""
+            },
+            {
+              "value": "performance",
+              "label": "高性能",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "threads",
+          "argument": "threads",
+          "label": "线程数",
+          "description": "工具支持时使用的 CPU 线程数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": 4,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 128.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "memory_limit_gb",
+          "argument": "memory-limit-gb",
+          "label": "内存上限",
+          "description": "规划任务可使用的内存上限。",
+          "type": "number",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "GB",
+          "required": true,
+          "default": 8,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 1024.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "keep_intermediates",
+          "argument": "keep-intermediates",
+          "label": "保留中间文件",
+          "description": "保留关键中间结果以便复核和断点恢复。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "输出与复现",
+          "unit": "",
+          "required": true,
+          "default": false,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "imaging_input",
+          "label": "影像或工具输入",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "artifact",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/hcppipeline-tool/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/hcppipeline-tool/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_runtime",
+        "reason": "HCP Pipelines、Workbench/MSM/FIX 及其模板/分类器尚未完整配置；已有 FSL/FreeSurfer 不能替代 HCP 的完整流程。",
+        "source_method_id": "hcppipeline-tool-guided--full-hcp-style-multimodal-pipeline",
+        "requirements": [
+          "HCP Pipelines",
+          "Workbench / MSM / ICA-FIX（按阶段）",
+          "模板、配置与分类器"
+        ]
+      }
+    }
+  ],
+  "name": "hcppipeline-tool",
+  "category": [
+    "软件工具",
+    "hcppipeline"
+  ],
+  "scope": "software",
+  "keywords": [
+    "hcppipeline-tool"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "filtering",
+  "description": "filtering 统筹已登记的独立方法和可复用流程。支持：BOLD 平滑与时间滤波（保持原空间）。",
+  "method_refs": [
+    {
+      "capability": "skill.filtering",
+      "method_id": "reviewed-preprocess-nilearn-tool",
+      "label": "BOLD 平滑与时间滤波（保持原空间）",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Drop the requested initial BOLD volumes, apply the original spatial smoothing and temporal band-pass filtering, and save the processed series. Geometry stays in the input space; this entry does not estimate registration or motion correction. Inputs: bold: 预处理 BOLD 影像 (file). Registered outputs: results/preprocessed_bold.nii.gz.",
+      "method_ref": "reviewed.nilearn-tool.preprocess"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "name": "filtering",
+  "category": [
+    "任务能力",
+    "filtering"
+  ],
+  "scope": "model",
+  "keywords": [
+    "filtering"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

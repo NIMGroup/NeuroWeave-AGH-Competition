@@ -1,0 +1,2223 @@
+{
+  "schema_version": 1,
+  "id": "experiment-controller",
+  "description": "experiment-controller 的领域规划与方法选择指导。覆盖：1. Read & Parse；2. Literature & GitHub Search；3. Proposal；4. User Discussion；5. Git Clone & Setup；6. Run Experiment；7. Record Results。当前没有独立执行 Method，不能直接提交计算任务。",
+  "method_refs": [],
+  "pipeline_refs": [],
+  "planning_capabilities": [
+    {
+      "capability": "skill.experiment-controller",
+      "method_id": "experiment-controller-guided--1-read-parse",
+      "skill_id": "experiment-controller",
+      "label": "1. Read & Parse",
+      "description": "该入口为规划能力；用于讨论1. Read & Parse的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": true,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "1-read-parse",
+          "options": [
+            {
+              "value": "1-read-parse",
+              "label": "1. Read & Parse",
+              "description": "规划选项：1. Read & Parse；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_detail",
+          "argument": "output-detail",
+          "label": "输出详细程度",
+          "description": "控制科研产出的层次与解释深度。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "outline",
+              "label": "提纲",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "detailed",
+              "label": "详细",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "evidence_trace",
+          "argument": "evidence-trace",
+          "label": "保留依据追踪",
+          "description": "要求方案区分已提供证据、外部来源和模型推断。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_language",
+          "argument": "output-language",
+          "label": "输出语言",
+          "description": "科研材料与报告的主要输出语言。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "zh-CN",
+          "options": [
+            {
+              "value": "zh-CN",
+              "label": "中文",
+              "description": ""
+            },
+            {
+              "value": "en",
+              "label": "英文",
+              "description": ""
+            },
+            {
+              "value": "bilingual",
+              "label": "中英双语",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "citation_style",
+          "argument": "citation-style",
+          "label": "引文格式",
+          "description": "需要引用时采用的默认格式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "apa",
+          "options": [
+            {
+              "value": "apa",
+              "label": "APA",
+              "description": ""
+            },
+            {
+              "value": "vancouver",
+              "label": "Vancouver",
+              "description": ""
+            },
+            {
+              "value": "gbt7714",
+              "label": "GB/T 7714",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "include_methods_appendix",
+          "argument": "include-methods-appendix",
+          "label": "包含方法附录",
+          "description": "在产出中附带检索、分析或生成过程的结构化说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "mark_uncertainty",
+          "argument": "mark-uncertainty",
+          "label": "标注不确定性",
+          "description": "显式标记证据不足、推断内容和待人工核验项。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "标注",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不标注",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/experiment-controller/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "interactive",
+        "reason": "此 Skill 是交互式管理/讨论流程，依赖用户指定命令、仓库、安装目标或研究方案，没有固定科学任务契约；现有平台仍负责审批、环境管理、日志和任务调度。",
+        "source_method_id": "experiment-controller-guided--1-read-parse",
+        "requirements": [
+          "明确管理对象与动作；不能把文档中的任意 shell 命令直接注册为算法"
+        ]
+      }
+    },
+    {
+      "capability": "skill.experiment-controller",
+      "method_id": "experiment-controller-guided--2-literature-github-search",
+      "skill_id": "experiment-controller",
+      "label": "2. Literature & GitHub Search",
+      "description": "该入口为规划能力；用于讨论2. Literature & GitHub Search的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "2-literature-github-search",
+          "options": [
+            {
+              "value": "2-literature-github-search",
+              "label": "2. Literature & GitHub Search",
+              "description": "规划选项：2. Literature & GitHub Search；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_detail",
+          "argument": "output-detail",
+          "label": "输出详细程度",
+          "description": "控制科研产出的层次与解释深度。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "outline",
+              "label": "提纲",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "detailed",
+              "label": "详细",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "evidence_trace",
+          "argument": "evidence-trace",
+          "label": "保留依据追踪",
+          "description": "要求方案区分已提供证据、外部来源和模型推断。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_language",
+          "argument": "output-language",
+          "label": "输出语言",
+          "description": "科研材料与报告的主要输出语言。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "zh-CN",
+          "options": [
+            {
+              "value": "zh-CN",
+              "label": "中文",
+              "description": ""
+            },
+            {
+              "value": "en",
+              "label": "英文",
+              "description": ""
+            },
+            {
+              "value": "bilingual",
+              "label": "中英双语",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "citation_style",
+          "argument": "citation-style",
+          "label": "引文格式",
+          "description": "需要引用时采用的默认格式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "apa",
+          "options": [
+            {
+              "value": "apa",
+              "label": "APA",
+              "description": ""
+            },
+            {
+              "value": "vancouver",
+              "label": "Vancouver",
+              "description": ""
+            },
+            {
+              "value": "gbt7714",
+              "label": "GB/T 7714",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "include_methods_appendix",
+          "argument": "include-methods-appendix",
+          "label": "包含方法附录",
+          "description": "在产出中附带检索、分析或生成过程的结构化说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "mark_uncertainty",
+          "argument": "mark-uncertainty",
+          "label": "标注不确定性",
+          "description": "显式标记证据不足、推断内容和待人工核验项。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "标注",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不标注",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/experiment-controller/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "interactive",
+        "reason": "此 Skill 是交互式管理/讨论流程，依赖用户指定命令、仓库、安装目标或研究方案，没有固定科学任务契约；现有平台仍负责审批、环境管理、日志和任务调度。",
+        "source_method_id": "experiment-controller-guided--2-literature-github-search",
+        "requirements": [
+          "明确管理对象与动作；不能把文档中的任意 shell 命令直接注册为算法"
+        ]
+      }
+    },
+    {
+      "capability": "skill.experiment-controller",
+      "method_id": "experiment-controller-guided--3-proposal",
+      "skill_id": "experiment-controller",
+      "label": "3. Proposal",
+      "description": "该入口为规划能力；用于讨论3. Proposal的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "3-proposal",
+          "options": [
+            {
+              "value": "3-proposal",
+              "label": "3. Proposal",
+              "description": "规划选项：3. Proposal；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_detail",
+          "argument": "output-detail",
+          "label": "输出详细程度",
+          "description": "控制科研产出的层次与解释深度。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "outline",
+              "label": "提纲",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "detailed",
+              "label": "详细",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "evidence_trace",
+          "argument": "evidence-trace",
+          "label": "保留依据追踪",
+          "description": "要求方案区分已提供证据、外部来源和模型推断。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_language",
+          "argument": "output-language",
+          "label": "输出语言",
+          "description": "科研材料与报告的主要输出语言。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "zh-CN",
+          "options": [
+            {
+              "value": "zh-CN",
+              "label": "中文",
+              "description": ""
+            },
+            {
+              "value": "en",
+              "label": "英文",
+              "description": ""
+            },
+            {
+              "value": "bilingual",
+              "label": "中英双语",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "citation_style",
+          "argument": "citation-style",
+          "label": "引文格式",
+          "description": "需要引用时采用的默认格式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "apa",
+          "options": [
+            {
+              "value": "apa",
+              "label": "APA",
+              "description": ""
+            },
+            {
+              "value": "vancouver",
+              "label": "Vancouver",
+              "description": ""
+            },
+            {
+              "value": "gbt7714",
+              "label": "GB/T 7714",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "include_methods_appendix",
+          "argument": "include-methods-appendix",
+          "label": "包含方法附录",
+          "description": "在产出中附带检索、分析或生成过程的结构化说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "mark_uncertainty",
+          "argument": "mark-uncertainty",
+          "label": "标注不确定性",
+          "description": "显式标记证据不足、推断内容和待人工核验项。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "标注",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不标注",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/experiment-controller/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "interactive",
+        "reason": "此 Skill 是交互式管理/讨论流程，依赖用户指定命令、仓库、安装目标或研究方案，没有固定科学任务契约；现有平台仍负责审批、环境管理、日志和任务调度。",
+        "source_method_id": "experiment-controller-guided--3-proposal",
+        "requirements": [
+          "明确管理对象与动作；不能把文档中的任意 shell 命令直接注册为算法"
+        ]
+      }
+    },
+    {
+      "capability": "skill.experiment-controller",
+      "method_id": "experiment-controller-guided--4-user-discussion",
+      "skill_id": "experiment-controller",
+      "label": "4. User Discussion",
+      "description": "该入口为规划能力；用于讨论4. User Discussion的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "4-user-discussion",
+          "options": [
+            {
+              "value": "4-user-discussion",
+              "label": "4. User Discussion",
+              "description": "规划选项：4. User Discussion；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_detail",
+          "argument": "output-detail",
+          "label": "输出详细程度",
+          "description": "控制科研产出的层次与解释深度。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "outline",
+              "label": "提纲",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "detailed",
+              "label": "详细",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "evidence_trace",
+          "argument": "evidence-trace",
+          "label": "保留依据追踪",
+          "description": "要求方案区分已提供证据、外部来源和模型推断。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_language",
+          "argument": "output-language",
+          "label": "输出语言",
+          "description": "科研材料与报告的主要输出语言。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "zh-CN",
+          "options": [
+            {
+              "value": "zh-CN",
+              "label": "中文",
+              "description": ""
+            },
+            {
+              "value": "en",
+              "label": "英文",
+              "description": ""
+            },
+            {
+              "value": "bilingual",
+              "label": "中英双语",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "citation_style",
+          "argument": "citation-style",
+          "label": "引文格式",
+          "description": "需要引用时采用的默认格式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "apa",
+          "options": [
+            {
+              "value": "apa",
+              "label": "APA",
+              "description": ""
+            },
+            {
+              "value": "vancouver",
+              "label": "Vancouver",
+              "description": ""
+            },
+            {
+              "value": "gbt7714",
+              "label": "GB/T 7714",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "include_methods_appendix",
+          "argument": "include-methods-appendix",
+          "label": "包含方法附录",
+          "description": "在产出中附带检索、分析或生成过程的结构化说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "mark_uncertainty",
+          "argument": "mark-uncertainty",
+          "label": "标注不确定性",
+          "description": "显式标记证据不足、推断内容和待人工核验项。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "标注",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不标注",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/experiment-controller/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "interactive",
+        "reason": "此 Skill 是交互式管理/讨论流程，依赖用户指定命令、仓库、安装目标或研究方案，没有固定科学任务契约；现有平台仍负责审批、环境管理、日志和任务调度。",
+        "source_method_id": "experiment-controller-guided--4-user-discussion",
+        "requirements": [
+          "明确管理对象与动作；不能把文档中的任意 shell 命令直接注册为算法"
+        ]
+      }
+    },
+    {
+      "capability": "skill.experiment-controller",
+      "method_id": "experiment-controller-guided--5-git-clone-setup",
+      "skill_id": "experiment-controller",
+      "label": "5. Git Clone & Setup",
+      "description": "该入口为规划能力；用于讨论5. Git Clone & Setup的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "5-git-clone-setup",
+          "options": [
+            {
+              "value": "5-git-clone-setup",
+              "label": "5. Git Clone & Setup",
+              "description": "规划选项：5. Git Clone & Setup；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_detail",
+          "argument": "output-detail",
+          "label": "输出详细程度",
+          "description": "控制科研产出的层次与解释深度。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "outline",
+              "label": "提纲",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "detailed",
+              "label": "详细",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "evidence_trace",
+          "argument": "evidence-trace",
+          "label": "保留依据追踪",
+          "description": "要求方案区分已提供证据、外部来源和模型推断。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_language",
+          "argument": "output-language",
+          "label": "输出语言",
+          "description": "科研材料与报告的主要输出语言。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "zh-CN",
+          "options": [
+            {
+              "value": "zh-CN",
+              "label": "中文",
+              "description": ""
+            },
+            {
+              "value": "en",
+              "label": "英文",
+              "description": ""
+            },
+            {
+              "value": "bilingual",
+              "label": "中英双语",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "citation_style",
+          "argument": "citation-style",
+          "label": "引文格式",
+          "description": "需要引用时采用的默认格式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "apa",
+          "options": [
+            {
+              "value": "apa",
+              "label": "APA",
+              "description": ""
+            },
+            {
+              "value": "vancouver",
+              "label": "Vancouver",
+              "description": ""
+            },
+            {
+              "value": "gbt7714",
+              "label": "GB/T 7714",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "include_methods_appendix",
+          "argument": "include-methods-appendix",
+          "label": "包含方法附录",
+          "description": "在产出中附带检索、分析或生成过程的结构化说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "mark_uncertainty",
+          "argument": "mark-uncertainty",
+          "label": "标注不确定性",
+          "description": "显式标记证据不足、推断内容和待人工核验项。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "标注",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不标注",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/experiment-controller/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "interactive",
+        "reason": "此 Skill 是交互式管理/讨论流程，依赖用户指定命令、仓库、安装目标或研究方案，没有固定科学任务契约；现有平台仍负责审批、环境管理、日志和任务调度。",
+        "source_method_id": "experiment-controller-guided--5-git-clone-setup",
+        "requirements": [
+          "明确管理对象与动作；不能把文档中的任意 shell 命令直接注册为算法"
+        ]
+      }
+    },
+    {
+      "capability": "skill.experiment-controller",
+      "method_id": "experiment-controller-guided--6-run-experiment",
+      "skill_id": "experiment-controller",
+      "label": "6. Run Experiment",
+      "description": "该入口为规划能力；用于讨论6. Run Experiment的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "6-run-experiment",
+          "options": [
+            {
+              "value": "6-run-experiment",
+              "label": "6. Run Experiment",
+              "description": "规划选项：6. Run Experiment；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_detail",
+          "argument": "output-detail",
+          "label": "输出详细程度",
+          "description": "控制科研产出的层次与解释深度。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "outline",
+              "label": "提纲",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "detailed",
+              "label": "详细",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "evidence_trace",
+          "argument": "evidence-trace",
+          "label": "保留依据追踪",
+          "description": "要求方案区分已提供证据、外部来源和模型推断。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_language",
+          "argument": "output-language",
+          "label": "输出语言",
+          "description": "科研材料与报告的主要输出语言。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "zh-CN",
+          "options": [
+            {
+              "value": "zh-CN",
+              "label": "中文",
+              "description": ""
+            },
+            {
+              "value": "en",
+              "label": "英文",
+              "description": ""
+            },
+            {
+              "value": "bilingual",
+              "label": "中英双语",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "citation_style",
+          "argument": "citation-style",
+          "label": "引文格式",
+          "description": "需要引用时采用的默认格式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "apa",
+          "options": [
+            {
+              "value": "apa",
+              "label": "APA",
+              "description": ""
+            },
+            {
+              "value": "vancouver",
+              "label": "Vancouver",
+              "description": ""
+            },
+            {
+              "value": "gbt7714",
+              "label": "GB/T 7714",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "include_methods_appendix",
+          "argument": "include-methods-appendix",
+          "label": "包含方法附录",
+          "description": "在产出中附带检索、分析或生成过程的结构化说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "mark_uncertainty",
+          "argument": "mark-uncertainty",
+          "label": "标注不确定性",
+          "description": "显式标记证据不足、推断内容和待人工核验项。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "标注",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不标注",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/experiment-controller/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "interactive",
+        "reason": "此 Skill 是交互式管理/讨论流程，依赖用户指定命令、仓库、安装目标或研究方案，没有固定科学任务契约；现有平台仍负责审批、环境管理、日志和任务调度。",
+        "source_method_id": "experiment-controller-guided--6-run-experiment",
+        "requirements": [
+          "明确管理对象与动作；不能把文档中的任意 shell 命令直接注册为算法"
+        ]
+      }
+    },
+    {
+      "capability": "skill.experiment-controller",
+      "method_id": "experiment-controller-guided--7-record-results",
+      "skill_id": "experiment-controller",
+      "label": "7. Record Results",
+      "description": "该入口为规划能力；用于讨论7. Record Results的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "7-record-results",
+          "options": [
+            {
+              "value": "7-record-results",
+              "label": "7. Record Results",
+              "description": "规划选项：7. Record Results；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_detail",
+          "argument": "output-detail",
+          "label": "输出详细程度",
+          "description": "控制科研产出的层次与解释深度。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "outline",
+              "label": "提纲",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "detailed",
+              "label": "详细",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "evidence_trace",
+          "argument": "evidence-trace",
+          "label": "保留依据追踪",
+          "description": "要求方案区分已提供证据、外部来源和模型推断。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_language",
+          "argument": "output-language",
+          "label": "输出语言",
+          "description": "科研材料与报告的主要输出语言。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "zh-CN",
+          "options": [
+            {
+              "value": "zh-CN",
+              "label": "中文",
+              "description": ""
+            },
+            {
+              "value": "en",
+              "label": "英文",
+              "description": ""
+            },
+            {
+              "value": "bilingual",
+              "label": "中英双语",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "citation_style",
+          "argument": "citation-style",
+          "label": "引文格式",
+          "description": "需要引用时采用的默认格式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "apa",
+          "options": [
+            {
+              "value": "apa",
+              "label": "APA",
+              "description": ""
+            },
+            {
+              "value": "vancouver",
+              "label": "Vancouver",
+              "description": ""
+            },
+            {
+              "value": "gbt7714",
+              "label": "GB/T 7714",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "include_methods_appendix",
+          "argument": "include-methods-appendix",
+          "label": "包含方法附录",
+          "description": "在产出中附带检索、分析或生成过程的结构化说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "mark_uncertainty",
+          "argument": "mark-uncertainty",
+          "label": "标注不确定性",
+          "description": "显式标记证据不足、推断内容和待人工核验项。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "标注",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不标注",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/experiment-controller/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "interactive",
+        "reason": "此 Skill 是交互式管理/讨论流程，依赖用户指定命令、仓库、安装目标或研究方案，没有固定科学任务契约；现有平台仍负责审批、环境管理、日志和任务调度。",
+        "source_method_id": "experiment-controller-guided--7-record-results",
+        "requirements": [
+          "明确管理对象与动作；不能把文档中的任意 shell 命令直接注册为算法"
+        ]
+      }
+    }
+  ],
+  "name": "experiment-controller",
+  "category": [
+    "任务能力",
+    "experiment"
+  ],
+  "scope": "task",
+  "keywords": [
+    "experiment-controller"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

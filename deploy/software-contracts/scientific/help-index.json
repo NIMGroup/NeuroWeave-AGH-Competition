@@ -1,0 +1,822 @@
+[
+  {
+    "software": "fsl",
+    "command": "fslmaths",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/fslmaths",
+    "exit_code": 1,
+    "chars": 8012
+  },
+  {
+    "software": "fsl",
+    "command": "fslstats",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/fslstats",
+    "exit_code": 1,
+    "chars": 2159
+  },
+  {
+    "software": "fsl",
+    "command": "fslroi",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/fslroi",
+    "exit_code": 1,
+    "chars": 357
+  },
+  {
+    "software": "fsl",
+    "command": "fslmerge",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/fslmerge",
+    "exit_code": 1,
+    "chars": 516
+  },
+  {
+    "software": "fsl",
+    "command": "fslsplit",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/fslsplit",
+    "exit_code": 1,
+    "chars": 275
+  },
+  {
+    "software": "fsl",
+    "command": "fslmeants",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/fslmeants",
+    "exit_code": 1,
+    "chars": 1609
+  },
+  {
+    "software": "fsl",
+    "command": "fslhd",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/fslhd",
+    "exit_code": 1,
+    "chars": 79
+  },
+  {
+    "software": "fsl",
+    "command": "fslinfo",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/fslinfo",
+    "exit_code": 1,
+    "chars": 48
+  },
+  {
+    "software": "fsl",
+    "command": "fslorient",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/fslorient",
+    "exit_code": 255,
+    "chars": 1386
+  },
+  {
+    "software": "fsl",
+    "command": "fslval",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/fslval",
+    "exit_code": 1,
+    "chars": 32
+  },
+  {
+    "software": "fsl",
+    "command": "fslcpgeom",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/fslcpgeom",
+    "exit_code": 1,
+    "chars": 79
+  },
+  {
+    "software": "fsl",
+    "command": "fslreorient2std",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/fslreorient2std",
+    "exit_code": 1,
+    "chars": 702
+  },
+  {
+    "software": "fsl",
+    "command": "fsl2ascii",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/fsl2ascii",
+    "exit_code": 1,
+    "chars": 35
+  },
+  {
+    "software": "fsl",
+    "command": "fslascii2img",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/fslascii2img",
+    "exit_code": 1,
+    "chars": 153
+  },
+  {
+    "software": "fsl",
+    "command": "fslchfiletype",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/fslchfiletype",
+    "exit_code": 1,
+    "chars": 373
+  },
+  {
+    "software": "fsl",
+    "command": "fslpspec",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/fslpspec",
+    "exit_code": 1,
+    "chars": 65
+  },
+  {
+    "software": "fsl",
+    "command": "fslcc",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/fslcc",
+    "exit_code": 1,
+    "chars": 426
+  },
+  {
+    "software": "fsl",
+    "command": "fsl_regfilt",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/fsl_regfilt",
+    "exit_code": 1,
+    "chars": 1857
+  },
+  {
+    "software": "fsl",
+    "command": "fsl_glm",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/fsl_glm",
+    "exit_code": 1,
+    "chars": 3093
+  },
+  {
+    "software": "fsl",
+    "command": "fsl_motion_outliers",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/fsl_motion_outliers",
+    "exit_code": 0,
+    "chars": 1338
+  },
+  {
+    "software": "fsl",
+    "command": "convert_xfm",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/convert_xfm",
+    "exit_code": 1,
+    "chars": 661
+  },
+  {
+    "software": "fsl",
+    "command": "convertwarp",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/convertwarp",
+    "exit_code": 1,
+    "chars": 1610
+  },
+  {
+    "software": "fsl",
+    "command": "invwarp",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/invwarp",
+    "exit_code": 1,
+    "chars": 1329
+  },
+  {
+    "software": "fsl",
+    "command": "cluster",
+    "status": "TimeoutExpired",
+    "path": "/opt/software/fsl/bin/cluster"
+  },
+  {
+    "software": "fsl",
+    "command": "smoothest",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/smoothest",
+    "exit_code": 1,
+    "chars": 997
+  },
+  {
+    "software": "fsl",
+    "command": "randomise",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/randomise",
+    "exit_code": 2,
+    "chars": 2501
+  },
+  {
+    "software": "fsl",
+    "command": "tfce",
+    "status": "not_installed",
+    "path": "/opt/software/fsl/bin/tfce"
+  },
+  {
+    "software": "fsl",
+    "command": "feat_model",
+    "status": "help_captured",
+    "path": "/opt/software/fsl/bin/feat_model",
+    "exit_code": 1,
+    "chars": 65
+  },
+  {
+    "software": "fsl",
+    "command": "maskfilter",
+    "status": "not_installed",
+    "path": "/opt/software/fsl/bin/maskfilter"
+  },
+  {
+    "software": "ants",
+    "command": "N4BiasFieldCorrection",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/N4BiasFieldCorrection",
+    "exit_code": 0,
+    "chars": 737
+  },
+  {
+    "software": "ants",
+    "command": "DenoiseImage",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/DenoiseImage",
+    "exit_code": 0,
+    "chars": 496
+  },
+  {
+    "software": "ants",
+    "command": "ImageMath",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/ImageMath",
+    "exit_code": 0,
+    "chars": 20774
+  },
+  {
+    "software": "ants",
+    "command": "ThresholdImage",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/ThresholdImage",
+    "exit_code": 0,
+    "chars": 305
+  },
+  {
+    "software": "ants",
+    "command": "ResampleImage",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/ResampleImage",
+    "exit_code": 0,
+    "chars": 516
+  },
+  {
+    "software": "ants",
+    "command": "ResampleImageBySpacing",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/ResampleImageBySpacing",
+    "exit_code": 0,
+    "chars": 187
+  },
+  {
+    "software": "ants",
+    "command": "SmoothImage",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/SmoothImage",
+    "exit_code": 0,
+    "chars": 269
+  },
+  {
+    "software": "ants",
+    "command": "MultiplyImages",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/MultiplyImages",
+    "exit_code": 0,
+    "chars": 252
+  },
+  {
+    "software": "ants",
+    "command": "AddNoiseToImage",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/AddNoiseToImage",
+    "exit_code": 0,
+    "chars": 506
+  },
+  {
+    "software": "ants",
+    "command": "ConvertImage",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/ConvertImage",
+    "exit_code": 1,
+    "chars": 596
+  },
+  {
+    "software": "ants",
+    "command": "ConvertImagePixelType",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/ConvertImagePixelType",
+    "exit_code": 0,
+    "chars": 570
+  },
+  {
+    "software": "ants",
+    "command": "ExtractRegionFromImage",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/ExtractRegionFromImage",
+    "exit_code": 0,
+    "chars": 339
+  },
+  {
+    "software": "ants",
+    "command": "ExtractSliceFromImage",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/ExtractSliceFromImage",
+    "exit_code": 0,
+    "chars": 140
+  },
+  {
+    "software": "ants",
+    "command": "CreateImage",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/CreateImage",
+    "exit_code": 0,
+    "chars": 249
+  },
+  {
+    "software": "ants",
+    "command": "ImageIntensityStatistics",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/ImageIntensityStatistics",
+    "exit_code": 1,
+    "chars": 71
+  },
+  {
+    "software": "ants",
+    "command": "LabelStats",
+    "status": "not_installed",
+    "path": "/opt/software/ANTs/bin/LabelStats"
+  },
+  {
+    "software": "ants",
+    "command": "LabelGeometryMeasures",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/LabelGeometryMeasures",
+    "exit_code": 0,
+    "chars": 1378
+  },
+  {
+    "software": "ants",
+    "command": "LabelOverlapMeasures",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/LabelOverlapMeasures",
+    "exit_code": 0,
+    "chars": 83
+  },
+  {
+    "software": "ants",
+    "command": "MeasureImageSimilarity",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/MeasureImageSimilarity",
+    "exit_code": 0,
+    "chars": 1430
+  },
+  {
+    "software": "ants",
+    "command": "ComposeMultiTransform",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/ComposeMultiTransform",
+    "exit_code": 0,
+    "chars": 947
+  },
+  {
+    "software": "ants",
+    "command": "WarpImageMultiTransform",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/WarpImageMultiTransform",
+    "exit_code": 0,
+    "chars": 3046
+  },
+  {
+    "software": "ants",
+    "command": "ConvertTransformFile",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/ConvertTransformFile",
+    "exit_code": 1,
+    "chars": 1582
+  },
+  {
+    "software": "ants",
+    "command": "AverageImages",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/AverageImages",
+    "exit_code": 0,
+    "chars": 705
+  },
+  {
+    "software": "ants",
+    "command": "AverageAffineTransform",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/AverageAffineTransform",
+    "exit_code": 0,
+    "chars": 1291
+  },
+  {
+    "software": "ants",
+    "command": "AverageAffineTransformNoRigid",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/AverageAffineTransformNoRigid",
+    "exit_code": 0,
+    "chars": 1224
+  },
+  {
+    "software": "ants",
+    "command": "antsApplyTransforms",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/antsApplyTransforms",
+    "exit_code": 0,
+    "chars": 1545
+  },
+  {
+    "software": "ants",
+    "command": "antsRegistration",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/antsRegistration",
+    "exit_code": 0,
+    "chars": 5005
+  },
+  {
+    "software": "ants",
+    "command": "antsMotionCorr",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/antsMotionCorr",
+    "exit_code": 0,
+    "chars": 1811
+  },
+  {
+    "software": "ants",
+    "command": "antsBrainExtraction.sh",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/antsBrainExtraction.sh",
+    "exit_code": 0,
+    "chars": 100
+  },
+  {
+    "software": "ants",
+    "command": "Atropos",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/Atropos",
+    "exit_code": 0,
+    "chars": 2824
+  },
+  {
+    "software": "ants",
+    "command": "KellyKapowski",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/KellyKapowski",
+    "exit_code": 0,
+    "chars": 1163
+  },
+  {
+    "software": "ants",
+    "command": "LesionFilling",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/LesionFilling",
+    "exit_code": 0,
+    "chars": 107
+  },
+  {
+    "software": "ants",
+    "command": "LaplacianThickness",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/LaplacianThickness",
+    "exit_code": 0,
+    "chars": 292
+  },
+  {
+    "software": "ants",
+    "command": "SetOrigin",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/SetOrigin",
+    "exit_code": 0,
+    "chars": 81
+  },
+  {
+    "software": "ants",
+    "command": "SetSpacing",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/SetSpacing",
+    "exit_code": 0,
+    "chars": 85
+  },
+  {
+    "software": "ants",
+    "command": "SetDirection",
+    "status": "not_installed",
+    "path": "/opt/software/ANTs/bin/SetDirection"
+  },
+  {
+    "software": "ants",
+    "command": "PrintHeader",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/PrintHeader",
+    "exit_code": 0,
+    "chars": 145
+  },
+  {
+    "software": "ants",
+    "command": "CopyImageHeaderInformation",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/CopyImageHeaderInformation",
+    "exit_code": 0,
+    "chars": 167
+  },
+  {
+    "software": "ants",
+    "command": "TileImages",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/TileImages",
+    "exit_code": 0,
+    "chars": 1122
+  },
+  {
+    "software": "ants",
+    "command": "StackSlices",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/StackSlices",
+    "exit_code": 0,
+    "chars": 302
+  },
+  {
+    "software": "ants",
+    "command": "FitBSplineToPoints",
+    "status": "help_captured",
+    "path": "/opt/software/ants-2.6.5/bin/FitBSplineToPoints",
+    "exit_code": 1,
+    "chars": 531
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_convert",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_convert",
+    "exit_code": 0,
+    "chars": 15909
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_vol2vol",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_vol2vol",
+    "exit_code": 1,
+    "chars": 15727
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_binarize",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_binarize",
+    "exit_code": 1,
+    "chars": 7790
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_mask",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_mask",
+    "exit_code": 1,
+    "chars": 2075
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_concat",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_concat",
+    "exit_code": 1,
+    "chars": 3883
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_calc",
+    "status": "not_installed",
+    "path": "/opt/software/freesurfer/bin/mri_calc"
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_segstats",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_segstats",
+    "exit_code": 1,
+    "chars": 15543
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_normalize",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_normalize",
+    "exit_code": 0,
+    "chars": 3068
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_nu_correct.mni",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_nu_correct.mni",
+    "exit_code": 1,
+    "chars": 65
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_robust_register",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_robust_register",
+    "exit_code": 1,
+    "chars": 13502
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_robust_template",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_robust_template",
+    "exit_code": 0,
+    "chars": 5792
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_synthstrip",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_synthstrip",
+    "exit_code": 127,
+    "chars": 151
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_synthseg",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_synthseg",
+    "exit_code": 127,
+    "chars": 149
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_surf2surf",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_surf2surf",
+    "exit_code": 1,
+    "chars": 47
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_surf2vol",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_surf2vol",
+    "exit_code": 1,
+    "chars": 7326
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_vol2surf",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_vol2surf",
+    "exit_code": 1,
+    "chars": 13259
+  },
+  {
+    "software": "freesurfer",
+    "command": "mris_convert",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mris_convert",
+    "exit_code": 1,
+    "chars": 5282
+  },
+  {
+    "software": "freesurfer",
+    "command": "mris_smooth",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mris_smooth",
+    "exit_code": 1,
+    "chars": 1022
+  },
+  {
+    "software": "freesurfer",
+    "command": "mris_curvature",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mris_curvature",
+    "exit_code": 1,
+    "chars": 1798
+  },
+  {
+    "software": "freesurfer",
+    "command": "mris_extract_main_component",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mris_extract_main_component",
+    "exit_code": 255,
+    "chars": 303
+  },
+  {
+    "software": "freesurfer",
+    "command": "mris_anatomical_stats",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mris_anatomical_stats",
+    "exit_code": 1,
+    "chars": 1814
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_info",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_info",
+    "exit_code": 1,
+    "chars": 2989
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_segcentroids",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_segcentroids",
+    "exit_code": 0,
+    "chars": 664
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_extract_largest_CC",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_extract_largest_CC",
+    "exit_code": 1,
+    "chars": 22
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_label2vol",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_label2vol",
+    "exit_code": 1,
+    "chars": 10925
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_label2label",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_label2label",
+    "exit_code": 1,
+    "chars": 6706
+  },
+  {
+    "software": "freesurfer",
+    "command": "mris_calc",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mris_calc",
+    "exit_code": 1,
+    "chars": 12508
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_glmfit",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_glmfit",
+    "exit_code": 1,
+    "chars": 19556
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_fwhm",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_fwhm",
+    "exit_code": 1,
+    "chars": 8300
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_annotation2label",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_annotation2label",
+    "exit_code": 1,
+    "chars": 5683
+  },
+  {
+    "software": "freesurfer",
+    "command": "mris_apply_reg",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mris_apply_reg",
+    "exit_code": 1,
+    "chars": 4068
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_pretess",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_pretess",
+    "exit_code": 1,
+    "chars": 835
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_tessellate",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_tessellate",
+    "exit_code": 0,
+    "chars": 1030
+  },
+  {
+    "software": "freesurfer",
+    "command": "mri_fill",
+    "status": "help_captured",
+    "path": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_fill",
+    "exit_code": 0,
+    "chars": 2215
+  }
+]

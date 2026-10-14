@@ -1,0 +1,417 @@
+{
+  "schema_version": 1,
+  "id": "ants.command.Atropos",
+  "version": "1",
+  "kind": "method",
+  "label": "ANTs Atropos",
+  "description": "Classify tissue intensities with native Atropos and an explicit mask.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "ants.command.Atropos",
+  "parameters": [
+    {
+      "id": "dimension",
+      "argument": "",
+      "label": "dimension",
+      "description": "Image dimensionality. Match the actual input image.",
+      "type": "integer",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 3,
+      "options": [
+        {
+          "value": 2,
+          "label": "2",
+          "description": ""
+        },
+        {
+          "value": 3,
+          "label": "3",
+          "description": ""
+        },
+        {
+          "value": 4,
+          "label": "4",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Image dimensionality. Match the actual input image. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://github.com/ANTsX/ANTs/wiki"
+    },
+    {
+      "id": "initialization",
+      "argument": "",
+      "label": "initialization",
+      "description": "Initialization without implicit external prior files.",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": "KMeans",
+      "options": [
+        {
+          "value": "KMeans",
+          "label": "KMeans",
+          "description": ""
+        },
+        {
+          "value": "Otsu",
+          "label": "Otsu",
+          "description": ""
+        },
+        {
+          "value": "Random",
+          "label": "Random",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Initialization without implicit external prior files. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://github.com/ANTsX/ANTs/wiki"
+    },
+    {
+      "id": "classes",
+      "argument": "",
+      "label": "classes",
+      "description": "Number of tissue classes.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 3,
+      "options": [],
+      "minimum": 2.0,
+      "maximum": 50.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Number of tissue classes. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://github.com/ANTsX/ANTs/wiki"
+    },
+    {
+      "id": "c",
+      "argument": "-c",
+      "label": "c",
+      "description": "Convergence [iterations,threshold].",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Convergence [iterations,threshold]. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://github.com/ANTsX/ANTs/wiki"
+    },
+    {
+      "id": "m",
+      "argument": "-m",
+      "label": "m",
+      "description": "MRF [smoothingFactor,radius-per-axis].",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "MRF [smoothingFactor,radius-per-axis]. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://github.com/ANTsX/ANTs/wiki"
+    },
+    {
+      "id": "r",
+      "argument": "-r",
+      "label": "r",
+      "description": "Use random seed (1) or deterministic seed (0).",
+      "type": "integer",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 0,
+      "options": [
+        {
+          "value": 0,
+          "label": "0",
+          "description": ""
+        },
+        {
+          "value": 1,
+          "label": "1",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Use random seed (1) or deterministic seed (0). Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://github.com/ANTsX/ANTs/wiki"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "mask",
+      "type": "brain_mask",
+      "label": "mask",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "labels",
+      "type": "label_image",
+      "label": "labels",
+      "description": "Native command output, saved in this run’s output directory. Classify tissue intensities with native Atropos and an explicit mask.",
+      "format": ".nii.gz",
+      "primary": true,
+      "path_template": "output.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "imaging_input",
+    "brain_mask"
+  ],
+  "output_types": [
+    "label_image"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/ants-Atropos.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "ants",
+      "command": "Atropos",
+      "version": "2.6.5",
+      "argv": [
+        {
+          "tokens": [
+            "-d",
+            {
+              "parameter": "dimension"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-a",
+            {
+              "input": "input"
+            },
+            "-x",
+            {
+              "input": "mask"
+            },
+            "-o",
+            {
+              "output": "labels"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-i",
+            {
+              "parameter": "classes",
+              "prefix": "KMeans[",
+              "suffix": "]"
+            }
+          ],
+          "when": {
+            "initialization": [
+              "KMeans"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-i",
+            {
+              "parameter": "classes",
+              "prefix": "Otsu[",
+              "suffix": "]"
+            }
+          ],
+          "when": {
+            "initialization": [
+              "Otsu"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-i",
+            {
+              "parameter": "classes",
+              "prefix": "Random[",
+              "suffix": "]"
+            }
+          ],
+          "when": {
+            "initialization": [
+              "Random"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-c",
+            {
+              "parameter": "c"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-m",
+            {
+              "parameter": "m"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-r",
+            {
+              "parameter": "r"
+            }
+          ],
+          "when": {},
+          "optional": false
+        }
+      ],
+      "patterns": {
+        "c": "\\[\\d+,[0-9.eE+-]+\\]",
+        "m": "\\[[0-9.]+,\\d+(x\\d+){0,3}\\]"
+      },
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

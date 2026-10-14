@@ -1,0 +1,224 @@
+{
+  "label": "分区影像统计",
+  "description": "Reference DIPY snippet for atlas-based ROI statistics on tensor metrics。 Inputs: metric: 标量影像 (file); roi: 分区图谱 (file); labels: 标签表 (file). Registered outputs: results/roi_stats.csv.",
+  "runner_id": "reviewed.dipy-tool.roi-stats",
+  "input_types": [
+    "analysis_input",
+    "label_image"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "min_voxels",
+      "argument": "min-voxels",
+      "label": "min-voxels",
+      "description": "Minimum voxel count for a region to be reported.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 1,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 100000.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/dipy-tool/scripts/roi_stats_reference.py:50。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "metric",
+      "type": "analysis_input",
+      "label": "标量影像",
+      "description": "Input metric NIfTI such as FA.nii.gz. Required file input for 分区影像统计; bind to port metric.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "roi",
+      "type": "label_image",
+      "label": "分区图谱",
+      "description": "Atlas or ROI label NIfTI in the same space as the metric. Required file input for 分区影像统计; bind to port roi.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "labels",
+      "type": "analysis_input",
+      "label": "标签表",
+      "description": "Optional atlas label text file. Optional file input for 分区影像统计; bind to port labels.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for 分区影像统计. Contains this operation's generated files, including results/roi_stats.csv; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_roi_stats_csv",
+      "type": "generated_file",
+      "label": "roi_stats.csv",
+      "description": "Output CSV path.: output of parcellated image statistics. Relative run path: results/roi_stats.csv. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".csv",
+      "primary": false,
+      "path_template": "results/roi_stats.csv",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/dipy-tool/scripts/roi_stats_reference.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.dipy-tool.roi-stats",
+  "version": "2",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.dipy-tool.roi-stats",
+      "script": "skills/dipy-tool/scripts/roi_stats_reference.py",
+      "inputs": [
+        {
+          "id": "metric",
+          "flag": "--metric",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "roi",
+          "flag": "--roi",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "labels",
+          "flag": "--labels",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "min_voxels",
+          "flag": "--min-voxels"
+        }
+      ],
+      "modules": [
+        "numpy",
+        "pandas",
+        "nibabel",
+        "nilearn"
+      ],
+      "expected": [
+        "roi_stats.csv"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output",
+          "roi_stats.csv"
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/dipy-tool/scripts/roi_stats_reference.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/dipy-tool/scripts/roi_stats_reference.py",
+          "source_sha256": "6bc9efbf46cfc67ad7fd26684a82d8893a2ba4adc339ec85620270d428150343"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/dipy-tool/scripts/roi_stats_reference.py",
+          "sha256": "189711cf65026a5e68a323d55d455c460809cf96b0346853baf31fb69642564f"
+        }
+      ],
+      "artifact_types": {
+        "roi_stats.csv": "generated_file"
+      }
+    }
+  }
+}

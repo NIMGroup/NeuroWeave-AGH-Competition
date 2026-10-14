@@ -1,0 +1,19 @@
+Usage: fslchfiletype <filetype> <filename> [filename2]
+Changes the file type of the image file [ or copies to new file ].
+Valid values for filetype are:
+  NIFTI
+  NIFTI_GZ
+  NIFTI_ZST
+  NIFTI_BZ2
+  NIFTI_PAIR
+  NIFTI_PAIR_GZ
+  NIFTI_PAIR_ZST
+  NIFTI_PAIR_BZ2
+  NIFTI2
+  NIFTI2_GZ
+  NIFTI2_ZST
+  NIFTI2_BZ2
+  NIFTI2_PAIR
+  NIFTI2_PAIR_GZ
+  NIFTI2_PAIR_ZST
+  NIFTI2_PAIR_BZ2

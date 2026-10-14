@@ -1,0 +1,793 @@
+{
+  "schema_version": 1,
+  "id": "reviewed-rebuild-fod-act-sift2-db22ac11b4",
+  "version": "1",
+  "kind": "pipeline",
+  "description": "依次执行：MRtrix3 响应函数估计 → MRtrix3 CSD / MSMT-CSD → MRtrix3 基于已有 FOD 的纤维追踪 → MRtrix3 SIFT2 独立流线赋权。输入和参数由方法契约定义。",
+  "label": "重建 FOD → ACT + SIFT2（复用已有 5TT）",
+  "parameters": [
+    {
+      "id": "threads",
+      "argument": "nthreads",
+      "label": "线程数",
+      "description": "MRtrix3 使用的 CPU 线程数。",
+      "type": "integer",
+      "control": "number",
+      "level": "advanced",
+      "group": "MRtrix3 响应函数估计",
+      "unit": "",
+      "required": true,
+      "default": 4,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 128.0,
+      "step": 1.0,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "fod_lmax",
+      "argument": "lmax",
+      "label": "球谐最高阶数",
+      "description": "FOD 球谐展开的最大偶数阶。",
+      "type": "integer",
+      "control": "select",
+      "level": "basic",
+      "group": "MRtrix3 CSD / MSMT-CSD",
+      "unit": "",
+      "required": true,
+      "default": 8,
+      "options": [
+        {
+          "value": 6,
+          "label": "6",
+          "description": ""
+        },
+        {
+          "value": 8,
+          "label": "8",
+          "description": ""
+        },
+        {
+          "value": 10,
+          "label": "10",
+          "description": ""
+        },
+        {
+          "value": 12,
+          "label": "12",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "tracking_algorithm",
+      "argument": "algorithm",
+      "label": "追踪算法",
+      "description": "iFOD2 为概率追踪；SD_STREAM 为确定性追踪。",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "MRtrix3 基于已有 FOD 的纤维追踪",
+      "unit": "",
+      "required": true,
+      "default": "iFOD2",
+      "options": [
+        {
+          "value": "iFOD2",
+          "label": "iFOD2 概率追踪",
+          "description": ""
+        },
+        {
+          "value": "SD_STREAM",
+          "label": "SD_STREAM 确定性追踪",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "tracking_streamline_count",
+      "argument": "select",
+      "label": "目标流线数量",
+      "description": "测试时建议 1,000；正式全脑分析通常使用更多流线。",
+      "type": "integer",
+      "control": "select",
+      "level": "basic",
+      "group": "MRtrix3 基于已有 FOD 的纤维追踪",
+      "unit": "",
+      "required": true,
+      "default": 10000,
+      "options": [
+        {
+          "value": 1000,
+          "label": "1 千（快速测试）",
+          "description": ""
+        },
+        {
+          "value": 10000,
+          "label": "1 万",
+          "description": ""
+        },
+        {
+          "value": 50000,
+          "label": "5 万",
+          "description": ""
+        },
+        {
+          "value": 1000000,
+          "label": "100 万",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "tracking_seeding_strategy",
+      "argument": "seed",
+      "label": "播种策略",
+      "description": "动态播种使用 FOD；ROI 播种需要额外选择种子影像。",
+      "type": "string",
+      "control": "select",
+      "level": "advanced",
+      "group": "MRtrix3 基于已有 FOD 的纤维追踪",
+      "unit": "",
+      "required": true,
+      "default": "dynamic",
+      "options": [
+        {
+          "value": "dynamic",
+          "label": "FOD 动态播种",
+          "description": ""
+        },
+        {
+          "value": "roi",
+          "label": "指定 ROI",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "tracking_min_length",
+      "argument": "minlength",
+      "label": "最短流线长度",
+      "description": "短于该长度的流线被丢弃。",
+      "type": "number",
+      "control": "number",
+      "level": "advanced",
+      "group": "MRtrix3 基于已有 FOD 的纤维追踪",
+      "unit": "mm",
+      "required": true,
+      "default": 5,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 100.0,
+      "step": 1.0,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "tracking_max_length",
+      "argument": "maxlength",
+      "label": "最长流线长度",
+      "description": "长于该长度的流线被丢弃。",
+      "type": "number",
+      "control": "number",
+      "level": "advanced",
+      "group": "MRtrix3 基于已有 FOD 的纤维追踪",
+      "unit": "mm",
+      "required": true,
+      "default": 250,
+      "options": [],
+      "minimum": 10.0,
+      "maximum": 1000.0,
+      "step": 10.0,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "tracking_max_angle",
+      "argument": "angle",
+      "label": "最大转角",
+      "description": "每一步允许的最大转角。",
+      "type": "number",
+      "control": "number",
+      "level": "advanced",
+      "group": "MRtrix3 基于已有 FOD 的纤维追踪",
+      "unit": "°",
+      "required": true,
+      "default": 45,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 90.0,
+      "step": 1.0,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "tracking_step_size",
+      "argument": "step",
+      "label": "步长",
+      "description": "0 表示由 MRtrix 根据体素大小自动选择。",
+      "type": "number",
+      "control": "number",
+      "level": "advanced",
+      "group": "MRtrix3 基于已有 FOD 的纤维追踪",
+      "unit": "mm",
+      "required": true,
+      "default": 0,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 10.0,
+      "step": 0.1,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "tracking_cutoff",
+      "argument": "cutoff",
+      "label": "FOD 截止阈值",
+      "description": "低于阈值时停止追踪。",
+      "type": "number",
+      "control": "number",
+      "level": "advanced",
+      "group": "MRtrix3 基于已有 FOD 的纤维追踪",
+      "unit": "",
+      "required": true,
+      "default": 0.06,
+      "options": [],
+      "minimum": 0.001,
+      "maximum": 1.0,
+      "step": 0.01,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "tracking_backtrack",
+      "argument": "backtrack",
+      "label": "ACT 回溯",
+      "description": "遇到不合理终止时允许回溯；仅 ACT 模式可用。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "MRtrix3 基于已有 FOD 的纤维追踪",
+      "unit": "",
+      "required": true,
+      "default": true,
+      "options": [
+        {
+          "value": true,
+          "label": "启用",
+          "description": ""
+        },
+        {
+          "value": false,
+          "label": "关闭",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "tracking_crop_at_gmwmi",
+      "argument": "crop-at-gmwmi",
+      "label": "在灰白质界面裁剪",
+      "description": "把流线端点裁剪到 GM-WM interface；仅 ACT 模式可用。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "MRtrix3 基于已有 FOD 的纤维追踪",
+      "unit": "",
+      "required": true,
+      "default": true,
+      "options": [
+        {
+          "value": true,
+          "label": "启用",
+          "description": ""
+        },
+        {
+          "value": false,
+          "label": "关闭",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "dwi",
+      "type": "preprocessed_dwi",
+      "label": "预处理 DWI",
+      "description": "完成畸变与运动校正的 4D DWI。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "mask",
+      "type": "brain_mask",
+      "label": "DWI Mask",
+      "description": "与 DWI 空间一致的脑掩膜。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "bvecs",
+      "type": "gradient_table",
+      "label": "bvec",
+      "description": "FSL 格式梯度方向。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".bvec",
+        ".txt"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "bvals",
+      "type": "gradient_table",
+      "label": "bval",
+      "description": "扩散梯度强度。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".bval",
+        ".txt"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "five_tt",
+      "type": "five_tt_image",
+      "label": "已有 5TT 影像",
+      "description": "启用 ACT 时需要的五组织类型影像；应与 FOD 位于兼容空间。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".mif",
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists",
+        "spatially_compatible"
+      ]
+    },
+    {
+      "id": "seed_roi",
+      "type": "seed_mask",
+      "label": "种子 ROI",
+      "description": "仅当播种策略选择“指定 ROI”时需要。",
+      "required": false,
+      "required_when": {
+        "tracking_seeding_strategy": [
+          "roi"
+        ]
+      },
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".mif",
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists",
+        "spatially_compatible"
+      ]
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "tractogram",
+      "type": "tractogram",
+      "label": "纤维流线",
+      "description": "tckgen 生成的 MRtrix .tck 轨迹文件。",
+      "format": ".tck",
+      "primary": true,
+      "path_template": "tracks.tck",
+      "generated_when": {}
+    },
+    {
+      "id": "weights",
+      "type": "streamline_weights",
+      "label": "SIFT2 权重",
+      "description": "output text file containing the weighting factor for each streamline 文件名由平台固定在本次输出目录内。",
+      "format": ".txt",
+      "primary": false,
+      "path_template": "sift2_weights.txt",
+      "generated_when": {}
+    },
+    {
+      "id": "wm_fod",
+      "type": "fod_image",
+      "label": "白质 FOD",
+      "description": "可直接传给 tckgen。",
+      "format": ".mif",
+      "primary": false,
+      "path_template": "wm_fod.mif",
+      "generated_when": {}
+    }
+  ],
+  "steps": [
+    {
+      "id": "response",
+      "title": "MRtrix3 响应函数估计",
+      "fixed_parameters": {
+        "algorithm": "dhollander"
+      },
+      "parameter_bindings": {
+        "threads": "threads"
+      },
+      "inherit_parameters": false,
+      "input_bindings": {
+        "dwi": {
+          "source": "workflow_input",
+          "slot_id": "dwi",
+          "step_id": null,
+          "output_slot_id": null
+        },
+        "mask": {
+          "source": "workflow_input",
+          "slot_id": "mask",
+          "step_id": null,
+          "output_slot_id": null
+        },
+        "bvecs": {
+          "source": "workflow_input",
+          "slot_id": "bvecs",
+          "step_id": null,
+          "output_slot_id": null
+        },
+        "bvals": {
+          "source": "workflow_input",
+          "slot_id": "bvals",
+          "step_id": null,
+          "output_slot_id": null
+        }
+      },
+      "workspace": "response",
+      "method_ref": "mrtrix.dwi2response",
+      "method_version": "1",
+      "capability": "dwi.response"
+    },
+    {
+      "id": "fod",
+      "title": "MRtrix3 CSD / MSMT-CSD",
+      "fixed_parameters": {
+        "algorithm": "msmt_csd"
+      },
+      "parameter_bindings": {
+        "lmax": "fod_lmax",
+        "threads": "threads"
+      },
+      "inherit_parameters": false,
+      "input_bindings": {
+        "dwi": {
+          "source": "workflow_input",
+          "slot_id": "dwi",
+          "step_id": null,
+          "output_slot_id": null
+        },
+        "mask": {
+          "source": "workflow_input",
+          "slot_id": "mask",
+          "step_id": null,
+          "output_slot_id": null
+        },
+        "bvecs": {
+          "source": "workflow_input",
+          "slot_id": "bvecs",
+          "step_id": null,
+          "output_slot_id": null
+        },
+        "bvals": {
+          "source": "workflow_input",
+          "slot_id": "bvals",
+          "step_id": null,
+          "output_slot_id": null
+        },
+        "wm_response": {
+          "source": "step_output",
+          "slot_id": null,
+          "step_id": "response",
+          "output_slot_id": "wm_response"
+        },
+        "gm_response": {
+          "source": "step_output",
+          "slot_id": null,
+          "step_id": "response",
+          "output_slot_id": "gm_response"
+        },
+        "csf_response": {
+          "source": "step_output",
+          "slot_id": null,
+          "step_id": "response",
+          "output_slot_id": "csf_response"
+        }
+      },
+      "workspace": "fod",
+      "method_ref": "mrtrix.dwi2fod",
+      "method_version": "1",
+      "capability": "dwi.fod"
+    },
+    {
+      "id": "tracking",
+      "title": "MRtrix3 基于已有 FOD 的纤维追踪",
+      "fixed_parameters": {
+        "act_enabled": true
+      },
+      "parameter_bindings": {
+        "algorithm": "tracking_algorithm",
+        "streamline_count": "tracking_streamline_count",
+        "seeding_strategy": "tracking_seeding_strategy",
+        "min_length": "tracking_min_length",
+        "max_length": "tracking_max_length",
+        "max_angle": "tracking_max_angle",
+        "step_size": "tracking_step_size",
+        "cutoff": "tracking_cutoff",
+        "backtrack": "tracking_backtrack",
+        "crop_at_gmwmi": "tracking_crop_at_gmwmi",
+        "threads": "threads"
+      },
+      "inherit_parameters": false,
+      "input_bindings": {
+        "fod": {
+          "source": "step_output",
+          "slot_id": null,
+          "step_id": "fod",
+          "output_slot_id": "wm_fod"
+        },
+        "five_tt": {
+          "source": "workflow_input",
+          "slot_id": "five_tt",
+          "step_id": null,
+          "output_slot_id": null
+        },
+        "seed_roi": {
+          "source": "workflow_input",
+          "slot_id": "seed_roi",
+          "step_id": null,
+          "output_slot_id": null
+        }
+      },
+      "workspace": "tracking",
+      "method_ref": "mrtrix.tckgen",
+      "method_version": "1",
+      "capability": "dwi.tractography"
+    },
+    {
+      "id": "tracking_sift2",
+      "title": "SIFT2 流线赋权",
+      "method_ref": "mrtrix.command.tcksift2",
+      "method_version": "1",
+      "fixed_parameters": {},
+      "parameter_bindings": {
+        "nthreads": "threads"
+      },
+      "inherit_parameters": false,
+      "workspace": "tracking_sift2",
+      "input_bindings": {
+        "in_tracks": {
+          "source": "step_output",
+          "step_id": "tracking",
+          "output_slot_id": "tractogram"
+        },
+        "in_fod": {
+          "source": "step_output",
+          "slot_id": null,
+          "step_id": "fod",
+          "output_slot_id": "wm_fod"
+        },
+        "act": {
+          "source": "workflow_input",
+          "slot_id": "five_tt",
+          "step_id": null,
+          "output_slot_id": null
+        }
+      },
+      "capability": "dwi.tractography"
+    }
+  ],
+  "output_bindings": {
+    "tractogram": {
+      "step_id": "tracking",
+      "output_slot_id": "tractogram"
+    },
+    "weights": {
+      "step_id": "tracking_sift2",
+      "output_slot_id": "out_weights"
+    },
+    "wm_fod": {
+      "step_id": "fod",
+      "output_slot_id": "wm_fod"
+    }
+  },
+  "included_capabilities": [
+    "dwi.response",
+    "dwi.fod",
+    "dwi.tractography"
+  ],
+  "category": [
+    "内置 Pipeline",
+    "MRtrix3"
+  ]
+}

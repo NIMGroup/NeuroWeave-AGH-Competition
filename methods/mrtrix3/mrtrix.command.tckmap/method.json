@@ -1,0 +1,783 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix.command.tckmap",
+  "version": "1",
+  "kind": "method",
+  "label": "MRtrix3 tckmap",
+  "description": "Use track data as a form of contrast for producing a high-resolution image\nNote: if you run into limitations with RAM usage, make sure you output the results to a .mif file or .mih / .dat file pair - this will avoid the allocation of an additional buffer to store the output for write-out.",
+  "runner_id": "mrtrix.command.tckmap",
+  "parameters": [
+    {
+      "id": "vox",
+      "argument": "vox",
+      "label": "vox",
+      "description": "provide either an isotropic voxel size (in mm), or comma-separated list of 3 voxel dimensions.",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckmap.html"
+    },
+    {
+      "id": "datatype",
+      "argument": "datatype",
+      "label": "datatype",
+      "description": "specify output image data type.",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckmap.html",
+      "control": "select",
+      "options": [
+        {
+          "value": "float32",
+          "label": "float32",
+          "description": ""
+        },
+        {
+          "value": "float32le",
+          "label": "float32le",
+          "description": ""
+        },
+        {
+          "value": "float32be",
+          "label": "float32be",
+          "description": ""
+        },
+        {
+          "value": "float64",
+          "label": "float64",
+          "description": ""
+        },
+        {
+          "value": "float64le",
+          "label": "float64le",
+          "description": ""
+        },
+        {
+          "value": "float64be",
+          "label": "float64be",
+          "description": ""
+        },
+        {
+          "value": "int64",
+          "label": "int64",
+          "description": ""
+        },
+        {
+          "value": "uint64",
+          "label": "uint64",
+          "description": ""
+        },
+        {
+          "value": "int64le",
+          "label": "int64le",
+          "description": ""
+        },
+        {
+          "value": "uint64le",
+          "label": "uint64le",
+          "description": ""
+        },
+        {
+          "value": "int64be",
+          "label": "int64be",
+          "description": ""
+        },
+        {
+          "value": "uint64be",
+          "label": "uint64be",
+          "description": ""
+        },
+        {
+          "value": "int32",
+          "label": "int32",
+          "description": ""
+        },
+        {
+          "value": "uint32",
+          "label": "uint32",
+          "description": ""
+        },
+        {
+          "value": "int32le",
+          "label": "int32le",
+          "description": ""
+        },
+        {
+          "value": "uint32le",
+          "label": "uint32le",
+          "description": ""
+        },
+        {
+          "value": "int32be",
+          "label": "int32be",
+          "description": ""
+        },
+        {
+          "value": "uint32be",
+          "label": "uint32be",
+          "description": ""
+        },
+        {
+          "value": "int16",
+          "label": "int16",
+          "description": ""
+        },
+        {
+          "value": "uint16",
+          "label": "uint16",
+          "description": ""
+        },
+        {
+          "value": "int16le",
+          "label": "int16le",
+          "description": ""
+        },
+        {
+          "value": "uint16le",
+          "label": "uint16le",
+          "description": ""
+        },
+        {
+          "value": "int16be",
+          "label": "int16be",
+          "description": ""
+        },
+        {
+          "value": "uint16be",
+          "label": "uint16be",
+          "description": ""
+        },
+        {
+          "value": "cfloat32",
+          "label": "cfloat32",
+          "description": ""
+        },
+        {
+          "value": "cfloat32le",
+          "label": "cfloat32le",
+          "description": ""
+        },
+        {
+          "value": "cfloat32be",
+          "label": "cfloat32be",
+          "description": ""
+        },
+        {
+          "value": "cfloat64",
+          "label": "cfloat64",
+          "description": ""
+        },
+        {
+          "value": "cfloat64le",
+          "label": "cfloat64le",
+          "description": ""
+        },
+        {
+          "value": "cfloat64be",
+          "label": "cfloat64be",
+          "description": ""
+        },
+        {
+          "value": "int8",
+          "label": "int8",
+          "description": ""
+        },
+        {
+          "value": "uint8",
+          "label": "uint8",
+          "description": ""
+        },
+        {
+          "value": "bit",
+          "label": "bit",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": "dec",
+      "argument": "-dec",
+      "label": "dec",
+      "description": "perform track mapping in directionally-encoded colour (DEC) space",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "tod",
+      "argument": "tod",
+      "label": "tod",
+      "description": "generate a Track Orientation Distribution (TOD) in each voxel; need to specify the maximum spherical harmonic degree lmax to use when generating Apodised Point Spread Functions",
+      "type": "integer",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckmap.html",
+      "minimum": 2,
+      "maximum": 20
+    },
+    {
+      "id": "contrast",
+      "argument": "contrast",
+      "label": "contrast",
+      "description": "define the desired form of contrast for the output image\nOptions are: tdi, length, invlength, scalar_map, scalar_map_count, fod_amp, curvature, vector_file (default: tdi)",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckmap.html",
+      "control": "select",
+      "options": [
+        {
+          "value": "tdi",
+          "label": "tdi",
+          "description": ""
+        },
+        {
+          "value": "length",
+          "label": "length",
+          "description": ""
+        },
+        {
+          "value": "invlength",
+          "label": "invlength",
+          "description": ""
+        },
+        {
+          "value": "scalar_map",
+          "label": "scalar_map",
+          "description": ""
+        },
+        {
+          "value": "scalar_map_count",
+          "label": "scalar_map_count",
+          "description": ""
+        },
+        {
+          "value": "fod_amp",
+          "label": "fod_amp",
+          "description": ""
+        },
+        {
+          "value": "curvature",
+          "label": "curvature",
+          "description": ""
+        },
+        {
+          "value": "vector_file",
+          "label": "vector_file",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": "stat_vox",
+      "argument": "stat_vox",
+      "label": "stat_vox",
+      "description": "define the statistic for choosing the final voxel intensities for a given contrast type given the individual values from the tracks passing through each voxel. \nOptions are: sum, min, mean, max (default: sum)",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckmap.html",
+      "control": "select",
+      "options": [
+        {
+          "value": "sum",
+          "label": "sum",
+          "description": ""
+        },
+        {
+          "value": "min",
+          "label": "min",
+          "description": ""
+        },
+        {
+          "value": "mean",
+          "label": "mean",
+          "description": ""
+        },
+        {
+          "value": "max",
+          "label": "max",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": "stat_tck",
+      "argument": "stat_tck",
+      "label": "stat_tck",
+      "description": "define the statistic for choosing the contribution to be made by each streamline as a function of the samples taken along their lengths. \nOnly has an effect for 'scalar_map', 'fod_amp' and 'curvature' contrast types. \nOptions are: sum, min, mean, max, median, mean_nonzero, gaussian, ends_min, ends_mean, ends_max, ends_prod (default: mean)",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckmap.html",
+      "control": "select",
+      "options": [
+        {
+          "value": "sum",
+          "label": "sum",
+          "description": ""
+        },
+        {
+          "value": "min",
+          "label": "min",
+          "description": ""
+        },
+        {
+          "value": "mean",
+          "label": "mean",
+          "description": ""
+        },
+        {
+          "value": "max",
+          "label": "max",
+          "description": ""
+        },
+        {
+          "value": "median",
+          "label": "median",
+          "description": ""
+        },
+        {
+          "value": "mean_nonzero",
+          "label": "mean_nonzero",
+          "description": ""
+        },
+        {
+          "value": "gaussian",
+          "label": "gaussian",
+          "description": ""
+        },
+        {
+          "value": "ends_min",
+          "label": "ends_min",
+          "description": ""
+        },
+        {
+          "value": "ends_mean",
+          "label": "ends_mean",
+          "description": ""
+        },
+        {
+          "value": "ends_max",
+          "label": "ends_max",
+          "description": ""
+        },
+        {
+          "value": "ends_prod",
+          "label": "ends_prod",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": "fwhm_tck",
+      "argument": "fwhm_tck",
+      "label": "fwhm_tck",
+      "description": "when using gaussian-smoothed per-track statistic, specify the desired full-width half-maximum of the Gaussian smoothing kernel (in mm)",
+      "type": "number",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckmap.html",
+      "minimum": 1e-06
+    },
+    {
+      "id": "map_zero",
+      "argument": "-map_zero",
+      "label": "map_zero",
+      "description": "if a streamline has zero contribution based on the contrast & statistic, typically it is not mapped; use this option to still contribute to the map even if this is the case (these non-contributing voxels can then influence the mean value in each voxel of the map)",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "backtrack",
+      "argument": "-backtrack",
+      "label": "backtrack",
+      "description": "when using -stat_tck ends_*, if the streamline endpoint is outside the FoV, backtrack along the streamline trajectory until an appropriate point is found",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "upsample",
+      "argument": "upsample",
+      "label": "upsample",
+      "description": "upsample the tracks by some ratio using Hermite interpolation before mappping\n(If omitted, an appropriate ratio will be determined automatically)",
+      "type": "integer",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckmap.html",
+      "minimum": 1
+    },
+    {
+      "id": "precise",
+      "argument": "-precise",
+      "label": "precise",
+      "description": "use a more precise streamline mapping strategy, that accurately quantifies the length through each voxel (these lengths are then taken into account during TWI calculation)",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "ends_only",
+      "argument": "-ends_only",
+      "label": "ends_only",
+      "description": "only map the streamline endpoints to the image",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "info",
+      "argument": "-info",
+      "label": "info",
+      "description": "display information messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "quiet",
+      "argument": "-quiet",
+      "label": "quiet",
+      "description": "do not display information messages or progress status; alternatively, this can be achieved by setting the MRTRIX_QUIET environment variable to a non-empty string.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "debug",
+      "argument": "-debug",
+      "label": "debug",
+      "description": "display debugging messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "nthreads",
+      "argument": "nthreads",
+      "label": "nthreads",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).",
+      "type": "integer",
+      "required": true,
+      "default": 1,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckmap.html",
+      "minimum": 0,
+      "group": "计算资源",
+      "level": "advanced"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "tracks",
+      "type": "generated_file",
+      "label": "tracks",
+      "description": "the input track file.",
+      "required": true,
+      "binding": "file"
+    },
+    {
+      "id": "template",
+      "type": "imaging_input",
+      "label": "template",
+      "description": "an image file to be used as a template for the output (the output image will have the same transform and field of view).",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "image",
+      "type": "imaging_input",
+      "label": "image",
+      "description": "provide the scalar image map for generating images with 'scalar_map' / 'scalar_map_count' contrast, or the spherical harmonics image for 'fod_amp' contrast",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "vector_file",
+      "type": "generated_file",
+      "label": "vector_file",
+      "description": "provide the vector data file for generating images with 'vector_file' contrast",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "tck_weights_in",
+      "type": "generated_file",
+      "label": "tck_weights_in",
+      "description": "specify a text scalar file containing the streamline weights",
+      "required": false,
+      "binding": "file"
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "output",
+      "type": "imaging_input",
+      "label": "output",
+      "description": "the output track-weighted image The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".mif",
+      "path_template": "output.mif"
+    }
+  ],
+  "input_types": [
+    "generated_file",
+    "imaging_input"
+  ],
+  "output_types": [
+    "imaging_input"
+  ],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/tckmap.usage.txt",
+      "kind": "command",
+      "label": "MRtrix3 安装版原始完整帮助"
+    }
+  ],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "command": "tckmap",
+      "version": "3.0.8",
+      "positional": [
+        {
+          "source": "input",
+          "id": "tracks",
+          "optional": false
+        },
+        {
+          "source": "output",
+          "id": "output",
+          "optional": false
+        }
+      ],
+      "options": [
+        {
+          "flag": "-template",
+          "values": [
+            {
+              "source": "input",
+              "id": "template"
+            }
+          ]
+        },
+        {
+          "flag": "-vox",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "vox",
+              "kind": "FSEQ"
+            }
+          ]
+        },
+        {
+          "flag": "-datatype",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "datatype",
+              "kind": "CHOICE"
+            }
+          ]
+        },
+        {
+          "flag": "-dec",
+          "values": [],
+          "when": {
+            "dec": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-tod",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "tod",
+              "kind": "INT"
+            }
+          ]
+        },
+        {
+          "flag": "-contrast",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "contrast",
+              "kind": "CHOICE"
+            }
+          ]
+        },
+        {
+          "flag": "-image",
+          "values": [
+            {
+              "source": "input",
+              "id": "image"
+            }
+          ]
+        },
+        {
+          "flag": "-vector_file",
+          "values": [
+            {
+              "source": "input",
+              "id": "vector_file"
+            }
+          ]
+        },
+        {
+          "flag": "-stat_vox",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "stat_vox",
+              "kind": "CHOICE"
+            }
+          ]
+        },
+        {
+          "flag": "-stat_tck",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "stat_tck",
+              "kind": "CHOICE"
+            }
+          ]
+        },
+        {
+          "flag": "-fwhm_tck",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "fwhm_tck",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-map_zero",
+          "values": [],
+          "when": {
+            "map_zero": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-backtrack",
+          "values": [],
+          "when": {
+            "backtrack": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-upsample",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "upsample",
+              "kind": "INT"
+            }
+          ]
+        },
+        {
+          "flag": "-precise",
+          "values": [],
+          "when": {
+            "precise": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-ends_only",
+          "values": [],
+          "when": {
+            "ends_only": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-tck_weights_in",
+          "values": [
+            {
+              "source": "input",
+              "id": "tck_weights_in"
+            }
+          ]
+        },
+        {
+          "flag": "-info",
+          "values": [],
+          "when": {
+            "info": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-quiet",
+          "values": [],
+          "when": {
+            "quiet": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-debug",
+          "values": [],
+          "when": {
+            "debug": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-nthreads",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "nthreads",
+              "kind": "INT"
+            }
+          ]
+        }
+      ],
+      "total_options": 26,
+      "omitted_options": {
+        "dixel": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    }
+  }
+}

@@ -1,0 +1,288 @@
+{
+  "label": "Pandas 表格清洗",
+  "description": "在只读输入和隔离输出目录下清理缺失值、重复行、空白字符与列名，并生成审计报告。",
+  "runner_id": "table.clean",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_file",
+    "execution_log"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "missing_strategy",
+      "argument": "missing-strategy",
+      "label": "缺失值策略",
+      "description": "保留、删除行列或使用统计量/常量填充。",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "keep",
+      "options": [
+        {
+          "value": "keep",
+          "label": "保留",
+          "description": ""
+        },
+        {
+          "value": "drop_rows",
+          "label": "按阈值删除行",
+          "description": ""
+        },
+        {
+          "value": "drop_columns",
+          "label": "按阈值删除列",
+          "description": ""
+        },
+        {
+          "value": "mean",
+          "label": "数值列均值填充",
+          "description": ""
+        },
+        {
+          "value": "median",
+          "label": "数值列中位数填充",
+          "description": ""
+        },
+        {
+          "value": "mode",
+          "label": "众数填充",
+          "description": ""
+        },
+        {
+          "value": "constant",
+          "label": "常量填充",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "deduplicate",
+      "argument": "deduplicate",
+      "label": "删除重复行",
+      "description": "删除所有列完全相同的重复记录。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": true,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "strip_whitespace",
+      "argument": "strip-whitespace",
+      "label": "清理文本空白",
+      "description": "去除文本单元格首尾空白。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": true,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "missing_threshold",
+      "argument": "missing-threshold",
+      "label": "允许缺失比例",
+      "description": "删除行/列模式下允许的最大缺失比例。",
+      "type": "number",
+      "control": "number",
+      "level": "advanced",
+      "group": "缺失值",
+      "unit": "",
+      "required": true,
+      "default": 1.0,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "step": 0.05,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "fill_value",
+      "argument": "fill-value",
+      "label": "填充常量",
+      "description": "missing_strategy=constant 时使用。",
+      "type": "string",
+      "control": "text",
+      "level": "advanced",
+      "group": "缺失值",
+      "unit": "",
+      "required": false,
+      "default": "",
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "missing_strategy": [
+          "constant"
+        ]
+      },
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "normalize_columns",
+      "argument": "normalize-columns",
+      "label": "规范化列名",
+      "description": "把列名转换为小写 snake_case，并安全处理重复列名。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "列名",
+      "unit": "",
+      "required": true,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "table",
+      "type": "analysis_input",
+      "label": "输入表格",
+      "description": "CSV、TSV、XLSX 或 XLS 文件。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".csv",
+        ".tsv",
+        ".xlsx",
+        ".xls"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "cleaned",
+      "type": "generated_file",
+      "label": "清洗后表格",
+      "description": "Unified output as UTF-8 CSV, without overwriting the original table. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".csv",
+      "primary": true,
+      "path_template": "cleaned.csv",
+      "generated_when": {}
+    },
+    {
+      "id": "report",
+      "type": "generated_file",
+      "label": "清洗报告",
+      "description": "Row and column counts, missing values, duplicate values, data types, and parameter snapshot. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".json",
+      "primary": false,
+      "path_template": "cleaning-report.json",
+      "generated_when": {}
+    },
+    {
+      "id": "log",
+      "type": "execution_log",
+      "label": "清洗日志",
+      "description": "完整执行输出。",
+      "format": "",
+      "primary": false,
+      "path_template": "table-cleaning.log",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/table-cleaning/skill.json",
+      "label": "Table Cleaning Skill",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "table.clean",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "builtin"
+  }
+}

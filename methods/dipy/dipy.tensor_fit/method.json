@@ -1,0 +1,402 @@
+{
+  "label": "DIPY TensorModel",
+  "description": "Python 路线，便于扩展、自定义和生成结构化扩散指标。",
+  "runner_id": "dipy.tensor_fit",
+  "input_types": [
+    "preprocessed_dwi",
+    "gradient_table",
+    "brain_mask"
+  ],
+  "output_types": [
+    "diffusion_metrics",
+    "execution_log"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "fit_method",
+      "argument": "fit-method",
+      "label": "张量拟合方法",
+      "description": "选择普通、加权或鲁棒张量拟合。",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "WLS",
+      "options": [
+        {
+          "value": "WLS",
+          "label": "WLS（推荐）",
+          "description": ""
+        },
+        {
+          "value": "OLS",
+          "label": "OLS",
+          "description": ""
+        },
+        {
+          "value": "RESTORE",
+          "label": "RESTORE",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "b0_threshold",
+      "argument": "b0-threshold",
+      "label": "b0 阈值",
+      "description": "用于识别 b0 体积的 b-value 阈值。",
+      "type": "integer",
+      "control": "number",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "s/mm²",
+      "required": true,
+      "default": 50,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 500.0,
+      "step": 1.0,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "mask_strategy",
+      "argument": "mask-strategy",
+      "label": "脑 Mask 来源",
+      "description": "使用已有 mask、自动估计或不使用 mask。",
+      "type": "string",
+      "control": "select",
+      "level": "advanced",
+      "group": "拟合输入",
+      "unit": "",
+      "required": true,
+      "default": "existing",
+      "options": [
+        {
+          "value": "existing",
+          "label": "使用已有 Mask",
+          "description": ""
+        },
+        {
+          "value": "median_otsu",
+          "label": "Median Otsu 自动生成",
+          "description": ""
+        },
+        {
+          "value": "none",
+          "label": "不使用 Mask",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "min_signal",
+      "argument": "min-signal",
+      "label": "最小信号值",
+      "description": "拟合前对低信号体素应用的下限。",
+      "type": "number",
+      "control": "number",
+      "level": "advanced",
+      "group": "拟合控制",
+      "unit": "",
+      "required": true,
+      "default": 1,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 10000.0,
+      "step": 0.1,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "restore_sigma",
+      "argument": "restore-sigma",
+      "label": "RESTORE 噪声 Sigma",
+      "description": "RESTORE 鲁棒拟合使用的噪声标准差；仅在选择 RESTORE 时生效。",
+      "type": "number",
+      "control": "number",
+      "level": "advanced",
+      "group": "拟合控制",
+      "unit": "signal",
+      "required": true,
+      "default": 20,
+      "options": [],
+      "minimum": 0.01,
+      "maximum": 10000.0,
+      "step": 0.1,
+      "placeholder": "",
+      "visible_when": {
+        "fit_method": [
+          "RESTORE"
+        ]
+      },
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "save_eigenvectors",
+      "argument": "save-eigenvectors",
+      "label": "保存特征向量",
+      "description": "除 FA、MD、AD、RD 外保存张量特征向量。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "输出",
+      "unit": "",
+      "required": true,
+      "default": false,
+      "options": [
+        {
+          "value": true,
+          "label": "保存",
+          "description": ""
+        },
+        {
+          "value": false,
+          "label": "不保存",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "clip_negative_eigenvalues",
+      "argument": "clip-negative-eigenvalues",
+      "label": "裁剪负特征值",
+      "description": "在派生指标计算前把负特征值裁剪为零。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "输出",
+      "unit": "",
+      "required": true,
+      "default": true,
+      "options": [
+        {
+          "value": true,
+          "label": "裁剪",
+          "description": ""
+        },
+        {
+          "value": false,
+          "label": "保留",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "dwi",
+      "type": "preprocessed_dwi",
+      "label": "预处理 DWI",
+      "description": "体积顺序与 bval/bvec 一致的 4D NIfTI。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "bvals",
+      "type": "gradient_table",
+      "label": "bval",
+      "description": "每个 DWI 体积的 b-value。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".bval",
+        ".txt"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "bvecs",
+      "type": "gradient_table",
+      "label": "bvec",
+      "description": "3×N 或 N×3 的扩散梯度方向。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".bvec",
+        ".txt"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "mask",
+      "type": "brain_mask",
+      "label": "DWI Mask（可选）",
+      "description": "mask_strategy=existing 时必需；与 DWI 空间一致。",
+      "required": false,
+      "required_when": {
+        "mask_strategy": [
+          "existing"
+        ]
+      },
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "metrics",
+      "type": "diffusion_metrics",
+      "label": "DIPY 张量指标",
+      "description": "FA、MD、AD、RD 以及可选特征向量。",
+      "format": "",
+      "primary": true,
+      "path_template": "metrics/dti_*.nii.gz",
+      "generated_when": {}
+    },
+    {
+      "id": "log",
+      "type": "execution_log",
+      "label": "DIPY 日志",
+      "description": "拟合过程的完整标准输出。",
+      "format": "",
+      "primary": false,
+      "path_template": "dipy-tensor.log",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "methods/dipy/dipy.tensor_fit/method.json",
+      "label": "结构化方法声明",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "skills/dipy-tool/skill.json",
+      "label": "Skill 使用说明",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "dipy.tensor_fit",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "builtin"
+  }
+}

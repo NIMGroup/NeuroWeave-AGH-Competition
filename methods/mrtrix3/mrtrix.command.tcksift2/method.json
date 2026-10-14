@@ -1,0 +1,1104 @@
+{
+  "label": "MRtrix3 SIFT2 独立流线赋权",
+  "description": "独立调用 MRtrix3 3.0.8 的 tcksift2；保留原软件计算，参数按原版本帮助定义。\n\nOptimise per-streamline cross-section multipliers to match a whole-brain tractogram to fixel-wise fibre densities",
+  "runner_id": "mrtrix.command.tcksift2",
+  "input_types": [
+    "tractogram",
+    "fod_image",
+    "brain_mask",
+    "five_tt_image"
+  ],
+  "output_types": [
+    "streamline_weights",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "fd_scale_gm",
+      "argument": "-fd_scale_gm",
+      "label": "结合 ACT 缩放灰质纤维密度",
+      "description": "provide this option (in conjunction with -act) to heuristically downsize the fibre density estimates based on the presence of GM in the voxel. This can assist in reducing tissue interface effects when using a single-tissue deconvolution algorithm",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "启用后必须提供 ACT 5TT 影像；不会自动生成 5TT。",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "no_dilate_lut",
+      "argument": "-no_dilate_lut",
+      "label": "no_dilate_lut",
+      "description": "do NOT dilate FOD lobe lookup tables; only map streamlines to FOD lobes if the precise tangent lies within the angular spread of that lobe",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "make_null_lobes",
+      "argument": "-make_null_lobes",
+      "label": "make_null_lobes",
+      "description": "add an additional FOD lobe to each voxel, with zero integral, that covers all directions with zero / negative FOD amplitudes",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "remove_untracked",
+      "argument": "-remove_untracked",
+      "label": "remove_untracked",
+      "description": "remove FOD lobes that do not have any streamline density attributed to them; this improves filtering slightly, at the expense of longer computation time (and you can no longer do quantitative comparisons between reconstructions if this is enabled)",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "fd_thresh",
+      "argument": "-fd_thresh",
+      "label": "fd_thresh",
+      "description": "fibre density threshold; exclude an FOD lobe from filtering processing if its integral is less than this amount (streamlines will still be mapped to it, but it will not contribute to the cost function or the filtering)",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 6.28319,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tcksift2.html"
+    },
+    {
+      "id": "save_csv",
+      "argument": "-csv",
+      "label": "保存 csv",
+      "description": "output statistics of execution per iteration to a .csv file",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "save_out_mu",
+      "argument": "-out_mu",
+      "label": "保存 out_mu",
+      "description": "output the final value of SIFT proportionality coefficient mu to a text file",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "save_out_coeffs",
+      "argument": "-out_coeffs",
+      "label": "保存 out_coeffs",
+      "description": "output text file containing the weighting coefficient for each streamline",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "reg_tikhonov",
+      "argument": "-reg_tikhonov",
+      "label": "Tikhonov 正则化系数",
+      "description": "provide coefficient for regularising streamline weighting coefficients (Tikhonov regularisation) (default: 0)",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tcksift2.html"
+    },
+    {
+      "id": "reg_tv",
+      "argument": "-reg_tv",
+      "label": "总变分正则化系数",
+      "description": "provide coefficient for regularising variance of streamline weighting coefficient to fixels along its length (Total Variation regularisation) (default: 0.1)",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tcksift2.html"
+    },
+    {
+      "id": "min_td_frac",
+      "argument": "-min_td_frac",
+      "label": "min_td_frac",
+      "description": "minimum fraction of the FOD integral reconstructed by streamlines; if the reconstructed streamline density is below this fraction, the fixel is excluded from optimisation (default: 0.1)",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tcksift2.html"
+    },
+    {
+      "id": "min_iters",
+      "argument": "-min_iters",
+      "label": "最少迭代次数",
+      "description": "minimum number of iterations to run before testing for convergence; this can prevent premature termination at early iterations if the cost function increases slightly (default: 10)",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tcksift2.html"
+    },
+    {
+      "id": "max_iters",
+      "argument": "-max_iters",
+      "label": "最多迭代次数",
+      "description": "maximum number of iterations to run before terminating program",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tcksift2.html"
+    },
+    {
+      "id": "min_factor",
+      "argument": "-min_factor",
+      "label": "最小流线权重",
+      "description": "minimum weighting factor for an individual streamline; if the factor falls below this number the streamline will be rejected entirely (factor set to zero) (default: 0)",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [
+        "min_coeff"
+      ],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tcksift2.html"
+    },
+    {
+      "id": "min_coeff",
+      "argument": "-min_coeff",
+      "label": "最小对数系数",
+      "description": "minimum weighting coefficient for an individual streamline; similar to the '-min_factor' option, but using the exponential coefficient basis of the SIFT2 model; these parameters are related as: factor = e^(coeff). Note that the -min_factor and -min_coeff options are mutually exclusive - you can only provide one. (default: -inf)",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": 0.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [
+        "min_factor"
+      ],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tcksift2.html"
+    },
+    {
+      "id": "max_factor",
+      "argument": "-max_factor",
+      "label": "最大流线权重",
+      "description": "maximum weighting factor that can be assigned to any one streamline (default: inf)",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [
+        "max_coeff"
+      ],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tcksift2.html"
+    },
+    {
+      "id": "max_coeff",
+      "argument": "-max_coeff",
+      "label": "最大对数系数",
+      "description": "maximum weighting coefficient for an individual streamline; similar to the '-max_factor' option, but using the exponential coefficient basis of the SIFT2 model; these parameters are related as: factor = e^(coeff). Note that the -max_factor and -max_coeff options are mutually exclusive - you can only provide one. (default: inf)",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [
+        "max_factor"
+      ],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tcksift2.html"
+    },
+    {
+      "id": "max_coeff_step",
+      "argument": "-max_coeff_step",
+      "label": "max_coeff_step",
+      "description": "maximum change to a streamline's weighting coefficient in a single iteration (default: 1)",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tcksift2.html"
+    },
+    {
+      "id": "min_cf_decrease",
+      "argument": "-min_cf_decrease",
+      "label": "min_cf_decrease",
+      "description": "minimum decrease in the cost function (as a fraction of the initial value) that must occur each iteration for the algorithm to continue (default: 2.5e-05)",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tcksift2.html"
+    },
+    {
+      "id": "linear",
+      "argument": "-linear",
+      "label": "linear",
+      "description": "perform a linear estimation of streamline weights, rather than the standard non-linear optimisation (typically does not provide as accurate a model fit; but only requires a single pass)",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "info",
+      "argument": "-info",
+      "label": "info",
+      "description": "display information messages.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "quiet",
+      "argument": "-quiet",
+      "label": "quiet",
+      "description": "do not display information messages or progress status; alternatively, this can be achieved by setting the MRTRIX_QUIET environment variable to a non-empty string.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "debug",
+      "argument": "-debug",
+      "label": "debug",
+      "description": "display debugging messages.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "nthreads",
+      "argument": "-nthreads",
+      "label": "CPU 线程数",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).",
+      "type": "integer",
+      "control": "auto",
+      "level": "advanced",
+      "group": "计算资源",
+      "unit": "",
+      "required": true,
+      "default": 1,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tcksift2.html"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "in_tracks",
+      "type": "tractogram",
+      "label": "in_tracks",
+      "description": "the input track file",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".tck"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "in_fod",
+      "type": "fod_image",
+      "label": "in_fod",
+      "description": "input image containing the spherical harmonics of the fibre orientation distributions",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".mif",
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "proc_mask",
+      "type": "brain_mask",
+      "label": "处理权重掩膜",
+      "description": "provide an image containing the processing mask weights for the model; image spatial dimensions must match the fixel image",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".mif",
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "act",
+      "type": "five_tt_image",
+      "label": "ACT 五组织影像",
+      "description": "use an ACT five-tissue-type segmented anatomical image to derive the processing mask",
+      "required": false,
+      "required_when": {
+        "fd_scale_gm": [
+          true
+        ]
+      },
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".mif",
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "out_weights",
+      "type": "streamline_weights",
+      "label": "输出：SIFT2 独立流线赋权",
+      "description": "output text file containing the weighting factor for each streamline 文件名由平台固定在本次输出目录内。",
+      "format": ".txt",
+      "primary": true,
+      "path_template": "weights.txt",
+      "generated_when": {}
+    },
+    {
+      "id": "csv",
+      "type": "generated_file",
+      "label": "csv",
+      "description": "output statistics of execution per iteration to a .csv file This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".csv",
+      "primary": false,
+      "path_template": "csv.csv",
+      "generated_when": {
+        "save_csv": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "out_mu",
+      "type": "generated_file",
+      "label": "out_mu",
+      "description": "output the final value of SIFT proportionality coefficient mu to a text file This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".txt",
+      "primary": false,
+      "path_template": "out_mu.txt",
+      "generated_when": {
+        "save_out_mu": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "out_coeffs",
+      "type": "generated_file",
+      "label": "out_coeffs",
+      "description": "output text file containing the weighting coefficient for each streamline This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".txt",
+      "primary": false,
+      "path_template": "out_coeffs.txt",
+      "generated_when": {
+        "save_out_coeffs": [
+          true
+        ]
+      }
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/dwi-skill/references/mrtrix-3.0.8/tcksift2.md",
+      "label": "安装版本原始命令帮助",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "mrtrix.command.tcksift2",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "command": "tcksift2",
+      "version": "3.0.8",
+      "positional": [
+        {
+          "source": "input",
+          "id": "in_tracks"
+        },
+        {
+          "source": "input",
+          "id": "in_fod"
+        },
+        {
+          "source": "output",
+          "id": "out_weights"
+        }
+      ],
+      "options": [
+        {
+          "flag": "-proc_mask",
+          "values": [
+            {
+              "source": "input",
+              "id": "proc_mask"
+            }
+          ]
+        },
+        {
+          "flag": "-act",
+          "values": [
+            {
+              "source": "input",
+              "id": "act"
+            }
+          ]
+        },
+        {
+          "flag": "-fd_scale_gm",
+          "values": [],
+          "when": {
+            "fd_scale_gm": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-no_dilate_lut",
+          "values": [],
+          "when": {
+            "no_dilate_lut": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-make_null_lobes",
+          "values": [],
+          "when": {
+            "make_null_lobes": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-remove_untracked",
+          "values": [],
+          "when": {
+            "remove_untracked": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-fd_thresh",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "fd_thresh",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-csv",
+          "values": [
+            {
+              "source": "output",
+              "id": "csv"
+            }
+          ],
+          "when": {
+            "save_csv": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-out_mu",
+          "values": [
+            {
+              "source": "output",
+              "id": "out_mu"
+            }
+          ],
+          "when": {
+            "save_out_mu": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-out_coeffs",
+          "values": [
+            {
+              "source": "output",
+              "id": "out_coeffs"
+            }
+          ],
+          "when": {
+            "save_out_coeffs": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-reg_tikhonov",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "reg_tikhonov",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-reg_tv",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "reg_tv",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-min_td_frac",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "min_td_frac",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-min_iters",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "min_iters",
+              "kind": "INT"
+            }
+          ]
+        },
+        {
+          "flag": "-max_iters",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "max_iters",
+              "kind": "INT"
+            }
+          ]
+        },
+        {
+          "flag": "-min_factor",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "min_factor",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-min_coeff",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "min_coeff",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-max_factor",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "max_factor",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-max_coeff",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "max_coeff",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-max_coeff_step",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "max_coeff_step",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-min_cf_decrease",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "min_cf_decrease",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-linear",
+          "values": [],
+          "when": {
+            "linear": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-info",
+          "values": [],
+          "when": {
+            "info": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-quiet",
+          "values": [],
+          "when": {
+            "quiet": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-debug",
+          "values": [],
+          "when": {
+            "debug": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-nthreads",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "nthreads",
+              "kind": "INT"
+            }
+          ]
+        }
+      ],
+      "total_options": 31,
+      "omitted_options": {
+        "output_debug": "调试影像没有稳定输出槽位，暂未接入。",
+        "force": "运行输出目录独立分配，不允许覆盖输入或其他运行。",
+        "config": "不开放任意软件配置键，以免绕过路径、线程及运行环境管理。",
+        "help": "通过命令说明面板提供，不作为计算参数。",
+        "version": "由运行环境探测提供。"
+      }
+    }
+  }
+}

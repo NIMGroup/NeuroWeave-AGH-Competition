@@ -1,0 +1,1474 @@
+{
+  "schema_version": 1,
+  "id": "ukb-skill",
+  "description": "UKB 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：UKB 生存分析数据表；ukb 表型/刺激提取；ukb 质控汇总；生存模型（scientific）；生存模型（torch）；其他方法可在详情中分页查询。",
+  "method_refs": [
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "reviewed-survival-dataset-ukb-skill",
+      "label": "UKB 生存分析数据表",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "survival-dataset"
+      ],
+      "execution_resolution": {},
+      "role": "Build survival analysis datasets from UK Biobank data。 Inputs: input: UKB 原始表 (file). Registered outputs: results/survival.csv.",
+      "method_ref": "reviewed.ukb-skill.survival-dataset"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "reviewed-extract-ukb-cases-ukb-skill",
+      "label": "ukb 表型/刺激提取",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "phenotype-extraction",
+        "stimulus-extraction"
+      ],
+      "execution_resolution": {},
+      "role": "Extract disease cases from UK Biobank data using ICD-10/ICD-9 codes。 Inputs: input: Path to UKB raw CSV (file). Registered outputs: results/output.csv.",
+      "method_ref": "reviewed.ukb-skill.extract-ukb-cases"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "reviewed-extract-ukb-phenotype-ukb-skill",
+      "label": "ukb 表型/刺激提取",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "phenotype-extraction",
+        "stimulus-extraction"
+      ],
+      "execution_resolution": {},
+      "role": "Extract and preprocess UK Biobank phenotype data for brain-related analysis。 Inputs: input: Path to UKB raw CSV (file); custom_mapping: JSON file with custom variable mappings (file). Registered outputs: results/output.csv.",
+      "method_ref": "reviewed.ukb-skill.extract-ukb-phenotype"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "reviewed-ukb-qc-summary-ukb-skill",
+      "label": "ukb 质控汇总",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "qc-summary"
+      ],
+      "execution_resolution": {},
+      "role": "Generate QC summaries for UK Biobank brain-related data. Tracks data completeness, imaging availability, and exclusion criteria。 Inputs: input: Path to UKB raw CSV (file). Registered outputs: results/output.csv.",
+      "method_ref": "reviewed.ukb-skill.ukb-qc-summary"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--neurological-survival-analysis--via-reviewed-survival-scientific-survival-models--cox",
+      "label": "cox",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已有事件/时间表可进入原生存模型；疾病事件提取可单独选择，端点与删失日期由用户明确。",
+        "source_method_id": "ukb-skill-guided--neurological-survival-analysis",
+        "target_method_id": "reviewed-survival-scientific-survival-models--cox"
+      },
+      "role": "Cross-validated CLI for censored outcomes。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.survival-models.survival-scientific"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--neurological-survival-analysis--via-reviewed-survival-scientific-survival-models--rsf",
+      "label": "rsf",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已有事件/时间表可进入原生存模型；疾病事件提取可单独选择，端点与删失日期由用户明确。",
+        "source_method_id": "ukb-skill-guided--neurological-survival-analysis",
+        "target_method_id": "reviewed-survival-scientific-survival-models--rsf"
+      },
+      "role": "Cross-validated CLI for censored outcomes。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.survival-models.survival-scientific"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--neurological-survival-analysis--via-reviewed-survival-scientific-survival-models--xgb-cox",
+      "label": "xgb_cox",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已有事件/时间表可进入原生存模型；疾病事件提取可单独选择，端点与删失日期由用户明确。",
+        "source_method_id": "ukb-skill-guided--neurological-survival-analysis",
+        "target_method_id": "reviewed-survival-scientific-survival-models--xgb-cox"
+      },
+      "role": "Cross-validated CLI for censored outcomes。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.survival-models.survival-scientific"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--neurological-survival-analysis--via-reviewed-survival-torch-survival-models",
+      "label": "生存模型（torch）",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已有事件/时间表可进入原生存模型；疾病事件提取可单独选择，端点与删失日期由用户明确。",
+        "source_method_id": "ukb-skill-guided--neurological-survival-analysis",
+        "target_method_id": "reviewed-survival-torch-survival-models"
+      },
+      "role": "Cross-validated CLI for censored outcomes。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.survival-models.survival-torch"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--cognitive-phenotype-association",
+      "label": "ROI GLM 与 FDR",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "ukb-skill-guided--cognitive-phenotype-association",
+        "target_method_id": "reviewed-roi-glm-neuroimaging-decoding"
+      },
+      "role": "Join ROI features and the design table by subject ID, fit the original ROI-wise GLM with the selected contrast column, and export ROI test results and FDR summary counts. Inputs: features: 特征 CSV (file); design: 设计矩阵 CSV (file). Registered outputs: results/roi_glm_results.csv. Fixed invocation options: --mode roi-glm.",
+      "method_ref": "reviewed.neuroimaging-decoding.roi-glm"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--brain-mri-phenotype-association",
+      "label": "ROI GLM 与 FDR",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "ukb-skill-guided--brain-mri-phenotype-association",
+        "target_method_id": "reviewed-roi-glm-neuroimaging-decoding"
+      },
+      "role": "Join ROI features and the design table by subject ID, fit the original ROI-wise GLM with the selected contrast column, and export ROI test results and FDR summary counts. Inputs: features: 特征 CSV (file); design: 设计矩阵 CSV (file). Registered outputs: results/roi_glm_results.csv. Fixed invocation options: --mode roi-glm.",
+      "method_ref": "reviewed.neuroimaging-decoding.roi-glm"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features--via-reviewed-classification-statistical-ml--logistic",
+      "label": "logistic",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features",
+        "target_method_id": "reviewed-classification-statistical-ml--logistic"
+      },
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features--via-reviewed-classification-statistical-ml--ridge",
+      "label": "ridge",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features",
+        "target_method_id": "reviewed-classification-statistical-ml--ridge"
+      },
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features--via-reviewed-classification-statistical-ml--elastic-net",
+      "label": "elastic_net",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features",
+        "target_method_id": "reviewed-classification-statistical-ml--elastic-net"
+      },
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features--via-reviewed-classification-statistical-ml--svm",
+      "label": "svm",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features",
+        "target_method_id": "reviewed-classification-statistical-ml--svm"
+      },
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features--via-reviewed-classification-statistical-ml--random-forest",
+      "label": "random_forest",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features",
+        "target_method_id": "reviewed-classification-statistical-ml--random-forest"
+      },
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features--via-reviewed-classification-statistical-ml--extra-trees",
+      "label": "extra_trees",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features",
+        "target_method_id": "reviewed-classification-statistical-ml--extra-trees"
+      },
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features--via-reviewed-classification-statistical-ml--hist-gradient-boosting",
+      "label": "hist_gradient_boosting",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features",
+        "target_method_id": "reviewed-classification-statistical-ml--hist-gradient-boosting"
+      },
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features--via-reviewed-classification-statistical-ml--xgboost",
+      "label": "xgboost",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features",
+        "target_method_id": "reviewed-classification-statistical-ml--xgboost"
+      },
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features--via-reviewed-regression-statistical-ml--ols",
+      "label": "ols",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features",
+        "target_method_id": "reviewed-regression-statistical-ml--ols"
+      },
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features--via-reviewed-regression-statistical-ml--ridge",
+      "label": "ridge",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features",
+        "target_method_id": "reviewed-regression-statistical-ml--ridge"
+      },
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features--via-reviewed-regression-statistical-ml--elastic-net",
+      "label": "elastic_net",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features",
+        "target_method_id": "reviewed-regression-statistical-ml--elastic-net"
+      },
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features--via-reviewed-regression-statistical-ml--svm",
+      "label": "svm",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features",
+        "target_method_id": "reviewed-regression-statistical-ml--svm"
+      },
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features--via-reviewed-regression-statistical-ml--random-forest",
+      "label": "random_forest",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features",
+        "target_method_id": "reviewed-regression-statistical-ml--random-forest"
+      },
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features--via-reviewed-regression-statistical-ml--extra-trees",
+      "label": "extra_trees",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features",
+        "target_method_id": "reviewed-regression-statistical-ml--extra-trees"
+      },
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features--via-reviewed-regression-statistical-ml--hist-gradient-boosting",
+      "label": "hist_gradient_boosting",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features",
+        "target_method_id": "reviewed-regression-statistical-ml--hist-gradient-boosting"
+      },
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features--via-reviewed-regression-statistical-ml--xgboost",
+      "label": "xgboost",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "ukb-skill-guided--predictive-modeling-on-ukb-brain-features",
+        "target_method_id": "reviewed-regression-statistical-ml--xgboost"
+      },
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--propensity-score-analysis",
+      "label": "ipw",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "支持原项目定义的 IPW；不声称提供未实现的匹配算法。",
+        "source_method_id": "ukb-skill-guided--propensity-score-analysis",
+        "target_method_id": "reviewed-cate-causal-treatment-models--ipw"
+      },
+      "role": "Cross-fitted treatment-effect and policy evaluation CLI。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.causal-treatment-models.cate"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--subgroup-analysis",
+      "skill_id": "ukb-skill",
+      "label": "Subgroup analysis",
+      "description": "该入口为规划能力；用于讨论Subgroup analysis的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "subgroup-analysis",
+          "options": [
+            {
+              "value": "subgroup-analysis",
+              "label": "Subgroup analysis",
+              "description": "规划选项：Subgroup analysis；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "processing_scope",
+          "argument": "processing-scope",
+          "label": "处理范围",
+          "description": "选择单个受试者、小批量或完整数据集；这里只记录规划约束。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "single_subject",
+          "options": [
+            {
+              "value": "single_subject",
+              "label": "单个受试者",
+              "description": ""
+            },
+            {
+              "value": "selected_cohort",
+              "label": "选定队列",
+              "description": ""
+            },
+            {
+              "value": "full_dataset",
+              "label": "完整数据集",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "validation_level",
+          "argument": "validation-level",
+          "label": "验证级别",
+          "description": "严格验证会要求更完整的输入、元数据和质量控制检查。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "strict",
+          "options": [
+            {
+              "value": "basic",
+              "label": "基础检查",
+              "description": ""
+            },
+            {
+              "value": "strict",
+              "label": "严格检查",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "missing_data_policy",
+          "argument": "missing-data-policy",
+          "label": "缺失数据策略",
+          "description": "遇到缺失模态或表型时采用的处理策略。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "样本与完整性",
+          "unit": "",
+          "required": true,
+          "default": "report",
+          "options": [
+            {
+              "value": "report",
+              "label": "报告并继续",
+              "description": ""
+            },
+            {
+              "value": "exclude",
+              "label": "排除不完整样本",
+              "description": ""
+            },
+            {
+              "value": "stop",
+              "label": "停止并等待处理",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "subject_filter",
+          "argument": "subject-filter",
+          "label": "受试者筛选表达式",
+          "description": "可选的受试者、诊断或队列筛选条件；留空表示不额外筛选。",
+          "type": "string",
+          "control": "text",
+          "level": "advanced",
+          "group": "样本与完整性",
+          "unit": "",
+          "required": false,
+          "default": "",
+          "options": [],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "例如：group == 'control'",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "verify_checksums",
+          "argument": "verify-checksums",
+          "label": "校验文件完整性",
+          "description": "在方案中加入校验和或文件完整性检查。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "验证与资源",
+          "unit": "",
+          "required": true,
+          "default": false,
+          "options": [
+            {
+              "value": true,
+              "label": "校验",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不校验",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "parallel_jobs",
+          "argument": "parallel-jobs",
+          "label": "并行任务数",
+          "description": "规划批量处理时允许的最大并行任务数。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "验证与资源",
+          "unit": "",
+          "required": true,
+          "default": 1,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 128.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "dataset_folder",
+          "label": "输入数据集",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "folder",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/ukb-skill/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/ukb-skill/scripts/build_ukb_survival.py",
+          "label": "build_ukb_survival.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/ukb-skill/scripts/extract_ukb_cases.py",
+          "label": "extract_ukb_cases.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/ukb-skill/scripts/extract_ukb_phenotype.py",
+          "label": "extract_ukb_phenotype.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/ukb-skill/scripts/ukb_qc_summary.py",
+          "label": "ukb_qc_summary.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "needs_protocol",
+        "reason": "该研究问题需先确定分组、交互/中介模型或敏感性过滤规则；原文没有固定可执行的完整分析契约。",
+        "source_method_id": "ukb-skill-guided--subgroup-analysis",
+        "requirements": [
+          "明确统计模型、协变量、分组/过滤与报告指标"
+        ]
+      }
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--mediation-analysis",
+      "skill_id": "ukb-skill",
+      "label": "Mediation analysis",
+      "description": "该入口为规划能力；用于讨论Mediation analysis的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "mediation-analysis",
+          "options": [
+            {
+              "value": "mediation-analysis",
+              "label": "Mediation analysis",
+              "description": "规划选项：Mediation analysis；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "processing_scope",
+          "argument": "processing-scope",
+          "label": "处理范围",
+          "description": "选择单个受试者、小批量或完整数据集；这里只记录规划约束。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "single_subject",
+          "options": [
+            {
+              "value": "single_subject",
+              "label": "单个受试者",
+              "description": ""
+            },
+            {
+              "value": "selected_cohort",
+              "label": "选定队列",
+              "description": ""
+            },
+            {
+              "value": "full_dataset",
+              "label": "完整数据集",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "validation_level",
+          "argument": "validation-level",
+          "label": "验证级别",
+          "description": "严格验证会要求更完整的输入、元数据和质量控制检查。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "strict",
+          "options": [
+            {
+              "value": "basic",
+              "label": "基础检查",
+              "description": ""
+            },
+            {
+              "value": "strict",
+              "label": "严格检查",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "missing_data_policy",
+          "argument": "missing-data-policy",
+          "label": "缺失数据策略",
+          "description": "遇到缺失模态或表型时采用的处理策略。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "样本与完整性",
+          "unit": "",
+          "required": true,
+          "default": "report",
+          "options": [
+            {
+              "value": "report",
+              "label": "报告并继续",
+              "description": ""
+            },
+            {
+              "value": "exclude",
+              "label": "排除不完整样本",
+              "description": ""
+            },
+            {
+              "value": "stop",
+              "label": "停止并等待处理",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "subject_filter",
+          "argument": "subject-filter",
+          "label": "受试者筛选表达式",
+          "description": "可选的受试者、诊断或队列筛选条件；留空表示不额外筛选。",
+          "type": "string",
+          "control": "text",
+          "level": "advanced",
+          "group": "样本与完整性",
+          "unit": "",
+          "required": false,
+          "default": "",
+          "options": [],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "例如：group == 'control'",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "verify_checksums",
+          "argument": "verify-checksums",
+          "label": "校验文件完整性",
+          "description": "在方案中加入校验和或文件完整性检查。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "验证与资源",
+          "unit": "",
+          "required": true,
+          "default": false,
+          "options": [
+            {
+              "value": true,
+              "label": "校验",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不校验",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "parallel_jobs",
+          "argument": "parallel-jobs",
+          "label": "并行任务数",
+          "description": "规划批量处理时允许的最大并行任务数。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "验证与资源",
+          "unit": "",
+          "required": true,
+          "default": 1,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 128.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "dataset_folder",
+          "label": "输入数据集",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "folder",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/ukb-skill/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/ukb-skill/scripts/build_ukb_survival.py",
+          "label": "build_ukb_survival.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/ukb-skill/scripts/extract_ukb_cases.py",
+          "label": "extract_ukb_cases.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/ukb-skill/scripts/extract_ukb_phenotype.py",
+          "label": "extract_ukb_phenotype.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/ukb-skill/scripts/ukb_qc_summary.py",
+          "label": "ukb_qc_summary.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "needs_protocol",
+        "reason": "该研究问题需先确定分组、交互/中介模型或敏感性过滤规则；原文没有固定可执行的完整分析契约。",
+        "source_method_id": "ukb-skill-guided--mediation-analysis",
+        "requirements": [
+          "明确统计模型、协变量、分组/过滤与报告指标"
+        ]
+      }
+    },
+    {
+      "capability": "skill.ukb-skill",
+      "method_id": "ukb-skill-guided--sensitivity-analysis",
+      "skill_id": "ukb-skill",
+      "label": "Sensitivity analysis",
+      "description": "该入口为规划能力；用于讨论Sensitivity analysis的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "sensitivity-analysis",
+          "options": [
+            {
+              "value": "sensitivity-analysis",
+              "label": "Sensitivity analysis",
+              "description": "规划选项：Sensitivity analysis；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "processing_scope",
+          "argument": "processing-scope",
+          "label": "处理范围",
+          "description": "选择单个受试者、小批量或完整数据集；这里只记录规划约束。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "single_subject",
+          "options": [
+            {
+              "value": "single_subject",
+              "label": "单个受试者",
+              "description": ""
+            },
+            {
+              "value": "selected_cohort",
+              "label": "选定队列",
+              "description": ""
+            },
+            {
+              "value": "full_dataset",
+              "label": "完整数据集",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "validation_level",
+          "argument": "validation-level",
+          "label": "验证级别",
+          "description": "严格验证会要求更完整的输入、元数据和质量控制检查。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "strict",
+          "options": [
+            {
+              "value": "basic",
+              "label": "基础检查",
+              "description": ""
+            },
+            {
+              "value": "strict",
+              "label": "严格检查",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "missing_data_policy",
+          "argument": "missing-data-policy",
+          "label": "缺失数据策略",
+          "description": "遇到缺失模态或表型时采用的处理策略。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "样本与完整性",
+          "unit": "",
+          "required": true,
+          "default": "report",
+          "options": [
+            {
+              "value": "report",
+              "label": "报告并继续",
+              "description": ""
+            },
+            {
+              "value": "exclude",
+              "label": "排除不完整样本",
+              "description": ""
+            },
+            {
+              "value": "stop",
+              "label": "停止并等待处理",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "subject_filter",
+          "argument": "subject-filter",
+          "label": "受试者筛选表达式",
+          "description": "可选的受试者、诊断或队列筛选条件；留空表示不额外筛选。",
+          "type": "string",
+          "control": "text",
+          "level": "advanced",
+          "group": "样本与完整性",
+          "unit": "",
+          "required": false,
+          "default": "",
+          "options": [],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "例如：group == 'control'",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "verify_checksums",
+          "argument": "verify-checksums",
+          "label": "校验文件完整性",
+          "description": "在方案中加入校验和或文件完整性检查。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "验证与资源",
+          "unit": "",
+          "required": true,
+          "default": false,
+          "options": [
+            {
+              "value": true,
+              "label": "校验",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不校验",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "parallel_jobs",
+          "argument": "parallel-jobs",
+          "label": "并行任务数",
+          "description": "规划批量处理时允许的最大并行任务数。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "验证与资源",
+          "unit": "",
+          "required": true,
+          "default": 1,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 128.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "dataset_folder",
+          "label": "输入数据集",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "folder",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/ukb-skill/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/ukb-skill/scripts/build_ukb_survival.py",
+          "label": "build_ukb_survival.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/ukb-skill/scripts/extract_ukb_cases.py",
+          "label": "extract_ukb_cases.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/ukb-skill/scripts/extract_ukb_phenotype.py",
+          "label": "extract_ukb_phenotype.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/ukb-skill/scripts/ukb_qc_summary.py",
+          "label": "ukb_qc_summary.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "needs_protocol",
+        "reason": "该研究问题需先确定分组、交互/中介模型或敏感性过滤规则；原文没有固定可执行的完整分析契约。",
+        "source_method_id": "ukb-skill-guided--sensitivity-analysis",
+        "requirements": [
+          "明确统计模型、协变量、分组/过滤与报告指标"
+        ]
+      }
+    }
+  ],
+  "selection_rules": [
+    "疾病病例提取先确定疾病或 ICD 定义；生存数据构造再明确基线列和截止日期，不能沿用无关研究的默认日期。"
+  ],
+  "name": "ukb-skill",
+  "category": [
+    "数据集专属",
+    "数据集适配与质控"
+  ],
+  "scope": "dataset",
+  "limitations": [
+    "UKB 导出字段映射、疾病来源和随访日期随研究而变，不能由影像文件名推断这些分析定义。"
+  ],
+  "keywords": [
+    "ukb-skill"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

@@ -1,0 +1,3450 @@
+{
+  "schema_version": 1,
+  "architecture": "skill-method-pipeline",
+  "generated_from": "scripts/build_capability_tree.py",
+  "root": {
+    "id": "localflow-capabilities",
+    "label": "NeuroWeave 功能与执行资源",
+    "description": "按处理目标导航。Skill 提供统筹指导，Method 是最小执行单位，Pipeline 保存可复用连接；树外的原生方法也参与全库检索。",
+    "entity_kind": "function",
+    "execution_level": "category",
+    "children": [
+      {
+        "id": "function.datasets",
+        "label": "数据集专属",
+        "description": "Dataset-specific",
+        "execution_level": "category",
+        "entity_kind": "function",
+        "children": [
+          {
+            "id": "function.datasets.cohorts",
+            "label": "数据集适配与质控",
+            "description": "Dataset adapters and quality control",
+            "execution_level": "category",
+            "entity_kind": "function",
+            "children": [
+              {
+                "id": "skill.abcd-skill",
+                "label": "abcd-skill",
+                "description": "ABCD 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：abcd 质控汇总；abcd 表型/刺激提取；abcd 复制整理为 BIDS 目录。",
+                "keywords": [
+                  "abcd-skill",
+                  "BIDS"
+                ],
+                "skill_ids": [
+                  "abcd-skill"
+                ],
+                "method_ids": [
+                  "reviewed.abcd-skill.abcd-qc-summary",
+                  "reviewed.abcd-skill.extract-abcd-phenotype",
+                  "reviewed.abcd-skill.reorganize-abcd"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.abide-skill",
+                "label": "abide-skill",
+                "description": "ABIDE 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：abide 质控汇总；abide 表型/刺激提取；abide 复制整理为 BIDS 目录。",
+                "keywords": [
+                  "abide-skill",
+                  "BIDS"
+                ],
+                "skill_ids": [
+                  "abide-skill"
+                ],
+                "method_ids": [
+                  "reviewed.abide-skill.abide-qc-summary",
+                  "reviewed.abide-skill.extract-abide-phenotype",
+                  "reviewed.abide-skill.reorganize-abide"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.adhd200-skill",
+                "label": "adhd200-skill",
+                "description": "ADHD200 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：adhd200 质控汇总；adhd200 表型/刺激提取；adhd200 复制整理为 BIDS 目录。",
+                "keywords": [
+                  "adhd200-skill",
+                  "BIDS"
+                ],
+                "skill_ids": [
+                  "adhd200-skill"
+                ],
+                "method_ids": [
+                  "reviewed.adhd200-skill.adhd200-qc-summary",
+                  "reviewed.adhd200-skill.extract-adhd200-phenotype",
+                  "reviewed.adhd200-skill.reorganize-adhd200"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.adni-skill",
+                "label": "adni-skill",
+                "description": "ADNI 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：数据集巡检；dcm2niix 实际转换。",
+                "keywords": [
+                  "adni-skill"
+                ],
+                "skill_ids": [
+                  "adni-skill"
+                ],
+                "method_ids": [
+                  "dataset.inspect",
+                  "dcm2niix.convert"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.aibl-skill",
+                "label": "aibl-skill",
+                "description": "AIBL 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：aibl 质控汇总；aibl 表型/刺激提取；aibl 复制整理为 BIDS 目录。",
+                "keywords": [
+                  "aibl-skill",
+                  "BIDS"
+                ],
+                "skill_ids": [
+                  "aibl-skill"
+                ],
+                "method_ids": [
+                  "reviewed.aibl-skill.aibl-qc-summary",
+                  "reviewed.aibl-skill.extract-aibl-phenotype",
+                  "reviewed.aibl-skill.reorganize-aibl"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.aomic-skill",
+                "label": "aomic-skill",
+                "description": "AOMIC 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：aomic 质控汇总；aomic 表型/刺激提取；aomic 复制整理为 BIDS 目录。",
+                "keywords": [
+                  "aomic-skill",
+                  "BIDS"
+                ],
+                "skill_ids": [
+                  "aomic-skill"
+                ],
+                "method_ids": [
+                  "reviewed.aomic-skill.aomic-qc-summary",
+                  "reviewed.aomic-skill.extract-aomic-phenotype",
+                  "reviewed.aomic-skill.reorganize-aomic"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.bold5000-skill",
+                "label": "bold5000-skill",
+                "description": "BOLD5000 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：bold5000 质控汇总；bold5000 表型/刺激提取；bold5000 复制整理为 BIDS 目录。",
+                "keywords": [
+                  "bold5000-skill",
+                  "BIDS"
+                ],
+                "skill_ids": [
+                  "bold5000-skill"
+                ],
+                "method_ids": [
+                  "reviewed.bold5000-skill.bold5000-qc-summary",
+                  "reviewed.bold5000-skill.extract-bold5000-stimulus",
+                  "reviewed.bold5000-skill.reorganize-bold5000"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.camcan-skill",
+                "label": "camcan-skill",
+                "description": "CAMCAN 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：camcan 质控汇总；camcan 表型/刺激提取；camcan 数据校验；FSL 完整结构预处理（fsl_anat）；fMRIPrep 本地环境执行；混杂回归与去趋势；ROI 时间序列与功能连接；任务态一级 GLM；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "camcan-skill",
+                  "FSL"
+                ],
+                "skill_ids": [
+                  "camcan-skill"
+                ],
+                "method_ids": [
+                  "fmriprep.run",
+                  "reviewed.camcan-skill.camcan-qc-summary",
+                  "reviewed.camcan-skill.extract-camcan-phenotype",
+                  "reviewed.camcan-skill.validate-camcan",
+                  "reviewed.fsl-tool.fsl-anat",
+                  "reviewed.meg-skill.evoked-existing",
+                  "reviewed.mne-eeg-tool.autoreject",
+                  "reviewed.mne-eeg-tool.connectivity",
+                  "reviewed.mne-eeg-tool.epoch",
+                  "reviewed.mne-eeg-tool.filter",
+                  "reviewed.mne-eeg-tool.ica",
+                  "reviewed.mne-eeg-tool.inspect",
+                  "reviewed.mne-eeg-tool.maxwell",
+                  "reviewed.mne-eeg-tool.source",
+                  "reviewed.mne-eeg-tool.time-frequency",
+                  "reviewed.nilearn-tool.connectome",
+                  "reviewed.nilearn-tool.denoise",
+                  "reviewed.nilearn-tool.task-glm"
+                ],
+                "pipeline_ids": [
+                  "reviewed-freesurfer-recon-all-all-9ffa727fda"
+                ],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.cobre-skill",
+                "label": "cobre-skill",
+                "description": "COBRE 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：cobre 质控汇总；cobre 表型/刺激提取；cobre 复制整理为 BIDS 目录。",
+                "keywords": [
+                  "cobre-skill",
+                  "BIDS"
+                ],
+                "skill_ids": [
+                  "cobre-skill"
+                ],
+                "method_ids": [
+                  "reviewed.cobre-skill.cobre-qc-summary",
+                  "reviewed.cobre-skill.extract-cobre-phenotype",
+                  "reviewed.cobre-skill.reorganize-cobre"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.dmt-har-med-skill",
+                "label": "dmt-har-med-skill",
+                "description": "DMT-HAR-MED 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：dmt-har-med 质控汇总；dmt-har-med 表型/刺激提取；dmt-har-med 复制整理为 BIDS 目录。",
+                "keywords": [
+                  "dmt-har-med-skill",
+                  "BIDS"
+                ],
+                "skill_ids": [
+                  "dmt-har-med-skill"
+                ],
+                "method_ids": [
+                  "reviewed.dmt-har-med-skill.dmt-har-med-qc-summary",
+                  "reviewed.dmt-har-med-skill.extract-dmt-har-med-phenotype",
+                  "reviewed.dmt-har-med-skill.reorganize-dmt-har-med"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.hbn-skill",
+                "label": "hbn-skill",
+                "description": "HBN 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：hbn 表型/刺激提取；hbn 质控汇总；hbn 复制整理为 BIDS 目录。",
+                "keywords": [
+                  "hbn-skill",
+                  "BIDS"
+                ],
+                "skill_ids": [
+                  "hbn-skill"
+                ],
+                "method_ids": [
+                  "reviewed.hbn-skill.extract-hbn-phenotype",
+                  "reviewed.hbn-skill.hbn-qc-summary",
+                  "reviewed.hbn-skill.reorganize-hbn"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.hcpa-skill",
+                "label": "hcpa-skill",
+                "description": "HCPA 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：hcpa 表型/刺激提取；hcpa 质控汇总；hcpa 复制整理为 BIDS 目录；FSL 完整结构预处理（fsl_anat）；fMRIPrep 本地环境执行；混杂回归与去趋势；ROI 时间序列与功能连接；任务态一级 GLM；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "hcpa-skill",
+                  "BIDS",
+                  "FSL"
+                ],
+                "skill_ids": [
+                  "hcpa-skill"
+                ],
+                "method_ids": [
+                  "asl.compute_cbf",
+                  "dipy.tensor_fit",
+                  "fmriprep.run",
+                  "fsl.eddy",
+                  "reviewed.fsl-tool.fsl-anat",
+                  "reviewed.hcpa-skill.extract-hcpa-phenotype",
+                  "reviewed.hcpa-skill.hcpa-qc-summary",
+                  "reviewed.hcpa-skill.reorganize-hcpa",
+                  "reviewed.nilearn-tool.connectome",
+                  "reviewed.nilearn-tool.denoise",
+                  "reviewed.nilearn-tool.task-glm"
+                ],
+                "pipeline_ids": [
+                  "reviewed-existing-fod-connectome-abbfdbddaf",
+                  "reviewed-freesurfer-recon-all-all-9ffa727fda",
+                  "reviewed-rebuild-fod-connectome-4aa083106a"
+                ],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.hcpd-skill",
+                "label": "hcpd-skill",
+                "description": "HCPD 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：hcpd 表型/刺激提取；hcpd 质控汇总；hcpd 复制整理为 BIDS 目录；FSL 完整结构预处理（fsl_anat）；fMRIPrep 本地环境执行；混杂回归与去趋势；ROI 时间序列与功能连接；任务态一级 GLM；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "hcpd-skill",
+                  "BIDS",
+                  "FSL"
+                ],
+                "skill_ids": [
+                  "hcpd-skill"
+                ],
+                "method_ids": [
+                  "dipy.tensor_fit",
+                  "fmriprep.run",
+                  "fsl.eddy",
+                  "reviewed.fsl-tool.fsl-anat",
+                  "reviewed.hcpd-skill.extract-hcpd-phenotype",
+                  "reviewed.hcpd-skill.hcpd-qc-summary",
+                  "reviewed.hcpd-skill.reorganize-hcpd",
+                  "reviewed.nilearn-tool.connectome",
+                  "reviewed.nilearn-tool.denoise",
+                  "reviewed.nilearn-tool.task-glm"
+                ],
+                "pipeline_ids": [
+                  "reviewed-existing-fod-connectome-abbfdbddaf",
+                  "reviewed-freesurfer-recon-all-all-9ffa727fda",
+                  "reviewed-rebuild-fod-connectome-4aa083106a"
+                ],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.hcpep-skill",
+                "label": "hcpep-skill",
+                "description": "HCPEP 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：hcpep 表型/刺激提取；hcpep 质控汇总；hcpep 复制整理为 BIDS 目录；FSL 完整结构预处理（fsl_anat）；fMRIPrep 本地环境执行；混杂回归与去趋势；ROI 时间序列与功能连接；任务态一级 GLM；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "hcpep-skill",
+                  "BIDS",
+                  "FSL"
+                ],
+                "skill_ids": [
+                  "hcpep-skill"
+                ],
+                "method_ids": [
+                  "dipy.tensor_fit",
+                  "fmriprep.run",
+                  "fsl.eddy",
+                  "reviewed.fsl-tool.fsl-anat",
+                  "reviewed.hcpep-skill.extract-hcpep-phenotype",
+                  "reviewed.hcpep-skill.hcpep-qc-summary",
+                  "reviewed.hcpep-skill.reorganize-hcpep",
+                  "reviewed.nilearn-tool.connectome",
+                  "reviewed.nilearn-tool.denoise",
+                  "reviewed.nilearn-tool.task-glm"
+                ],
+                "pipeline_ids": [
+                  "reviewed-existing-fod-connectome-abbfdbddaf",
+                  "reviewed-freesurfer-recon-all-all-9ffa727fda",
+                  "reviewed-rebuild-fod-connectome-4aa083106a"
+                ],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.hcpya-skill",
+                "label": "hcpya-skill",
+                "description": "HCPYA 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：hcpya 表型/刺激提取；hcpya 质控汇总；hcpya 复制整理为 BIDS 目录；FSL 完整结构预处理（fsl_anat）；fMRIPrep 本地环境执行；混杂回归与去趋势；ROI 时间序列与功能连接；任务态一级 GLM；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "hcpya-skill",
+                  "BIDS",
+                  "FSL"
+                ],
+                "skill_ids": [
+                  "hcpya-skill"
+                ],
+                "method_ids": [
+                  "dipy.tensor_fit",
+                  "fmriprep.run",
+                  "fsl.eddy",
+                  "reviewed.fsl-tool.fsl-anat",
+                  "reviewed.hcpya-skill.extract-hcpya-phenotype",
+                  "reviewed.hcpya-skill.hcpya-qc-summary",
+                  "reviewed.hcpya-skill.reorganize-hcpya",
+                  "reviewed.nilearn-tool.connectome",
+                  "reviewed.nilearn-tool.denoise",
+                  "reviewed.nilearn-tool.task-glm"
+                ],
+                "pipeline_ids": [
+                  "reviewed-existing-fod-connectome-abbfdbddaf",
+                  "reviewed-freesurfer-recon-all-all-9ffa727fda",
+                  "reviewed-rebuild-fod-connectome-4aa083106a"
+                ],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.ixi-skill",
+                "label": "ixi-skill",
+                "description": "IXI 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：ixi 质控汇总；ixi 复制整理为 BIDS 目录；FSL 完整结构预处理（fsl_anat）；FreeSurfer recon-all（可执行）。",
+                "keywords": [
+                  "ixi-skill",
+                  "BIDS",
+                  "FSL"
+                ],
+                "skill_ids": [
+                  "ixi-skill"
+                ],
+                "method_ids": [
+                  "reviewed.fsl-tool.fsl-anat",
+                  "reviewed.ixi-skill.ixi-qc-summary",
+                  "reviewed.ixi-skill.reorganize-ixi"
+                ],
+                "pipeline_ids": [
+                  "reviewed-freesurfer-recon-all-all-9ffa727fda"
+                ],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.mnd-skill",
+                "label": "mnd-skill",
+                "description": "MND 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：mnd 表型/刺激提取；mnd 质控汇总；mnd 数据校验；FSL 完整结构预处理（fsl_anat）；fMRIPrep 本地环境执行；混杂回归与去趋势；ROI 时间序列与功能连接；任务态一级 GLM；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "mnd-skill",
+                  "FSL"
+                ],
+                "skill_ids": [
+                  "mnd-skill"
+                ],
+                "method_ids": [
+                  "fmriprep.run",
+                  "reviewed.fsl-tool.fsl-anat",
+                  "reviewed.mnd-skill.extract-mnd-phenotype",
+                  "reviewed.mnd-skill.mnd-qc-summary",
+                  "reviewed.mnd-skill.validate-mnd",
+                  "reviewed.nilearn-tool.connectome",
+                  "reviewed.nilearn-tool.denoise",
+                  "reviewed.nilearn-tool.task-glm"
+                ],
+                "pipeline_ids": [
+                  "reviewed-freesurfer-recon-all-all-9ffa727fda"
+                ],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.mschallenge-skill",
+                "label": "mschallenge-skill",
+                "description": "MSCHALLENGE 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：病灶负荷统计；纵向病灶变化；mschallenge 质控汇总；mschallenge 数据校验；FSL 完整结构预处理（fsl_anat）；FreeSurfer recon-all（可执行）。",
+                "keywords": [
+                  "mschallenge-skill"
+                ],
+                "skill_ids": [
+                  "mschallenge-skill"
+                ],
+                "method_ids": [
+                  "reviewed.fsl-tool.fsl-anat",
+                  "reviewed.mschallenge-skill.analyze-lesions",
+                  "reviewed.mschallenge-skill.longitudinal-lesion",
+                  "reviewed.mschallenge-skill.mschallenge-qc-summary",
+                  "reviewed.mschallenge-skill.validate-mschallenge"
+                ],
+                "pipeline_ids": [
+                  "reviewed-freesurfer-recon-all-all-9ffa727fda"
+                ],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.nifd-skill",
+                "label": "nifd-skill",
+                "description": "NIFD 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：nifd 表型/刺激提取；nifd 质控汇总；nifd 数据校验；FSL 完整结构预处理（fsl_anat）；fMRIPrep 本地环境执行；混杂回归与去趋势；ROI 时间序列与功能连接；任务态一级 GLM；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "nifd-skill",
+                  "FSL"
+                ],
+                "skill_ids": [
+                  "nifd-skill"
+                ],
+                "method_ids": [
+                  "dipy.tensor_fit",
+                  "fmriprep.run",
+                  "fsl.eddy",
+                  "reviewed.fsl-tool.fsl-anat",
+                  "reviewed.nifd-skill.extract-nifd-phenotype",
+                  "reviewed.nifd-skill.nifd-qc-summary",
+                  "reviewed.nifd-skill.validate-nifd",
+                  "reviewed.nilearn-tool.connectome",
+                  "reviewed.nilearn-tool.denoise",
+                  "reviewed.nilearn-tool.task-glm"
+                ],
+                "pipeline_ids": [
+                  "reviewed-existing-fod-connectome-abbfdbddaf",
+                  "reviewed-freesurfer-recon-all-all-9ffa727fda",
+                  "reviewed-rebuild-fod-connectome-4aa083106a"
+                ],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.nsd-skill",
+                "label": "nsd-skill",
+                "description": "NSD 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：nsd 表型/刺激提取；nsd 质控汇总；nsd 数据校验；FSL 完整结构预处理（fsl_anat）；fMRIPrep 本地环境执行；混杂回归与去趋势；ROI 时间序列与功能连接；任务态一级 GLM；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "nsd-skill",
+                  "FSL"
+                ],
+                "skill_ids": [
+                  "nsd-skill"
+                ],
+                "method_ids": [
+                  "fmriprep.run",
+                  "reviewed.fsl-tool.fsl-anat",
+                  "reviewed.nilearn-tool.connectome",
+                  "reviewed.nilearn-tool.denoise",
+                  "reviewed.nilearn-tool.task-glm",
+                  "reviewed.nsd-skill.extract-nsd-stimulus",
+                  "reviewed.nsd-skill.nsd-qc-summary",
+                  "reviewed.nsd-skill.validate-nsd"
+                ],
+                "pipeline_ids": [
+                  "reviewed-freesurfer-recon-all-all-9ffa727fda"
+                ],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.oasis-skill",
+                "label": "oasis-skill",
+                "description": "OASIS 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：oasis 表型/刺激提取；oasis 质控汇总；oasis 数据校验；FSL 完整结构预处理（fsl_anat）；FreeSurfer recon-all（可执行）。",
+                "keywords": [
+                  "oasis-skill",
+                  "FSL"
+                ],
+                "skill_ids": [
+                  "oasis-skill"
+                ],
+                "method_ids": [
+                  "reviewed.fsl-tool.fsl-anat",
+                  "reviewed.oasis-skill.extract-oasis-phenotype",
+                  "reviewed.oasis-skill.oasis-qc-summary",
+                  "reviewed.oasis-skill.validate-oasis"
+                ],
+                "pipeline_ids": [
+                  "reviewed-freesurfer-recon-all-all-9ffa727fda"
+                ],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.pnc-skill",
+                "label": "pnc-skill",
+                "description": "PNC 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：pnc 表型/刺激提取；pnc 质控汇总；pnc 数据校验；FSL 完整结构预处理（fsl_anat）；fMRIPrep 本地环境执行；混杂回归与去趋势；ROI 时间序列与功能连接；任务态一级 GLM；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "pnc-skill",
+                  "FSL"
+                ],
+                "skill_ids": [
+                  "pnc-skill"
+                ],
+                "method_ids": [
+                  "dipy.tensor_fit",
+                  "fmriprep.run",
+                  "fsl.eddy",
+                  "reviewed.fsl-tool.fsl-anat",
+                  "reviewed.nilearn-tool.connectome",
+                  "reviewed.nilearn-tool.denoise",
+                  "reviewed.nilearn-tool.task-glm",
+                  "reviewed.pnc-skill.extract-pnc-phenotype",
+                  "reviewed.pnc-skill.pnc-qc-summary",
+                  "reviewed.pnc-skill.validate-pnc"
+                ],
+                "pipeline_ids": [
+                  "reviewed-existing-fod-connectome-abbfdbddaf",
+                  "reviewed-freesurfer-recon-all-all-9ffa727fda",
+                  "reviewed-rebuild-fod-connectome-4aa083106a"
+                ],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.ppmi-skill",
+                "label": "ppmi-skill",
+                "description": "PPMI 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：ppmi 表型/刺激提取；ppmi 质控汇总；ppmi 数据校验；FSL 完整结构预处理（fsl_anat）；fMRIPrep 本地环境执行；混杂回归与去趋势；ROI 时间序列与功能连接；任务态一级 GLM；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "ppmi-skill",
+                  "FSL"
+                ],
+                "skill_ids": [
+                  "ppmi-skill"
+                ],
+                "method_ids": [
+                  "dipy.tensor_fit",
+                  "fmriprep.run",
+                  "fsl.eddy",
+                  "reviewed.fsl-tool.fsl-anat",
+                  "reviewed.nilearn-tool.connectome",
+                  "reviewed.nilearn-tool.denoise",
+                  "reviewed.nilearn-tool.task-glm",
+                  "reviewed.ppmi-skill.extract-ppmi-phenotype",
+                  "reviewed.ppmi-skill.ppmi-qc-summary",
+                  "reviewed.ppmi-skill.validate-ppmi"
+                ],
+                "pipeline_ids": [
+                  "reviewed-existing-fod-connectome-abbfdbddaf",
+                  "reviewed-freesurfer-recon-all-all-9ffa727fda",
+                  "reviewed-rebuild-fod-connectome-4aa083106a"
+                ],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.rest-mneta-mdd-skill",
+                "label": "rest-mneta-mdd-skill",
+                "description": "REST-MNETA-MDD 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：站点协变量校正；rest-mneta-mdd 表型/刺激提取；rest-mneta-mdd 质控汇总；rest-mneta-mdd 数据校验；fMRIPrep 本地环境执行；混杂回归与去趋势；ROI 时间序列与功能连接；任务态一级 GLM；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "rest-mneta-mdd-skill"
+                ],
+                "skill_ids": [
+                  "rest-mneta-mdd-skill"
+                ],
+                "method_ids": [
+                  "fmriprep.run",
+                  "reviewed.harmonization-tool.combat",
+                  "reviewed.harmonization-tool.combat-gam",
+                  "reviewed.harmonization-tool.covbat",
+                  "reviewed.harmonization-tool.none",
+                  "reviewed.harmonization-tool.site-covar",
+                  "reviewed.nilearn-tool.connectome",
+                  "reviewed.nilearn-tool.denoise",
+                  "reviewed.nilearn-tool.task-glm",
+                  "reviewed.rest-mneta-mdd-skill.extract-rest-mdd-phenotype",
+                  "reviewed.rest-mneta-mdd-skill.rest-mdd-qc-summary",
+                  "reviewed.rest-mneta-mdd-skill.validate-rest-mdd"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.seed-iv-skill",
+                "label": "seed-iv-skill",
+                "description": "SEED-IV 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：SEED 频带特征提取；SEED 按受试者留一交叉验证；seed-iv 数据校验；EEG/MEG 数据检查；MNE LOF 坏导联检测与插值；EEG/MEG 滤波与降采样；MNE ICA 分解与指定成分去除；重参考与分段；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "seed-iv-skill",
+                  "SEED",
+                  "EEG",
+                  "MEG"
+                ],
+                "skill_ids": [
+                  "seed-iv-skill"
+                ],
+                "method_ids": [
+                  "reviewed.mne-eeg-tool.autoreject",
+                  "reviewed.mne-eeg-tool.bad-channels",
+                  "reviewed.mne-eeg-tool.connectivity",
+                  "reviewed.mne-eeg-tool.epoch",
+                  "reviewed.mne-eeg-tool.filter",
+                  "reviewed.mne-eeg-tool.ica",
+                  "reviewed.mne-eeg-tool.inspect",
+                  "reviewed.mne-eeg-tool.maxwell",
+                  "reviewed.mne-eeg-tool.source",
+                  "reviewed.mne-eeg-tool.time-frequency",
+                  "reviewed.seed-iv-skill.classify",
+                  "reviewed.seed-iv-skill.features",
+                  "reviewed.seed-iv-skill.validate-seed-iv"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.seed-vig-skill",
+                "label": "seed-vig-skill",
+                "description": "SEED-VIG 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：SEED 频带特征提取；SEED 按受试者留一交叉验证；seed-vig 数据校验；EEG/MEG 数据检查；MNE LOF 坏导联检测与插值；EEG/MEG 滤波与降采样；MNE ICA 分解与指定成分去除；重参考与分段；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "seed-vig-skill",
+                  "SEED",
+                  "EEG",
+                  "MEG"
+                ],
+                "skill_ids": [
+                  "seed-vig-skill"
+                ],
+                "method_ids": [
+                  "reviewed.mne-eeg-tool.autoreject",
+                  "reviewed.mne-eeg-tool.bad-channels",
+                  "reviewed.mne-eeg-tool.connectivity",
+                  "reviewed.mne-eeg-tool.epoch",
+                  "reviewed.mne-eeg-tool.filter",
+                  "reviewed.mne-eeg-tool.ica",
+                  "reviewed.mne-eeg-tool.inspect",
+                  "reviewed.mne-eeg-tool.maxwell",
+                  "reviewed.mne-eeg-tool.source",
+                  "reviewed.mne-eeg-tool.time-frequency",
+                  "reviewed.seed-vig-skill.classify",
+                  "reviewed.seed-vig-skill.features",
+                  "reviewed.seed-vig-skill.validate-seed-vig"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.tcp-skill",
+                "label": "tcp-skill",
+                "description": "TCP 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：tcp 表型/刺激提取；tcp 质控汇总；tcp 数据校验；FSL 完整结构预处理（fsl_anat）；fMRIPrep 本地环境执行；混杂回归与去趋势；ROI 时间序列与功能连接；任务态一级 GLM；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "tcp-skill",
+                  "FSL"
+                ],
+                "skill_ids": [
+                  "tcp-skill"
+                ],
+                "method_ids": [
+                  "dipy.tensor_fit",
+                  "fmriprep.run",
+                  "fsl.eddy",
+                  "reviewed.fsl-tool.fsl-anat",
+                  "reviewed.nilearn-tool.connectome",
+                  "reviewed.nilearn-tool.denoise",
+                  "reviewed.nilearn-tool.task-glm",
+                  "reviewed.tcp-skill.extract-tcp-phenotype",
+                  "reviewed.tcp-skill.tcp-qc-summary",
+                  "reviewed.tcp-skill.validate-tcp"
+                ],
+                "pipeline_ids": [
+                  "reviewed-existing-fod-connectome-abbfdbddaf",
+                  "reviewed-freesurfer-recon-all-all-9ffa727fda",
+                  "reviewed-rebuild-fod-connectome-4aa083106a"
+                ],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.ucla-cnp-skill",
+                "label": "ucla-cnp-skill",
+                "description": "UCLA-CNP 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：ucla-cnp 表型/刺激提取；ucla-cnp 质控汇总；ucla-cnp 数据校验；FSL 完整结构预处理（fsl_anat）；fMRIPrep 本地环境执行；混杂回归与去趋势；ROI 时间序列与功能连接；任务态一级 GLM；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "ucla-cnp-skill",
+                  "FSL"
+                ],
+                "skill_ids": [
+                  "ucla-cnp-skill"
+                ],
+                "method_ids": [
+                  "dipy.tensor_fit",
+                  "fmriprep.run",
+                  "fsl.eddy",
+                  "reviewed.fsl-tool.fsl-anat",
+                  "reviewed.nilearn-tool.connectome",
+                  "reviewed.nilearn-tool.denoise",
+                  "reviewed.nilearn-tool.task-glm",
+                  "reviewed.ucla-cnp-skill.extract-ucla-cnp-phenotype",
+                  "reviewed.ucla-cnp-skill.ucla-cnp-qc-summary",
+                  "reviewed.ucla-cnp-skill.validate-ucla-cnp"
+                ],
+                "pipeline_ids": [
+                  "reviewed-existing-fod-connectome-abbfdbddaf",
+                  "reviewed-freesurfer-recon-all-all-9ffa727fda",
+                  "reviewed-rebuild-fod-connectome-4aa083106a"
+                ],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              },
+              {
+                "id": "skill.ukb-skill",
+                "label": "ukb-skill",
+                "description": "UKB 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：UKB 生存分析数据表；ukb 表型/刺激提取；ukb 质控汇总；生存模型（scientific）；生存模型（torch）；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "ukb-skill"
+                ],
+                "skill_ids": [
+                  "ukb-skill"
+                ],
+                "method_ids": [
+                  "reviewed.causal-treatment-models.cate",
+                  "reviewed.neuroimaging-decoding.roi-glm",
+                  "reviewed.statistical-ml.classification",
+                  "reviewed.statistical-ml.regression",
+                  "reviewed.survival-models.survival-scientific",
+                  "reviewed.survival-models.survival-torch",
+                  "reviewed.ukb-skill.extract-ukb-cases",
+                  "reviewed.ukb-skill.extract-ukb-phenotype",
+                  "reviewed.ukb-skill.survival-dataset",
+                  "reviewed.ukb-skill.ukb-qc-summary"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "datasets",
+                  "cohorts"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "function.data",
+        "label": "数据准备",
+        "description": "Data preparation",
+        "execution_level": "category",
+        "entity_kind": "function",
+        "children": [
+          {
+            "id": "function.data.conversion",
+            "label": "格式转换",
+            "description": "Format conversion",
+            "execution_level": "category",
+            "entity_kind": "function",
+            "children": [
+              {
+                "id": "skill.dcm2nii",
+                "label": "dcm2nii",
+                "description": "统筹 dcm2niix 的 DICOM 到 NIfTI 转换。独立 Method 提供完整参数配置；三个 Pipeline 分别固定 GZip 压缩、GZip 压缩与 JSON sidecar、GZip 压缩与 sidecar 匿名化。单序列或多维序列的识别由同一个 dcm2niix 方法完成，不作为重复 Pipeline 单独登记。",
+                "keywords": [
+                  "dcm2nii",
+                  "DICOM",
+                  "NIfTI",
+                  "格式转换"
+                ],
+                "skill_ids": [
+                  "dcm2nii"
+                ],
+                "method_ids": [
+                  "dcm2niix.convert"
+                ],
+                "pipeline_ids": [
+                  "reviewed-dcm2niix-convert-y-aaf8accb64",
+                  "reviewed-dcm2niix-convert-y-true-4ca43bff7b",
+                  "reviewed-dcm2niix-convert-y-true-989e0368fb"
+                ],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "data",
+                  "conversion"
+                ]
+              },
+              {
+                "id": "skill.nii2dcm",
+                "label": "nii2dcm",
+                "description": "nii2dcm 统筹已登记的独立方法和可复用流程。支持：nii2dcm 实际转换。",
+                "keywords": [
+                  "nii2dcm",
+                  "NIfTI",
+                  "DICOM",
+                  "格式转换"
+                ],
+                "skill_ids": [
+                  "nii2dcm"
+                ],
+                "method_ids": [
+                  "nii2dcm.convert"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "data",
+                  "conversion"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "function.data.organization",
+            "label": "数据组织与检查",
+            "description": "Organization and inspection",
+            "execution_level": "category",
+            "entity_kind": "function",
+            "children": [
+              {
+                "id": "dwi.bids",
+                "label": "BIDS Organizer",
+                "description": "把已有 NIfTI/BIDS 数据复制到隔离输出目录，补齐 dataset_description.json、清理敏感 sidecar 字段并执行基础结构校验。DICOM 应先使用 dcm2niix 转换。",
+                "keywords": [
+                  "bids-organizer",
+                  "BIDS",
+                  "数据整理",
+                  "数据组织",
+                  "Organizer"
+                ],
+                "skill_ids": [
+                  "bids-organizer"
+                ],
+                "method_ids": [
+                  "bids.prepare"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "data",
+                  "organization"
+                ]
+              },
+              {
+                "id": "skill.bids-organizer",
+                "label": "bids-organizer",
+                "description": "bids-organizer 统筹已登记的独立方法和可复用流程。支持：BIDS Organizer；BIDS 元数据生成；按用户文件映射整理 BIDS（文件名检查）。",
+                "keywords": [
+                  "bids-organizer",
+                  "BIDS",
+                  "数据整理",
+                  "数据组织",
+                  "Organizer"
+                ],
+                "skill_ids": [
+                  "bids-organizer"
+                ],
+                "method_ids": [
+                  "bids.prepare",
+                  "reviewed.bids-organizer.explicit-metadata",
+                  "reviewed.bids-organizer.explicit-stage"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "data",
+                  "organization"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "function.data.guidance",
+            "label": "领域规划与指导",
+            "description": "Domain planning and guidance",
+            "execution_level": "category",
+            "entity_kind": "function",
+            "children": [
+              {
+                "id": "skill.academic-research-hub",
+                "label": "academic-research-hub",
+                "description": "academic-research-hub 的领域规划与方法选择指导。覆盖：Search arXiv；Search PubMed；Search Semantic Scholar；Download papers；Get citations；Generate bibliography；Save results。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "academic-research-hub"
+                ],
+                "skill_ids": [
+                  "academic-research-hub"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.braingnn",
+                "label": "braingnn",
+                "description": "braingnn 的领域规划与方法选择指导。覆盖：Braingnn 受约束方案。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "braingnn"
+                ],
+                "skill_ids": [
+                  "braingnn"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.claw-shell",
+                "label": "claw-shell",
+                "description": "claw-shell 的领域规划与方法选择指导。覆盖：Safe (direct run)；Environment setup；Long-running pipeline；Dangerous (requires confirmation)。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "claw-shell"
+                ],
+                "skill_ids": [
+                  "claw-shell"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.conda-env-manager",
+                "label": "conda-env-manager",
+                "description": "conda-env-manager 的领域规划与方法选择指导。覆盖：Create ML env with specific Python + CUDA；Export current env for reproducibility；Create env from yml file；List all environments；Clone env for testing / branching；Update packages safely；Remove unused env；Activate / switch env (guidance only)。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "conda-env-manager"
+                ],
+                "skill_ids": [
+                  "conda-env-manager"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.conn-tool",
+                "label": "conn-tool",
+                "description": "conn-tool 的领域规划与方法选择指导。覆盖：Project setup；ROI definition & extraction；Functional connectivity (ROI-to-ROI)；Seed-to-voxel connectivity；ICA network analysis；PPI / gPPI；Effective connectivity (DCM)；Full connectivity pipeline。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "conn-tool"
+                ],
+                "skill_ids": [
+                  "conn-tool"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.connectome-discovery",
+                "label": "connectome-discovery",
+                "description": "connectome-discovery 的领域规划与方法选择指导。覆盖：Connectome Discovery 受约束方案。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "connectome-discovery"
+                ],
+                "skill_ids": [
+                  "connectome-discovery"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.dependency-planner",
+                "label": "dependency-planner",
+                "description": "dependency-planner 的领域规划与方法选择指导。覆盖：Install PyTorch with correct CUDA；Git + pip install from source；Create isolated conda environment；System-level package (Linux/macOS)；CUDA Toolkit / cuDNN；Large/risky installs (FSL, ANTs, nnU-Net)。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "dependency-planner"
+                ],
+                "skill_ids": [
+                  "dependency-planner"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.docker-env-manager",
+                "label": "docker-env-manager",
+                "description": "docker-env-manager 的领域规划与方法选择指导。覆盖：Pull latest model image；Run GPU container with data mount；Docker Compose stack；Build custom Dockerfile；List containers / images；Safe cleanup of unused resources；Fix common permission issues；GPU check & NVIDIA Toolkit install。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "docker-env-manager"
+                ],
+                "skill_ids": [
+                  "docker-env-manager"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.experiment-controller",
+                "label": "experiment-controller",
+                "description": "experiment-controller 的领域规划与方法选择指导。覆盖：1. Read & Parse；2. Literature & GitHub Search；3. Proposal；4. User Discussion；5. Git Clone & Setup；6. Run Experiment；7. Record Results。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "experiment-controller"
+                ],
+                "skill_ids": [
+                  "experiment-controller"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.fm-app",
+                "label": "fm_app",
+                "description": "fm_app 的领域规划与方法选择指导。覆盖：Fm App 受约束方案。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "fm_app"
+                ],
+                "skill_ids": [
+                  "fm_app"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.git-essentials",
+                "label": "git-essentials",
+                "description": "git-essentials 的领域规划与方法选择指导。覆盖：Git Essentials 受约束方案。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "git-essentials"
+                ],
+                "skill_ids": [
+                  "git-essentials"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.git-workflows",
+                "label": "git-workflows",
+                "description": "git-workflows 的领域规划与方法选择指导。覆盖：Git Workflows 受约束方案。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "git-workflows"
+                ],
+                "skill_ids": [
+                  "git-workflows"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.harness-core",
+                "label": "harness-core",
+                "description": "harness-core 的领域规划与方法选择指导。覆盖：自验证；检查点管理；漂移检测；审计日志。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "harness-core"
+                ],
+                "skill_ids": [
+                  "harness-core"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.hcppipeline-tool",
+                "label": "hcppipeline-tool",
+                "description": "hcppipeline-tool 的领域规划与方法选择指导。覆盖：HCP Diffusion Pipeline；Structural preprocessing；Functional preprocessing；Diffusion preprocessing；Surface-based registration；Full HCP-style multimodal pipeline。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "hcppipeline-tool"
+                ],
+                "skill_ids": [
+                  "hcppipeline-tool"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.ibgnn",
+                "label": "ibgnn",
+                "description": "ibgnn 的领域规划与方法选择指导。覆盖：Ibgnn 受约束方案。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "ibgnn"
+                ],
+                "skill_ids": [
+                  "ibgnn"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.knowledge-graph-builder",
+                "label": "knowledge-graph-builder",
+                "description": "knowledge-graph-builder 的领域规划与方法选择指导。覆盖：Ingest atlas data (Phase 1)；Generate brain atlas TSV；Run single-disease extraction；Run full batch extraction；Resume from checkpoint；Start fresh (ignore checkpoint)；Verbose logging；Query graph stats；Batch generate hypotheses；Rank saved hypotheses；Find hypothesis paths；Bridge discovery。当前没有独立执行 Method，不能直接提交计算任",
+                "keywords": [
+                  "knowledge-graph-builder"
+                ],
+                "skill_ids": [
+                  "knowledge-graph-builder"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.lggnn",
+                "label": "lggnn",
+                "description": "lggnn 的领域规划与方法选择指导。覆盖：Lggnn 受约束方案。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "lggnn"
+                ],
+                "skill_ids": [
+                  "lggnn"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.method-design",
+                "label": "method-design",
+                "description": "method-design 的领域规划与方法选择指导。覆盖：1. Read & Parse；2a. Draft Alternatives (Tournament Mode)；2b. Lit Probe (Tournament Mode)；2c. Tournament (Tournament Mode)；2. Architecture Design；3. Formula Derivation；4. Pseudocode & Notes；5. Finalize。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "method-design"
+                ],
+                "skill_ids": [
+                  "method-design"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.multi-search-engine",
+                "label": "multi-search-engine",
+                "description": "multi-search-engine 的领域规划与方法选择指导。覆盖：多引擎通用检索；站点限定检索；时间范围检索；知识与计算查询。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "multi-search-engine"
+                ],
+                "skill_ids": [
+                  "multi-search-engine"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.neurostorm",
+                "label": "neurostorm",
+                "description": "neurostorm 的领域规划与方法选择指导。覆盖：Neurostorm 受约束方案。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "neurostorm"
+                ],
+                "skill_ids": [
+                  "neurostorm"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.overleaf-skill",
+                "label": "overleaf-skill",
+                "description": "overleaf-skill 的领域规划与方法选择指导。覆盖：List projects；Download project (ZIP)；Read file content；Write / Update file；Upload binary file；Create folder；Delete file/folder；Create new project；Rename / Archive project；Pull + diff + review。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "overleaf-skill"
+                ],
+                "skill_ids": [
+                  "overleaf-skill"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.paper-writing",
+                "label": "paper-writing",
+                "description": "paper-writing 的领域规划与方法选择指导。覆盖：1. Section Content Generation；2. Ethics Review；3. Iterative Optimization；4. Narrative Storytelling；5. De-AI Polishing；6. Logic & Continuity Review；7. Length Control；8. Reference Review & Repair；9. LaTeX Error Repair；10. Final Draft Generation。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "paper-writing"
+                ],
+                "skill_ids": [
+                  "paper-writing"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.research-idea",
+                "label": "research-idea",
+                "description": "research-idea 的领域规划与方法选择指导。覆盖：1. Search；2. Analysis；3. Draft；4. Discuss；5. Finalize。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "research-idea"
+                ],
+                "skill_ids": [
+                  "research-idea"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.skill-updater",
+                "label": "skill-updater",
+                "description": "skill-updater 的领域规划与方法选择指导。覆盖：收集成功经验；定位相关 Skill；生成更新差异；验证 Skill 更新。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "skill-updater"
+                ],
+                "skill_ids": [
+                  "skill-updater"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              },
+              {
+                "id": "skill.wmh-segmentation",
+                "label": "wmh-segmentation",
+                "description": "wmh-segmentation 的领域规划与方法选择指导。覆盖：Standard WMH segmentation；Already co-registered images；CPU-only fallback。当前没有独立执行 Method，不能直接提交计算任务。",
+                "keywords": [
+                  "wmh-segmentation",
+                  "WMH",
+                  "FLAIR",
+                  "白质高信号"
+                ],
+                "skill_ids": [
+                  "wmh-segmentation"
+                ],
+                "method_ids": [],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "planning",
+                "category_ids": [
+                  "data",
+                  "guidance"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "function.preprocessing",
+        "label": "预处理与校正",
+        "description": "Preprocessing and correction",
+        "execution_level": "category",
+        "entity_kind": "function",
+        "children": [
+          {
+            "id": "function.preprocessing.denoise",
+            "label": "去噪与伪影校正",
+            "description": "Denoising and artefact correction",
+            "execution_level": "category",
+            "entity_kind": "function",
+            "children": [
+              {
+                "id": "skill.detrending",
+                "label": "detrending",
+                "description": "detrending 统筹已登记的独立方法和可复用流程。支持：混杂回归与去趋势。",
+                "keywords": [
+                  "detrending"
+                ],
+                "skill_ids": [
+                  "detrending"
+                ],
+                "method_ids": [
+                  "reviewed.nilearn-tool.denoise"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "preprocessing",
+                  "denoise"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "function.preprocessing.correction",
+            "label": "信号与运动校正",
+            "description": "Signal and motion correction",
+            "execution_level": "category",
+            "entity_kind": "function",
+            "children": [
+              {
+                "id": "dwi.preprocess",
+                "label": "FSL topup / eddy",
+                "description": "使用 FSL eddy_cpu 或 eddy_cuda 完成涡流、运动与离群值校正；topup 输出可以按需接入。",
+                "keywords": [
+                  "fsl-tool",
+                  "hcppipeline-tool",
+                  "qsiprep-tool"
+                ],
+                "skill_ids": [
+                  "fsl-tool",
+                  "hcppipeline-tool",
+                  "qsiprep-tool"
+                ],
+                "method_ids": [
+                  "fsl.eddy",
+                  "qsiprep.run"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "preprocessing",
+                  "correction"
+                ]
+              },
+              {
+                "id": "skill.asl-skill",
+                "label": "asl-skill",
+                "description": "asl-skill 统筹已登记的独立方法和可复用流程。支持：ASL CBF 实际定量；FSL 应用形变；分区影像统计。",
+                "keywords": [
+                  "asl-skill",
+                  "ASL",
+                  "CBF",
+                  "脑灌注",
+                  "FSL"
+                ],
+                "skill_ids": [
+                  "asl-skill"
+                ],
+                "method_ids": [
+                  "asl.compute_cbf",
+                  "reviewed.dipy-tool.roi-stats",
+                  "reviewed.fsl-tool.applywarp"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "preprocessing",
+                  "correction"
+                ]
+              },
+              {
+                "id": "skill.filtering",
+                "label": "filtering",
+                "description": "filtering 统筹已登记的独立方法和可复用流程。支持：BOLD 平滑与时间滤波（保持原空间）。",
+                "keywords": [
+                  "filtering"
+                ],
+                "skill_ids": [
+                  "filtering"
+                ],
+                "method_ids": [
+                  "reviewed.nilearn-tool.preprocess"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "preprocessing",
+                  "correction"
+                ]
+              },
+              {
+                "id": "skill.fmri-skill",
+                "label": "fmri-skill",
+                "description": "fmri-skill 统筹已登记的独立方法和可复用流程。支持：ROI 时间序列与功能连接；任务态一级 GLM；组水平 GLM；FSL 运动校正；FSL 层间时间校正；按用户文件映射整理 BIDS（文件名检查）；fMRIPrep 本地环境执行；FSL FLIRT；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "fmri-skill",
+                  "fMRI",
+                  "功能磁共振",
+                  "功能连接",
+                  "GLM",
+                  "FSL"
+                ],
+                "skill_ids": [
+                  "fmri-skill"
+                ],
+                "method_ids": [
+                  "fmriprep.run",
+                  "reviewed.bids-organizer.explicit-stage",
+                  "reviewed.fsl-tool.mcflirt",
+                  "reviewed.fsl-tool.slicetimer",
+                  "reviewed.nilearn-tool.connectome",
+                  "reviewed.nilearn-tool.group-glm",
+                  "reviewed.nilearn-tool.task-glm"
+                ],
+                "pipeline_ids": [
+                  "reviewed-fsl_flirt-nearestneighbour-e55843f8cb",
+                  "reviewed-reviewed-applywarp-fsl-tool-nearest-056915b70c"
+                ],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "preprocessing",
+                  "correction"
+                ]
+              },
+              {
+                "id": "skill.fmriprep-tool",
+                "label": "fmriprep-tool",
+                "description": "fmriprep-tool 统筹已登记的独立方法和可复用流程。支持：fMRIPrep 本地环境执行。",
+                "keywords": [
+                  "fmriprep-tool",
+                  "fMRIPrep",
+                  "fMRI 预处理"
+                ],
+                "skill_ids": [
+                  "fmriprep-tool"
+                ],
+                "method_ids": [
+                  "fmriprep.run"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "preprocessing",
+                  "correction"
+                ]
+              },
+              {
+                "id": "skill.qsiprep-tool",
+                "label": "qsiprep-tool",
+                "description": "qsiprep-tool 统筹已登记的独立方法和可复用流程。支持：QSIPrep。",
+                "keywords": [
+                  "qsiprep-tool",
+                  "QSIPrep",
+                  "DWI 预处理",
+                  "topup",
+                  "eddy"
+                ],
+                "skill_ids": [
+                  "qsiprep-tool"
+                ],
+                "method_ids": [
+                  "qsiprep.run"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "preprocessing",
+                  "correction"
+                ]
+              },
+              {
+                "id": "skill.scan-skill",
+                "label": "scan-skill",
+                "description": "scan-skill 统筹已登记的独立方法和可复用流程。支持：按显式键连接已批准的表格；BIDS Organizer；数据集巡检；dcm2niix 实际转换；按用户文件映射整理 BIDS（文件名检查）；FSL 完整结构预处理（fsl_anat）；fMRIPrep 本地环境执行；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "scan-skill",
+                  "BIDS",
+                  "Organizer"
+                ],
+                "skill_ids": [
+                  "scan-skill"
+                ],
+                "method_ids": [
+                  "asl.compute_cbf",
+                  "bids.prepare",
+                  "dataset.inspect",
+                  "dcm2niix.convert",
+                  "dipy.tensor_fit",
+                  "fmriprep.run",
+                  "fsl.eddy",
+                  "pet.compute_suvr",
+                  "reviewed.bids-organizer.explicit-stage",
+                  "reviewed.fsl-tool.fsl-anat",
+                  "reviewed.nilearn-tool.connectome",
+                  "reviewed.nilearn-tool.denoise",
+                  "reviewed.nilearn-tool.task-glm",
+                  "reviewed.scan-skill.table-join"
+                ],
+                "pipeline_ids": [
+                  "reviewed-dataset_inspector-true-1b59568b53",
+                  "reviewed-existing-fod-connectome-abbfdbddaf",
+                  "reviewed-freesurfer-recon-all-all-9ffa727fda",
+                  "reviewed-rebuild-fod-connectome-4aa083106a"
+                ],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "preprocessing",
+                  "correction"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "function.registration",
+        "label": "配准与空间变换",
+        "description": "Registration and transforms",
+        "execution_level": "category",
+        "entity_kind": "function",
+        "children": [
+          {
+            "id": "function.registration.transforms",
+            "label": "应用与处理变换",
+            "description": "Transform operations",
+            "execution_level": "category",
+            "entity_kind": "function",
+            "children": [
+              {
+                "id": "image.registration",
+                "label": "FSL FLIRT",
+                "description": "复用现有 FSL Skill 完成刚体或仿射线性配准，并输出变换矩阵。",
+                "keywords": [
+                  "fsl-tool",
+                  "smri-skill"
+                ],
+                "skill_ids": [
+                  "fsl-tool",
+                  "smri-skill"
+                ],
+                "method_ids": [
+                  "ants.registration",
+                  "fsl.flirt"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "registration",
+                  "transforms"
+                ]
+              },
+              {
+                "id": "skill.pet-skill",
+                "label": "pet-skill",
+                "description": "pet-skill 统筹已登记的独立方法和可复用流程。支持：PET SUVR 实际定量；FSL 非线性配准；FSL 应用形变；PET → T1w 刚体配准。",
+                "keywords": [
+                  "pet-skill",
+                  "PET",
+                  "SUVR",
+                  "部分容积校正",
+                  "FSL"
+                ],
+                "skill_ids": [
+                  "pet-skill"
+                ],
+                "method_ids": [
+                  "pet.compute_suvr",
+                  "reviewed.fsl-tool.applywarp",
+                  "reviewed.fsl-tool.fnirt"
+                ],
+                "pipeline_ids": [
+                  "reviewed-fsl_flirt-rigid-071ac93b00"
+                ],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "registration",
+                  "transforms"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "function.segmentation",
+        "label": "分割与组织建模",
+        "description": "Segmentation and tissue modelling",
+        "execution_level": "category",
+        "entity_kind": "function",
+        "children": [
+          {
+            "id": "function.segmentation.tissue",
+            "label": "组织分割与掩膜",
+            "description": "Tissue segmentation and masks",
+            "execution_level": "category",
+            "entity_kind": "function",
+            "children": [
+              {
+                "id": "dwi.five_tt",
+                "label": "MRtrix3 5ttgen（FSL）",
+                "description": "由 T1w 结构像生成 ACT 纤维追踪使用的五组织类型影像。",
+                "keywords": [
+                  "dwi-skill",
+                  "DWI",
+                  "DTI",
+                  "扩散磁共振",
+                  "纤维追踪",
+                  "MRI",
+                  "FOD"
+                ],
+                "skill_ids": [
+                  "dwi-skill"
+                ],
+                "method_ids": [
+                  "mrtrix.5ttgen"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "segmentation",
+                  "tissue"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "function.diffusion",
+        "label": "扩散与纤维分析",
+        "description": "Diffusion and tractography",
+        "execution_level": "category",
+        "entity_kind": "function",
+        "children": [
+          {
+            "id": "function.diffusion.response",
+            "label": "响应函数与 FOD",
+            "description": "Response functions and FOD",
+            "execution_level": "category",
+            "entity_kind": "function",
+            "children": [
+              {
+                "id": "dwi.fod",
+                "label": "MRtrix3 CSD / MSMT-CSD",
+                "description": "使用 dwi2fod 从预处理 DWI 与组织响应函数估计白质 FOD。",
+                "keywords": [
+                  "dwi-skill",
+                  "DWI",
+                  "DTI",
+                  "扩散磁共振",
+                  "纤维追踪",
+                  "MRI",
+                  "FOD"
+                ],
+                "skill_ids": [
+                  "dwi-skill"
+                ],
+                "method_ids": [
+                  "mrtrix.dwi2fod"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "diffusion",
+                  "response"
+                ]
+              },
+              {
+                "id": "dwi.response",
+                "label": "MRtrix3 响应函数估计",
+                "description": "使用 dwi2response 的 dhollander 或 tournier 算法生成 CSD 所需组织响应函数。",
+                "keywords": [
+                  "dwi-skill",
+                  "DWI",
+                  "DTI",
+                  "扩散磁共振",
+                  "纤维追踪",
+                  "MRI",
+                  "FOD"
+                ],
+                "skill_ids": [
+                  "dwi-skill"
+                ],
+                "method_ids": [
+                  "mrtrix.dwi2response"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "diffusion",
+                  "response"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "function.diffusion.tensor",
+            "label": "张量与扩散指标",
+            "description": "Tensors and diffusion metrics",
+            "execution_level": "category",
+            "entity_kind": "function",
+            "children": [
+              {
+                "id": "dwi.tensor_metrics",
+                "label": "DIPY TensorModel",
+                "description": "Python 路线，便于扩展、自定义和生成结构化扩散指标。",
+                "keywords": [
+                  "dipy-tool",
+                  "fsl-tool"
+                ],
+                "skill_ids": [
+                  "dipy-tool",
+                  "fsl-tool"
+                ],
+                "method_ids": [
+                  "dipy.tensor_fit",
+                  "fsl.dtifit"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "diffusion",
+                  "tensor"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "function.diffusion.tracking",
+            "label": "纤维追踪与流线处理",
+            "description": "Tracking and streamline operations",
+            "execution_level": "category",
+            "entity_kind": "function",
+            "children": [
+              {
+                "id": "dwi.tractography",
+                "label": "MRtrix3 基于已有 FOD 的纤维追踪",
+                "description": "使用已有 FOD 调用 tckgen 生成流线。ACT 按参数绑定已有 5TT；本方法不生成 5TT、不运行 SIFT2。",
+                "keywords": [
+                  "dwi-skill",
+                  "DWI",
+                  "DTI",
+                  "扩散磁共振",
+                  "纤维追踪",
+                  "MRI",
+                  "FOD"
+                ],
+                "skill_ids": [
+                  "dwi-skill"
+                ],
+                "method_ids": [
+                  "mrtrix.tckgen",
+                  "reviewed.dwi-skill.probtrackx-existing"
+                ],
+                "pipeline_ids": [
+                  "reviewed-bedpostx-probtrackx-bb1f496b05",
+                  "reviewed-existing-fod-act-sift2-8c274e3ff3",
+                  "reviewed-existing-fod-connectome-abbfdbddaf",
+                  "reviewed-rebuild-fod-act-sift2-db22ac11b4",
+                  "reviewed-rebuild-fod-connectome-4aa083106a"
+                ],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "diffusion",
+                  "tracking"
+                ]
+              },
+              {
+                "id": "skill.dwi-skill",
+                "label": "dwi-skill",
+                "description": "dwi-skill 统筹已登记的独立方法和可复用流程。支持：MRtrix3 tck2connectome；MRtrix3 5ttgen（FSL）；MRtrix3 CSD / MSMT-CSD；MRtrix3 响应函数估计；MRtrix3 基于已有 FOD 的纤维追踪；FSL ProbtrackX（已有方向采样，输出纤维密度图）；MRtrix3 从已有 5TT 生成灰白质界面种子；MRtrix3 MP-PCA DWI 去噪；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "dwi-skill",
+                  "DWI",
+                  "DTI",
+                  "扩散磁共振",
+                  "纤维追踪",
+                  "MRI",
+                  "FOD"
+                ],
+                "skill_ids": [
+                  "dwi-skill"
+                ],
+                "method_ids": [
+                  "dcm2niix.convert",
+                  "dipy.tensor_fit",
+                  "fsl.dtifit",
+                  "fsl.eddy",
+                  "mrtrix.5ttgen",
+                  "mrtrix.command.5tt2gmwmi",
+                  "mrtrix.command.dwidenoise",
+                  "mrtrix.command.mrdegibbs",
+                  "mrtrix.command.mrthreshold",
+                  "mrtrix.command.tckresample",
+                  "mrtrix.command.tcksift2",
+                  "mrtrix.dwi2fod",
+                  "mrtrix.dwi2response",
+                  "mrtrix.tck2connectome",
+                  "mrtrix.tckgen",
+                  "qsiprep.run",
+                  "reviewed.bids-organizer.explicit-stage",
+                  "reviewed.dipy-tool.roi-stats",
+                  "reviewed.dwi-skill.bedpostx",
+                  "reviewed.dwi-skill.dwibiascorrect",
+                  "reviewed.dwi-skill.dwifslpreproc",
+                  "reviewed.dwi-skill.mrconvert",
+                  "reviewed.dwi-skill.probtrackx-existing",
+                  "reviewed.dwi-skill.sift-existing"
+                ],
+                "pipeline_ids": [
+                  "reviewed-existing-fod-connectome-abbfdbddaf",
+                  "reviewed-mrtrix3-existing-fod-true-ebb543ab01",
+                  "reviewed-rebuild-fod-connectome-4aa083106a",
+                  "reviewed-response-fod-21ed9aded5"
+                ],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "diffusion",
+                  "tracking"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "function.diffusion.connectome",
+            "label": "连接组",
+            "description": "Connectomes",
+            "execution_level": "category",
+            "entity_kind": "function",
+            "children": [
+              {
+                "id": "dwi.connectome",
+                "label": "MRtrix3 tck2connectome",
+                "description": "把流线与脑区分区映射为结构连接矩阵，可选使用 SIFT2 权重或标量边权。",
+                "keywords": [
+                  "dwi-skill",
+                  "DWI",
+                  "DTI",
+                  "扩散磁共振",
+                  "纤维追踪",
+                  "MRI",
+                  "FOD"
+                ],
+                "skill_ids": [
+                  "dwi-skill"
+                ],
+                "method_ids": [
+                  "mrtrix.tck2connectome"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "diffusion",
+                  "connectome"
+                ]
+              },
+              {
+                "id": "skill.brain-visualization",
+                "label": "brain-visualization",
+                "description": "brain-visualization 统筹已登记的独立方法和可复用流程。支持：脑连接图；FreeSurfer 表面导出 PLY；原脚本 BOLD 频带波动区域摘要（STD 指标）。",
+                "keywords": [
+                  "brain-visualization",
+                  "FreeSurfer",
+                  "PLY",
+                  "BOLD",
+                  "STD"
+                ],
+                "skill_ids": [
+                  "brain-visualization"
+                ],
+                "method_ids": [
+                  "reviewed.brain-visualization.connectome",
+                  "reviewed.brain-visualization.original-region-summary",
+                  "reviewed.brain-visualization.surface-ply"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "diffusion",
+                  "connectome"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "function.structural",
+        "label": "结构与表面分析",
+        "description": "Structural and surface analysis",
+        "execution_level": "category",
+        "entity_kind": "function",
+        "children": [
+          {
+            "id": "function.structural.surface",
+            "label": "表面与形态学",
+            "description": "Surfaces and morphometry",
+            "execution_level": "category",
+            "entity_kind": "function",
+            "children": [
+              {
+                "id": "skill.freesurfer-tool",
+                "label": "freesurfer-tool",
+                "description": "Coordinate FreeSurfer anatomical atlas parcellation, cortical surface reconstruction, subcortical segmentation and associated volume/surface operations. recon-all exposes both the subject directory and stage-specific files, including aparc+aseg.mgz for cortical/subcortical brain regions. Select individual Methods or matching Pipelines; check struct",
+                "keywords": [
+                  "freesurfer-tool",
+                  "FreeSurfer",
+                  "皮层重建",
+                  "分割",
+                  "anatomical parcellation",
+                  "脑区分区",
+                  "Desikan-Killiany",
+                  "aparc+aseg",
+                  "connectome nodes"
+                ],
+                "skill_ids": [
+                  "freesurfer-tool"
+                ],
+                "method_ids": [
+                  "freesurfer.command.mri_binarize",
+                  "freesurfer.command.mri_concat",
+                  "freesurfer.command.mri_convert",
+                  "freesurfer.command.mri_info",
+                  "freesurfer.command.mri_mask",
+                  "freesurfer.command.mri_normalize",
+                  "freesurfer.command.mri_pretess",
+                  "freesurfer.command.mri_robust_register",
+                  "freesurfer.command.mri_segstats",
+                  "freesurfer.command.mri_tessellate",
+                  "freesurfer.command.mri_vol2vol",
+                  "freesurfer.command.mris_convert",
+                  "freesurfer.command.mris_extract_main_component",
+                  "freesurfer.command.mris_smooth",
+                  "freesurfer.recon_all"
+                ],
+                "pipeline_ids": [
+                  "freesurfer.autorecon-stages-f5b6e34bac",
+                  "freesurfer.full-pipeline-377f0f0a05",
+                  "reviewed-freesurfer-recon-all-autorecon3-a0bc3c2c6f",
+                  "reviewed-freesurfer-recon-all-stats-6c57af087f"
+                ],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "structural",
+                  "surface"
+                ]
+              },
+              {
+                "id": "skill.smri-skill",
+                "label": "smri-skill",
+                "description": "smri-skill 统筹已登记的独立方法和可复用流程。支持：ANTs Registration；分区影像统计；FSL 脑提取；FSL 组织分割；FSL 非线性配准；FSL 应用形变；ANTs 应用变换；FSL 完整结构预处理（fsl_anat）；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "smri-skill",
+                  "sMRI",
+                  "T1w",
+                  "T2w",
+                  "FLAIR",
+                  "结构磁共振",
+                  "Registration",
+                  "FSL"
+                ],
+                "skill_ids": [
+                  "smri-skill"
+                ],
+                "method_ids": [
+                  "ants.registration",
+                  "dcm2niix.convert",
+                  "fmriprep.run",
+                  "freesurfer.recon_all",
+                  "reviewed.bids-organizer.explicit-stage",
+                  "reviewed.dipy-tool.roi-stats",
+                  "reviewed.fsl-tool.applywarp",
+                  "reviewed.fsl-tool.bet",
+                  "reviewed.fsl-tool.fast",
+                  "reviewed.fsl-tool.fnirt",
+                  "reviewed.fsl-tool.fsl-anat",
+                  "reviewed.smri-skill.ants-apply"
+                ],
+                "pipeline_ids": [
+                  "reviewed-freesurfer-recon-all-all-7bc6e7a712",
+                  "reviewed-freesurfer-recon-all-all-ec5fdb196c",
+                  "reviewed-freesurfer-recon-all-autorecon1-d377e50519",
+                  "reviewed-freesurfer-recon-all-autorecon2-abaa753109",
+                  "reviewed-freesurfer-recon-all-autorecon3-1049aced17"
+                ],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "structural",
+                  "surface"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "function.functional",
+        "label": "功能影像分析",
+        "description": "Functional imaging",
+        "execution_level": "category",
+        "entity_kind": "function",
+        "children": [
+          {
+            "id": "function.functional.timeseries",
+            "label": "时间序列与连接性",
+            "description": "Time series and connectivity",
+            "execution_level": "category",
+            "entity_kind": "function",
+            "children": [
+              {
+                "id": "skill.dictlearning",
+                "label": "dictlearning",
+                "description": "dictlearning 统筹已登记的独立方法和可复用流程。支持：静息态 DICTLEARNING。",
+                "keywords": [
+                  "dictlearning",
+                  "DICTLEARNING"
+                ],
+                "skill_ids": [
+                  "dictlearning"
+                ],
+                "method_ids": [
+                  "reviewed.nilearn-tool.dictlearning"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "functional",
+                  "timeseries"
+                ]
+              },
+              {
+                "id": "skill.glm",
+                "label": "glm",
+                "description": "glm 统筹已登记的独立方法和可复用流程。支持：任务态一级 GLM；组水平 GLM。",
+                "keywords": [
+                  "glm",
+                  "GLM"
+                ],
+                "skill_ids": [
+                  "glm"
+                ],
+                "method_ids": [
+                  "reviewed.nilearn-tool.group-glm",
+                  "reviewed.nilearn-tool.task-glm"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "functional",
+                  "timeseries"
+                ]
+              },
+              {
+                "id": "skill.hierarchical",
+                "label": "hierarchical",
+                "description": "hierarchical 统筹已登记的独立方法和可复用流程。支持：hierarchical 空间分区。",
+                "keywords": [
+                  "hierarchical"
+                ],
+                "skill_ids": [
+                  "hierarchical"
+                ],
+                "method_ids": [
+                  "reviewed.nilearn-tool.hierarchical"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "functional",
+                  "timeseries"
+                ]
+              },
+              {
+                "id": "skill.ica",
+                "label": "ica",
+                "description": "ica 统筹已登记的独立方法和可复用流程。支持：静息态 ICA。",
+                "keywords": [
+                  "ica",
+                  "ICA"
+                ],
+                "skill_ids": [
+                  "ica"
+                ],
+                "method_ids": [
+                  "reviewed.nilearn-tool.ica"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "functional",
+                  "timeseries"
+                ]
+              },
+              {
+                "id": "skill.kmeans",
+                "label": "kmeans",
+                "description": "kmeans 统筹已登记的独立方法和可复用流程。支持：kmeans 空间分区。",
+                "keywords": [
+                  "kmeans"
+                ],
+                "skill_ids": [
+                  "kmeans"
+                ],
+                "method_ids": [
+                  "reviewed.nilearn-tool.kmeans"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "functional",
+                  "timeseries"
+                ]
+              },
+              {
+                "id": "skill.nilearn-tool",
+                "label": "nilearn-tool",
+                "description": "nilearn-tool 统筹已登记的独立方法和可复用流程。支持：混杂回归与去趋势；BOLD 平滑与时间滤波（保持原空间）；ROI 时间序列与功能连接；任务态一级 GLM；组水平 GLM；静息态 ICA；静息态 DICTLEARNING；kmeans 空间分区；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "nilearn-tool",
+                  "Nilearn",
+                  "ROI",
+                  "功能连接",
+                  "解码",
+                  "BOLD"
+                ],
+                "skill_ids": [
+                  "nilearn-tool"
+                ],
+                "method_ids": [
+                  "reviewed.nilearn-tool.connectome",
+                  "reviewed.nilearn-tool.denoise",
+                  "reviewed.nilearn-tool.dictlearning",
+                  "reviewed.nilearn-tool.group-glm",
+                  "reviewed.nilearn-tool.hierarchical",
+                  "reviewed.nilearn-tool.ica",
+                  "reviewed.nilearn-tool.kmeans",
+                  "reviewed.nilearn-tool.preprocess",
+                  "reviewed.nilearn-tool.spacenet",
+                  "reviewed.nilearn-tool.svm",
+                  "reviewed.nilearn-tool.task-glm"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "functional",
+                  "timeseries"
+                ]
+              },
+              {
+                "id": "skill.spacenet",
+                "label": "spacenet",
+                "description": "spacenet 统筹已登记的独立方法和可复用流程。支持：SpaceNet 空间正则分类。",
+                "keywords": [
+                  "spacenet"
+                ],
+                "skill_ids": [
+                  "spacenet"
+                ],
+                "method_ids": [
+                  "reviewed.nilearn-tool.spacenet"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "functional",
+                  "timeseries"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "function.electrophysiology",
+        "label": "脑电与脑磁",
+        "description": "EEG and MEG",
+        "execution_level": "category",
+        "entity_kind": "function",
+        "children": [
+          {
+            "id": "function.electrophysiology.signals",
+            "label": "信号处理",
+            "description": "Signal processing",
+            "execution_level": "category",
+            "entity_kind": "function",
+            "children": [
+              {
+                "id": "skill.eeg-skill",
+                "label": "eeg-skill",
+                "description": "eeg-skill 统筹已登记的独立方法和可复用流程。支持：EEG/MEG 数据检查；MNE LOF 坏导联检测与插值；EEG/MEG 滤波与降采样；MNE ICA 分解与指定成分去除；重参考与分段；Epoch AutoReject 自动质控；传感器 PLV/相干/wPLI；Morlet 时频功率与 ITC；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "eeg-skill",
+                  "EEG",
+                  "脑电",
+                  "ERP",
+                  "BCI",
+                  "MEG",
+                  "MNE",
+                  "LOF",
+                  "ICA"
+                ],
+                "skill_ids": [
+                  "eeg-skill"
+                ],
+                "method_ids": [
+                  "reviewed.mne-eeg-tool.autoreject",
+                  "reviewed.mne-eeg-tool.bad-channels",
+                  "reviewed.mne-eeg-tool.connectivity",
+                  "reviewed.mne-eeg-tool.epoch",
+                  "reviewed.mne-eeg-tool.filter",
+                  "reviewed.mne-eeg-tool.ica",
+                  "reviewed.mne-eeg-tool.inspect",
+                  "reviewed.mne-eeg-tool.maxwell",
+                  "reviewed.mne-eeg-tool.source",
+                  "reviewed.mne-eeg-tool.time-frequency"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "electrophysiology",
+                  "signals"
+                ]
+              },
+              {
+                "id": "skill.meg-skill",
+                "label": "meg-skill",
+                "description": "meg-skill 统筹已登记的独立方法和可复用流程。支持：EEG/MEG 数据检查；EEG/MEG 滤波与降采样；MNE ICA 分解与指定成分去除；重参考与分段；Epoch AutoReject 自动质控；传感器 PLV/相干/wPLI；Morlet 时频功率与 ITC；MEG Maxwell 滤波；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "meg-skill",
+                  "MEG",
+                  "脑磁",
+                  "源定位",
+                  "时频分析",
+                  "EEG",
+                  "MNE",
+                  "ICA"
+                ],
+                "skill_ids": [
+                  "meg-skill"
+                ],
+                "method_ids": [
+                  "reviewed.meg-skill.evoked-existing",
+                  "reviewed.mne-eeg-tool.autoreject",
+                  "reviewed.mne-eeg-tool.connectivity",
+                  "reviewed.mne-eeg-tool.epoch",
+                  "reviewed.mne-eeg-tool.filter",
+                  "reviewed.mne-eeg-tool.ica",
+                  "reviewed.mne-eeg-tool.inspect",
+                  "reviewed.mne-eeg-tool.maxwell",
+                  "reviewed.mne-eeg-tool.source",
+                  "reviewed.mne-eeg-tool.time-frequency"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "electrophysiology",
+                  "signals"
+                ]
+              },
+              {
+                "id": "skill.mne-eeg-tool",
+                "label": "mne-eeg-tool",
+                "description": "mne-eeg-tool 统筹已登记的独立方法和可复用流程。支持：EEG/MEG 数据检查；MNE LOF 坏导联检测与插值；EEG/MEG 滤波与降采样；MNE ICA 分解与指定成分去除；重参考与分段；Epoch AutoReject 自动质控；传感器 PLV/相干/wPLI；Morlet 时频功率与 ITC；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "mne-eeg-tool",
+                  "MNE",
+                  "EEG",
+                  "ICA",
+                  "脑电预处理",
+                  "MEG",
+                  "LOF"
+                ],
+                "skill_ids": [
+                  "mne-eeg-tool"
+                ],
+                "method_ids": [
+                  "reviewed.mne-eeg-tool.autoreject",
+                  "reviewed.mne-eeg-tool.bad-channels",
+                  "reviewed.mne-eeg-tool.connectivity",
+                  "reviewed.mne-eeg-tool.epoch",
+                  "reviewed.mne-eeg-tool.filter",
+                  "reviewed.mne-eeg-tool.ica",
+                  "reviewed.mne-eeg-tool.inspect",
+                  "reviewed.mne-eeg-tool.maxwell",
+                  "reviewed.mne-eeg-tool.original-alpha-ratio",
+                  "reviewed.mne-eeg-tool.original-bands",
+                  "reviewed.mne-eeg-tool.original-erp",
+                  "reviewed.mne-eeg-tool.original-features",
+                  "reviewed.mne-eeg-tool.original-microstates",
+                  "reviewed.mne-eeg-tool.source",
+                  "reviewed.mne-eeg-tool.time-frequency"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "electrophysiology",
+                  "signals"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "function.statistics",
+        "label": "统计与机器学习",
+        "description": "Statistics and machine learning",
+        "execution_level": "category",
+        "entity_kind": "function",
+        "children": [
+          {
+            "id": "function.statistics.modelling",
+            "label": "统计建模",
+            "description": "Statistical modelling",
+            "execution_level": "category",
+            "entity_kind": "function",
+            "children": [
+              {
+                "id": "skill.brain-age-modeling",
+                "label": "brain-age-modeling",
+                "description": "brain-age-modeling 统筹已登记的独立方法和可复用流程。支持：脑龄预测与偏差校正。",
+                "keywords": [
+                  "brain-age-modeling"
+                ],
+                "skill_ids": [
+                  "brain-age-modeling"
+                ],
+                "method_ids": [
+                  "reviewed.brain-age-modeling.train"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "statistics",
+                  "modelling"
+                ]
+              },
+              {
+                "id": "skill.brainnetcnn",
+                "label": "brainnetcnn",
+                "description": "brainnetcnn 统筹已登记的独立方法和可复用流程。支持：BRAINNETCNN 原项目训练脚本。",
+                "keywords": [
+                  "brainnetcnn"
+                ],
+                "skill_ids": [
+                  "brainnetcnn"
+                ],
+                "method_ids": [
+                  "reviewed.brainnetcnn.original-trainer"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "statistics",
+                  "modelling"
+                ]
+              },
+              {
+                "id": "skill.causal-treatment-models",
+                "label": "causal-treatment-models",
+                "description": "causal-treatment-models 统筹已登记的独立方法和可复用流程。支持：处理效应估计。",
+                "keywords": [
+                  "causal-treatment-models"
+                ],
+                "skill_ids": [
+                  "causal-treatment-models"
+                ],
+                "method_ids": [
+                  "reviewed.causal-treatment-models.cate"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "statistics",
+                  "modelling"
+                ]
+              },
+              {
+                "id": "skill.cnn3d",
+                "label": "cnn3d",
+                "description": "cnn3d 统筹已登记的独立方法和可复用流程。支持：3D CNN 训练。",
+                "keywords": [
+                  "cnn3d",
+                  "CNN"
+                ],
+                "skill_ids": [
+                  "cnn3d"
+                ],
+                "method_ids": [
+                  "reviewed.cnn3d.train"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "statistics",
+                  "modelling"
+                ]
+              },
+              {
+                "id": "skill.cpm",
+                "label": "cpm",
+                "description": "cpm 统筹已登记的独立方法和可复用流程。支持：连接组预测模型 CPM。",
+                "keywords": [
+                  "cpm",
+                  "CPM"
+                ],
+                "skill_ids": [
+                  "cpm"
+                ],
+                "method_ids": [
+                  "reviewed.cpm.train"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "statistics",
+                  "modelling"
+                ]
+              },
+              {
+                "id": "skill.dipy-tool",
+                "label": "dipy-tool",
+                "description": "dipy-tool 统筹已登记的独立方法和可复用流程。支持：DIPY TensorModel；DWI 载入与脑掩膜；分区影像统计。",
+                "keywords": [
+                  "dipy-tool",
+                  "TensorModel",
+                  "DWI"
+                ],
+                "skill_ids": [
+                  "dipy-tool"
+                ],
+                "method_ids": [
+                  "dipy.tensor_fit",
+                  "reviewed.dipy-tool.mask",
+                  "reviewed.dipy-tool.roi-stats"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "statistics",
+                  "modelling"
+                ]
+              },
+              {
+                "id": "skill.harmonization-tool",
+                "label": "harmonization-tool",
+                "description": "harmonization-tool 统筹已登记的独立方法和可复用流程。支持：站点协变量校正；原项目多站点校正：none；原项目多站点校正：combat；原项目多站点校正：combat-gam；原项目多站点校正：covbat。",
+                "keywords": [
+                  "harmonization-tool",
+                  "ComBat",
+                  "批次效应",
+                  "多中心"
+                ],
+                "skill_ids": [
+                  "harmonization-tool"
+                ],
+                "method_ids": [
+                  "reviewed.harmonization-tool.combat",
+                  "reviewed.harmonization-tool.combat-gam",
+                  "reviewed.harmonization-tool.covbat",
+                  "reviewed.harmonization-tool.none",
+                  "reviewed.harmonization-tool.site-covar"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "statistics",
+                  "modelling"
+                ]
+              },
+              {
+                "id": "skill.imaging-genetics-models",
+                "label": "imaging-genetics-models",
+                "description": "imaging-genetics-models 统筹已登记的独立方法和可复用流程。支持：影像遗传关联。",
+                "keywords": [
+                  "imaging-genetics-models"
+                ],
+                "skill_ids": [
+                  "imaging-genetics-models"
+                ],
+                "method_ids": [
+                  "reviewed.imaging-genetics-models.association"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "statistics",
+                  "modelling"
+                ]
+              },
+              {
+                "id": "skill.run-models",
+                "label": "run_models",
+                "description": "run_models 统筹已登记的独立方法和可复用流程。支持：统计学习：分类；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "run_models",
+                  "CPM"
+                ],
+                "skill_ids": [
+                  "run_models"
+                ],
+                "method_ids": [
+                  "reviewed.bnt.original-trainer",
+                  "reviewed.brain-age-modeling.train",
+                  "reviewed.brainnetcnn.original-trainer",
+                  "reviewed.causal-treatment-models.cate",
+                  "reviewed.cnn3d.train",
+                  "reviewed.combraintf.original-trainer",
+                  "reviewed.cpm.train",
+                  "reviewed.imaging-genetics-models.association",
+                  "reviewed.neuroimaging-decoding.mvpa",
+                  "reviewed.neuroimaging-decoding.roi-glm",
+                  "reviewed.neuroimaging-decoding.searchlight",
+                  "reviewed.statistical-ml.classification",
+                  "reviewed.statistical-ml.regression",
+                  "reviewed.subject-subtyping.cluster",
+                  "reviewed.survival-models.survival-scientific",
+                  "reviewed.survival-models.survival-torch",
+                  "reviewed.temporal-models.train"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "statistics",
+                  "modelling"
+                ]
+              },
+              {
+                "id": "skill.statistical-ml",
+                "label": "statistical-ml",
+                "description": "statistical-ml 统筹已登记的独立方法和可复用流程。支持：统计学习：分类；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "statistical-ml"
+                ],
+                "skill_ids": [
+                  "statistical-ml"
+                ],
+                "method_ids": [
+                  "reviewed.statistical-ml.classification",
+                  "reviewed.statistical-ml.regression"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "statistics",
+                  "modelling"
+                ]
+              },
+              {
+                "id": "skill.subject-subtyping",
+                "label": "subject-subtyping",
+                "description": "subject-subtyping 统筹已登记的独立方法和可复用流程。支持：受试者分型。",
+                "keywords": [
+                  "subject-subtyping"
+                ],
+                "skill_ids": [
+                  "subject-subtyping"
+                ],
+                "method_ids": [
+                  "reviewed.subject-subtyping.cluster"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "statistics",
+                  "modelling"
+                ]
+              },
+              {
+                "id": "skill.survival-models",
+                "label": "survival-models",
+                "description": "survival-models 统筹已登记的独立方法和可复用流程。支持：生存模型（scientific）；生存模型（torch）。",
+                "keywords": [
+                  "survival-models"
+                ],
+                "skill_ids": [
+                  "survival-models"
+                ],
+                "method_ids": [
+                  "reviewed.survival-models.survival-scientific",
+                  "reviewed.survival-models.survival-torch"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "statistics",
+                  "modelling"
+                ]
+              },
+              {
+                "id": "skill.temporal-models",
+                "label": "temporal-models",
+                "description": "temporal-models 统筹已登记的独立方法和可复用流程。支持：时序模型训练。",
+                "keywords": [
+                  "temporal-models"
+                ],
+                "skill_ids": [
+                  "temporal-models"
+                ],
+                "method_ids": [
+                  "reviewed.temporal-models.train"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "statistics",
+                  "modelling"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "function.quality",
+        "label": "质控与可视化",
+        "description": "Quality control and visualization",
+        "execution_level": "category",
+        "entity_kind": "function",
+        "children": [
+          {
+            "id": "function.quality.reports",
+            "label": "检查、报告与展示",
+            "description": "Inspection, reports and display",
+            "execution_level": "category",
+            "entity_kind": "function",
+            "children": [
+              {
+                "id": "dwi.inspect",
+                "label": "数据集巡检",
+                "description": "扫描授权目录的结构和轻量元数据，形成处理前检查摘要。",
+                "keywords": [
+                  "dataset-inspector",
+                  "数据巡检",
+                  "文件检查",
+                  "元数据"
+                ],
+                "skill_ids": [
+                  "dataset-inspector"
+                ],
+                "method_ids": [
+                  "dataset.inspect"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "quality",
+                  "reports"
+                ]
+              },
+              {
+                "id": "dwi.report",
+                "label": "结果报告",
+                "description": "生成可审阅的处理摘要、参数快照与结果清单。",
+                "keywords": [
+                  "report-builder"
+                ],
+                "skill_ids": [
+                  "report-builder"
+                ],
+                "method_ids": [
+                  "report.build"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "quality",
+                  "reports"
+                ]
+              },
+              {
+                "id": "skill.dataset-inspector",
+                "label": "dataset-inspector",
+                "description": "dataset-inspector 统筹已登记的独立方法和可复用流程。支持：数据集巡检；表字段、缺失和主键候选检查。",
+                "keywords": [
+                  "dataset-inspector",
+                  "数据巡检",
+                  "文件检查",
+                  "元数据"
+                ],
+                "skill_ids": [
+                  "dataset-inspector"
+                ],
+                "method_ids": [
+                  "dataset.inspect",
+                  "reviewed.dataset-inspector.table-inspect"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "quality",
+                  "reports"
+                ]
+              },
+              {
+                "id": "skill.image-batch-processing",
+                "label": "image-batch-processing",
+                "description": "image-batch-processing 统筹已登记的独立方法和可复用流程。支持：数据集巡检；NiBabel NIfTI 保存／格式转换；NIfTI 头信息与空间检查。",
+                "keywords": [
+                  "image-batch-processing",
+                  "NiBabel",
+                  "NIfTI"
+                ],
+                "skill_ids": [
+                  "image-batch-processing"
+                ],
+                "method_ids": [
+                  "dataset.inspect",
+                  "reviewed.nibabel-skill.inspect",
+                  "reviewed.nibabel-skill.save-existing"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "quality",
+                  "reports"
+                ]
+              },
+              {
+                "id": "skill.nibabel-skill",
+                "label": "nibabel-skill",
+                "description": "nibabel-skill 统筹已登记的独立方法和可复用流程。支持：Nibabel NIfTI 实际检查；图谱坐标提取；NIfTI 头信息与空间检查；FreeSurfer 表面与分区读取；NiBabel NIfTI 保存／格式转换。",
+                "keywords": [
+                  "nibabel-skill",
+                  "NIfTI",
+                  "affine",
+                  "影像读写",
+                  "FreeSurfer"
+                ],
+                "skill_ids": [
+                  "nibabel-skill"
+                ],
+                "method_ids": [
+                  "nibabel.inspect",
+                  "reviewed.nibabel-skill.atlas-coordinates",
+                  "reviewed.nibabel-skill.inspect",
+                  "reviewed.nibabel-skill.save-existing",
+                  "reviewed.nibabel-skill.surface"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "quality",
+                  "reports"
+                ]
+              },
+              {
+                "id": "skill.report-builder",
+                "label": "report-builder",
+                "description": "report-builder 统筹已登记的独立方法和可复用流程。支持：结果报告。",
+                "keywords": [
+                  "report-builder"
+                ],
+                "skill_ids": [
+                  "report-builder"
+                ],
+                "method_ids": [
+                  "report.build"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "quality",
+                  "reports"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "function.utilities",
+        "label": "通用数据操作",
+        "description": "General data operations",
+        "execution_level": "category",
+        "entity_kind": "function",
+        "children": [
+          {
+            "id": "function.utilities.images",
+            "label": "影像运算",
+            "description": "Image operations",
+            "execution_level": "category",
+            "entity_kind": "function",
+            "children": [
+              {
+                "id": "skill.bnt",
+                "label": "bnt",
+                "description": "bnt 统筹已登记的独立方法和可复用流程。支持：BNT 原项目训练脚本。",
+                "keywords": [
+                  "bnt"
+                ],
+                "skill_ids": [
+                  "bnt"
+                ],
+                "method_ids": [
+                  "reviewed.bnt.original-trainer"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "utilities",
+                  "images"
+                ]
+              },
+              {
+                "id": "skill.combraintf",
+                "label": "combraintf",
+                "description": "combraintf 统筹已登记的独立方法和可复用流程。支持：COMBRAINTF 原项目训练脚本。",
+                "keywords": [
+                  "combraintf"
+                ],
+                "skill_ids": [
+                  "combraintf"
+                ],
+                "method_ids": [
+                  "reviewed.combraintf.original-trainer"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "utilities",
+                  "images"
+                ]
+              },
+              {
+                "id": "skill.fsl-tool",
+                "label": "fsl-tool",
+                "description": "fsl-tool 统筹已登记的独立方法和可复用流程。支持：FSL topup / eddy；FSL dtifit；FSL FLIRT；FSL 脑提取；FSL 组织分割；FSL 运动校正；FSL 层间时间校正；FSL 非线性配准；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "fsl-tool",
+                  "FSL",
+                  "FLIRT",
+                  "FEAT",
+                  "eddy",
+                  "配准"
+                ],
+                "skill_ids": [
+                  "fsl-tool"
+                ],
+                "method_ids": [
+                  "fsl.command.convert_xfm",
+                  "fsl.command.convertwarp",
+                  "fsl.command.fsl_glm",
+                  "fsl.command.fsl_regfilt",
+                  "fsl.command.fslcc",
+                  "fsl.command.fslchfiletype",
+                  "fsl.command.fslhd",
+                  "fsl.command.fslinfo",
+                  "fsl.command.fslmaths",
+                  "fsl.command.fslmeants",
+                  "fsl.command.fslmerge",
+                  "fsl.command.fslorient",
+                  "fsl.command.fslpspec",
+                  "fsl.command.fslreorient2std",
+                  "fsl.command.fslroi",
+                  "fsl.command.fslsplit",
+                  "fsl.command.fslstats",
+                  "fsl.command.fslval",
+                  "fsl.command.invwarp",
+                  "fsl.command.randomise",
+                  "fsl.command.smoothest",
+                  "fsl.dtifit",
+                  "fsl.eddy",
+                  "fsl.flirt",
+                  "reviewed.dwi-skill.bedpostx",
+                  "reviewed.dwi-skill.probtrackx-existing",
+                  "reviewed.fsl-tool.applywarp",
+                  "reviewed.fsl-tool.bet",
+                  "reviewed.fsl-tool.fast",
+                  "reviewed.fsl-tool.fnirt",
+                  "reviewed.fsl-tool.fsl-anat",
+                  "reviewed.fsl-tool.mcflirt",
+                  "reviewed.fsl-tool.slicetimer"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "utilities",
+                  "images"
+                ]
+              },
+              {
+                "id": "skill.kg-link-prediction",
+                "label": "kg-link-prediction",
+                "description": "kg-link-prediction 统筹已登记的独立方法和可复用流程。支持：ComplEx 知识图谱链路预测。",
+                "keywords": [
+                  "kg-link-prediction"
+                ],
+                "skill_ids": [
+                  "kg-link-prediction"
+                ],
+                "method_ids": [
+                  "reviewed.kg-link-prediction.complex"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "utilities",
+                  "images"
+                ]
+              },
+              {
+                "id": "skill.neuroimaging-decoding",
+                "label": "neuroimaging-decoding",
+                "description": "neuroimaging-decoding 统筹已登记的独立方法和可复用流程。支持：ROI 多变量解码；ROI GLM 与 FDR；SearchLight 分类。",
+                "keywords": [
+                  "neuroimaging-decoding",
+                  "ROI",
+                  "GLM",
+                  "FDR",
+                  "SearchLight"
+                ],
+                "skill_ids": [
+                  "neuroimaging-decoding"
+                ],
+                "method_ids": [
+                  "reviewed.neuroimaging-decoding.mvpa",
+                  "reviewed.neuroimaging-decoding.roi-glm",
+                  "reviewed.neuroimaging-decoding.searchlight"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "utilities",
+                  "images"
+                ]
+              },
+              {
+                "id": "software.ants",
+                "label": "ants",
+                "description": "ants 统筹已登记的独立方法和可复用流程。支持：ANTs Registration；ANTs N4BiasFieldCorrection；ANTs DenoiseImage；ANTs ThresholdImage；ANTs SmoothImage；ANTs ResampleImage；ANTs MultiplyImages；ANTs ConvertImagePixelType；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "software-ants",
+                  "ants",
+                  "ANTs"
+                ],
+                "skill_ids": [
+                  "software-ants"
+                ],
+                "method_ids": [
+                  "ants.command.Atropos",
+                  "ants.command.AverageImages",
+                  "ants.command.ConvertImagePixelType",
+                  "ants.command.ConvertTransformFile",
+                  "ants.command.DenoiseImage",
+                  "ants.command.ExtractRegionFromImage",
+                  "ants.command.ExtractSliceFromImage",
+                  "ants.command.ImageIntensityStatistics",
+                  "ants.command.ImageMath",
+                  "ants.command.LabelGeometryMeasures",
+                  "ants.command.LabelOverlapMeasures",
+                  "ants.command.MultiplyImages",
+                  "ants.command.N4BiasFieldCorrection",
+                  "ants.command.PrintHeader",
+                  "ants.command.ResampleImage",
+                  "ants.command.SmoothImage",
+                  "ants.command.ThresholdImage",
+                  "ants.registration"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "utilities",
+                  "images"
+                ]
+              },
+              {
+                "id": "software.mrtrix3",
+                "label": "mrtrix3",
+                "description": "mrtrix3 统筹已登记的独立方法和可复用流程。支持：MRtrix3 5ttgen（FSL）；MRtrix3 从已有 5TT 生成灰白质界面种子；MRtrix3 MP-PCA DWI 去噪；MRtrix3 Gibbs 振铃校正；MRtrix3 影像阈值处理；MRtrix3 流线顶点重采样；MRtrix3 SIFT2 独立流线赋权；MRtrix3 CSD / MSMT-CSD；其他方法可在详情中分页查询。",
+                "keywords": [
+                  "software-mrtrix3",
+                  "mrtrix3",
+                  "MRtrix3"
+                ],
+                "skill_ids": [
+                  "software-mrtrix3"
+                ],
+                "method_ids": [
+                  "mrtrix.5ttgen",
+                  "mrtrix.command.5tt2gmwmi",
+                  "mrtrix.command.5tt2vis",
+                  "mrtrix.command.5ttedit",
+                  "mrtrix.command.afdconnectivity",
+                  "mrtrix.command.amp2sh",
+                  "mrtrix.command.dirflip",
+                  "mrtrix.command.dirgen",
+                  "mrtrix.command.dirmerge",
+                  "mrtrix.command.dirorder",
+                  "mrtrix.command.dwi2adc",
+                  "mrtrix.command.dwi2mask",
+                  "mrtrix.command.dwi2tensor",
+                  "mrtrix.command.dwidenoise",
+                  "mrtrix.command.dwiextract",
+                  "mrtrix.command.fixel2sh",
+                  "mrtrix.command.fixel2tsf",
+                  "mrtrix.command.fixel2voxel",
+                  "mrtrix.command.fod2dec",
+                  "mrtrix.command.label2colour",
+                  "mrtrix.command.label2mesh",
+                  "mrtrix.command.labelconvert",
+                  "mrtrix.command.maskdump",
+                  "mrtrix.command.maskfilter",
+                  "mrtrix.command.mesh2voxel",
+                  "mrtrix.command.meshconvert",
+                  "mrtrix.command.meshfilter",
+                  "mrtrix.command.mrcheckerboardmask",
+                  "mrtrix.command.mrcolour",
+                  "mrtrix.command.mrconvert",
+                  "mrtrix.command.mrdegibbs",
+                  "mrtrix.command.mrdump",
+                  "mrtrix.command.mredit",
+                  "mrtrix.command.mrgrid",
+                  "mrtrix.command.mrhistmatch",
+                  "mrtrix.command.mrhistogram",
+                  "mrtrix.command.mrthreshold",
+                  "mrtrix.command.mrtransform",
+                  "mrtrix.command.peaks2amp",
+                  "mrtrix.command.sh2amp",
+                  "mrtrix.command.sh2peaks",
+                  "mrtrix.command.sh2power",
+                  "mrtrix.command.sh2response",
+                  "mrtrix.command.shconv",
+                  "mrtrix.command.tckdfc",
+                  "mrtrix.command.tckglobal",
+                  "mrtrix.command.tckmap",
+                  "mrtrix.command.tckresample",
+                  "mrtrix.command.tcksample",
+                  "mrtrix.command.tcksift",
+                  "mrtrix.command.tcksift2",
+                  "mrtrix.command.tckstats",
+                  "mrtrix.command.tcktransform",
+                  "mrtrix.command.tensor2metric",
+                  "mrtrix.command.transformcalc",
+                  "mrtrix.command.transformconvert",
+                  "mrtrix.command.tsfdivide",
+                  "mrtrix.command.tsfsmooth",
+                  "mrtrix.command.tsfthreshold",
+                  "mrtrix.command.voxel2mesh",
+                  "mrtrix.command.warp2metric",
+                  "mrtrix.command.warpconvert",
+                  "mrtrix.command.warpcorrect",
+                  "mrtrix.command.warpinit",
+                  "mrtrix.command.warpinvert",
+                  "mrtrix.dwi-to-nifti",
+                  "mrtrix.dwi2fod",
+                  "mrtrix.dwi2response",
+                  "mrtrix.tck2connectome",
+                  "mrtrix.tckgen",
+                  "mrtrix3.command.5ttcheck",
+                  "mrtrix3.command.amp2response",
+                  "mrtrix3.command.dcminfo",
+                  "mrtrix3.command.dirstat",
+                  "mrtrix3.command.fixelconnectivity",
+                  "mrtrix3.command.fixelcrop",
+                  "mrtrix3.command.fixelreorient",
+                  "mrtrix3.command.fod2fixel",
+                  "mrtrix3.command.labelstats",
+                  "mrtrix3.command.mraverageheader",
+                  "mrtrix3.command.mrcalc",
+                  "mrtrix3.command.mrcat",
+                  "mrtrix3.command.mrcentroid",
+                  "mrtrix3.command.mrfilter",
+                  "mrtrix3.command.mrinfo",
+                  "mrtrix3.command.mrmath",
+                  "mrtrix3.command.mrmetric",
+                  "mrtrix3.command.mrregister",
+                  "mrtrix3.command.mrstats",
+                  "mrtrix3.command.mtnormalise",
+                  "mrtrix3.command.peaks2fixel",
+                  "mrtrix3.command.tckconvert",
+                  "mrtrix3.command.tckedit",
+                  "mrtrix3.command.tckinfo",
+                  "mrtrix3.command.tsfinfo",
+                  "mrtrix3.command.tsfmult",
+                  "mrtrix3.command.tsfvalidate"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "utilities",
+                  "images"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "function.utilities.tables",
+            "label": "表格与文件处理",
+            "description": "Tables and files",
+            "execution_level": "category",
+            "entity_kind": "function",
+            "children": [
+              {
+                "id": "skill.beautiful-log",
+                "label": "beautiful-log",
+                "description": "beautiful-log 统筹已登记的独立方法和可复用流程。支持：beautiful-log 日志报告。",
+                "keywords": [
+                  "beautiful-log"
+                ],
+                "skill_ids": [
+                  "beautiful-log"
+                ],
+                "method_ids": [
+                  "reviewed.beautiful-log.beautiful-log"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "utilities",
+                  "tables"
+                ]
+              },
+              {
+                "id": "skill.table-cleaning",
+                "label": "table-cleaning",
+                "description": "table-cleaning 统筹已登记的独立方法和可复用流程。支持：Pandas 表格清洗。",
+                "keywords": [
+                  "table-cleaning",
+                  "CSV",
+                  "TSV",
+                  "Excel",
+                  "缺失值",
+                  "异常值"
+                ],
+                "skill_ids": [
+                  "table-cleaning"
+                ],
+                "method_ids": [
+                  "table.clean"
+                ],
+                "pipeline_ids": [],
+                "entity_kind": "capability",
+                "execution_level": "structured",
+                "category_ids": [
+                  "utilities",
+                  "tables"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

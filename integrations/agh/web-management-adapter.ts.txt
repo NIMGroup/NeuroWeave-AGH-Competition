@@ -1,0 +1,125 @@
+// Competition management uses the official SDK. cwd and session journals stay native.
+function authorizeWorkbenchCommand(owner: string, command: { effectService?: string }): boolean {
+  return ['web:@neuroweave/agh-roi', '@neuroweave/agh-roi'].includes(owner)
+    && ['nw.panel.edit', 'nw.session.select', 'nw.action.prepare', 'nw.action.submit', 'nw.workspace.edit', 'nw.workspace.remove'].includes(command.effectService ?? '')
+}
+let neuroWeaveWorkspaceNames = new Map<string, string>()
+let neuroWeaveRemovedWorkspaces = new Set<string>()
+const neuroWeaveManagementLoads = new Map<string, Promise<unknown>>()
+function namedWorkbenchWorkspace(workspace: WorkspaceEntry): WorkspaceEntry & { removed: boolean } {
+  const name = neuroWeaveWorkspaceNames.get(workspace.path)
+  return { ...workspace, ...(name ? { name } : {}), removed: neuroWeaveRemovedWorkspaces.has(workspace.path) }
+}
+function visibleWorkbenchWorkspaces(workspaces: readonly WorkspaceEntry[]): WorkspaceEntry[] {
+  return workspaces.filter(workspace => !neuroWeaveRemovedWorkspaces.has(workspace.path)).map(namedWorkbenchWorkspace)
+}
+async function callWorkbenchManagementService(input: Record<string, unknown>): Promise<unknown> {
+  const name = String(input.name ?? '')
+  const effect = input.effect === true
+  const permitted = effect ? ['nw.workspace.edit', 'nw.workspace.remove'].includes(name)
+    : ['nw.workspace.query', 'nw.session.removalcheck'].includes(name)
+  if (!permitted) throw new Error('此入口仅支持工作区显示设置和删除前检查')
+  // The stock module facade requires a selected session. The official BFF can
+  // instead use an existing native identity without selecting it or attaching a driver.
+  const sessionId = current?.id ?? (await client.session.list({ limit: 1 })).items[0]?.sessionId
+  if (!sessionId) {
+    if (name === 'nw.workspace.query') return { ok: true, result: { workspaces: [] } }
+    throw new Error('请先在 AGH 建立一个会话，再保存工作区设置')
+  }
+  if (!current) {
+    // After a daemon restart the BFF needs an initialized native record. SDK
+    // load reads that record; it neither claims its driver nor sends a message.
+    if (!neuroWeaveManagementLoads.has(sessionId)) {
+      const ready = client.session.load(sessionId).catch(error => {
+        neuroWeaveManagementLoads.delete(sessionId)
+        throw error
+      })
+      neuroWeaveManagementLoads.set(sessionId, ready)
+    }
+    await neuroWeaveManagementLoads.get(sessionId)
+  }
+  const roster = await client.clientModules.list(profileName)
+  const row = roster.rows.find(item => item.packageId === '@neuroweave/agh-roi'
+    && item.phase === 'ready' && item.enabled && item.services?.includes(name))
+  if (!row) throw new Error('工作区管理服务尚未加载，请刷新后重试')
+  const response = await fetch(effect ? '/api/client-modules/effect' : '/api/client-modules/service', {
+    method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({ rowId: row.rowId, sessionId, service: name, input: { input: input.input ?? {} },
+      ...(effect ? { commandId: crypto.randomUUID() } : {}) }),
+  })
+  if (!response.ok) {
+    neuroWeaveManagementLoads.delete(sessionId)
+    throw new Error('管理服务未返回确认结果，请刷新列表检查后重试')
+  }
+  const result = await response.json() as { output?: unknown }
+  if (!result || !('output' in result)) throw new Error('管理服务返回格式无效')
+  return result.output
+}
+async function manageWorkbenchRecords(operation: string, input: Record<string, unknown> = {}): Promise<unknown> {
+  if (!connected || sessionPending) throw new Error('AGH 尚未连接或会话正在切换，请稍后重试')
+  if (operation === 'service') return callWorkbenchManagementService(input)
+  if (operation === 'workspace-labels') {
+    const rows = input.workspaces as { path: string; name: string; removed?: boolean }[]
+    neuroWeaveWorkspaceNames = new Map(rows.map(row => [row.path, row.name]))
+    neuroWeaveRemovedWorkspaces = new Set(rows.filter(row => row.removed).map(row => row.path))
+    renderControls()
+    updateWorkspaceOptions()
+    return undefined
+  }
+  if (operation === 'list') {
+    const sessions: PageSessionMeta['items'] = []
+    const seen = new Set<string>()
+    let cursor: string | undefined
+    do {
+      const page = await client.session.list({ limit: 500, ...(cursor ? { cursor } : {}) })
+      sessions.push(...page.items)
+      if (page.next && seen.has(page.next)) throw new Error('会话分页未前进，请刷新重试')
+      if (page.next) seen.add(page.next)
+      cursor = page.next
+      if (sessions.length > 10000) throw new Error('会话过多，请通过 AGH 原生管理界面查询')
+    } while (cursor)
+    const workspaces = await client.workspace.list()
+    return { sessions, workspaces: workspaces.items.map(namedWorkbenchWorkspace), currentId: current?.id }
+  }
+  if (operation === 'workspace-add') {
+    const result = await client.workspace.add(String(input.path ?? ''))
+    await refreshWorkspaces()
+    updateSidebar()
+    return result.workspace
+  }
+  const id = String(input.session_id ?? '')
+  if (!id) throw new Error('请选择会话')
+  if (operation === 'rename') {
+    const title = String(input.title ?? '').trim()
+    await client.session.rename(id, title)
+    sessionTitles.set(id, title)
+    updateTitle(id, title)
+    await list()
+    return undefined
+  }
+  if (operation === 'archive') {
+    if (input.archived === true) {
+      const ui = await client.call('_agnes/v1/session.projectUI', { sessionId: id, surface: 'web' })
+      if (ui.opState != null || ui.turns.some(turn => !['completed', 'failed', 'cancelled', 'aborted', 'error'].includes(turn.status)))
+        throw new Error('会话仍在运行或等待审批，请完成当前操作后再删除')
+      if (current?.id === id && (sending || stopping || liveApproval))
+        throw new Error('当前会话仍在运行或等待审批')
+    }
+    await client.session.archive(id, input.archived === true)
+    if (input.archived === true && current?.id === id) await beginNewDraft(false, selectedWorkspace)
+    await list()
+    return undefined
+  }
+  if (operation === 'fork') {
+    if (sending || stopping || liveApproval) throw new Error('请完成当前操作后再复制会话')
+    await forkSidebar(id, String(input.title ?? id))
+    return undefined
+  }
+  if (operation === 'open') {
+    if (sending || stopping || liveApproval) throw new Error('请完成当前操作后再切换会话')
+    await open(id)
+    return undefined
+  }
+  throw new Error('不支持的管理操作')
+}
+Object.defineProperty(clientModules.session, 'manage', { configurable: true, value: manageWorkbenchRecords })

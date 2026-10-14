@@ -1,0 +1,11 @@
+{
+  "method_id": "mrtrix.tckgen",
+  "method_version": "1",
+  "execution_fingerprint": "fcd92b387d02df1bbc5f958c8bb55419f16cf2af9a720ca8d950edacd5d24804",
+  "report_path": "deploy/method-verification/reports/mrtrix-synthetic.json",
+  "report_sha256": "d6d912b68614456127212d2d91018c81fb94720ff99765a4c4e90fb76b74dee3",
+  "test_type": "synthetic",
+  "tested_at": "2026-09-23T13:39:05.650280+00:00",
+  "environment": "== tckgen 3.0.8 ==; Linux CPU, 1 thread",
+  "result": "passed"
+}

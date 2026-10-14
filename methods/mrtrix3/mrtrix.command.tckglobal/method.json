@@ -1,0 +1,670 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix.command.tckglobal",
+  "version": "2",
+  "kind": "method",
+  "label": "MRtrix3 tckglobal",
+  "description": "Multi-Shell Multi-Tissue Global Tractography\nThis command will reconstruct the global white matter fibre tractogram that best explains the input DWI data, using a multi-tissue spherical convolution model.\nExample use: \n $ tckglobal dwi.mif wmr.txt -riso csfr.txt -riso gmr.txt -mask mask.mif \n   -niter 1e9 -fod fod.mif -fiso fiso.mif tracks.tck \nin which dwi.mif is the input image, wmr.txt is an anisotropic, multi-shell response function for WM, and csfr.txt and gmr.txt are isotropic response functions for CSF and GM. The output tractogram is saved to tracks.tck. Optional output images fod.mif and fiso.mif contain the predicted WM fODF and isotropic tissue fractions of CSF and GM respectively, estimated as part of the global optimization and thus affected by spatial regularization.",
+  "runner_id": "mrtrix.command.tckglobal",
+  "parameters": [
+    {
+      "id": "lmax",
+      "argument": "lmax",
+      "label": "lmax",
+      "description": "set the maximum harmonic order for the output series. (default = 8)",
+      "type": "integer",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckglobal.html",
+      "minimum": 2,
+      "maximum": 30
+    },
+    {
+      "id": "length",
+      "argument": "length",
+      "label": "length",
+      "description": "set the length of the particles (fibre segments). (default = 1mm)",
+      "type": "number",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckglobal.html",
+      "minimum": 1e-06
+    },
+    {
+      "id": "weight",
+      "argument": "weight",
+      "label": "weight",
+      "description": "set the weight by which particles contribute to the model. (default = 0.1)",
+      "type": "number",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckglobal.html",
+      "minimum": 1e-06,
+      "maximum": 1.0
+    },
+    {
+      "id": "ppot",
+      "argument": "ppot",
+      "label": "ppot",
+      "description": "set the particle potential, i.e., the cost of adding one segment, relative to the particle weight. (default = 0.05)",
+      "type": "number",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckglobal.html",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    {
+      "id": "cpot",
+      "argument": "cpot",
+      "label": "cpot",
+      "description": "set the connection potential, i.e., the energy term that drives two segments together. (default = 0.5)",
+      "type": "number",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckglobal.html",
+      "minimum": 0.0
+    },
+    {
+      "id": "t0",
+      "argument": "t0",
+      "label": "t0",
+      "description": "set the initial temperature of the metropolis hastings optimizer. (default = 0.1)",
+      "type": "number",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckglobal.html",
+      "minimum": 1e-06,
+      "maximum": 1000000.0
+    },
+    {
+      "id": "t1",
+      "argument": "t1",
+      "label": "t1",
+      "description": "set the final temperature of the metropolis hastings optimizer. (default = 0.001)",
+      "type": "number",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckglobal.html",
+      "minimum": 1e-06,
+      "maximum": 1000000.0
+    },
+    {
+      "id": "niter",
+      "argument": "niter",
+      "label": "niter",
+      "description": "set the number of iterations of the metropolis hastings optimizer. (default = 10M)",
+      "type": "integer",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckglobal.html",
+      "minimum": 0
+    },
+    {
+      "id": "save_fod",
+      "argument": "-fod",
+      "label": "生成 fod",
+      "description": "Predicted fibre orientation distribution function (fODF).\nThis fODF is estimated as part of the global track optimization, and therefore incorporates the spatial regularization that it imposes. Internally, the fODF is represented as a discrete sum of apodized point spread functions (aPSF) oriented along the directions of all particles in the voxel, used to predict the DWI signal from the particle configuration.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "noapo",
+      "argument": "-noapo",
+      "label": "noapo",
+      "description": "disable spherical convolution of fODF with apodized PSF, to output a sum of delta functions rather than a sum of aPSFs.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "save_fiso",
+      "argument": "-fiso",
+      "label": "生成 fiso",
+      "description": "Predicted isotropic fractions of the tissues for which response functions were provided with -riso. Typically, these are CSF and GM.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "save_eext",
+      "argument": "-eext",
+      "label": "生成 eext",
+      "description": "Residual external energy in every voxel.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "save_etrend",
+      "argument": "-etrend",
+      "label": "生成 etrend",
+      "description": "internal and external energy trend and cooling statistics.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "balance",
+      "argument": "balance",
+      "label": "balance",
+      "description": "balance internal and external energy. (default = 0)\nNegative values give more weight to the internal energy, positive to the external energy.",
+      "type": "number",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckglobal.html",
+      "minimum": -100.0,
+      "maximum": 100.0
+    },
+    {
+      "id": "density",
+      "argument": "density",
+      "label": "density",
+      "description": "set the desired density of the free Poisson process. (default = 1)",
+      "type": "number",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckglobal.html",
+      "minimum": 0.0
+    },
+    {
+      "id": "prob",
+      "argument": "prob",
+      "label": "prob",
+      "description": "set the probabilities of generating birth, death, randshift, optshift and connect proposals respectively. (default = 0.25,0.05,0.25,0.1,0.35)",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckglobal.html"
+    },
+    {
+      "id": "beta",
+      "argument": "beta",
+      "label": "beta",
+      "description": "set the width of the Hanning interpolation window. (in [0, 1], default = 0)\nIf used, a mask is required, and this mask must keep at least one voxel distance to the image bounding box.",
+      "type": "number",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckglobal.html",
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    {
+      "id": "lambda",
+      "argument": "lambda",
+      "label": "lambda",
+      "description": "set the weight of the internal energy directly. (default = 1)\nIf provided, any value of -balance will be ignored.",
+      "type": "number",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckglobal.html",
+      "minimum": 0.0
+    },
+    {
+      "id": "info",
+      "argument": "-info",
+      "label": "info",
+      "description": "display information messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "quiet",
+      "argument": "-quiet",
+      "label": "quiet",
+      "description": "do not display information messages or progress status; alternatively, this can be achieved by setting the MRTRIX_QUIET environment variable to a non-empty string.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "debug",
+      "argument": "-debug",
+      "label": "debug",
+      "description": "display debugging messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "nthreads",
+      "argument": "nthreads",
+      "label": "nthreads",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).",
+      "type": "integer",
+      "required": true,
+      "default": 1,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/tckglobal.html",
+      "minimum": 0,
+      "group": "计算资源",
+      "level": "advanced"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "source",
+      "type": "imaging_input",
+      "label": "source",
+      "description": "the image containing the raw DWI data.",
+      "required": true,
+      "binding": "file"
+    },
+    {
+      "id": "response",
+      "type": "generated_file",
+      "label": "response",
+      "description": "the response of a track segment on the DWI signal.",
+      "required": true,
+      "binding": "file"
+    },
+    {
+      "id": "grad",
+      "type": "generated_file",
+      "label": "grad",
+      "description": "specify the diffusion encoding scheme (required if not supplied in the header).",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "mask",
+      "type": "imaging_input",
+      "label": "mask",
+      "description": "only reconstruct the tractogram within the specified brain mask image.",
+      "required": false,
+      "binding": "file"
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "tracks",
+      "type": "tractogram",
+      "label": "tracks",
+      "description": "the output file containing the tracks generated.",
+      "format": ".tck",
+      "path_template": "tracks.tck"
+    },
+    {
+      "id": "fod",
+      "type": "fod_image",
+      "label": "fod",
+      "description": "Predicted fibre orientation distribution function (fODF).\nThis fODF is estimated as part of the global track optimization, and therefore incorporates the spatial regularization that it imposes. Internally, the fODF is represented as a discrete sum of apodized point spread functions (aPSF) oriented along the directions of all particles in the voxel, used to predict the DWI signal from the particle configuration.",
+      "format": ".mif",
+      "path_template": "fod.mif",
+      "generated_when": {
+        "save_fod": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "fiso",
+      "type": "scalar_image",
+      "label": "fiso",
+      "description": "Predicted isotropic fractions of the tissues for which response functions were provided with -riso. Typically, these are CSF and GM.",
+      "format": ".mif",
+      "path_template": "fiso.mif",
+      "generated_when": {
+        "save_fiso": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "eext",
+      "type": "scalar_image",
+      "label": "eext",
+      "description": "Residual external energy in every voxel.",
+      "format": ".mif",
+      "path_template": "eext.mif",
+      "generated_when": {
+        "save_eext": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "etrend",
+      "type": "generated_file",
+      "label": "etrend",
+      "description": "internal and external energy trend and cooling statistics. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".txt",
+      "path_template": "etrend.txt",
+      "generated_when": {
+        "save_etrend": [
+          true
+        ]
+      }
+    }
+  ],
+  "input_types": [
+    "imaging_input",
+    "generated_file"
+  ],
+  "output_types": [
+    "tractogram",
+    "fod_image",
+    "scalar_image",
+    "generated_file"
+  ],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/tckglobal.usage.txt",
+      "kind": "command",
+      "label": "MRtrix3 安装版原始完整帮助"
+    }
+  ],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "command": "tckglobal",
+      "version": "3.0.8",
+      "positional": [
+        {
+          "source": "input",
+          "id": "source",
+          "optional": false
+        },
+        {
+          "source": "input",
+          "id": "response",
+          "optional": false
+        },
+        {
+          "source": "output",
+          "id": "tracks",
+          "optional": false
+        }
+      ],
+      "options": [
+        {
+          "flag": "-grad",
+          "values": [
+            {
+              "source": "input",
+              "id": "grad"
+            }
+          ]
+        },
+        {
+          "flag": "-mask",
+          "values": [
+            {
+              "source": "input",
+              "id": "mask"
+            }
+          ]
+        },
+        {
+          "flag": "-lmax",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "lmax",
+              "kind": "INT"
+            }
+          ]
+        },
+        {
+          "flag": "-length",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "length",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-weight",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "weight",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-ppot",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "ppot",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-cpot",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "cpot",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-t0",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "t0",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-t1",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "t1",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-niter",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "niter",
+              "kind": "INT"
+            }
+          ]
+        },
+        {
+          "flag": "-fod",
+          "values": [
+            {
+              "source": "output",
+              "id": "fod"
+            }
+          ],
+          "when": {
+            "save_fod": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-noapo",
+          "values": [],
+          "when": {
+            "noapo": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-fiso",
+          "values": [
+            {
+              "source": "output",
+              "id": "fiso"
+            }
+          ],
+          "when": {
+            "save_fiso": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-eext",
+          "values": [
+            {
+              "source": "output",
+              "id": "eext"
+            }
+          ],
+          "when": {
+            "save_eext": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-etrend",
+          "values": [
+            {
+              "source": "output",
+              "id": "etrend"
+            }
+          ],
+          "when": {
+            "save_etrend": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-balance",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "balance",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-density",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "density",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-prob",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "prob",
+              "kind": "FSEQ"
+            }
+          ]
+        },
+        {
+          "flag": "-beta",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "beta",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-lambda",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "lambda",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-info",
+          "values": [],
+          "when": {
+            "info": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-quiet",
+          "values": [],
+          "when": {
+            "quiet": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-debug",
+          "values": [],
+          "when": {
+            "debug": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-nthreads",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "nthreads",
+              "kind": "INT"
+            }
+          ]
+        }
+      ],
+      "total_options": 29,
+      "omitted_options": {
+        "riso": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    }
+  }
+}

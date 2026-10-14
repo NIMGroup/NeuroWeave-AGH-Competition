@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "id": "dataset-inspector",
+  "description": "dataset-inspector 统筹已登记的独立方法和可复用流程。支持：数据集巡检；表字段、缺失和主键候选检查。",
+  "method_refs": [
+    {
+      "capability": "dwi.inspect",
+      "method_id": "dataset_inspector",
+      "label": "数据集巡检",
+      "default_recommended": true,
+      "default_reason": "所有后续方法都需要先确认输入条件。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "扫描授权目录的结构和轻量元数据，形成处理前检查摘要。",
+      "method_ref": "dataset.inspect"
+    },
+    {
+      "capability": "skill.dataset-inspector",
+      "method_id": "reviewed-table-inspect-dataset-inspector",
+      "label": "表字段、缺失和主键候选检查",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Inspect CSV/TSV columns, data types, missing values, duplicate rows and unique non-null key candidates with pandas; write the findings as a JSON report。 Inputs: input: CSV/TSV 表格 (file). Registered outputs: results/table_report.json. Fixed invocation options: --operation inspect.",
+      "method_ref": "reviewed.dataset-inspector.table-inspect"
+    },
+    {
+      "capability": "skill.dataset-inspector",
+      "method_id": "linked-dataset_inspector",
+      "label": "数据集巡检",
+      "default_recommended": false,
+      "default_reason": "所有后续方法都需要先确认输入条件。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "扫描授权目录的结构和轻量元数据，形成处理前检查摘要。",
+      "method_ref": "dataset.inspect"
+    },
+    {
+      "capability": "skill.dataset-inspector",
+      "method_id": "dataset-inspector-guided--directory-inventory",
+      "label": "数据集巡检",
+      "default_recommended": false,
+      "default_reason": "所有后续方法都需要先确认输入条件。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "dataset-inspector-guided--directory-inventory",
+        "target_method_id": "dataset_inspector"
+      },
+      "role": "扫描授权目录的结构和轻量元数据，形成处理前检查摘要。",
+      "method_ref": "dataset.inspect"
+    },
+    {
+      "capability": "skill.dataset-inspector",
+      "method_id": "dataset-inspector-guided--imaging-metadata",
+      "label": "数据集巡检",
+      "default_recommended": false,
+      "default_reason": "所有后续方法都需要先确认输入条件。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "dataset-inspector-guided--imaging-metadata",
+        "target_method_id": "dataset_inspector"
+      },
+      "role": "扫描授权目录的结构和轻量元数据，形成处理前检查摘要。",
+      "method_ref": "dataset.inspect"
+    },
+    {
+      "capability": "skill.dataset-inspector",
+      "method_id": "dataset-inspector-guided--quality-findings",
+      "label": "数据集巡检",
+      "default_recommended": false,
+      "default_reason": "所有后续方法都需要先确认输入条件。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "dataset-inspector-guided--quality-findings",
+        "target_method_id": "dataset_inspector"
+      },
+      "role": "扫描授权目录的结构和轻量元数据，形成处理前检查摘要。",
+      "method_ref": "dataset.inspect"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "name": "dataset-inspector",
+  "category": [
+    "任务能力",
+    "dataset"
+  ],
+  "scope": "task",
+  "limitations": [
+    "max_files 和 sample_subjects 会限制巡检范围；有限采样未发现某种文件不能证明整个数据集不存在该模态。"
+  ],
+  "keywords": [
+    "dataset-inspector",
+    "数据巡检",
+    "文件检查",
+    "元数据"
+  ],
+  "references": []
+}

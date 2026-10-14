@@ -1,0 +1,223 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix.command.meshfilter",
+  "version": "1",
+  "kind": "method",
+  "label": "MRtrix3 meshfilter",
+  "description": "Apply filter operations to meshes\nWhile this command has only one filter operation currently available, it nevertheless presents with a comparable interface to the MRtrix3 commands maskfilter and mrfilter commands.\nApply a mesh smoothing filter (currently the only filter available: $ meshfilter input.vtk smooth output.vtk  The usage of this command may cause confusion due to the generic interface despite only one filtering operation being currently available. This simple example usage is therefore provided for clarity.",
+  "runner_id": "mrtrix.command.meshfilter",
+  "parameters": [
+    {
+      "id": "filter",
+      "argument": "",
+      "label": "filter",
+      "description": "the filter to apply.Options are: smooth",
+      "type": "string",
+      "required": true,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/meshfilter.html",
+      "control": "select",
+      "options": [
+        {
+          "value": "smooth",
+          "label": "smooth",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": "smooth_spatial",
+      "argument": "smooth_spatial",
+      "label": "smooth_spatial",
+      "description": "spatial extent of smoothing (default: 10mm)",
+      "type": "number",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/meshfilter.html",
+      "minimum": 0.0
+    },
+    {
+      "id": "smooth_influence",
+      "argument": "smooth_influence",
+      "label": "smooth_influence",
+      "description": "influence factor for smoothing (default: 10)",
+      "type": "number",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/meshfilter.html",
+      "minimum": 0.0
+    },
+    {
+      "id": "info",
+      "argument": "-info",
+      "label": "info",
+      "description": "display information messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "quiet",
+      "argument": "-quiet",
+      "label": "quiet",
+      "description": "do not display information messages or progress status; alternatively, this can be achieved by setting the MRTRIX_QUIET environment variable to a non-empty string.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "debug",
+      "argument": "-debug",
+      "label": "debug",
+      "description": "display debugging messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "nthreads",
+      "argument": "nthreads",
+      "label": "nthreads",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).",
+      "type": "integer",
+      "required": true,
+      "default": 1,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/meshfilter.html",
+      "minimum": 0,
+      "group": "计算资源",
+      "level": "advanced"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "generated_file",
+      "label": "input",
+      "description": "the input mesh file",
+      "required": true,
+      "binding": "file"
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "output",
+      "type": "generated_file",
+      "label": "output",
+      "description": "the output mesh file This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".vtk",
+      "path_template": "output.vtk"
+    }
+  ],
+  "input_types": [
+    "generated_file"
+  ],
+  "output_types": [
+    "generated_file"
+  ],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/meshfilter.usage.txt",
+      "kind": "command",
+      "label": "MRtrix3 安装版原始完整帮助"
+    }
+  ],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "command": "meshfilter",
+      "version": "3.0.8",
+      "positional": [
+        {
+          "source": "input",
+          "id": "input",
+          "optional": false
+        },
+        {
+          "source": "parameter",
+          "id": "filter",
+          "kind": "CHOICE",
+          "optional": false
+        },
+        {
+          "source": "output",
+          "id": "output",
+          "optional": false
+        }
+      ],
+      "options": [
+        {
+          "flag": "-smooth_spatial",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "smooth_spatial",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-smooth_influence",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "smooth_influence",
+              "kind": "FLOAT"
+            }
+          ]
+        },
+        {
+          "flag": "-info",
+          "values": [],
+          "when": {
+            "info": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-quiet",
+          "values": [],
+          "when": {
+            "quiet": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-debug",
+          "values": [],
+          "when": {
+            "debug": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-nthreads",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "nthreads",
+              "kind": "INT"
+            }
+          ]
+        }
+      ],
+      "total_options": 10,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    }
+  }
+}

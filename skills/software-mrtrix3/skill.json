@@ -1,0 +1,720 @@
+{
+  "schema_version": 1,
+  "id": "software-mrtrix3",
+  "name": "mrtrix3",
+  "category": [
+    "软件工具",
+    "mrtrix3"
+  ],
+  "description": "mrtrix3 统筹已登记的独立方法和可复用流程。支持：MRtrix3 5ttgen（FSL）；MRtrix3 从已有 5TT 生成灰白质界面种子；MRtrix3 MP-PCA DWI 去噪；MRtrix3 Gibbs 振铃校正；MRtrix3 影像阈值处理；MRtrix3 流线顶点重采样；MRtrix3 SIFT2 独立流线赋权；MRtrix3 CSD / MSMT-CSD；其他方法可在详情中分页查询。",
+  "selection_rules": [
+    "优先选择与目标产物对应的独立命令；只有明确需要连续多个步骤时才选择 Pipeline。",
+    "同一 DWI 可以作为响应函数与 FOD 估计的共享输入；响应输出按组织类型连接。",
+    "按已安装版本的命令契约解释选项，未接入选项不得自行拼接。"
+  ],
+  "method_refs": [
+    {
+      "method_ref": "mrtrix.5ttgen",
+      "method_id": "mrtrix.5ttgen",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 5ttgen（FSL）",
+      "role": "由 T1w 结构像生成 ACT 纤维追踪使用的五组织类型影像。"
+    },
+    {
+      "method_ref": "mrtrix.command.5tt2gmwmi",
+      "method_id": "mrtrix.command.5tt2gmwmi",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 从已有 5TT 生成灰白质界面种子",
+      "role": "独立调用 MRtrix3 3.0.8 的 5tt2gmwmi；保留原软件计算，参数按原版本帮助定义。\n\nGenerate a mask image appropriate for seeding streamlines on the grey matter-white matter interface"
+    },
+    {
+      "method_ref": "mrtrix.command.dwidenoise",
+      "method_id": "mrtrix.command.dwidenoise",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 MP-PCA DWI 去噪",
+      "role": "独立调用 MRtrix3 3.0.8 的 dwidenoise；保留原软件计算，参数按原版本帮助定义。\n\ndMRI noise level estimation and denoising using Marchenko-Pastur PCA\nDWI data denoising and noise map estimation by exploiting data redundancy in the PCA domain using the prior knowledge that the eigenspectrum of random covariance matrices is described by the universal Marchenko-Pastur (MP) distribution. Fitting the MP distribution to the spectrum of patch-wise signal matrices hence provides an estimator of the noise level 'sigma', as was first shown in Veraart et al. (2016) and later improved in Cordero-Grande et al. (2019). This noise level estimate then determines the optimal cut-off for PCA denoising.\nImportant note: image denoising must be performed as the first step of the image processing pipeline. The routine will fail if interpolation or smoothing has been applied to the data prior to denoising.\nNote that this function does not correct for non-Gaussian noise biases present in magnitude-reconstructed MRI images. If available, including the MRI phase data can reduce such non-Gaussian biases, and the command now supports complex input data."
+    },
+    {
+      "method_ref": "mrtrix.command.mrdegibbs",
+      "method_id": "mrtrix.command.mrdegibbs",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 Gibbs 振铃校正",
+      "role": "独立调用 MRtrix3 3.0.8 的 mrdegibbs；保留原软件计算，参数按原版本帮助定义。\n\nRemove Gibbs Ringing Artifacts\nThis application attempts to remove Gibbs ringing artefacts from MRI images using the method of local subvoxel-shifts proposed by Kellner et al. (see reference below for details).\nThis command is designed to run on data directly after it has been reconstructed by the scanner, before any interpolation of any kind has taken place. You should not run this command after any form of motion correction (e.g. not after dwifslpreproc). Similarly, if you intend running dwidenoise, you should run denoising before this command to not alter the noise structure, which would impact on dwidenoise's performance.\nFor best results, any form of filtering performed by the scanner should be disabled, whether performed in the image domain or k-space. This includes elliptic filtering and other filters that are often applied to reduce Gibbs ringing artifacts. While this method can still safely be applied to such data, some residual ringing artefacts may still be present in the output.\nNote that this method is designed to work on images acquired with full k-space coverage. If this method is executed on data acquired with partial Fourier (eg. \"half-scan\") acceleration, it may not fully remove all ringing artifacts, and you may observe residuals of the original artifact in the partial Fourier direction. Nonetheless, application of the method is still considered safe and worthwhile. Users are however encouraged to acquired full-Fourier data where possible."
+    },
+    {
+      "method_ref": "mrtrix.command.mrthreshold",
+      "method_id": "mrtrix.command.mrthreshold",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 影像阈值处理",
+      "role": "独立调用 MRtrix3 3.0.8 的 mrthreshold；保留原软件计算，参数按原版本帮助定义。\n\nCreate bitwise image by thresholding image intensity\nThe threshold value to be applied can be determined in one of a number of ways:\n- If no relevant command-line option is used, the command will automatically determine an optimal threshold;\n- The -abs option provides the threshold value explicitly;\n- The -percentile, -top and -bottom options enable more fine-grained control over how the threshold value is determined.\nThe -mask option only influences those image values that contribute toward the determination of the threshold value; once the threshold is determined, it is applied to the entire image, irrespective of use of the -mask option. If you wish for the voxels outside of the specified mask to additionally be excluded from the output mask, this can be achieved by providing the -out_masked option.\nThe four operators available through the \"-comparison\" option (\"lt\", \"le\", \"ge\" and \"gt\") correspond to \"less-than\" (<), \"less-than-or-equal\" (<=), \"greater-than-or-equal\" (>=) and \"greater-than\" (>). This offers fine-grained control over how the thresholding operation will behave in the presence of values equivalent to the threshold. By default, the command will select voxels with values greater than or equal to the determined threshold (\"ge\"); unless the -bottom option is used, in which case after a threshold is determined from the relevant lowest-valued image voxels, those voxels with values less than or equal to that threshold (\"le\") are selected. This provides more fine-grained control than the -invert option; the latter is provided for backwards compatibility, but is equivalent to selection of the opposite comparison within this selection.\nIf no output image path is specified, the command will instead write to standard output the determined threshold value."
+    },
+    {
+      "method_ref": "mrtrix.command.tckresample",
+      "method_id": "mrtrix.command.tckresample",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 流线顶点重采样",
+      "role": "独立调用 MRtrix3 3.0.8 的 tckresample；保留原软件计算，参数按原版本帮助定义。\n\nResample each streamline in a track file to a new set of vertices\nIt is necessary to specify precisely ONE of the command-line options for controlling how this resampling takes place; this may be either increasing or decreasing the number of samples along each streamline, or may involve changing the positions of the samples according to some specified trajectory.\nNote that because the length of a streamline is calculated based on the sums of distances between adjacent vertices, resampling a streamline to a new set of vertices will typically change the quantified length of that streamline; the magnitude of the difference will typically depend on the discrepancy in the number of vertices, with less vertices leading to a shorter length (due to taking chordal lengths of curved trajectories)."
+    },
+    {
+      "method_ref": "mrtrix.command.tcksift2",
+      "method_id": "mrtrix.command.tcksift2",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 SIFT2 独立流线赋权",
+      "role": "独立调用 MRtrix3 3.0.8 的 tcksift2；保留原软件计算，参数按原版本帮助定义。\n\nOptimise per-streamline cross-section multipliers to match a whole-brain tractogram to fixel-wise fibre densities"
+    },
+    {
+      "method_ref": "mrtrix.dwi2fod",
+      "method_id": "mrtrix.dwi2fod",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 CSD / MSMT-CSD",
+      "role": "使用 dwi2fod 从预处理 DWI 与组织响应函数估计白质 FOD。"
+    },
+    {
+      "method_ref": "mrtrix.dwi2response",
+      "method_id": "mrtrix.dwi2response",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 响应函数估计",
+      "role": "使用 dwi2response 的 dhollander 或 tournier 算法生成 CSD 所需组织响应函数。"
+    },
+    {
+      "method_ref": "mrtrix.tck2connectome",
+      "method_id": "mrtrix.tck2connectome",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 tck2connectome",
+      "role": "把流线与脑区分区映射为结构连接矩阵，可选使用 SIFT2 权重或标量边权。"
+    },
+    {
+      "method_ref": "mrtrix.tckgen",
+      "method_id": "mrtrix.tckgen",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 基于已有 FOD 的纤维追踪",
+      "role": "使用已有 FOD 调用 tckgen 生成流线。ACT 按参数绑定已有 5TT；本方法不生成 5TT、不运行 SIFT2。"
+    },
+    {
+      "method_ref": "mrtrix.command.5tt2vis",
+      "method_id": "mrtrix.command.5tt2vis",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 5tt2vis",
+      "role": "Generate an image for visualisation purposes from an ACT 5TT segmented anatomical image"
+    },
+    {
+      "method_ref": "mrtrix.command.5ttedit",
+      "method_id": "mrtrix.command.5ttedit",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 5ttedit",
+      "role": "Manually set the partial volume fractions in an ACT five-tissue-type (5TT) image using mask images"
+    },
+    {
+      "method_ref": "mrtrix.command.afdconnectivity",
+      "method_id": "mrtrix.command.afdconnectivity",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 afdconnectivity",
+      "role": "Obtain an estimate of fibre connectivity between two regions using AFD and streamlines tractography\nThis estimate is obtained by determining a fibre volume (AFD) occupied by the pathway of interest, and dividing by the streamline length.\nIf only the streamlines belonging to the pathway of interest are provided, then ALL of the fibre volume within each fixel selected will contribute to the result. If the -wbft option is used to provide whole-brain fibre-tracking (of which the pathway of interest should contain a subset), only the fraction of the fibre volume in each fixel estimated to belong to the pathway of interest will contribute to the result.\nUse -quiet to suppress progress messages and output fibre connectivity value only.\nFor valid comparisons of AFD connectivity across scans, images MUST be intensity normalised and bias field corrected, and a common response function for all subjects must be used.\nNote that the sum of the AFD is normalised by streamline length to account for subject differences in fibre bundle length. This normalisation results in a measure that is more related to the cross-sectional volume of the tract (and therefore 'connectivity'). Note that SIFT-ed tract count is a superior measure because it is unaffected by tangential yet unrelated fibres. However, AFD connectivity may be used as a substitute when Anatomically Constrained Tractography is not possible due to uncorrectable EPI distortions, and SIFT may therefore not be as effective.\nLonger discussion regarding this command can additionally be found at: https://mrtrix.readthedocs.io/en/3.0.8/concepts/afd_connectivity.html (as well as in the relevant reference)."
+    },
+    {
+      "method_ref": "mrtrix.command.amp2sh",
+      "method_id": "mrtrix.command.amp2sh",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 amp2sh",
+      "role": "Convert a set of amplitudes (defined along a set of corresponding directions) to their spherical harmonic representation\nThe spherical harmonic decomposition is calculated by least-squares linear fitting to the amplitude data.\nThe directions can be defined either as a DW gradient scheme (for example to compute the SH representation of the DW signal), a set of [az el] pairs as output by the dirgen command, or a set of [ x y z ] directions in Cartesian coordinates. The DW gradient scheme or direction set can be supplied within the input image header or using the -gradient or -directions option. Note that if a direction set and DW gradient scheme can be found, the direction set will be used by default.\nThe spherical harmonic coefficients are stored according the conventions described the main documentation, which can be found at the following link: \nhttps://mrtrix.readthedocs.io/en/3.0.8/concepts/spherical_harmonics.html"
+    },
+    {
+      "method_ref": "mrtrix.command.dirflip",
+      "method_id": "mrtrix.command.dirflip",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 dirflip",
+      "role": "Invert the polarity of individual directions so as to optimise a unipolar electrostatic repulsion model\nThe orientations themselves are not affected, only their polarity; this is necessary to ensure near-optimal distribution of DW directions for eddy-current correction."
+    },
+    {
+      "method_ref": "mrtrix.command.dirgen",
+      "method_id": "mrtrix.command.dirgen",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 dirgen",
+      "role": "Generate a set of uniformly distributed directions using a bipolar electrostatic repulsion model\nDirections are distributed by analogy to an electrostatic repulsion system, with each direction corresponding to a single electrostatic charge (for -unipolar), or a pair of diametrically opposed charges (for the default bipolar case). The energy of the system is determined based on the Coulomb repulsion, which assumes the form 1/r^power, where r is the distance between any pair of charges, and p is the power assumed for the repulsion law (default: 1). The minimum energy state is obtained by gradient descent."
+    },
+    {
+      "method_ref": "mrtrix.command.dirmerge",
+      "method_id": "mrtrix.command.dirmerge",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 dirmerge",
+      "role": "Splice / merge multiple sets of directions in such a way as to maintain near-optimality upon truncation"
+    },
+    {
+      "method_ref": "mrtrix.command.dirorder",
+      "method_id": "mrtrix.command.dirorder",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 dirorder",
+      "role": "Reorder a set of directions to ensure near-uniformity upon truncation\nThe intent of this command is to reorder a set of gradient directions such that if a scan is terminated prematurely, at any point, the acquired directions will still be close to optimally distributed on the half-sphere."
+    },
+    {
+      "method_ref": "mrtrix.command.dwi2adc",
+      "method_id": "mrtrix.command.dwi2adc",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 dwi2adc",
+      "role": "Convert mean dwi (trace-weighted) images to mean ADC maps"
+    },
+    {
+      "method_ref": "mrtrix.command.dwi2mask",
+      "method_id": "mrtrix.command.dwi2mask",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 dwi2mask",
+      "role": "Generates a whole brain mask from a DWI image\nAll diffusion weighted and b=0 volumes are used to obtain a mask that includes both brain tissue and CSF.\nIn a second step peninsula-like extensions, where the peninsula itself is wider than the bridge connecting it to the mask, are removed. This may help removing artefacts and non-brain parts, e.g. eyes, from the mask."
+    },
+    {
+      "method_ref": "mrtrix.command.dwi2tensor",
+      "method_id": "mrtrix.command.dwi2tensor",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 dwi2tensor",
+      "role": "Diffusion (kurtosis) tensor estimation\nBy default, the diffusion tensor (and optionally its kurtosis) is fitted to the log-signal in two steps: firstly, using weighted least-squares (WLS) with weights based on the empirical signal intensities; secondly, by further iterated weighted least-squares (IWLS) with weights determined by the signal predictions from the previous iteration (by default, 2 iterations will be performed). This behaviour can be altered in two ways:\n* The -ols option will cause the first fitting step to be performed using ordinary least-squares (OLS); that is, all measurements contribute equally to the fit, instead of the default behaviour of weighting based on the empirical signal intensities.\n* The -iter option controls the number of iterations of the IWLS prodedure. If this is set to zero, then the output model parameters will be those resulting from the first fitting step only: either WLS by default, or OLS if the -ols option is used in conjunction with -iter 0.\nThe tensor coefficients are stored in the output image as follows:\nvolumes 0-5: D11, D22, D33, D12, D13, D23\nIf diffusion kurtosis is estimated using the -dkt option, these are stored as follows:\nvolumes 0-2: W1111, W2222, W3333\nvolumes 3-8: W1112, W1113, W1222, W1333, W2223, W2333\nvolumes 9-11: W1122, W1133, W2233\nvolumes 12-14: W1123, W1223, W1233"
+    },
+    {
+      "method_ref": "mrtrix.command.dwiextract",
+      "method_id": "mrtrix.command.dwiextract",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 dwiextract",
+      "role": "Extract diffusion-weighted volumes, b=0 volumes, or certain shells from a DWI dataset\nCalculate the mean b=0 image from a 4D DWI series: $ dwiextract dwi.mif - -bzero | mrmath - mean mean_bzero.mif -axis 3  The dwiextract command extracts all volumes for which the b-value is (approximately) zero; the resulting 4D image can then be provided to the mrmath command to calculate the mean intensity across volumes for each voxel."
+    },
+    {
+      "method_ref": "mrtrix.command.fixel2sh",
+      "method_id": "mrtrix.command.fixel2sh",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 fixel2sh",
+      "role": "Convert a fixel-based sparse-data image into an spherical harmonic image\nThis command generates spherical harmonic data from fixels that can be visualised using the ODF tool in MRview. The output ODF lobes are scaled according to the values in the input fixel image.\nThe spherical harmonic coefficients are stored according the conventions described the main documentation, which can be found at the following link: \nhttps://mrtrix.readthedocs.io/en/3.0.8/concepts/spherical_harmonics.html"
+    },
+    {
+      "method_ref": "mrtrix.command.fixel2tsf",
+      "method_id": "mrtrix.command.fixel2tsf",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 fixel2tsf",
+      "role": "Map fixel values to a track scalar file based on an input tractogram\nThis command is useful for visualising all brain fixels (e.g. the output from fixelcfestats) in 3D."
+    },
+    {
+      "method_ref": "mrtrix.command.fixel2voxel",
+      "method_id": "mrtrix.command.fixel2voxel",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 fixel2voxel",
+      "role": "Convert a fixel-based sparse-data image into some form of scalar image\nFixel data can be reduced to voxel data in a number of ways:\n- Some statistic computed across all fixel values within a voxel: mean, sum, product, min, max, absmax, magmax\n- The number of fixels in each voxel: count\n- Some measure of crossing-fibre organisation: complexity, sf ('single-fibre')\n- A 4D directionally-encoded colour image: dec_unit, dec_scaled\n- A 4D image containing all fixel data values in each voxel unmodified: none\nThe -weighted option deals with the case where there is some per-fixel metric of interest that you wish to collapse into a single scalar measure per voxel, but each fixel possesses a different volume, and you wish for those fixels with greater volume to have a greater influence on the calculation than fixels with lesser volume. For instance, when estimating a voxel-based measure of mean axon diameter from per-fixel mean axon diameters, a fixel's mean axon diameter should be weigthed by its relative volume within the voxel in the calculation of that voxel mean."
+    },
+    {
+      "method_ref": "mrtrix.command.fod2dec",
+      "method_id": "mrtrix.command.fod2dec",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 fod2dec",
+      "role": "Generate FOD-based DEC maps, with optional panchromatic sharpening and/or luminance/perception correction\nBy default, the FOD-based DEC is weighted by the integral of the FOD. To weight by another scalar map, use the -contrast option. This option can also be used for panchromatic sharpening, e.g., by supplying a T1 (or other sensible) anatomical volume with a higher spatial resolution."
+    },
+    {
+      "method_ref": "mrtrix.command.label2colour",
+      "method_id": "mrtrix.command.label2colour",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 label2colour",
+      "role": "Convert a parcellated image (where values are node indices) into a colour image\nMany software packages handle this colouring internally within their viewer program; this binary explicitly converts a parcellation image into a colour image that should be viewable in any software."
+    },
+    {
+      "method_ref": "mrtrix.command.label2mesh",
+      "method_id": "mrtrix.command.label2mesh",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 label2mesh",
+      "role": "Generate meshes from a label image"
+    },
+    {
+      "method_ref": "mrtrix.command.labelconvert",
+      "method_id": "mrtrix.command.labelconvert",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 labelconvert",
+      "role": "Remap integer connectome node labels using source and target lookup tables. For a FreeSurfer anatomical atlas, use aparc+aseg.mgz with its matching FreeSurferColorLUT and the intended MRtrix atlas LUT. The output can use contiguous node indices for tck2connectome. This command does not produce anatomical segmentation, estimate registration or change the input coordinate space."
+    },
+    {
+      "method_ref": "mrtrix.command.maskdump",
+      "method_id": "mrtrix.command.maskdump",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 maskdump",
+      "role": "Print out the locations of all non-zero voxels in a mask image\nIf no destination file is specified, the voxel locations will be printed to stdout."
+    },
+    {
+      "method_ref": "mrtrix.command.maskfilter",
+      "method_id": "mrtrix.command.maskfilter",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 maskfilter",
+      "role": "Perform filtering operations on 3D / 4D mask images\nThe available filters are: clean, connect, dilate, erode, median.\nEach filter has its own unique set of optional parameters."
+    },
+    {
+      "method_ref": "mrtrix.command.mesh2voxel",
+      "method_id": "mrtrix.command.mesh2voxel",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 mesh2voxel",
+      "role": "Convert a mesh surface to a partial volume estimation image"
+    },
+    {
+      "method_ref": "mrtrix.command.meshconvert",
+      "method_id": "mrtrix.command.meshconvert",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 meshconvert",
+      "role": "Convert meshes between different formats, and apply transformations"
+    },
+    {
+      "method_ref": "mrtrix.command.meshfilter",
+      "method_id": "mrtrix.command.meshfilter",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 meshfilter",
+      "role": "Apply filter operations to meshes\nWhile this command has only one filter operation currently available, it nevertheless presents with a comparable interface to the MRtrix3 commands maskfilter and mrfilter commands.\nApply a mesh smoothing filter (currently the only filter available: $ meshfilter input.vtk smooth output.vtk  The usage of this command may cause confusion due to the generic interface despite only one filtering operation being currently available. This simple example usage is therefore provided for clarity."
+    },
+    {
+      "method_ref": "mrtrix.command.mrcheckerboardmask",
+      "method_id": "mrtrix.command.mrcheckerboardmask",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 mrcheckerboardmask",
+      "role": "Create bitwise checkerboard image"
+    },
+    {
+      "method_ref": "mrtrix.command.mrcolour",
+      "method_id": "mrtrix.command.mrcolour",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 mrcolour",
+      "role": "Apply a colour map to an image\nUnder typical usage, this command will receive as input ad 3D greyscale image, and output a 4D image with 3 volumes corresponding to red-green-blue components; other use cases are possible, and are described in more detail below.\nBy default, the command will automatically determine the maximum and minimum intensities of the input image, and use that information to set the upper and lower bounds of the applied colourmap. This behaviour can be overridden by manually specifying these bounds using the -upper and -lower options respectively."
+    },
+    {
+      "method_ref": "mrtrix.command.mrconvert",
+      "method_id": "mrtrix.command.mrconvert",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 mrconvert",
+      "role": "Perform conversion between different file types and optionally extract a subset of the input image\nIf used correctly, this program can be a very useful workhorse. In addition to converting images between different formats, it can be used to extract specific studies from a data set, extract a specific region of interest, or flip the images. Some of the possible operations are described in more detail below.\nNote that for both the -coord and -axes options, indexing starts from 0 rather than 1. E.g. -coord 3 <#> selects volumes (the fourth dimension) from the series; -axes 0,1,2 includes only the three spatial axes in the output image.\nAdditionally, for the second input to the -coord option and the -axes option, you can use any valid number sequence in the selection, as well as the 'end' keyword (see the main documentation for details); this can be particularly useful to select multiple coordinates.\nThe -vox option is used to change the size of the voxels in the output image as reported in the image header; note however that this does not re-sample the image based on a new voxel size (that is done using the mrgrid command).\nBy default, the intensity scaling parameters in the input image header are passed through to the output image header when writing to an integer image, and reset to 0,1 (i.e. no scaling) for floating-point and binary images. Note that the -scaling option will therefore have no effect for floating-point or binary output images.\nThe -axes option specifies which axes from the input image will be used to form the output image. This allows the permutation, omission, or addition of axes into the output image. The axes should be supplied as a comma-separated list of axis indices. If an axis from the input image is to be omitted from the output image, it must either already have a size of 1, or a single coordinate along that axis must be selected by the user by using the -coord option. Examples are provided further below.\nThe -bvalue_scaling option controls an aspect of the import of diffusion gradient tables. When the input diffusion-weighting direction vectors have norms that differ substantially from unity, the b-values will be scaled by the square of their corresponding vector norm (this is how multi-shell acquisitions are frequently achieved on scanner platforms). However in some rare instances, the b-values may be correct, despite the vectors not being of unit norm (or conversely, the b-values may need to be rescaled even though the vectors are close to unit norm). This option allows the user to control this operation and override MRrtix3's automatic detection.\nExtract the first volume from a 4D image, and make the output a 3D image: $ mrconvert in.mif -coord 3 0 -axes 0,1,2 out.mif  The -coord 3 0 option extracts, from axis number 3 (which is the fourth axis since counting begins from 0; this is the axis that steps across image volumes), only coordinate number 0 (i.e. the first volume). The -axes 0,1,2 ensures that only the first three axes (i.e. the spatial axes) are retained; if this option were not used in this example, then image out.mif would be a 4D image, but it would only consist of a single volume, and mrinfo would report its size along the fourth axis as 1.\nExtract slice number 24 along the AP direction: $ mrconvert volume.mif slice.mif -coord 1 24  MRtrix3 uses a RAS (Right-Anterior-Superior) axis convention, and internally reorients images upon loading in order to conform to this as far as possible. So for non-exotic data, axis 1 should correspond (approximately) to the anterior-posterior direction.\nExtract only every other volume from a 4D image: $ mrconvert all.mif every_other.mif -coord 3 1:2:end  This example demonstrates two features: Use of the colon syntax to conveniently specify a number sequence (in the format 'start:step:stop'); and use of the 'end' keyword to generate this sequence up to the size of the input image along that axis (i.e. the number of volumes).\nAlter the image header to report a new isotropic voxel size: $ mrconvert in.mif isotropic.mif -vox 1.25  By providing a single value to the -vox option only, the specified value is used to set the voxel size in mm for all three spatial axes in the output image.\nAlter the image header to report a new anisotropic voxel size: $ mrconvert in.mif anisotropic.mif -vox 1,,3.5  This example will change the reported voxel size along the first and third axes (ideally left-right and inferior-superior) to 1.0mm and 3.5mm respectively, and leave the voxel size along the second axis (ideally anterior-posterior) unchanged.\nTurn a single-volume 4D image into a 3D image: $ mrconvert 4D.mif 3D.mif -axes 0,1,2  Sometimes in the process of extracting or calculating a single 3D volume from a 4D image series, the size of the image reported by mrinfo will be \"X x Y x Z x 1\", indicating that the resulting image is in fact also 4D, it just happens to contain only one volume. This example demonstrates how to convert this into a genuine 3D image (i.e. mrinfo will report the size as \"X x Y x Z\".\nInsert an axis of size 1 into the image: $ mrconvert XYZD.mif XYZ1D.mif -axes 0,1,2,-1,3  This example uses the value -1 as a flag to indicate to mrconvert where a new axis of unity size is to be inserted. In this particular example, the input image has four axes: the spatial axes X, Y and Z, and some form of data D is stored across the fourth axis (i.e. volumes). Due to insertion of a new axis, the output image is 5D: the three spatial axes (XYZ), a single volume (the size of the output image along the fourth axis will be 1), and data D will be stored as volume groups along the fifth axis of the image.\nManually reset the data scaling parameters stored within the image header to defaults: $ mrconvert with_scaling.mif without_scaling.mif -scaling 0.0,1.0  This command-line option alters the parameters stored within the image header that provide a linear mapping from raw intensity values stored in the image data to some other scale. Where the raw data stored in a particular voxel is I, the value within that voxel is interpreted as: value = offset + (scale x I).  To adjust this scaling, the relevant parameters must be provided as a comma-separated 2-vector of floating-point values, in the format \"offset,scale\" (no quotation marks). This particular example sets the offset to zero and the scale to one, which equates to no rescaling of the raw intensity data."
+    },
+    {
+      "method_ref": "mrtrix.command.mrdump",
+      "method_id": "mrtrix.command.mrdump",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 mrdump",
+      "role": "Print out the values within an image\nIf no destination file is specified, the voxel locations will be printed to stdout."
+    },
+    {
+      "method_ref": "mrtrix.command.mredit",
+      "method_id": "mrtrix.command.mredit",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 mredit",
+      "role": "Directly edit the intensities within an image from the command-line\nA range of options are provided to enable direct editing of voxel intensities based on voxel / real-space coordinates. If only one image path is provided, the image will be edited in-place (use at own risk); if input and output image paths are provided, the output will contain the edited image, and the original image will not be modified in any way."
+    },
+    {
+      "method_ref": "mrtrix.command.mrgrid",
+      "method_id": "mrtrix.command.mrgrid",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 mrgrid",
+      "role": "Modify the grid of an image without interpolation (cropping or padding) or by regridding to an image grid with modified orientation, location and or resolution. The image content remains in place in real world coordinates.\n- regrid: This operation performs changes of the voxel grid that require interpolation of the image such as changing the resolution or location and orientation of the voxel grid. If the image is down-sampled, the appropriate smoothing is automatically applied using Gaussian smoothing unless nearest neighbour interpolation is selected or oversample is changed explicitly. The resolution can only be changed for spatial dimensions. \n- crop: The image extent after cropping, can be specified either manually for each axis dimensions, or via a mask or reference image. The image can be cropped to the extent of a mask. This is useful for axially-acquired brain images, where the image size can be reduced by a factor of 2 by removing the empty space on either side of the brain. Note that cropping does not extend the image beyond the original FOV unless explicitly specified (via -crop_unbound or negative -axis extent).\n- pad: Analogously to cropping, padding increases the FOV of an image without image interpolation. Pad and crop can be performed simultaneously by specifying signed specifier argument values to the -axis option.\nThis command encapsulates and extends the functionality of the superseded commands 'mrpad', 'mrcrop' and 'mrresize'. Note the difference in -axis convention used for 'mrcrop' and 'mrpad' (see -axis option description).\nCrop and pad the first axis: $ mrgrid in.mif crop -axis 0 10,-5 out.mif  This removes 10 voxels on the lower and pads with 5 on the upper bound, which is equivalent to padding with the negated specifier (mrgrid in.mif pad -axis 0 -10,5 out.mif).\nRight-pad the image to the number of voxels of a reference image: $ mrgrid in.mif pad -as ref.mif -all_axes -axis 3 0,0 out.mif -fill nan  This pads the image on the upper bound of all axes except for the volume dimension. The headers of in.mif and ref.mif are ignored and the output image uses NAN values to fill in voxels outside the original range of in.mif.\nRegrid and interpolate to match the voxel grid of a reference image: $ mrgrid in.mif regrid -template ref.mif -scale 1,1,0.5 out.mif -fill nan  The -template instructs to regrid in.mif to match the voxel grid of ref.mif (voxel size, grid orientation and voxel centres). The -scale option overwrites the voxel scaling factor yielding voxel sizes in the third dimension that are twice as coarse as those of the template image."
+    },
+    {
+      "method_ref": "mrtrix.command.mrhistmatch",
+      "method_id": "mrtrix.command.mrhistmatch",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 mrhistmatch",
+      "role": "Modify the intensities of one image to match the histogram of another"
+    },
+    {
+      "method_ref": "mrtrix.command.mrhistogram",
+      "method_id": "mrtrix.command.mrhistogram",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 mrhistogram",
+      "role": "Generate a histogram of image intensities"
+    },
+    {
+      "method_ref": "mrtrix.command.mrtransform",
+      "method_id": "mrtrix.command.mrtransform",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 mrtransform",
+      "role": "Apply spatial transformations to an image\nIf a linear transform is applied without a template image the command will modify the image header transform matrix\nFOD reorientation (with apodised point spread functions) can be performed if the number of volumes in the 4th dimension equals the number of coefficients in an antipodally symmetric spherical harmonic series (e.g. 6, 15, 28 etc). For such data, the -reorient_fod yes/no option must be used to specify if reorientation is required.\nThe output image intensity can be modulated using the (local or global) volume change if a linear or nonlinear transformation is applied. 'FOD' modulation preserves the apparent fibre density across the fibre bundle width and can only be applied if FOD reorientation is used. Alternatively, non-directional scaling by the Jacobian determinant can be applied to any image type. \nIf a DW scheme is contained in the header (or specified separately), and the number of directions matches the number of volumes in the images, any transformation applied using the -linear option will also be applied to the directions.\nWhen the -template option is used to specify the target image grid, the image provided via this option will not influence the axis data strides of the output image; these are determined based on the input image, or the input to the -strides option."
+    },
+    {
+      "method_ref": "mrtrix.command.peaks2amp",
+      "method_id": "mrtrix.command.peaks2amp",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 peaks2amp",
+      "role": "Extract amplitudes from a peak directions image"
+    },
+    {
+      "method_ref": "mrtrix.command.sh2amp",
+      "method_id": "mrtrix.command.sh2amp",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 sh2amp",
+      "role": "Evaluate the amplitude of an image of spherical harmonic functions along specified directions\nThe input image should consist of a 4D or 5D image, with SH coefficients along the 4th dimension according to the convention below. If 4D (or size 1 along the 5th dimension), the program expects to be provided with a single shell of directions. If 5D, each set of coefficients along the 5th dimension is understood to correspond to a different shell.\nThe directions can be provided as:\n- a 2-column ASCII text file contained azimuth / elevation pairs (as produced by dirgen)\n- a 3-column ASCII text file containing x, y, z Cartesian direction vectors (as produced by dirgen -cart)\n- a 4-column ASCII text file containing the x, y, z, b components of a full DW encoding scheme (in MRtrix format, see main documentation for details).\n- an image file whose header contains a valid DW encoding scheme\nIf a full DW encoding is provided, the number of shells needs to match those found in the input image of coefficients (i.e. its size along the 5th dimension). If needed, the -shell option can be used to pick out the specific shell(s) of interest.\nIf the input image contains multiple shells (its size along the 5th dimension is greater than one), the program will expect the direction set to contain multiple shells, which can only be provided as a full DW encodings (the last two options in the list above).\nThe spherical harmonic coefficients are stored according the conventions described the main documentation, which can be found at the following link: \nhttps://mrtrix.readthedocs.io/en/3.0.8/concepts/spherical_harmonics.html"
+    },
+    {
+      "method_ref": "mrtrix.command.sh2peaks",
+      "method_id": "mrtrix.command.sh2peaks",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 sh2peaks",
+      "role": "Extract the peaks of a spherical harmonic function in each voxel\nPeaks of the spherical harmonic function in each voxel are located by commencing a Newton search along each of a set of pre-specified directions\nThe spherical harmonic coefficients are stored according the conventions described the main documentation, which can be found at the following link: \nhttps://mrtrix.readthedocs.io/en/3.0.8/concepts/spherical_harmonics.html"
+    },
+    {
+      "method_ref": "mrtrix.command.sh2power",
+      "method_id": "mrtrix.command.sh2power",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 sh2power",
+      "role": "Compute the total power of a spherical harmonics image\nThis command computes the sum of squared SH coefficients, which equals the mean-squared amplitude of the spherical function it represents.\nThe spherical harmonic coefficients are stored according the conventions described the main documentation, which can be found at the following link: \nhttps://mrtrix.readthedocs.io/en/3.0.8/concepts/spherical_harmonics.html"
+    },
+    {
+      "method_ref": "mrtrix.command.sh2response",
+      "method_id": "mrtrix.command.sh2response",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 sh2response",
+      "role": "Generate an appropriate response function from the image data for spherical deconvolution\nThe spherical harmonic coefficients are stored according the conventions described the main documentation, which can be found at the following link: \nhttps://mrtrix.readthedocs.io/en/3.0.8/concepts/spherical_harmonics.html"
+    },
+    {
+      "method_ref": "mrtrix.command.shconv",
+      "method_id": "mrtrix.command.shconv",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 shconv",
+      "role": "Perform spherical convolution\nProvided with matching pairs of response function and ODF images (containing SH coefficients), perform spherical convolution to provide the corresponding SH coefficients of the signal.\nIf multiple pairs of inputs are provided, their contributions will be summed into a single output.\nIf the responses are multi-shell (with one line of coefficients per shell), the output will be a 5-dimensional image, with the SH coefficients of the signal in each shell stored at different indices along the 5th dimension.\nThe spherical harmonic coefficients are stored according the conventions described the main documentation, which can be found at the following link: \nhttps://mrtrix.readthedocs.io/en/3.0.8/concepts/spherical_harmonics.html\nARGUMENT odf response 0 1 \npairs of input ODF image and corresponding responses"
+    },
+    {
+      "method_ref": "mrtrix.command.tckdfc",
+      "method_id": "mrtrix.command.tckdfc",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 tckdfc",
+      "role": "Perform the Track-Weighted Dynamic Functional Connectivity (TW-dFC) method\nThis command generates a Track-Weighted Image (TWI), where the contribution from each streamline to the image is the Pearson correlation between the fMRI time series at the streamline endpoints.\nThe output image can be generated in one of two ways (note that one of these two command-line options MUST be provided): \n- \"Static\" functional connectivity (-static option): Each streamline contributes to a static 3D output image based on the correlation between the signals at the streamline endpoints using the entirety of the input time series.\n- \"Dynamic\" functional connectivity (-dynamic option): The output image is a 4D image, with the same number of volumes as the input fMRI time series. For each volume, the contribution from each streamline is calculated based on a finite-width sliding time window, centred at the timepoint corresponding to that volume.\nNote that the -backtrack option in this command is similar, but not precisely equivalent, to back-tracking as can be used with Anatomically-Constrained Tractography (ACT) in the tckgen command. However, here the feature does not change the streamlines trajectories in any way; it simply enables detection of the fact that the input fMRI image may not contain a valid timeseries underneath the streamline endpoint, and where this occurs, searches from the streamline endpoint inwards along the streamline trajectory in search of a valid timeseries to sample from the input image."
+    },
+    {
+      "method_ref": "mrtrix.command.tckglobal",
+      "method_id": "mrtrix.command.tckglobal",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 tckglobal",
+      "role": "Multi-Shell Multi-Tissue Global Tractography\nThis command will reconstruct the global white matter fibre tractogram that best explains the input DWI data, using a multi-tissue spherical convolution model.\nExample use: \n $ tckglobal dwi.mif wmr.txt -riso csfr.txt -riso gmr.txt -mask mask.mif \n   -niter 1e9 -fod fod.mif -fiso fiso.mif tracks.tck \nin which dwi.mif is the input image, wmr.txt is an anisotropic, multi-shell response function for WM, and csfr.txt and gmr.txt are isotropic response functions for CSF and GM. The output tractogram is saved to tracks.tck. Optional output images fod.mif and fiso.mif contain the predicted WM fODF and isotropic tissue fractions of CSF and GM respectively, estimated as part of the global optimization and thus affected by spatial regularization."
+    },
+    {
+      "method_ref": "mrtrix.command.tckmap",
+      "method_id": "mrtrix.command.tckmap",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 tckmap",
+      "role": "Use track data as a form of contrast for producing a high-resolution image\nNote: if you run into limitations with RAM usage, make sure you output the results to a .mif file or .mih / .dat file pair - this will avoid the allocation of an additional buffer to store the output for write-out."
+    },
+    {
+      "method_ref": "mrtrix.command.tcksample",
+      "method_id": "mrtrix.command.tcksample",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 tcksample",
+      "role": "Sample values of an associated image along tracks\nBy default, the value of the underlying image at each point along the track is written to either an ASCII file (with all values for each track on the same line), or a track scalar file (.tsf). Alternatively, some statistic can be taken from the values along each streamline and written to a vector file."
+    },
+    {
+      "method_ref": "mrtrix.command.tcksift",
+      "method_id": "mrtrix.command.tcksift",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 tcksift",
+      "role": "Filter a whole-brain fibre-tracking data set such that the streamline densities match the FOD lobe integrals"
+    },
+    {
+      "method_ref": "mrtrix.command.tckstats",
+      "method_id": "mrtrix.command.tckstats",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 tckstats",
+      "role": "Calculate statistics on streamlines lengths"
+    },
+    {
+      "method_ref": "mrtrix.command.tcktransform",
+      "method_id": "mrtrix.command.tcktransform",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 tcktransform",
+      "role": "Apply a spatial transformation to a tracks file"
+    },
+    {
+      "method_ref": "mrtrix.command.tensor2metric",
+      "method_id": "mrtrix.command.tensor2metric",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 tensor2metric",
+      "role": "Generate maps of tensor-derived parameters"
+    },
+    {
+      "method_ref": "mrtrix.command.transformcalc",
+      "method_id": "mrtrix.command.transformcalc",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 transformcalc",
+      "role": "Perform calculations on linear transformation matrices\nInvert a transformation: $ transformcalc matrix_in.txt invert matrix_out.txt  \nCalculate the matrix square root of the input transformation (halfway transformation): $ transformcalc matrix_in.txt half matrix_out.txt  \nCalculate the rigid component of an affine input transformation: $ transformcalc affine_in.txt rigid rigid_out.txt  \nCalculate the transformation matrix from an original image and an image with modified header: $ transformcalc mov mapmovhdr header output  \nCalculate the average affine matrix of a set of input matrices: $ transformcalc input1.txt ... inputN.txt average matrix_out.txt  \nCreate interpolated transformation matrix between two inputs: $ transformcalc input1.txt input2.txt interpolate matrix_out.txt  Based on matrix decomposition with linear interpolation of translation, rotation and stretch described in: Shoemake, K., Hill, M., & Duff, T. (1992). Matrix Animation and Polar Decomposition. Matrix, 92, 258-264. doi:10.1.1.56.1336\nDecompose transformation matrix M into translation, rotation and stretch and shear (M = T * R * S): $ transformcalc matrix_in.txt decompose matrixes_out.txt  The output is a key-value text file containing: scaling: vector of 3 scaling factors in x, y, z direction; shear: list of shear factors for xy, xz, yz axes; angles: list of Euler angles about static x, y, z axes in radians in the range [0:pi]x[-pi:pi]x[-pi:pi]; angle_axis: angle in radians and rotation axis; translation : translation vector along x, y, z axes in mm; R: composed roation matrix (R = rot_x * rot_y * rot_z); S: composed scaling and shear matrix\nCalculate transformation that aligns two images based on sets of corresponding landmarks: $ transformcalc input moving.txt fixed.txt align_vertices_rigid rigid.txt  Similary, 'align_vertices_rigid_scale' produces an affine matrix (rigid and global scale). Vertex coordinates are in scanner space, corresponding vertices must be stored in the same row of moving.txt and fixed.txt. Requires 3 or more vertices in each file. Algorithm: Kabsch 'A solution for the best rotation to relate two sets of vectors' DOI:10.1107/S0567739476001873\nARGUMENT inputs 0 1 \nthe input(s) for the specified operation"
+    },
+    {
+      "method_ref": "mrtrix.command.transformconvert",
+      "method_id": "mrtrix.command.transformconvert",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 transformconvert",
+      "role": "Convert linear transformation matrices\nThis command allows to convert transformation matrices provided by other registration softwares to a format usable in MRtrix3. Example usages are provided below.\nConvert a transformation matrix produced by FSL's flirt command into a format usable by MRtrix3: $ transformconvert transform_flirt.mat flirt_in.nii flirt_ref.nii flirt_import transform_mrtrix.txt  The two images provided as inputs for this operation must be in the correct order: first the image that was provided to flirt via the -in option, second the image that was provided to flirt via the -ref option.\nConvert a plain text transformation matrix file produced by ITK's affine registration (e.g. ANTS, Slicer) into a format usable by MRtrix3: $ transformconvert transform_itk.txt itk_import transform_mrtrix.txt  \nARGUMENT input 0 1 \nthe input(s) for the specified operation"
+    },
+    {
+      "method_ref": "mrtrix.command.tsfdivide",
+      "method_id": "mrtrix.command.tsfdivide",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 tsfdivide",
+      "role": "Divide corresponding values in track scalar files"
+    },
+    {
+      "method_ref": "mrtrix.command.tsfsmooth",
+      "method_id": "mrtrix.command.tsfsmooth",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 tsfsmooth",
+      "role": "Gaussian filter a track scalar file"
+    },
+    {
+      "method_ref": "mrtrix.command.tsfthreshold",
+      "method_id": "mrtrix.command.tsfthreshold",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 tsfthreshold",
+      "role": "Threshold and invert track scalar files"
+    },
+    {
+      "method_ref": "mrtrix.command.voxel2mesh",
+      "method_id": "mrtrix.command.voxel2mesh",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 voxel2mesh",
+      "role": "Generate a surface mesh representation from a voxel image\nThis command utilises the Marching Cubes algorithm to generate a polygonal surface that represents the isocontour(s) of the input image at a particular intensity. By default, an appropriate threshold will be determined automatically from the input image, however the intensity value of the isocontour(s) can instead be set manually using the -threhsold option.\nIf the -blocky option is used, then the Marching Cubes algorithm will not be used. Instead, the input image will be interpreted as a binary mask image, and polygonal surfaces will be generated at the outer faces of the voxel clusters within the mask."
+    },
+    {
+      "method_ref": "mrtrix.command.warp2metric",
+      "method_id": "mrtrix.command.warp2metric",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 warp2metric",
+      "role": "Compute fixel-wise or voxel-wise metrics from a 4D deformation field"
+    },
+    {
+      "method_ref": "mrtrix.command.warpconvert",
+      "method_id": "mrtrix.command.warpconvert",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 warpconvert",
+      "role": "Convert between different representations of a non-linear warp\nA deformation field is defined as an image where each voxel defines the corresponding position in the other image (in scanner space coordinates). A displacement field stores the displacements (in mm) to the other image from the each voxel's position (in scanner space). The warpfull file is the 5D format output from mrregister -nl_warp_full, which contains linear transforms, warps and their inverses that map each image to a midway space."
+    },
+    {
+      "method_ref": "mrtrix.command.warpcorrect",
+      "method_id": "mrtrix.command.warpcorrect",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 warpcorrect",
+      "role": "Replaces voxels in a deformation field that point to a specific out of bounds location with nan,nan,nan\nThis can be used in conjunction with the warpinit command to compute a MRtrix compatible deformation field from non-linear transformations generated by any other registration package."
+    },
+    {
+      "method_ref": "mrtrix.command.warpinit",
+      "method_id": "mrtrix.command.warpinit",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 warpinit",
+      "role": "Create an initial warp image, representing an identity transformation\nThis is useful to obtain the warp fields from other normalisation applications, by applying the transformation of interest to the warp field generated by this program.\nThe image generated is a 4D image with the same spatial characteristics as the input template image. It contains 3 volumes, with each voxel containing its own x,y,z coordinates.\nNote that this command can be used to create 3 separate X,Y,Z images directly (which may be useful to create images suitable for use in the registration program) using the following syntax:\n  $ warpinit template.mif warp-'[]'.nii"
+    },
+    {
+      "method_ref": "mrtrix.command.warpinvert",
+      "method_id": "mrtrix.command.warpinvert",
+      "capability": "software.mrtrix3",
+      "label": "MRtrix3 warpinvert",
+      "role": "Invert a non-linear warp field\nBy default, this command assumes that the input warp field is a deformation field, i.e. each voxel stores the corresponding position in the other image (in scanner space), and the calculated output warp image will also be a deformation field. If the input warp field is instead a displacment field, i.e. where each voxel stores an offset from which to sample the other image (but still in scanner space), then the -displacement option should be used; the output warp field will additionally be calculated as a displacement field in this case."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.5ttcheck",
+      "method_ref": "mrtrix3.command.5ttcheck",
+      "label": "MRtrix3 5ttcheck",
+      "role": "Thoroughly check that one or more images conform to the expected ACT five-tissue-type (5TT) format\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.amp2response",
+      "method_ref": "mrtrix3.command.amp2response",
+      "label": "MRtrix3 amp2response",
+      "role": "Estimate response function coefficients based on the DWI signal in single-fibre voxels\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.dcminfo",
+      "method_ref": "mrtrix3.command.dcminfo",
+      "label": "MRtrix3 dcminfo",
+      "role": "Output DICOM fields in human-readable format\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.dirstat",
+      "method_ref": "mrtrix3.command.dirstat",
+      "label": "MRtrix3 dirstat",
+      "role": "Report statistics on a direction set\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.fixelconnectivity",
+      "method_ref": "mrtrix3.command.fixelconnectivity",
+      "label": "MRtrix3 fixelconnectivity",
+      "role": "Generate a fixel-fixel connectivity matrix\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.fixelcrop",
+      "method_ref": "mrtrix3.command.fixelcrop",
+      "label": "MRtrix3 fixelcrop",
+      "role": "Crop/remove fixels from sparse fixel image using a binary fixel mask\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.fixelreorient",
+      "method_ref": "mrtrix3.command.fixelreorient",
+      "label": "MRtrix3 fixelreorient",
+      "role": "Reorient fixel directions\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.fod2fixel",
+      "method_ref": "mrtrix3.command.fod2fixel",
+      "label": "MRtrix3 fod2fixel",
+      "role": "Perform segmentation of continuous Fibre Orientation Distributions (FODs) to produce discrete fixels\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.labelstats",
+      "method_ref": "mrtrix3.command.labelstats",
+      "label": "MRtrix3 labelstats",
+      "role": "Compute statistics of parcels within a label image\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.mraverageheader",
+      "method_ref": "mrtrix3.command.mraverageheader",
+      "label": "MRtrix3 mraverageheader",
+      "role": "Calculate the average (unbiased) coordinate space of all input images\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.mrcat",
+      "method_ref": "mrtrix3.command.mrcat",
+      "label": "MRtrix3 mrcat",
+      "role": "Concatenate several images into one\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.mrcentroid",
+      "method_ref": "mrtrix3.command.mrcentroid",
+      "label": "MRtrix3 mrcentroid",
+      "role": "Determine the centre of mass / centre of gravity of an image\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.mrfilter",
+      "method_ref": "mrtrix3.command.mrfilter",
+      "label": "MRtrix3 mrfilter",
+      "role": "Perform filtering operations on 3D / 4D MR images\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.mrinfo",
+      "method_ref": "mrtrix3.command.mrinfo",
+      "label": "MRtrix3 mrinfo",
+      "role": "Display image header information, or extract specific information from the header\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.mrmath",
+      "method_ref": "mrtrix3.command.mrmath",
+      "label": "MRtrix3 mrmath",
+      "role": "Compute summary statistic on image intensities either across images, or along a specified axis of a single image\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.mrmetric",
+      "method_ref": "mrtrix3.command.mrmetric",
+      "label": "MRtrix3 mrmetric",
+      "role": "Computes a dissimilarity metric between two images\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.mrstats",
+      "method_ref": "mrtrix3.command.mrstats",
+      "label": "MRtrix3 mrstats",
+      "role": "Compute images statistics\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.peaks2fixel",
+      "method_ref": "mrtrix3.command.peaks2fixel",
+      "label": "MRtrix3 peaks2fixel",
+      "role": "Convert peak directions image to a fixel directory\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.tckedit",
+      "method_ref": "mrtrix3.command.tckedit",
+      "label": "MRtrix3 tckedit",
+      "role": "Perform various editing operations on track files\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.tckinfo",
+      "method_ref": "mrtrix3.command.tckinfo",
+      "label": "MRtrix3 tckinfo",
+      "role": "Print out information about a track file\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.tsfinfo",
+      "method_ref": "mrtrix3.command.tsfinfo",
+      "label": "MRtrix3 tsfinfo",
+      "role": "Print out information about a track scalar file\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.tsfmult",
+      "method_ref": "mrtrix3.command.tsfmult",
+      "label": "MRtrix3 tsfmult",
+      "role": "Multiply corresponding values in track scalar files\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.tsfvalidate",
+      "method_ref": "mrtrix3.command.tsfvalidate",
+      "label": "MRtrix3 tsfvalidate",
+      "role": "Validate a track scalar file against the corresponding track data\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.mtnormalise",
+      "method_ref": "mrtrix3.command.mtnormalise",
+      "label": "MRtrix3 mtnormalise",
+      "role": "Multi-tissue log-domain intensity normalization of one to three tissue compartments.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.mrregister",
+      "method_ref": "mrtrix3.command.mrregister",
+      "label": "MRtrix3 mrregister",
+      "role": "Symmetric rigid, affine or nonlinear image/FOD registration.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.mrcalc",
+      "method_ref": "mrtrix3.command.mrcalc",
+      "label": "MRtrix3 mrcalc",
+      "role": "Voxelwise arithmetic with one native operator per Method; use Pipeline steps for longer expressions.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.mrtrix3",
+      "method_id": "mrtrix3.command.tckconvert",
+      "method_ref": "mrtrix3.command.tckconvert",
+      "label": "MRtrix3 tckconvert",
+      "role": "Convert a tractogram to VTK polydata for external visualization.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "method_ref": "mrtrix.dwi-to-nifti",
+      "method_id": "mrtrix.dwi-to-nifti",
+      "capability": "software.mrtrix3",
+      "label": "DWI 转为 NIfTI",
+      "role": "已有预处理 DWI 的受限容器转换；不改变处理状态，不执行重采样。"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "scope": "software",
+  "applicability": [
+    "用户明确使用 MRtrix3，或任务已确定为影像、扩散信号、FOD、纤维束及连接组处理。"
+  ],
+  "examples": [
+    {
+      "request": "已有 WM FOD 和 5TT，需要 ACT 追踪",
+      "decision": "选择 mrtrix.tckgen 并配置 ACT；不生成响应函数或 5TT。"
+    }
+  ],
+  "keywords": [
+    "software-mrtrix3",
+    "mrtrix3",
+    "MRtrix3"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "扩散数据与连接组注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

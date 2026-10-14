@@ -1,0 +1,221 @@
+{
+  "label": "SpaceNet 空间正则分类",
+  "description": "Reference Nilearn snippet for SpaceNet disease classification。 Inputs: input_list: 影像路径清单 (file); labels: 标签表 (file); mask: 脑掩膜 (file). Registered outputs: results/coef_map.nii.gz.",
+  "runner_id": "reviewed.nilearn-tool.spacenet",
+  "input_types": [
+    "analysis_input",
+    "brain_mask"
+  ],
+  "output_types": [
+    "generated_folder",
+    "scalar_image"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "target",
+      "argument": "target",
+      "label": "目标列",
+      "description": "Target column in label table.",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/nilearn-tool/scripts/spacenet_classifier_reference.py:49。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input_list",
+      "type": "analysis_input",
+      "label": "影像路径清单",
+      "description": "Text file listing aligned subject images. Required file input for SpaceNet 空间正则分类; bind to port input_list.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "labels",
+      "type": "analysis_input",
+      "label": "标签表",
+      "description": "CSV label table. Required file input for SpaceNet 空间正则分类; bind to port labels.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "mask",
+      "type": "brain_mask",
+      "label": "脑掩膜",
+      "description": "Optional mask image. Required file input for SpaceNet 空间正则分类; bind to port mask.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for SpaceNet 空间正则分类. Contains this operation's generated files, including results/coef_map.nii.gz; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_coef_map_nii_gz",
+      "type": "scalar_image",
+      "label": "coef_map.nii.gz",
+      "description": "coef_map.nii.gz: output of SpaceNet 空间正则分类. Relative run path: results/coef_map.nii.gz.",
+      "format": ".nii.gz",
+      "primary": false,
+      "path_template": "results/coef_map.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/nilearn-tool/scripts/spacenet_classifier_reference.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.nilearn-tool.spacenet",
+  "version": "3",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.nilearn-tool.spacenet",
+      "script": "skills/nilearn-tool/scripts/spacenet_classifier_reference.py",
+      "inputs": [
+        {
+          "id": "input_list",
+          "flag": "--input-list",
+          "path_list": true,
+          "many_args": false
+        },
+        {
+          "id": "labels",
+          "flag": "--labels",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "mask",
+          "flag": "--mask",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "target",
+          "flag": "--target"
+        }
+      ],
+      "modules": [
+        "numpy",
+        "pandas",
+        "nibabel",
+        "nilearn"
+      ],
+      "expected": [
+        "coef_map.nii.gz"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/nilearn-tool/scripts/spacenet_classifier_reference.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/nilearn-tool/scripts/spacenet_classifier_reference.py",
+          "source_sha256": "ae42b4bc2a20e8c62ffebe4835ada17f43909da905b2fdad894f3103945ea244"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/nilearn-tool/scripts/spacenet_classifier_reference.py",
+          "sha256": "ae42b4bc2a20e8c62ffebe4835ada17f43909da905b2fdad894f3103945ea244"
+        }
+      ],
+      "artifact_types": {
+        "coef_map.nii.gz": "scalar_image"
+      }
+    }
+  }
+}

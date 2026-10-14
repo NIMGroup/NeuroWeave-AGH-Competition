@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "detrending",
+  "description": "detrending 统筹已登记的独立方法和可复用流程。支持：混杂回归与去趋势。",
+  "method_refs": [
+    {
+      "capability": "skill.detrending",
+      "method_id": "reviewed-denoise-nilearn-tool",
+      "label": "混杂回归与去趋势",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Reference Nilearn snippet for confound regression and detrending。 Inputs: bold: 预处理 BOLD 影像 (file); confounds: 混杂变量表 (file); mask: 脑掩膜 (file). Registered outputs: results/cleaned_bold.nii.gz.",
+      "method_ref": "reviewed.nilearn-tool.denoise"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "name": "detrending",
+  "category": [
+    "任务能力",
+    "detrending"
+  ],
+  "scope": "model",
+  "keywords": [
+    "detrending"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

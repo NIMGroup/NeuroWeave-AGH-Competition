@@ -1,0 +1,501 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix.command.dwiextract",
+  "version": "2",
+  "kind": "method",
+  "label": "MRtrix3 dwiextract",
+  "description": "Extract diffusion-weighted volumes, b=0 volumes, or certain shells from a DWI dataset\nCalculate the mean b=0 image from a 4D DWI series: $ dwiextract dwi.mif - -bzero | mrmath - mean mean_bzero.mif -axis 3  The dwiextract command extracts all volumes for which the b-value is (approximately) zero; the resulting 4D image can then be provided to the mrmath command to calculate the mean intensity across volumes for each voxel.",
+  "runner_id": "mrtrix.command.dwiextract",
+  "parameters": [
+    {
+      "id": "gradient_source",
+      "argument": "gradient_source",
+      "label": "梯度来源",
+      "description": "自动模式优先使用图像内嵌梯度；缺少内嵌信息时使用与该影像配套的外部梯度。内容在dry-run核验。显式外部来源会覆盖内嵌信息。",
+      "type": "string",
+      "control": "select",
+      "required": true,
+      "default": "auto",
+      "options": [
+        {
+          "value": "auto",
+          "label": "自动选择"
+        },
+        {
+          "value": "embedded",
+          "label": "图像内嵌"
+        },
+        {
+          "value": "fsl",
+          "label": "外部bval与bvec"
+        },
+        {
+          "value": "mrtrix",
+          "label": "外部MRtrix梯度表"
+        }
+      ],
+      "condition_help": "MIF格式支持内嵌梯度，但扩展名本身不证明含有梯度；自动选择结果在预检中显示。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/latest/concepts/dw_scheme.html"
+    },
+    {
+      "id": "bzero",
+      "argument": "-bzero",
+      "label": "bzero",
+      "description": "Output b=0 volumes (instead of the diffusion weighted volumes, if -singleshell is not specified).",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "no_bzero",
+      "argument": "-no_bzero",
+      "label": "no_bzero",
+      "description": "Output only non b=0 volumes (default, if -singleshell is not specified).",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "singleshell",
+      "argument": "-singleshell",
+      "label": "singleshell",
+      "description": "Force a single-shell (single non b=0 shell) output. This will include b=0 volumes, if present. Use with -bzero to enforce presence of b=0 volumes (error if not present) or with -no_bzero to exclude them.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "shells",
+      "argument": "shells",
+      "label": "shells",
+      "description": "specify one or more b-values to use during processing, as a comma-separated list of the desired approximate b-values (b-values are clustered to allow for small deviations). Note that some commands are incompatible with multiple b-values, and will report an error if more than one b-value is provided. \nWARNING: note that, even though the b=0 volumes are never referred to as shells in the literature, they still have to be explicitly included in the list of b-values as provided to the -shell option! Several algorithms which include the b=0 volumes in their computations may otherwise return an undesired result.",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/dwiextract.html"
+    },
+    {
+      "id": "save_export_grad_mrtrix",
+      "argument": "-export_grad_mrtrix",
+      "label": "生成 export_grad_mrtrix",
+      "description": "export the diffusion-weighted gradient table to file in MRtrix format",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "save_export_grad_fsl",
+      "argument": "-export_grad_fsl",
+      "label": "生成 export_grad_fsl",
+      "description": "export the diffusion-weighted gradient table to files in FSL (bvecs / bvals) format",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "pe",
+      "argument": "pe",
+      "label": "pe",
+      "description": "select volumes with a particular phase encoding; this can be three comma-separated values (for i,j,k components of vector direction) or four (direction & total readout time)",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/dwiextract.html"
+    },
+    {
+      "id": "info",
+      "argument": "-info",
+      "label": "info",
+      "description": "display information messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "quiet",
+      "argument": "-quiet",
+      "label": "quiet",
+      "description": "do not display information messages or progress status; alternatively, this can be achieved by setting the MRTRIX_QUIET environment variable to a non-empty string.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "debug",
+      "argument": "-debug",
+      "label": "debug",
+      "description": "display debugging messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "nthreads",
+      "argument": "nthreads",
+      "label": "nthreads",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).",
+      "type": "integer",
+      "required": true,
+      "default": 1,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/dwiextract.html",
+      "minimum": 0,
+      "group": "计算资源",
+      "level": "advanced"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "the input DW image.",
+      "required": true,
+      "binding": "file"
+    },
+    {
+      "id": "grad",
+      "type": "gradient_table",
+      "label": "grad",
+      "description": "Provide the diffusion-weighted gradient scheme used in the acquisition in a text file. This should be supplied as a 4xN text file with each line is in the format [ X Y Z b ], where [ X Y Z ] describe the direction of the applied gradient, and b gives the b-value in units of s/mm^2. If a diffusion gradient scheme is present in the input image header, the data provided with this option will be instead used.",
+      "required": false,
+      "binding": "file",
+      "required_when": {
+        "gradient_source": [
+          "mrtrix"
+        ]
+      },
+      "condition_help": "条件必需；自动选择图像内嵌梯度时不读取、不传入此输入。外部bval与bvec必须配套，显式指定时覆盖内嵌梯度。"
+    },
+    {
+      "id": "fslgrad_bvecs",
+      "type": "gradient_table",
+      "label": "fslgrad_bvecs",
+      "description": "Provide the diffusion-weighted gradient scheme used in the acquisition in FSL bvecs/bvals format files. If a diffusion gradient scheme is present in the input image header, the data provided with this option will be instead used.",
+      "required": false,
+      "binding": "file",
+      "required_when": {
+        "gradient_source": [
+          "fsl"
+        ]
+      },
+      "condition_help": "条件必需；自动选择图像内嵌梯度时不读取、不传入此输入。外部bval与bvec必须配套，显式指定时覆盖内嵌梯度。"
+    },
+    {
+      "id": "fslgrad_bvals",
+      "type": "gradient_table",
+      "label": "fslgrad_bvals",
+      "description": "Provide the diffusion-weighted gradient scheme used in the acquisition in FSL bvecs/bvals format files. If a diffusion gradient scheme is present in the input image header, the data provided with this option will be instead used.",
+      "required": false,
+      "binding": "file",
+      "required_when": {
+        "gradient_source": [
+          "fsl"
+        ]
+      },
+      "condition_help": "条件必需；自动选择图像内嵌梯度时不读取、不传入此输入。外部bval与bvec必须配套，显式指定时覆盖内嵌梯度。"
+    },
+    {
+      "id": "import_pe_table",
+      "type": "generated_file",
+      "label": "import_pe_table",
+      "description": "import a phase-encoding table from file",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "import_pe_topup",
+      "type": "generated_file",
+      "label": "import_pe_topup",
+      "description": "import a phase-encoding table intended for FSL TOPUP from file",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "import_pe_eddy_config",
+      "type": "generated_file",
+      "label": "import_pe_eddy_config",
+      "description": "import phase-encoding information from an EDDY-style config / index file pair",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "import_pe_eddy_indices",
+      "type": "generated_file",
+      "label": "import_pe_eddy_indices",
+      "description": "import phase-encoding information from an EDDY-style config / index file pair",
+      "required": false,
+      "binding": "file"
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "output",
+      "type": "imaging_input",
+      "label": "output",
+      "description": "the output image (diffusion-weighted volumes by default). The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".mif",
+      "path_template": "output.mif"
+    },
+    {
+      "id": "export_grad_mrtrix",
+      "type": "gradient_table",
+      "label": "export_grad_mrtrix",
+      "description": "export the diffusion-weighted gradient table to file in MRtrix format",
+      "format": ".txt",
+      "path_template": "export_grad_mrtrix.txt",
+      "generated_when": {
+        "save_export_grad_mrtrix": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "export_grad_fsl_bvecs_path",
+      "type": "b_vectors",
+      "label": "export_grad_fsl_bvecs_path",
+      "description": "export the diffusion-weighted gradient table to files in FSL (bvecs / bvals) format",
+      "format": ".txt",
+      "path_template": "export_grad_fsl_bvecs_path.txt",
+      "generated_when": {
+        "save_export_grad_fsl": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "export_grad_fsl_bvals_path",
+      "type": "b_values",
+      "label": "export_grad_fsl_bvals_path",
+      "description": "export the diffusion-weighted gradient table to files in FSL (bvecs / bvals) format",
+      "format": ".txt",
+      "path_template": "export_grad_fsl_bvals_path.txt",
+      "generated_when": {
+        "save_export_grad_fsl": [
+          true
+        ]
+      }
+    }
+  ],
+  "input_types": [
+    "imaging_input",
+    "gradient_table",
+    "generated_file"
+  ],
+  "output_types": [
+    "imaging_input",
+    "gradient_table",
+    "b_vectors",
+    "b_values"
+  ],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/dwiextract.usage.txt",
+      "kind": "command",
+      "label": "MRtrix3 安装版原始完整帮助"
+    }
+  ],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "command": "dwiextract",
+      "version": "3.0.8",
+      "positional": [
+        {
+          "source": "input",
+          "id": "input",
+          "optional": false
+        },
+        {
+          "source": "output",
+          "id": "output",
+          "optional": false
+        }
+      ],
+      "options": [
+        {
+          "flag": "-bzero",
+          "values": [],
+          "when": {
+            "bzero": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-no_bzero",
+          "values": [],
+          "when": {
+            "no_bzero": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-singleshell",
+          "values": [],
+          "when": {
+            "singleshell": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-grad",
+          "values": [
+            {
+              "source": "input",
+              "id": "grad"
+            }
+          ]
+        },
+        {
+          "flag": "-fslgrad",
+          "values": [
+            {
+              "source": "input",
+              "id": "fslgrad_bvecs"
+            },
+            {
+              "source": "input",
+              "id": "fslgrad_bvals"
+            }
+          ]
+        },
+        {
+          "flag": "-shells",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "shells",
+              "kind": "FSEQ"
+            }
+          ]
+        },
+        {
+          "flag": "-export_grad_mrtrix",
+          "values": [
+            {
+              "source": "output",
+              "id": "export_grad_mrtrix"
+            }
+          ],
+          "when": {
+            "save_export_grad_mrtrix": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-export_grad_fsl",
+          "values": [
+            {
+              "source": "output",
+              "id": "export_grad_fsl_bvecs_path"
+            },
+            {
+              "source": "output",
+              "id": "export_grad_fsl_bvals_path"
+            }
+          ],
+          "when": {
+            "save_export_grad_fsl": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-import_pe_table",
+          "values": [
+            {
+              "source": "input",
+              "id": "import_pe_table"
+            }
+          ]
+        },
+        {
+          "flag": "-import_pe_topup",
+          "values": [
+            {
+              "source": "input",
+              "id": "import_pe_topup"
+            }
+          ]
+        },
+        {
+          "flag": "-import_pe_eddy",
+          "values": [
+            {
+              "source": "input",
+              "id": "import_pe_eddy_config"
+            },
+            {
+              "source": "input",
+              "id": "import_pe_eddy_indices"
+            }
+          ]
+        },
+        {
+          "flag": "-pe",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "pe",
+              "kind": "FSEQ"
+            }
+          ]
+        },
+        {
+          "flag": "-info",
+          "values": [],
+          "when": {
+            "info": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-quiet",
+          "values": [],
+          "when": {
+            "quiet": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-debug",
+          "values": [],
+          "when": {
+            "debug": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-nthreads",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "nthreads",
+              "kind": "INT"
+            }
+          ]
+        }
+      ],
+      "total_options": 21,
+      "omitted_options": {
+        "strides": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    }
+  }
+}

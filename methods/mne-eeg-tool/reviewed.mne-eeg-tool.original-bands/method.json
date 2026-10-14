@@ -1,0 +1,156 @@
+{
+  "label": "原脚本 Welch 频带功率与分频文件",
+  "description": "Use the original function to filter delta, theta, alpha, beta and gamma bands, compute channel-wise mean Welch spectral power and export band-specific FIF recordings plus band_power.csv. Inputs: input: 原始 EEG 文件 (file). Registered outputs: results/band_power.csv. Fixed invocation options: --operation bands.",
+  "runner_id": "reviewed.mne-eeg-tool.original-bands",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "原始 EEG 文件",
+      "description": "原始 EEG 文件. Required file input for 原脚本 Welch 频带功率与分频文件; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for 原脚本 Welch 频带功率与分频文件. Contains this operation's generated files, including results/band_power.csv; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_band_power_csv",
+      "type": "generated_file",
+      "label": "band_power.csv",
+      "description": "band_power.csv: output of the original script Welch band power and band-split files. Relative run path: results/band_power.csv. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".csv",
+      "primary": false,
+      "path_template": "results/band_power.csv",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "bakend/app/execution/original_eeg_worker.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.mne-eeg-tool.original-bands",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.mne-eeg-tool.original-bands",
+      "script": "bakend/app/execution/original_eeg_worker.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [],
+      "modules": [
+        "mne",
+        "numpy",
+        "pandas",
+        "scipy",
+        "mne_connectivity"
+      ],
+      "expected": [
+        "band_power.csv"
+      ],
+      "profile": "scientific",
+      "fixed_args": [
+        "--operation",
+        "bands"
+      ],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [
+        "skills/mne-eeg-tool/scripts/eeg_pipeline_reference.py"
+      ],
+      "executables": [],
+      "original_entrypoint": "skills/mne-eeg-tool/scripts/eeg_pipeline_reference.py",
+      "original_required_apis": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/mne-eeg-tool/scripts/eeg_pipeline_reference.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/mne-eeg-tool/scripts/eeg_pipeline_reference.py",
+          "source_sha256": "70a7c44b0a55a2c9f28f2c2ff61838f3f1aa50cc8fde5c0e184a312745be2cf9"
+        },
+        "dependencies": {
+          "skills/mne-eeg-tool/scripts/eeg_pipeline_reference.py": {
+            "origin": "NeuroWeave before runtime expansion",
+            "revision": "70b681c",
+            "source_path": "skills/mne-eeg-tool/scripts/eeg_pipeline_reference.py",
+            "source_sha256": "70a7c44b0a55a2c9f28f2c2ff61838f3f1aa50cc8fde5c0e184a312745be2cf9"
+          }
+        },
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "bakend/app/execution/original_eeg_worker.py",
+          "sha256": "ab123cabfd0bfa2d518b5fd82d5ab0f6cd5a8409141ec9602c332baa1cded246"
+        },
+        {
+          "path": "skills/mne-eeg-tool/scripts/eeg_pipeline_reference.py",
+          "sha256": "39387d06a8a221044eaab292b0e0eec69ee0a274d6d15d722ebb51194aef8af7"
+        }
+      ],
+      "artifact_types": {
+        "band_power.csv": "generated_file"
+      }
+    }
+  }
+}

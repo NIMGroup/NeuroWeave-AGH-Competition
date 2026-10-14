@@ -1,0 +1,102 @@
+{
+  "tested_at": "2026-09-24T14:41:11.239330+00:00",
+  "environment": "mgr Linux CPU, 1 thread; isolated synthetic inputs",
+  "checks": [
+    {
+      "method_id": "fsl.command.fsl_glm",
+      "variant": "default",
+      "status": "passed",
+      "artifacts": 2
+    },
+    {
+      "method_id": "fsl.command.fsl_glm",
+      "variant": "des_norm",
+      "status": "passed",
+      "artifacts": 2
+    },
+    {
+      "method_id": "fsl.command.fsl_glm",
+      "variant": "dat_norm",
+      "status": "passed",
+      "artifacts": 2
+    },
+    {
+      "method_id": "fsl.command.fsl_glm",
+      "variant": "vn",
+      "status": "passed",
+      "artifacts": 2
+    },
+    {
+      "method_id": "fsl.command.fsl_glm",
+      "variant": "demean",
+      "status": "passed",
+      "artifacts": 2
+    },
+    {
+      "method_id": "freesurfer.command.mri_mask",
+      "variant": "default",
+      "status": "passed",
+      "artifacts": 1
+    },
+    {
+      "method_id": "freesurfer.command.mri_mask",
+      "variant": "abs",
+      "status": "passed",
+      "artifacts": 1
+    },
+    {
+      "method_id": "freesurfer.command.mri_mask",
+      "variant": "invert",
+      "status": "passed",
+      "artifacts": 1
+    },
+    {
+      "method_id": "freesurfer.command.mri_mask",
+      "variant": "samseg",
+      "status": "passed",
+      "artifacts": 1
+    },
+    {
+      "method_id": "freesurfer.command.mri_binarize",
+      "variant": "default",
+      "status": "passed",
+      "artifacts": 1
+    },
+    {
+      "method_id": "freesurfer.command.mri_binarize",
+      "variant": "abs",
+      "status": "passed",
+      "artifacts": 1
+    },
+    {
+      "method_id": "freesurfer.command.mri_binarize",
+      "variant": "inv",
+      "status": "passed",
+      "artifacts": 1
+    },
+    {
+      "method_id": "freesurfer.command.mri_binarize",
+      "variant": "no_count",
+      "status": "passed",
+      "artifacts": 1
+    },
+    {
+      "method_id": "freesurfer.command.mri_binarize",
+      "variant": "bincol",
+      "status": "passed",
+      "artifacts": 1
+    },
+    {
+      "method_id": "freesurfer.command.mri_binarize",
+      "variant": "zero_edges",
+      "status": "passed",
+      "artifacts": 1
+    },
+    {
+      "method_id": "freesurfer.command.mri_binarize",
+      "variant": "zero_slice_edges",
+      "status": "passed",
+      "artifacts": 1
+    }
+  ]
+}

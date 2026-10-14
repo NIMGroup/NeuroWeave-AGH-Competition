@@ -1,0 +1,810 @@
+{
+  "skill_overviews": 105,
+  "skill_aliases": 70,
+  "invalid_contracts": {},
+  "documentation_gaps": {},
+  "execution_evidence": {
+    "not_recorded": 236,
+    "passed": 13
+  },
+  "registered_methods": 249,
+  "pipelines": 28,
+  "runner_methods": 249,
+  "registered_parameters": 941,
+  "undocumented_parameters": 0,
+  "methods_needing_parameter_documentation": [],
+  "command_coverage": [
+    {
+      "command": "5tt2gmwmi",
+      "version": "3.0.8",
+      "total_options": 9,
+      "exposed_options": 5,
+      "omitted_options": {
+        "force": "运行输出目录独立分配，不允许覆盖输入或其他运行。",
+        "config": "不开放任意软件配置键，以免绕过路径、线程及运行环境管理。",
+        "help": "通过命令说明面板提供，不作为计算参数。",
+        "version": "由运行环境探测提供。"
+      }
+    },
+    {
+      "command": "5tt2vis",
+      "version": "3.0.8",
+      "total_options": 14,
+      "exposed_options": 10,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "5ttedit",
+      "version": "3.0.8",
+      "total_options": 14,
+      "exposed_options": 10,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "afdconnectivity",
+      "version": "3.0.8",
+      "total_options": 11,
+      "exposed_options": 7,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "amp2sh",
+      "version": "3.0.8",
+      "total_options": 16,
+      "exposed_options": 11,
+      "omitted_options": {
+        "strides": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "dirflip",
+      "version": "3.0.8",
+      "total_options": 10,
+      "exposed_options": 6,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "dirgen",
+      "version": "3.0.8",
+      "total_options": 13,
+      "exposed_options": 9,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "dirmerge",
+      "version": "3.0.8",
+      "total_options": 9,
+      "exposed_options": 5,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "dirorder",
+      "version": "3.0.8",
+      "total_options": 9,
+      "exposed_options": 5,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "dwi2adc",
+      "version": "3.0.8",
+      "total_options": 10,
+      "exposed_options": 6,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "dwi2mask",
+      "version": "3.0.8",
+      "total_options": 11,
+      "exposed_options": 7,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "dwi2tensor",
+      "version": "3.0.8",
+      "total_options": 16,
+      "exposed_options": 12,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "dwidenoise",
+      "version": "3.0.8",
+      "total_options": 13,
+      "exposed_options": 9,
+      "omitted_options": {
+        "force": "运行输出目录独立分配，不允许覆盖输入或其他运行。",
+        "config": "不开放任意软件配置键，以免绕过路径、线程及运行环境管理。",
+        "help": "通过命令说明面板提供，不作为计算参数。",
+        "version": "由运行环境探测提供。"
+      }
+    },
+    {
+      "command": "dwiextract",
+      "version": "3.0.8",
+      "total_options": 21,
+      "exposed_options": 16,
+      "omitted_options": {
+        "strides": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "fixel2sh",
+      "version": "3.0.8",
+      "total_options": 9,
+      "exposed_options": 5,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "fixel2tsf",
+      "version": "3.0.8",
+      "total_options": 9,
+      "exposed_options": 5,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "fixel2voxel",
+      "version": "3.0.8",
+      "total_options": 11,
+      "exposed_options": 7,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "fod2dec",
+      "version": "3.0.8",
+      "total_options": 15,
+      "exposed_options": 11,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "label2colour",
+      "version": "3.0.8",
+      "total_options": 9,
+      "exposed_options": 5,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "label2mesh",
+      "version": "3.0.8",
+      "total_options": 9,
+      "exposed_options": 5,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "labelconvert",
+      "version": "3.0.8",
+      "total_options": 9,
+      "exposed_options": 5,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "maskdump",
+      "version": "3.0.8",
+      "total_options": 8,
+      "exposed_options": 4,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "maskfilter",
+      "version": "3.0.8",
+      "total_options": 15,
+      "exposed_options": 10,
+      "omitted_options": {
+        "strides": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "mesh2voxel",
+      "version": "3.0.8",
+      "total_options": 8,
+      "exposed_options": 4,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "meshconvert",
+      "version": "3.0.8",
+      "total_options": 10,
+      "exposed_options": 6,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "meshfilter",
+      "version": "3.0.8",
+      "total_options": 10,
+      "exposed_options": 6,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "mrcheckerboardmask",
+      "version": "3.0.8",
+      "total_options": 11,
+      "exposed_options": 7,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "mrcolour",
+      "version": "3.0.8",
+      "total_options": 11,
+      "exposed_options": 7,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "mrconvert",
+      "version": "3.0.8",
+      "total_options": 31,
+      "exposed_options": 21,
+      "omitted_options": {
+        "coord": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "clear_property": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "set_property": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "append_property": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "copy_properties": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "strides": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "mrdegibbs",
+      "version": "3.0.8",
+      "total_options": 13,
+      "exposed_options": 9,
+      "omitted_options": {
+        "force": "运行输出目录独立分配，不允许覆盖输入或其他运行。",
+        "config": "不开放任意软件配置键，以免绕过路径、线程及运行环境管理。",
+        "help": "通过命令说明面板提供，不作为计算参数。",
+        "version": "由运行环境探测提供。"
+      }
+    },
+    {
+      "command": "mrdump",
+      "version": "3.0.8",
+      "total_options": 9,
+      "exposed_options": 5,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "mredit",
+      "version": "3.0.8",
+      "total_options": 12,
+      "exposed_options": 5,
+      "omitted_options": {
+        "plane": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "sphere": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "voxel": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "mrgrid",
+      "version": "3.0.8",
+      "total_options": 23,
+      "exposed_options": 17,
+      "omitted_options": {
+        "axis": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "strides": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "mrhistmatch",
+      "version": "3.0.8",
+      "total_options": 11,
+      "exposed_options": 7,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "mrhistogram",
+      "version": "3.0.8",
+      "total_options": 13,
+      "exposed_options": 9,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "mrthreshold",
+      "version": "3.0.8",
+      "total_options": 19,
+      "exposed_options": 15,
+      "omitted_options": {
+        "force": "运行输出目录独立分配，不允许覆盖输入或其他运行。",
+        "config": "不开放任意软件配置键，以免绕过路径、线程及运行环境管理。",
+        "help": "通过命令说明面板提供，不作为计算参数。",
+        "version": "由运行环境探测提供。"
+      }
+    },
+    {
+      "command": "mrtransform",
+      "version": "3.0.8",
+      "total_options": 32,
+      "exposed_options": 27,
+      "omitted_options": {
+        "strides": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "peaks2amp",
+      "version": "3.0.8",
+      "total_options": 8,
+      "exposed_options": 4,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "sh2amp",
+      "version": "3.0.8",
+      "total_options": 13,
+      "exposed_options": 8,
+      "omitted_options": {
+        "strides": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "sh2peaks",
+      "version": "3.0.8",
+      "total_options": 15,
+      "exposed_options": 10,
+      "omitted_options": {
+        "direction": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "sh2power",
+      "version": "3.0.8",
+      "total_options": 9,
+      "exposed_options": 5,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "sh2response",
+      "version": "3.0.8",
+      "total_options": 10,
+      "exposed_options": 6,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "shconv",
+      "version": "3.0.8",
+      "total_options": 10,
+      "exposed_options": 5,
+      "omitted_options": {
+        "strides": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "tckdfc",
+      "version": "3.0.8",
+      "total_options": 15,
+      "exposed_options": 11,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "tckglobal",
+      "version": "3.0.8",
+      "total_options": 29,
+      "exposed_options": 24,
+      "omitted_options": {
+        "riso": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "tckmap",
+      "version": "3.0.8",
+      "total_options": 26,
+      "exposed_options": 21,
+      "omitted_options": {
+        "dixel": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "tckresample",
+      "version": "3.0.8",
+      "total_options": 15,
+      "exposed_options": 11,
+      "omitted_options": {
+        "force": "运行输出目录独立分配，不允许覆盖输入或其他运行。",
+        "config": "不开放任意软件配置键，以免绕过路径、线程及运行环境管理。",
+        "help": "通过命令说明面板提供，不作为计算参数。",
+        "version": "由运行环境探测提供。"
+      }
+    },
+    {
+      "command": "tcksample",
+      "version": "3.0.8",
+      "total_options": 12,
+      "exposed_options": 8,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "tcksift",
+      "version": "3.0.8",
+      "total_options": 24,
+      "exposed_options": 20,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "tcksift2",
+      "version": "3.0.8",
+      "total_options": 31,
+      "exposed_options": 26,
+      "omitted_options": {
+        "output_debug": "调试影像没有稳定输出槽位，暂未接入。",
+        "force": "运行输出目录独立分配，不允许覆盖输入或其他运行。",
+        "config": "不开放任意软件配置键，以免绕过路径、线程及运行环境管理。",
+        "help": "通过命令说明面板提供，不作为计算参数。",
+        "version": "由运行环境探测提供。"
+      }
+    },
+    {
+      "command": "tckstats",
+      "version": "3.0.8",
+      "total_options": 13,
+      "exposed_options": 8,
+      "omitted_options": {
+        "output": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "tcktransform",
+      "version": "3.0.8",
+      "total_options": 8,
+      "exposed_options": 4,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "tensor2metric",
+      "version": "3.0.8",
+      "total_options": 20,
+      "exposed_options": 16,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "transformcalc",
+      "version": "3.0.8",
+      "total_options": 8,
+      "exposed_options": 4,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "transformconvert",
+      "version": "3.0.8",
+      "total_options": 8,
+      "exposed_options": 4,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "tsfdivide",
+      "version": "3.0.8",
+      "total_options": 8,
+      "exposed_options": 4,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "tsfsmooth",
+      "version": "3.0.8",
+      "total_options": 9,
+      "exposed_options": 5,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "tsfthreshold",
+      "version": "3.0.8",
+      "total_options": 9,
+      "exposed_options": 5,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "voxel2mesh",
+      "version": "3.0.8",
+      "total_options": 10,
+      "exposed_options": 6,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "warp2metric",
+      "version": "3.0.8",
+      "total_options": 11,
+      "exposed_options": 6,
+      "omitted_options": {
+        "fc": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "warpconvert",
+      "version": "3.0.8",
+      "total_options": 11,
+      "exposed_options": 7,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "warpcorrect",
+      "version": "3.0.8",
+      "total_options": 10,
+      "exposed_options": 6,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "warpinit",
+      "version": "3.0.8",
+      "total_options": 8,
+      "exposed_options": 4,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    },
+    {
+      "command": "warpinvert",
+      "version": "3.0.8",
+      "total_options": 10,
+      "exposed_options": 6,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    }
+  ],
+  "scope": "Counts cover registered contracts, not every command/parameter in installed software. Runtime and real-data validation are separate."
+}

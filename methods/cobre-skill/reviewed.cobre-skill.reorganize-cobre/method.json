@@ -1,0 +1,146 @@
+{
+  "label": "cobre 复制整理为 BIDS 目录",
+  "description": "Reorganize COBRE raw data into BIDS-style directory structure。 Inputs: input: Path to COBRE raw data directory (directory); phenotype: Path to COBRE phenotype CSV file (file). Registered outputs: results/.",
+  "runner_id": "reviewed.cobre-skill.reorganize-cobre",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder"
+  ],
+  "requires_features": [],
+  "parameters": [],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "Path to COBRE raw data directory",
+      "description": "Path to COBRE raw data directory. Required directory input for cobre 复制整理为 BIDS 目录; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "folder",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "phenotype",
+      "type": "analysis_input",
+      "label": "Path to COBRE phenotype CSV file",
+      "description": "Path to COBRE phenotype CSV file. Optional file input for cobre 复制整理为 BIDS 目录; bind to port phenotype.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for cobre 复制整理为 BIDS 目录. Contains this operation's generated files, including results/; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/cobre-skill/scripts/reorganize_cobre.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.cobre-skill.reorganize-cobre",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.cobre-skill.reorganize-cobre",
+      "script": "skills/cobre-skill/scripts/reorganize_cobre.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "phenotype",
+          "flag": "--phenotype",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [],
+      "modules": [
+        "pandas",
+        "numpy"
+      ],
+      "expected": [
+        "bids/**/*.nii*"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output",
+          "bids"
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/cobre-skill/scripts/reorganize_cobre.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/cobre-skill/scripts/reorganize_cobre.py",
+          "source_sha256": "a4b9fdbb6c4947e1653d20f0578c3b2401f45a4d1a7c193cafc62987db734042"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/cobre-skill/scripts/reorganize_cobre.py",
+          "sha256": "a4b9fdbb6c4947e1653d20f0578c3b2401f45a4d1a7c193cafc62987db734042"
+        }
+      ],
+      "artifact_types": {}
+    }
+  }
+}

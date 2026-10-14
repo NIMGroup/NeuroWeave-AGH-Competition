@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily NeuroWeave backup and restore verification
+
+[Timer]
+OnCalendar=*-*-* 02:30:00
+RandomizedDelaySec=300
+Persistent=true
+Unit=neuroweave-backup.service
+
+[Install]
+WantedBy=timers.target

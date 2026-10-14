@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# This requires administrators to restore compute nodes and configure gpu GRES first.
+#SBATCH --job-name=neuroweave-gpu-probe
+#SBATCH --partition=all
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=16G
+#SBATCH --gres=gpu:1
+#SBATCH --time=00:05:00
+#SBATCH --chdir=/opt/neuroweave/jobs/hipeson/gpu-probe
+#SBATCH --output=/opt/neuroweave/jobs/hipeson/gpu-probe/slurm-%j.out
+#SBATCH --error=/opt/neuroweave/jobs/hipeson/gpu-probe/slurm-%j.err
+set -euo pipefail
+export PYTHONNOUSERSITE=1
+export MPLBACKEND=Agg
+export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-4}"
+export OPENBLAS_NUM_THREADS="$OMP_NUM_THREADS"
+export MKL_NUM_THREADS="$OMP_NUM_THREADS"
+srun /opt/neuroweave/envs/torch-cu128-py311/bin/python \
+  /opt/neuroweave/jobs/hipeson/gpu-probe/probe_shared_python.py --profile torch --require-cuda

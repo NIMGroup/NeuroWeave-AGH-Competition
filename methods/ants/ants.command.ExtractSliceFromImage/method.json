@@ -1,0 +1,204 @@
+{
+  "schema_version": 1,
+  "id": "ants.command.ExtractSliceFromImage",
+  "version": "1",
+  "kind": "method",
+  "label": "ANTs ExtractSliceFromImage",
+  "description": "Extract one slice along a selected axis.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "ants.command.ExtractSliceFromImage",
+  "parameters": [
+    {
+      "id": "dimension",
+      "argument": "",
+      "label": "dimension",
+      "description": "Image dimensionality. Match the actual input image.",
+      "type": "integer",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 3,
+      "options": [
+        {
+          "value": 2,
+          "label": "2",
+          "description": ""
+        },
+        {
+          "value": 3,
+          "label": "3",
+          "description": ""
+        },
+        {
+          "value": 4,
+          "label": "4",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Image dimensionality. Match the actual input image. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://github.com/ANTsX/ANTs/wiki"
+    },
+    {
+      "id": "axis",
+      "argument": "",
+      "label": "axis",
+      "description": "Zero-based extraction axis.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 2,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 3.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Zero-based extraction axis. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://github.com/ANTsX/ANTs/wiki"
+    },
+    {
+      "id": "slice",
+      "argument": "",
+      "label": "slice",
+      "description": "Zero-based slice index.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 0,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Zero-based slice index. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://github.com/ANTsX/ANTs/wiki"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "output",
+      "type": "imaging_input",
+      "label": "output",
+      "description": "Native command output, saved in this run’s output directory. Extract one slice along a selected axis. The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".nii.gz",
+      "primary": true,
+      "path_template": "output.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "imaging_input"
+  ],
+  "output_types": [
+    "imaging_input"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/ants-ExtractSliceFromImage.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "ants",
+      "command": "ExtractSliceFromImage",
+      "version": "2.6.5",
+      "argv": [
+        {
+          "tokens": [
+            {
+              "parameter": "dimension"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "input": "input"
+            },
+            {
+              "output": "output"
+            },
+            {
+              "parameter": "axis"
+            },
+            {
+              "parameter": "slice"
+            }
+          ],
+          "when": {},
+          "optional": false
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

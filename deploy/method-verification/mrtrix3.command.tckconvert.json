@@ -1,0 +1,11 @@
+{
+  "method_id": "mrtrix3.command.tckconvert",
+  "method_version": "1",
+  "execution_fingerprint": "a372ab28f1c8dbd5ce18cbd31c7c5a2ecf20ad5d2cf49f8438d158c7bf211b31",
+  "report_path": "deploy/method-verification/reports/scientific-synthetic.json",
+  "report_sha256": "77b9848ad9a4be60e4c0c3f79a3e2128a6705cb91fd1a400c0b5878782dfe577",
+  "test_type": "synthetic",
+  "tested_at": "2026-09-23T13:35:29.692029+00:00",
+  "environment": "mgr Linux CPU, 1 thread; isolated synthetic inputs",
+  "result": "passed"
+}

@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "id": "seed-iv-skill",
+  "description": "SEED-IV 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：SEED 频带特征提取；SEED 按受试者留一交叉验证；seed-iv 数据校验；EEG/MEG 数据检查；MNE LOF 坏导联检测与插值；EEG/MEG 滤波与降采样；MNE ICA 分解与指定成分去除；重参考与分段；其他方法可在详情中分页查询。",
+  "method_refs": [
+    {
+      "capability": "skill.seed-iv-skill",
+      "method_id": "reviewed-features-seed-iv-skill",
+      "label": "SEED 频带特征提取",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "feature-extraction"
+      ],
+      "execution_resolution": {},
+      "role": "Extract features from SEED-IV EEG data. Supports Differential Entropy (DE), Power Spectral Density (PSD), and band power features for emotion recognition。 Inputs: input: EEG 数据目录 (directory). Registered outputs: results/seed_iv_features_both.csv. Fixed invocation options: --feature-type both.",
+      "method_ref": "reviewed.seed-iv-skill.features"
+    },
+    {
+      "capability": "skill.seed-iv-skill",
+      "method_id": "reviewed-classify-seed-iv-skill",
+      "label": "SEED 按受试者留一交叉验证",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "classification",
+        "vigilance-classification",
+        "emotion-classification"
+      ],
+      "execution_resolution": {},
+      "role": "Classify emotions from SEED-IV features. Supports SVM, Random Forest, and Leave-One-Subject-Out cross-validation。 Inputs: input: 特征与标签 CSV (file). Registered outputs: results/metrics.json.",
+      "method_ref": "reviewed.seed-iv-skill.classify"
+    },
+    {
+      "capability": "skill.seed-iv-skill",
+      "method_id": "reviewed-validate-seed-iv-seed-iv-skill",
+      "label": "seed-iv 数据校验",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "bids-validation",
+        "data-validation",
+        "eeg-validation"
+      ],
+      "execution_resolution": {},
+      "role": "Validate SEED-IV BIDS structure and generate compliance report. Checks directory structure, subject/session completeness, and EEG file presence。 Inputs: input: input (directory). Registered outputs: results/output.csv.",
+      "method_ref": "reviewed.seed-iv-skill.validate-seed-iv"
+    },
+    {
+      "capability": "skill.seed-iv-skill",
+      "method_id": "seed-iv-skill-guided--eeg-preprocessing--via-reviewed-inspect-mne-eeg-tool",
+      "label": "EEG/MEG 数据检查",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [
+        "loadeeg",
+        "load-validation",
+        "load-basic-validation"
+      ],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "选择原文委托的具体 EEG/MEG 方法；未修复的原端到端清理组合仍不可执行。",
+        "source_method_id": "seed-iv-skill-guided--eeg-preprocessing",
+        "target_method_id": "reviewed-inspect-mne-eeg-tool"
+      },
+      "role": "Read a supported continuous EEG/MEG recording, reject non-finite data, report channel/sample counts and sampling frequency, and save the recording as FIF。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file). Registered outputs: results/processed-raw.fif. Fixed invocation options: --operation inspect.",
+      "method_ref": "reviewed.mne-eeg-tool.inspect"
+    },
+    {
+      "capability": "skill.seed-iv-skill",
+      "method_id": "seed-iv-skill-guided--eeg-preprocessing--via-reviewed-bad-channels-mne-eeg-tool",
+      "label": "MNE LOF 坏导联检测与插值",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "选择原文委托的具体 EEG/MEG 方法；未修复的原端到端清理组合仍不可执行。",
+        "source_method_id": "seed-iv-skill-guided--eeg-preprocessing",
+        "target_method_id": "reviewed-bad-channels-mne-eeg-tool"
+      },
+      "role": "Detect EEG bad channels using MNE local-outlier-factor detection and interpolate them using channel positions; retain the detected-channel list in the summary。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file). Registered outputs: results/processed-raw.fif. Fixed invocation options: --operation bad-channels.",
+      "method_ref": "reviewed.mne-eeg-tool.bad-channels"
+    },
+    {
+      "capability": "skill.seed-iv-skill",
+      "method_id": "seed-iv-skill-guided--eeg-preprocessing--via-reviewed-filter-mne-eeg-tool",
+      "label": "EEG/MEG 滤波与降采样",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [
+        "preprocessfiltering",
+        "downsampling-filtering",
+        "filtering"
+      ],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "选择原文委托的具体 EEG/MEG 方法；未修复的原端到端清理组合仍不可执行。",
+        "source_method_id": "seed-iv-skill-guided--eeg-preprocessing",
+        "target_method_id": "reviewed-filter-mne-eeg-tool"
+      },
+      "role": "Apply MNE IIR band-pass filtering, optional notch filtering and optional downsampling to continuous data; validate cutoffs against the original and requested Nyquist frequencies。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file). Registered outputs: results/processed-raw.fif. Fixed invocation options: --operation filter.",
+      "method_ref": "reviewed.mne-eeg-tool.filter"
+    },
+    {
+      "capability": "skill.seed-iv-skill",
+      "method_id": "seed-iv-skill-guided--eeg-preprocessing--via-reviewed-ica-mne-eeg-tool",
+      "label": "MNE ICA 分解与指定成分去除",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "选择原文委托的具体 EEG/MEG 方法；未修复的原端到端清理组合仍不可执行。",
+        "source_method_id": "seed-iv-skill-guided--eeg-preprocessing",
+        "target_method_id": "reviewed-ica-mne-eeg-tool"
+      },
+      "role": "Fit MNE ICA on a high-pass-filtered copy, identify EOG/ECG-related components when corresponding channels exist, combine explicit exclusions and apply the fitted cleaning to the recording。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file). Registered outputs: results/processed-raw.fif. Fixed invocation options: --operation ica.",
+      "method_ref": "reviewed.mne-eeg-tool.ica"
+    },
+    {
+      "capability": "skill.seed-iv-skill",
+      "method_id": "seed-iv-skill-guided--eeg-preprocessing--via-reviewed-epoch-mne-eeg-tool",
+      "label": "重参考与分段",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [
+        "rereferenceandepoch",
+        "re-referencing-epoching",
+        "epoching"
+      ],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "选择原文委托的具体 EEG/MEG 方法；未修复的原端到端清理组合仍不可执行。",
+        "source_method_id": "seed-iv-skill-guided--eeg-preprocessing",
+        "target_method_id": "reviewed-epoch-mne-eeg-tool"
+      },
+      "role": "Create MNE epochs from supplied events and time limits, or fixed-duration epochs when events are absent; apply average EEG referencing and save accepted epochs as FIF。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file); events: MNE 事件文件 (file). Registered outputs: results/processed-epo.fif. Fixed invocation options: --operation epoch.",
+      "method_ref": "reviewed.mne-eeg-tool.epoch"
+    },
+    {
+      "capability": "skill.seed-iv-skill",
+      "method_id": "seed-iv-skill-guided--eeg-preprocessing--via-reviewed-autoreject-mne-eeg-tool",
+      "label": "Epoch AutoReject 自动质控",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "选择原文委托的具体 EEG/MEG 方法；未修复的原端到端清理组合仍不可执行。",
+        "source_method_id": "seed-iv-skill-guided--eeg-preprocessing",
+        "target_method_id": "reviewed-autoreject-mne-eeg-tool"
+      },
+      "role": "Create epochs and run AutoReject with cross-validation to repair/reject contaminated epochs. At least four epochs and valid sensor positions are required。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file); events: MNE 事件文件 (file). Registered outputs: results/processed-epo.fif. Fixed invocation options: --operation autoreject.",
+      "method_ref": "reviewed.mne-eeg-tool.autoreject"
+    },
+    {
+      "capability": "skill.seed-iv-skill",
+      "method_id": "seed-iv-skill-guided--eeg-preprocessing--via-reviewed-connectivity-mne-eeg-tool",
+      "label": "传感器 PLV/相干/wPLI",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [
+        "computeconnectivity",
+        "sensor-level-connectivity"
+      ],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "选择原文委托的具体 EEG/MEG 方法；未修复的原端到端清理组合仍不可执行。",
+        "source_method_id": "seed-iv-skill-guided--eeg-preprocessing",
+        "target_method_id": "reviewed-connectivity-mne-eeg-tool"
+      },
+      "role": "Create epochs and compute spectral PLV, coherence and wPLI in the requested frequency band using mne-connectivity; export matrices and channel names in NPZ。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file); events: MNE 事件文件 (file). Registered outputs: results/connectivity.npz. Fixed invocation options: --operation connectivity.",
+      "method_ref": "reviewed.mne-eeg-tool.connectivity"
+    },
+    {
+      "capability": "skill.seed-iv-skill",
+      "method_id": "seed-iv-skill-guided--eeg-preprocessing--via-reviewed-time-frequency-mne-eeg-tool",
+      "label": "Morlet 时频功率与 ITC",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [
+        "time-frequency-analysis"
+      ],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "选择原文委托的具体 EEG/MEG 方法；未修复的原端到端清理组合仍不可执行。",
+        "source_method_id": "seed-iv-skill-guided--eeg-preprocessing",
+        "target_method_id": "reviewed-time-frequency-mne-eeg-tool"
+      },
+      "role": "Compute averaged Morlet time-frequency power and inter-trial coherence from epochs at twelve frequencies spanning the selected band; export power, ITC, frequencies and times。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file); events: MNE 事件文件 (file). Registered outputs: results/time_frequency.npz. Fixed invocation options: --operation time-frequency.",
+      "method_ref": "reviewed.mne-eeg-tool.time-frequency"
+    },
+    {
+      "capability": "skill.seed-iv-skill",
+      "method_id": "seed-iv-skill-guided--eeg-preprocessing--via-reviewed-maxwell-mne-eeg-tool",
+      "label": "MEG Maxwell 滤波",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [
+        "maxwell-filtering"
+      ],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "选择原文委托的具体 EEG/MEG 方法；未修复的原端到端清理组合仍不可执行。",
+        "source_method_id": "seed-iv-skill-guided--eeg-preprocessing",
+        "target_method_id": "reviewed-maxwell-mne-eeg-tool"
+      },
+      "role": "Apply MNE Maxwell filtering to continuous MEG using the adapter origin (0, 0, 0.04 m); MEG sensors and a device-to-head transform are required。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file). Registered outputs: results/processed-raw.fif. Fixed invocation options: --operation maxwell.",
+      "method_ref": "reviewed.mne-eeg-tool.maxwell"
+    },
+    {
+      "capability": "skill.seed-iv-skill",
+      "method_id": "seed-iv-skill-guided--eeg-preprocessing--via-reviewed-source-mne-eeg-tool",
+      "label": "dSPM 源定位（需前向模型和噪声协方差）",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [
+        "source-localization"
+      ],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "选择原文委托的具体 EEG/MEG 方法；未修复的原端到端清理组合仍不可执行。",
+        "source_method_id": "seed-iv-skill-guided--eeg-preprocessing",
+        "target_method_id": "reviewed-source-mne-eeg-tool"
+      },
+      "role": "Construct an MNE inverse operator from the supplied forward solution and noise covariance, then apply dSPM to continuous data with lambda2=1/9; export source amplitudes, times and vertices。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file); forward: 前向模型 FIF (file); noise_cov: 噪声协方差 FIF (file). Registered outputs: results/source.npz. Fixed invocation options: --operation source.",
+      "method_ref": "reviewed.mne-eeg-tool.source"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "selection_rules": [
+    "情绪分类按受试者划分验证组，并保留 session 与 trial 的标签对应；不能把同一受试者的多个片段当成独立受试者。"
+  ],
+  "name": "seed-iv-skill",
+  "category": [
+    "数据集专属",
+    "数据集适配与质控"
+  ],
+  "scope": "dataset",
+  "keywords": [
+    "seed-iv-skill",
+    "SEED",
+    "EEG",
+    "MEG"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

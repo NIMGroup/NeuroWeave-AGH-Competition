@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "id": "table-cleaning",
+  "description": "table-cleaning 统筹已登记的独立方法和可复用流程。支持：Pandas 表格清洗。",
+  "method_refs": [
+    {
+      "capability": "skill.table-cleaning",
+      "method_id": "pandas-clean",
+      "label": "Pandas 表格清洗",
+      "default_recommended": true,
+      "default_reason": "适合 CSV/TSV/XLSX 的可复现基础清洗，不覆盖原文件。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "在只读输入和隔离输出目录下清理缺失值、重复行、空白字符与列名，并生成审计报告。",
+      "method_ref": "table.clean"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "selection_rules": [
+    "删除重复行前区分录入重复与真实的重复测量；缺失值处理策略按列含义选择，不能对标识符和类别编码直接均值填补。"
+  ],
+  "name": "table-cleaning",
+  "category": [
+    "任务能力",
+    "table"
+  ],
+  "scope": "task",
+  "keywords": [
+    "table-cleaning",
+    "CSV",
+    "TSV",
+    "Excel",
+    "缺失值",
+    "异常值"
+  ],
+  "references": []
+}

@@ -1,0 +1,212 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix.command.warp2metric",
+  "version": "2",
+  "kind": "method",
+  "label": "MRtrix3 warp2metric",
+  "description": "Compute fixel-wise or voxel-wise metrics from a 4D deformation field",
+  "runner_id": "mrtrix.command.warp2metric",
+  "parameters": [
+    {
+      "id": "save_jmat",
+      "argument": "-jmat",
+      "label": "生成 jmat",
+      "description": "output a Jacobian matrix image stored in column-major order along the 4th dimension.Note the output jacobian describes the warp gradient w.r.t the scanner space coordinate system",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "save_jdet",
+      "argument": "-jdet",
+      "label": "生成 jdet",
+      "description": "output the Jacobian determinant instead of the full matrix",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "info",
+      "argument": "-info",
+      "label": "info",
+      "description": "display information messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "quiet",
+      "argument": "-quiet",
+      "label": "quiet",
+      "description": "do not display information messages or progress status; alternatively, this can be achieved by setting the MRTRIX_QUIET environment variable to a non-empty string.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "debug",
+      "argument": "-debug",
+      "label": "debug",
+      "description": "display debugging messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "nthreads",
+      "argument": "nthreads",
+      "label": "nthreads",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).",
+      "type": "integer",
+      "required": true,
+      "default": 1,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/warp2metric.html",
+      "minimum": 0,
+      "group": "计算资源",
+      "level": "advanced"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "in",
+      "type": "imaging_input",
+      "label": "in",
+      "description": "the input deformation field",
+      "required": true,
+      "binding": "file"
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "jmat",
+      "type": "imaging_input",
+      "label": "jmat",
+      "description": "output a Jacobian matrix image stored in column-major order along the 4th dimension.Note the output jacobian describes the warp gradient w.r.t the scanner space coordinate system The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".mif",
+      "path_template": "jmat.mif",
+      "generated_when": {
+        "save_jmat": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "jdet",
+      "type": "scalar_image",
+      "label": "jdet",
+      "description": "output the Jacobian determinant instead of the full matrix",
+      "format": ".mif",
+      "path_template": "jdet.mif",
+      "generated_when": {
+        "save_jdet": [
+          true
+        ]
+      }
+    }
+  ],
+  "input_types": [
+    "imaging_input"
+  ],
+  "output_types": [
+    "imaging_input",
+    "scalar_image"
+  ],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/warp2metric.usage.txt",
+      "kind": "command",
+      "label": "MRtrix3 安装版原始完整帮助"
+    }
+  ],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "command": "warp2metric",
+      "version": "3.0.8",
+      "positional": [
+        {
+          "source": "input",
+          "id": "in",
+          "optional": false
+        }
+      ],
+      "options": [
+        {
+          "flag": "-jmat",
+          "values": [
+            {
+              "source": "output",
+              "id": "jmat"
+            }
+          ],
+          "when": {
+            "save_jmat": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-jdet",
+          "values": [
+            {
+              "source": "output",
+              "id": "jdet"
+            }
+          ],
+          "when": {
+            "save_jdet": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-info",
+          "values": [],
+          "when": {
+            "info": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-quiet",
+          "values": [],
+          "when": {
+            "quiet": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-debug",
+          "values": [],
+          "when": {
+            "debug": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-nthreads",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "nthreads",
+              "kind": "INT"
+            }
+          ]
+        }
+      ],
+      "total_options": 11,
+      "omitted_options": {
+        "fc": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    }
+  }
+}

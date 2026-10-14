@@ -1,0 +1,315 @@
+{
+  "label": "MRtrix3 响应函数估计",
+  "description": "使用 dwi2response 的 dhollander 或 tournier 算法生成 CSD 所需组织响应函数。",
+  "runner_id": "mrtrix.dwi2response",
+  "input_types": [
+    "preprocessed_dwi",
+    "brain_mask",
+    "gradient_table"
+  ],
+  "output_types": [
+    "response_functions",
+    "execution_log"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "gradient_source",
+      "argument": "gradient_source",
+      "label": "梯度来源",
+      "description": "自动模式优先使用图像内嵌梯度；缺少内嵌信息时使用与该影像配套的外部梯度。内容在dry-run核验。显式外部来源会覆盖内嵌信息。",
+      "type": "string",
+      "control": "select",
+      "required": true,
+      "default": "auto",
+      "options": [
+        {
+          "value": "auto",
+          "label": "自动选择"
+        },
+        {
+          "value": "embedded",
+          "label": "图像内嵌"
+        },
+        {
+          "value": "fsl",
+          "label": "外部bval与bvec"
+        },
+        {
+          "value": "mrtrix",
+          "label": "外部MRtrix梯度表"
+        }
+      ],
+      "condition_help": "MIF格式支持内嵌梯度，但扩展名本身不证明含有梯度；自动选择结果在预检中显示。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/latest/concepts/dw_scheme.html"
+    },
+    {
+      "id": "algorithm",
+      "argument": "algorithm",
+      "label": "响应函数算法",
+      "description": "Dhollander 适用于多组织估计；Tournier 生成单组织白质响应。",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "dhollander",
+      "options": [
+        {
+          "value": "dhollander",
+          "label": "Dhollander（多组织）",
+          "description": ""
+        },
+        {
+          "value": "tournier",
+          "label": "Tournier（单组织）",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "threads",
+      "argument": "nthreads",
+      "label": "线程数",
+      "description": "MRtrix3 使用的 CPU 线程数。",
+      "type": "integer",
+      "control": "number",
+      "level": "advanced",
+      "group": "计算资源",
+      "unit": "",
+      "required": true,
+      "default": 4,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 128.0,
+      "step": 1.0,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "dwi",
+      "type": "preprocessed_dwi",
+      "label": "预处理 DWI",
+      "description": "完成畸变与运动校正的 4D DWI。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "mask",
+      "type": "brain_mask",
+      "label": "DWI Mask",
+      "description": "与 DWI 空间一致的脑掩膜。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ],
+      "discovery_patterns": [
+        "**/nodif_brain_mask.nii.gz",
+        "**/brain_mask.nii.gz",
+        "**/mask.nii.gz"
+      ]
+    },
+    {
+      "id": "bvecs",
+      "type": "gradient_table",
+      "label": "bvec",
+      "description": "FSL 格式梯度方向。",
+      "required": false,
+      "required_when": {
+        "gradient_source": [
+          "fsl"
+        ]
+      },
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".bvec",
+        ".txt"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ],
+      "condition_help": "条件必需；自动选择图像内嵌梯度时不读取、不传入此输入。外部bval与bvec必须配套，显式指定时覆盖内嵌梯度。"
+    },
+    {
+      "id": "bvals",
+      "type": "gradient_table",
+      "label": "bval",
+      "description": "扩散梯度强度。",
+      "required": false,
+      "required_when": {
+        "gradient_source": [
+          "fsl"
+        ]
+      },
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".bval",
+        ".txt"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ],
+      "condition_help": "条件必需；自动选择图像内嵌梯度时不读取、不传入此输入。外部bval与bvec必须配套，显式指定时覆盖内嵌梯度。"
+    },
+    {
+      "id": "grad",
+      "type": "gradient_table",
+      "label": "MRtrix梯度表",
+      "description": "每行x、y、z、b；仅显式选择MRtrix外部梯度时必需。",
+      "required": false,
+      "required_when": {
+        "gradient_source": [
+          "mrtrix"
+        ]
+      },
+      "binding": "file",
+      "formats": [
+        ".txt",
+        ".b"
+      ],
+      "validation": [
+        "path_exists"
+      ],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "condition_help": "条件必需；自动选择图像内嵌梯度时不读取、不传入此输入。外部bval与bvec必须配套，显式指定时覆盖内嵌梯度。"
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "wm_response",
+      "type": "response_functions",
+      "label": "白质响应函数",
+      "description": "CSD 白质响应函数。",
+      "format": ".txt",
+      "primary": true,
+      "path_template": "wm_response.txt",
+      "generated_when": {}
+    },
+    {
+      "id": "gm_response",
+      "type": "response_functions",
+      "label": "灰质响应函数",
+      "description": "Dhollander 多组织灰质响应函数。",
+      "format": ".txt",
+      "primary": false,
+      "path_template": "gm_response.txt",
+      "generated_when": {
+        "algorithm": [
+          "dhollander"
+        ]
+      }
+    },
+    {
+      "id": "csf_response",
+      "type": "response_functions",
+      "label": "脑脊液响应函数",
+      "description": "Dhollander 多组织脑脊液响应函数。",
+      "format": ".txt",
+      "primary": false,
+      "path_template": "csf_response.txt",
+      "generated_when": {
+        "algorithm": [
+          "dhollander"
+        ]
+      }
+    },
+    {
+      "id": "log",
+      "type": "execution_log",
+      "label": "响应函数日志",
+      "description": "dwi2response 完整输出。",
+      "format": "",
+      "primary": false,
+      "path_template": "dwi2response.log",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/dwi-skill/skill.json",
+      "label": "DWI Skill",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "mrtrix.dwi2response",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "builtin"
+  }
+}

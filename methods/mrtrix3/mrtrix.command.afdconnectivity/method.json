@@ -1,0 +1,223 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix.command.afdconnectivity",
+  "version": "1",
+  "kind": "method",
+  "label": "MRtrix3 afdconnectivity",
+  "description": "Obtain an estimate of fibre connectivity between two regions using AFD and streamlines tractography\nThis estimate is obtained by determining a fibre volume (AFD) occupied by the pathway of interest, and dividing by the streamline length.\nIf only the streamlines belonging to the pathway of interest are provided, then ALL of the fibre volume within each fixel selected will contribute to the result. If the -wbft option is used to provide whole-brain fibre-tracking (of which the pathway of interest should contain a subset), only the fraction of the fibre volume in each fixel estimated to belong to the pathway of interest will contribute to the result.\nUse -quiet to suppress progress messages and output fibre connectivity value only.\nFor valid comparisons of AFD connectivity across scans, images MUST be intensity normalised and bias field corrected, and a common response function for all subjects must be used.\nNote that the sum of the AFD is normalised by streamline length to account for subject differences in fibre bundle length. This normalisation results in a measure that is more related to the cross-sectional volume of the tract (and therefore 'connectivity'). Note that SIFT-ed tract count is a superior measure because it is unaffected by tangential yet unrelated fibres. However, AFD connectivity may be used as a substitute when Anatomically Constrained Tractography is not possible due to uncorrectable EPI distortions, and SIFT may therefore not be as effective.\nLonger discussion regarding this command can additionally be found at: https://mrtrix.readthedocs.io/en/3.0.8/concepts/afd_connectivity.html (as well as in the relevant reference).",
+  "runner_id": "mrtrix.command.afdconnectivity",
+  "parameters": [
+    {
+      "id": "save_afd_map",
+      "argument": "-afd_map",
+      "label": "生成 afd_map",
+      "description": "output a 3D image containing the AFD estimated for each voxel.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "all_fixels",
+      "argument": "-all_fixels",
+      "label": "all_fixels",
+      "description": "if whole-brain fibre-tracking is NOT provided, then if multiple fixels within a voxel are traversed by the pathway of interest, by default the fixel with the greatest streamlines density is selected to contribute to the AFD in that voxel. If this option is provided, then ALL fixels with non-zero streamlines density will contribute to the result, even if multiple fixels per voxel are selected.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "info",
+      "argument": "-info",
+      "label": "info",
+      "description": "display information messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "quiet",
+      "argument": "-quiet",
+      "label": "quiet",
+      "description": "do not display information messages or progress status; alternatively, this can be achieved by setting the MRTRIX_QUIET environment variable to a non-empty string.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "debug",
+      "argument": "-debug",
+      "label": "debug",
+      "description": "display debugging messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "nthreads",
+      "argument": "nthreads",
+      "label": "nthreads",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).",
+      "type": "integer",
+      "required": true,
+      "default": 1,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/afdconnectivity.html",
+      "minimum": 0,
+      "group": "计算资源",
+      "level": "advanced"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "image",
+      "type": "imaging_input",
+      "label": "image",
+      "description": "the input FOD image.",
+      "required": true,
+      "binding": "file"
+    },
+    {
+      "id": "tracks",
+      "type": "tractogram",
+      "label": "tracks",
+      "description": "the input track file defining the bundle of interest.",
+      "required": true,
+      "binding": "file"
+    },
+    {
+      "id": "wbft",
+      "type": "tractogram",
+      "label": "wbft",
+      "description": "provide a whole-brain fibre-tracking data set (of which the input track file should be a subset), to improve the estimate of fibre bundle volume in the presence of partial volume",
+      "required": false,
+      "binding": "file"
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "afd_map",
+      "type": "imaging_input",
+      "label": "afd_map",
+      "description": "output a 3D image containing the AFD estimated for each voxel. The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".mif",
+      "path_template": "afd_map.mif",
+      "generated_when": {
+        "save_afd_map": [
+          true
+        ]
+      }
+    }
+  ],
+  "input_types": [
+    "imaging_input",
+    "tractogram"
+  ],
+  "output_types": [
+    "imaging_input"
+  ],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/afdconnectivity.usage.txt",
+      "kind": "command",
+      "label": "MRtrix3 安装版原始完整帮助"
+    }
+  ],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "command": "afdconnectivity",
+      "version": "3.0.8",
+      "positional": [
+        {
+          "source": "input",
+          "id": "image",
+          "optional": false
+        },
+        {
+          "source": "input",
+          "id": "tracks",
+          "optional": false
+        }
+      ],
+      "options": [
+        {
+          "flag": "-wbft",
+          "values": [
+            {
+              "source": "input",
+              "id": "wbft"
+            }
+          ]
+        },
+        {
+          "flag": "-afd_map",
+          "values": [
+            {
+              "source": "output",
+              "id": "afd_map"
+            }
+          ],
+          "when": {
+            "save_afd_map": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-all_fixels",
+          "values": [],
+          "when": {
+            "all_fixels": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-info",
+          "values": [],
+          "when": {
+            "info": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-quiet",
+          "values": [],
+          "when": {
+            "quiet": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-debug",
+          "values": [],
+          "when": {
+            "debug": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-nthreads",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "nthreads",
+              "kind": "INT"
+            }
+          ]
+        }
+      ],
+      "total_options": 11,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    }
+  }
+}

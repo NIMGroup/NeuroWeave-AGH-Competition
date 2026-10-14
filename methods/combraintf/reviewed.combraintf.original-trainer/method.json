@@ -1,0 +1,754 @@
+{
+  "label": "COMBRAINTF 原项目训练脚本",
+  "description": "Run the original combraintf trainer on per-subject FC tensor dictionaries in <atlas>/sub-*.pt and matching CSV labels. The adapter validates subject IDs, square finite matrices, ROI consistency and fold sizes, and redirects checkpoints and logs into this run。 Inputs: fmri_root: 原始 FC 数据根目录（内含 atlas/sub-*.pt） (directory); labels_csv: 完整样本标签 CSV (file). Registered outputs: results/training.log, results/execution.json. Fixed invocation options: --model combraintf.",
+  "runner_id": "reviewed.combraintf.original-trainer",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "atlas",
+      "argument": "atlas",
+      "label": "原始图谱目录名",
+      "description": "原训练入口使用的图谱目录名称，必须与输入数据的实际目录结构一致。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 atlas，由结构化 Runner 映射到现有入口参数 atlas。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "subject_col",
+      "argument": "subject-col",
+      "label": "subject-col",
+      "description": "输入表中的样本标识列名，用于按样本对应特征与标签。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "subject_id",
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 subject_col，由结构化 Runner 映射到现有入口参数 subject-col。 平台默认值：subject_id；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "label_col",
+      "argument": "label-col",
+      "label": "label-col",
+      "description": "标签表中用于分类或回归目标的列名。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "label",
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 label_col，由结构化 Runner 映射到现有入口参数 label-col。 平台默认值：label；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "task",
+      "argument": "task",
+      "label": "task",
+      "description": "原训练入口的任务类型：分类或回归；影响目标、拆分及损失函数。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "classification",
+      "options": [
+        {
+          "value": "classification",
+          "label": "classification",
+          "description": ""
+        },
+        {
+          "value": "regression",
+          "label": "regression",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 task，由结构化 Runner 映射到现有入口参数 task。 可选值：classification, regression。 平台默认值：classification；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "fold",
+      "argument": "fold",
+      "label": "fold",
+      "description": "运行的交叉验证折索引，从 0 开始；应小于实际可用折数。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 0,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 99.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 fold，由结构化 Runner 映射到现有入口参数 fold。 平台默认值：0；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "kfold",
+      "argument": "kfold",
+      "label": "kfold",
+      "description": "原训练脚本的交叉验证折数；实际拆分还受有效样本数和类别分布限制。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 5,
+      "options": [],
+      "minimum": 2.0,
+      "maximum": 100.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 kfold，由结构化 Runner 映射到现有入口参数 kfold。 平台默认值：5；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "seed",
+      "argument": "seed",
+      "label": "seed",
+      "description": "现有入口使用的随机种子；相同种子不保证不同硬件或软件版本的结果逐位一致。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 123,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 2147483647.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 seed，由结构化 Runner 映射到现有入口参数 seed。 平台默认值：123；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "n_epochs",
+      "argument": "n-epochs",
+      "label": "n-epochs",
+      "description": "原始训练脚本的训练轮数。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 50,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 10000.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 n_epochs，由结构化 Runner 映射到现有入口参数 n-epochs。 平台默认值：50；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "batch_size",
+      "argument": "batch-size",
+      "label": "batch-size",
+      "description": "每个训练批次的样本数；应结合样本量和实际分配的设备内存设置。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 8,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 2048.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 batch_size，由结构化 Runner 映射到现有入口参数 batch-size。 平台默认值：8；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "lr",
+      "argument": "lr",
+      "label": "lr",
+      "description": "优化器学习率，使用现有训练入口的优化器实现。",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 0.001,
+      "options": [],
+      "minimum": 1e-08,
+      "maximum": 1.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 lr，由结构化 Runner 映射到现有入口参数 lr。 平台默认值：0.001；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "nclass",
+      "argument": "nclass",
+      "label": "nclass",
+      "description": "分类任务的输出类别数，应与实际标签编码一致。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 2,
+      "options": [],
+      "minimum": 2.0,
+      "maximum": 1000.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 nclass，由结构化 Runner 映射到现有入口参数 nclass。 平台默认值：2；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "nhead",
+      "argument": "nhead",
+      "label": "nhead",
+      "description": "原始注意力模型的注意力头数，需要满足模型隐藏维度的整除约束。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 4,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 64.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 nhead，由结构化 Runner 映射到现有入口参数 nhead。 平台默认值：4；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "dec_weight",
+      "argument": "dec-weight",
+      "label": "dec-weight",
+      "description": "原训练损失中 DEC 聚类项的权重；总损失使用任务损失加该权重乘聚类损失。",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 0.1,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 100.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 dec_weight，由结构化 Runner 映射到现有入口参数 dec-weight。 平台默认值：0.1；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "hidden_size",
+      "argument": "hidden-size",
+      "label": "hidden-size",
+      "description": "原始 Transformer 模型的隐藏特征维度。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 512,
+      "options": [],
+      "minimum": 4.0,
+      "maximum": 4096.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 hidden_size，由结构化 Runner 映射到现有入口参数 hidden-size。 平台默认值：512；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "n_clusters",
+      "argument": "n-clusters",
+      "label": "n-clusters",
+      "description": "现有聚类操作或模型聚类层的簇数；应与样本量及任务目标匹配。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 8,
+      "options": [],
+      "minimum": 2.0,
+      "maximum": 512.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 n_clusters，由结构化 Runner 映射到现有入口参数 n-clusters。 平台默认值：8；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "n_communities",
+      "argument": "n-communities",
+      "label": "n-communities",
+      "description": "override community count (used only for hash-fallback atlases)",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 100.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/combraintf/scripts/train_reference.py:61。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "wd",
+      "argument": "wd",
+      "label": "wd",
+      "description": "原训练入口优化器的权重衰减系数。",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 0.0005,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 wd，由结构化 Runner 映射到现有入口参数 wd。 平台默认值：0.0005；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "fmri_root",
+      "type": "analysis_input",
+      "label": "原始 FC 数据根目录（内含 atlas/sub-*.pt）",
+      "description": "原始 FC 数据根目录（内含 atlas/sub-*.pt）. Required directory input for COMBRAINTF 原项目训练脚本; bind to port fmri_root.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "folder",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "labels_csv",
+      "type": "analysis_input",
+      "label": "完整样本标签 CSV",
+      "description": "完整样本标签 CSV. Required file input for COMBRAINTF 原项目训练脚本; bind to port labels_csv.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for COMBRAINTF 原项目训练脚本. Contains this operation's generated files, including results/training.log, results/execution.json; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_training_log",
+      "type": "generated_file",
+      "label": "training.log",
+      "description": "training.log: output of the original COMBRAINTF project training script. Relative run path: results/training.log. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": "",
+      "primary": false,
+      "path_template": "results/training.log",
+      "generated_when": {}
+    },
+    {
+      "id": "file_execution_json",
+      "type": "generated_file",
+      "label": "execution.json",
+      "description": "execution.json: output of COMBRAINTF original project training script. Relative run path: results/execution.json. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".json",
+      "primary": false,
+      "path_template": "results/execution.json",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "bakend/app/execution/original_training_worker.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.combraintf.original-trainer",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.combraintf.original-trainer",
+      "script": "bakend/app/execution/original_training_worker.py",
+      "inputs": [
+        {
+          "id": "fmri_root",
+          "flag": "--fmri-root",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "labels_csv",
+          "flag": "--labels-csv",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "atlas",
+          "flag": "--atlas"
+        },
+        {
+          "id": "subject_col",
+          "flag": "--subject-col"
+        },
+        {
+          "id": "label_col",
+          "flag": "--label-col"
+        },
+        {
+          "id": "task",
+          "flag": "--task"
+        },
+        {
+          "id": "fold",
+          "flag": "--fold"
+        },
+        {
+          "id": "kfold",
+          "flag": "--kfold"
+        },
+        {
+          "id": "seed",
+          "flag": "--seed"
+        },
+        {
+          "id": "n_epochs",
+          "flag": "--n-epochs"
+        },
+        {
+          "id": "batch_size",
+          "flag": "--batch-size"
+        },
+        {
+          "id": "lr",
+          "flag": "--lr"
+        },
+        {
+          "id": "nclass",
+          "flag": "--nclass"
+        },
+        {
+          "id": "nhead",
+          "flag": "--nhead"
+        },
+        {
+          "id": "dec_weight",
+          "flag": "--dec-weight"
+        },
+        {
+          "id": "hidden_size",
+          "flag": "--hidden-size"
+        },
+        {
+          "id": "n_clusters",
+          "flag": "--n-clusters"
+        },
+        {
+          "id": "n_communities",
+          "flag": "--n-communities"
+        },
+        {
+          "id": "wd",
+          "flag": "--wd"
+        }
+      ],
+      "modules": [
+        "torch",
+        "numpy",
+        "pandas",
+        "sklearn"
+      ],
+      "expected": [
+        "training.log",
+        "execution.json"
+      ],
+      "profile": "torch",
+      "fixed_args": [
+        "--model",
+        "combraintf"
+      ],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [
+        "skills/combraintf/scripts/train_reference.py",
+        "models/bnt/scripts/data_adapter.py",
+        "models/combraintf/net/combraintf.py",
+        "models/combraintf/scripts/data_adapter.py",
+        "models/bnt/net/bnt.py"
+      ],
+      "executables": [],
+      "original_entrypoint": "skills/combraintf/scripts/train_reference.py",
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/combraintf/scripts/train_reference.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/combraintf/scripts/train_reference.py",
+          "source_sha256": "6d7d632db5913ba4fdf7aeb742d7d765e820ab9dd304e39d082afe7209fe1db6"
+        },
+        "dependencies": {
+          "skills/combraintf/scripts/train_reference.py": {
+            "origin": "NeuroWeave before runtime expansion",
+            "revision": "70b681c",
+            "source_path": "skills/combraintf/scripts/train_reference.py",
+            "source_sha256": "6d7d632db5913ba4fdf7aeb742d7d765e820ab9dd304e39d082afe7209fe1db6"
+          },
+          "models/bnt/scripts/data_adapter.py": {
+            "origin": "User-provided NeuroClaw source snapshot",
+            "source_path": "models/bnt/scripts/data_adapter.py",
+            "source_sha256": "61487cecd6df90ee83df865ce8e34cbd314fe54a164cd5d03c7624c4139c4a31",
+            "local_adjustments": "Input loading disables Pickle, device auto selects the allocated runtime, optional torch import, or isolated vendored imports; algorithm and training definitions unchanged."
+          },
+          "models/combraintf/net/combraintf.py": {
+            "origin": "User-provided NeuroClaw source snapshot",
+            "source_path": "models/combraintf/net/combraintf.py",
+            "source_sha256": "ebb07022285766d4592331559153d4ba171ac636c9da237f63e58d8bbe1c9044"
+          },
+          "models/combraintf/scripts/data_adapter.py": {
+            "origin": "User-provided NeuroClaw source snapshot",
+            "source_path": "models/combraintf/scripts/data_adapter.py",
+            "source_sha256": "38765b492f1cde796559287f08202dd74cd574b996574d648417703100683c87"
+          },
+          "models/bnt/net/bnt.py": {
+            "origin": "User-provided NeuroClaw source snapshot",
+            "source_path": "models/bnt/net/bnt.py",
+            "source_sha256": "1c3e362faeaf936f68a0253335780f1d4dab4d5232f107017e061cc129409af8"
+          }
+        },
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "bakend/app/execution/original_training_worker.py",
+          "sha256": "bc6e732eef7378836c2c49bba8745d7de2e8d0f5668a299b349924582d5a8ee9"
+        },
+        {
+          "path": "skills/combraintf/scripts/train_reference.py",
+          "sha256": "6d7d632db5913ba4fdf7aeb742d7d765e820ab9dd304e39d082afe7209fe1db6"
+        },
+        {
+          "path": "models/bnt/scripts/data_adapter.py",
+          "sha256": "23bf49c59cdb0b6698022a3216b875f88ea9932817be23ff0a3d10c3beb4b134"
+        },
+        {
+          "path": "models/combraintf/net/combraintf.py",
+          "sha256": "ebb07022285766d4592331559153d4ba171ac636c9da237f63e58d8bbe1c9044"
+        },
+        {
+          "path": "models/combraintf/scripts/data_adapter.py",
+          "sha256": "c2b3c5d8afc2e04fe1fa0001b409a2ee2b567d6caebd7d3416a13008078e0d39"
+        },
+        {
+          "path": "models/bnt/net/bnt.py",
+          "sha256": "1c3e362faeaf936f68a0253335780f1d4dab4d5232f107017e061cc129409af8"
+        }
+      ],
+      "artifact_types": {
+        "training.log": "generated_file",
+        "execution.json": "generated_file"
+      }
+    }
+  }
+}

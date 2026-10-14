@@ -1,0 +1,1045 @@
+@import "tailwindcss";
+
+/* Conversation content remains readable without expanding the app viewport. */
+.chat-prose { font-size: 14px; line-height: 1.85; overflow-wrap: anywhere; }
+.chat-prose > :first-child { margin-top: 0; }
+.chat-prose > :last-child { margin-bottom: 0; }
+.chat-prose p, .chat-prose ul, .chat-prose ol, .chat-prose blockquote { margin: 0.75rem 0; }
+.chat-prose h1, .chat-prose h2, .chat-prose h3, .chat-prose h4, .chat-prose h5, .chat-prose h6 {
+  font-size: 1em; font-weight: 600; line-height: 1.6; margin: 1.25rem 0 0.5rem;
+}
+.chat-prose h1, .chat-prose h2 { font-size: 1.125em; }
+.chat-prose ul { list-style: disc; padding-left: 1.5rem; }
+.chat-prose ol { list-style: decimal; padding-left: 1.5rem; }
+.chat-prose li { padding-left: 0.125rem; margin: 0.25rem 0; }
+.chat-prose li > p { margin: 0.25rem 0; }
+.chat-prose a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.chat-prose blockquote { border-left: 2px solid var(--line-strong); color: var(--muted); padding-left: 1rem; }
+.chat-prose hr { border-color: var(--line); margin: 1rem 0; }
+.chat-prose :not(pre) > code { background: var(--well); border-radius: 4px; padding: 0.125rem 0.3rem; font-size: 0.9em; }
+.chat-code { margin: 0.75rem 0; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--well); }
+.chat-code pre { max-height: 28rem; overflow: auto; padding: 0.75rem 1rem; font-size: 12px; line-height: 1.7; white-space: pre; }
+.chat-table { max-width: 100%; overflow: auto; margin: 0.75rem 0; border: 1px solid var(--line); border-radius: 8px; }
+.chat-table table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.chat-table th, .chat-table td { min-width: 6rem; border-bottom: 1px solid var(--line); padding: 0.5rem 0.75rem; text-align: left; }
+.chat-table th { font-weight: 600; background: var(--panel); }
+.chat-table tr:last-child td { border-bottom: 0; }
+.chat-activity summary::-webkit-details-marker { display: none; }
+.chat-activity[open] .activity-chevron { transform: rotate(180deg); }
+.chat-disclosure > summary { cursor: pointer; color: var(--muted); padding: 0.25rem 0; }
+.chat-disclosure[open] > summary { margin-bottom: 0.5rem; }
+.chat-activity summary:focus-visible, .chat-disclosure > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* The plan scrolls beside the conversation, independently of its composer. */
+.conversation-plan-panel:not([hidden]) { display: flex; }
+.conversation-plan-panel { width: min(46%, 560px); min-width: 420px; }
+[data-plan-mode="overlay"] .conversation-plan-panel { width: min(600px, 100%); min-width: 0; }
+[data-plan-scroll] { container: conversation-plan / inline-size; }
+@container conversation-plan (max-width: 600px) {
+  [data-plan-scroll] .sm\:grid-cols-2,
+  [data-plan-scroll] .lg\:grid-cols-4 { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ============================================================================
+   NeuroWeave design tokens
+   ----------------------------------------------------------------------------
+   Everything visual resolves from this file. Feature code uses the semantic
+   Tailwind utilities generated from these tokens (`bg-raised`, `text-muted`,
+   `border-line`, `bg-success-quiet`, ...) and must not hardcode hex values or
+   invent new hues.
+
+   SURFACES - one ladder, same direction in both themes
+     canvas   application background
+     panel    persistent chrome: sidebar, docked panels
+     raised   cards, menus, dialogs
+     well     recessed areas: inputs, code, log output
+   INTERACTION SURFACES
+     hover    row / control hover
+     selected active item (accent tint)
+     pressed  pointer-down feedback
+   TEXT
+     ink      primary text
+     muted    secondary text - at or above 4.5:1 on canvas/panel/well
+     subtle   tertiary text - still at or above 4.5:1, never smaller than 12px
+   LINES
+     line        hairline / divider
+     line-strong card outline, selected control
+   SEMANTIC STATE - each has fg / -quiet (bg) / -line (border)
+     running   work in progress        success  work finished
+     warning   attention required      danger   failure, destructive
+     artifact  produced outputs        upstream auto-generated steps
+   FILLED CONTROLS (solid + its own readable foreground)
+     accent-solid / on-accent, danger-solid / on-danger, solid / on-solid
+     Hover fills stay dark enough for their foreground to remain AA.
+
+   RADIUS LADDER  chip 6 · control 8 · card 12 · panel 16 · pill 999
+   MOTION         hover 120ms · content 160ms · panel 200ms · one easing
+   SPACING        Tailwind's 4px scale; 12px control gaps, 16px panel insets.
+   ============================================================================ */
+
+:root {
+  color-scheme: light;
+
+  /* surfaces */
+  --canvas: #ffffff;
+  --panel: #fafafa;
+  --raised: #ffffff;
+  --well: #f4f4f5;
+
+  /* interaction surfaces */
+  --hover: #f4f4f5;
+  --selected: #eff6ff;
+  --pressed: #e4e4e7;
+
+  /* lines */
+  --line: #e4e4e7;
+  --line-strong: #d4d4d8;
+
+  /* text */
+  --ink: #18181b;
+  --muted: #52525b;
+  --subtle: #71717a;
+
+  /* accent */
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-quiet: #eff6ff;
+  --accent-line: #bfdbfe;
+  --accent-solid: #2563eb;
+  --accent-solid-hover: #1d4ed8;
+  --on-accent: #ffffff;
+
+  /* neutral filled control */
+  --solid: #18181b;
+  --solid-hover: #27272a;
+  --on-solid: #ffffff;
+
+  /* semantic state */
+  --success: #047857;
+  --success-quiet: #ecfdf5;
+  --success-line: #a7f3d0;
+
+  --warning: #b45309;
+  --warning-quiet: #fffbeb;
+  --warning-line: #fde68a;
+
+  --danger: #b91c1c;
+  --danger-quiet: #fef2f2;
+  --danger-line: #fecaca;
+  --danger-solid: #b91c1c;
+  --danger-solid-hover: #991b1b;
+  --on-danger: #ffffff;
+
+  --running: #1d4ed8;
+  --running-quiet: #eff6ff;
+  --running-line: #bfdbfe;
+
+  --artifact: #6d28d9;
+  --artifact-quiet: #f5f3ff;
+  --artifact-line: #ddd6fe;
+
+  --upstream: #0e7490;
+  --upstream-quiet: #ecfeff;
+  --upstream-line: #a5f3fc;
+
+  /* effects */
+  --ring: rgba(37, 99, 235, 0.5);
+  --overlay: rgba(24, 24, 27, 0.45);
+  --elevation-raised: 0 1px 2px rgba(24, 24, 27, 0.06);
+  --elevation-panel: 0 2px 4px rgba(24, 24, 27, 0.06), 0 12px 32px rgba(24, 24, 27, 0.14);
+  --scrollbar-thumb: #d4d4d8;
+  --scrollbar-thumb-hover: #a1a1aa;
+
+  /* motion */
+  --motion-ease: cubic-bezier(0.2, 0, 0, 1);
+  --motion-hover: 120ms;
+  --motion-content: 160ms;
+  --motion-panel: 200ms;
+
+  /* type */
+  --app-font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Microsoft YaHei", "PingFang SC",
+    "Hiragino Sans GB", "Source Han Sans SC", "Noto Sans SC", sans-serif;
+  --app-font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+}
+
+/* Alternate accent themes (see Settings). The default blue needs no override:
+   the :root values above are the blue accent. Overrides only retune accent +
+   selection/ring tokens, so the rest of the palette stays untouched. */
+:root[data-accent='teal'] {
+  --accent: #0f766e;
+  --accent-hover: #115e59;
+  --accent-quiet: #f0fdfa;
+  --accent-line: #99f6e4;
+  --accent-solid: #0d9488;
+  --accent-solid-hover: #0f766e;
+  --selected: #ccfbf1;
+  --ring: rgba(13, 148, 136, 0.5);
+}
+
+:root[data-accent='violet'] {
+  --accent: #7c3aed;
+  --accent-hover: #6d28d9;
+  --accent-quiet: #f5f3ff;
+  --accent-line: #ddd6fe;
+  --accent-solid: #7c3aed;
+  --accent-solid-hover: #6d28d9;
+  --selected: #ede9fe;
+  --ring: rgba(124, 58, 237, 0.5);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --canvas: #0a0a0b;
+  --panel: #121214;
+  --raised: #18181b;
+  --well: #0f0f11;
+
+  --hover: #1f1f23;
+  --selected: rgba(59, 130, 246, 0.16);
+  --pressed: #26262b;
+
+  --line: #27272a;
+  --line-strong: #3f3f46;
+
+  --ink: #f4f4f5;
+  --muted: #a1a1aa;
+  --subtle: #8b8b93;
+
+  --accent: #3b82f6;
+  --accent-hover: #1d4ed8;
+  --accent-quiet: rgba(59, 130, 246, 0.14);
+  --accent-line: rgba(59, 130, 246, 0.35);
+  --accent-solid: #2563eb;
+  --accent-solid-hover: #1d4ed8;
+  --on-accent: #ffffff;
+
+  --solid: #f4f4f5;
+  --solid-hover: #e4e4e7;
+  --on-solid: #18181b;
+
+  --success: #6ee7b7;
+  --success-quiet: rgba(16, 185, 129, 0.14);
+  --success-line: rgba(16, 185, 129, 0.3);
+
+  --warning: #fcd34d;
+  --warning-quiet: rgba(245, 158, 11, 0.14);
+  --warning-line: rgba(245, 158, 11, 0.3);
+
+  --danger: #fca5a5;
+  --danger-quiet: rgba(239, 68, 68, 0.14);
+  --danger-line: rgba(239, 68, 68, 0.3);
+  --danger-solid: #dc2626;
+  --danger-solid-hover: #b91c1c;
+  --on-danger: #ffffff;
+
+  --running: #93c5fd;
+  --running-quiet: rgba(59, 130, 246, 0.14);
+  --running-line: rgba(59, 130, 246, 0.3);
+
+  --artifact: #c4b5fd;
+  --artifact-quiet: rgba(139, 92, 246, 0.14);
+  --artifact-line: rgba(139, 92, 246, 0.3);
+
+  --upstream: #67e8f9;
+  --upstream-quiet: rgba(34, 211, 238, 0.12);
+  --upstream-line: rgba(34, 211, 238, 0.28);
+
+  --ring: rgba(96, 165, 250, 0.55);
+  --overlay: rgba(0, 0, 0, 0.62);
+  --elevation-raised: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --elevation-panel: 0 2px 6px rgba(0, 0, 0, 0.5), 0 16px 40px rgba(0, 0, 0, 0.5);
+  --scrollbar-thumb: #3f3f46;
+  --scrollbar-thumb-hover: #52525b;
+}
+
+.dark[data-accent='teal'] {
+  --accent: #2dd4bf;
+  --accent-hover: #14b8a6;
+  --accent-quiet: rgba(45, 212, 191, 0.14);
+  --accent-line: rgba(45, 212, 191, 0.35);
+  --accent-solid: #0d9488;
+  --accent-solid-hover: #0f766e;
+  --selected: rgba(45, 212, 191, 0.16);
+  --ring: rgba(45, 212, 191, 0.55);
+}
+
+.dark[data-accent='violet'] {
+  --accent: #a78bfa;
+  --accent-hover: #8b5cf6;
+  --accent-quiet: rgba(139, 92, 246, 0.14);
+  --accent-line: rgba(139, 92, 246, 0.35);
+  --accent-solid: #7c3aed;
+  --accent-solid-hover: #6d28d9;
+  --selected: rgba(139, 92, 246, 0.16);
+  --ring: rgba(139, 92, 246, 0.55);
+}
+
+/* Dark Classy - flagship blue liquid glass. Navy base shared by all accents;
+   per-accent blocks below only retune the secondary glow/highlight hue. */
+.dark[data-classy='true'] {
+  --canvas: #060b16;
+  --panel: rgba(13, 22, 40, 0.62);
+  --raised: rgba(19, 30, 54, 0.58);
+  --well: rgba(8, 14, 27, 0.72);
+  --hover: rgba(125, 180, 255, 0.14);
+  --selected: rgba(96, 165, 250, 0.22);
+  --pressed: rgba(96, 165, 250, 0.3);
+  --line: rgba(148, 196, 255, 0.14);
+  --line-strong: rgba(148, 196, 255, 0.34);
+  --ink: #eef3fc;
+  --muted: #a9b8d4;
+  --subtle: #8d9cb9;
+  --accent-quiet: rgba(59, 130, 246, 0.2);
+  --overlay: rgba(2, 5, 12, 0.66);
+  --elevation-raised: 0 1px 2px rgba(0, 0, 0, 0.5), 0 10px 28px rgba(0, 0, 0, 0.45);
+  --elevation-panel:
+    0 2px 8px rgba(0, 0, 0, 0.55),
+    0 28px 70px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(56, 130, 246, 0.12);
+  --scrollbar-thumb: #2b3a58;
+  --scrollbar-thumb-hover: #42557c;
+  /* Glass material knobs (private to the Classy layer). */
+  --classy-glass: rgba(13, 22, 40, 0.62);
+  --classy-glass-strong: rgba(16, 27, 50, 0.78);
+  --classy-edge: rgba(148, 196, 255, 0.16);
+  --classy-edge-strong: rgba(170, 210, 255, 0.38);
+  --classy-hi: rgba(214, 232, 255, 0.14);
+  --classy-glow-r: 56;
+  --classy-glow-g: 150;
+  --classy-glow-b: 248;
+  --classy-blur: 18px;
+  --classy-blur-strong: 26px;
+}
+
+/* Dark Classy - teal accent: same blue glass, secondary glow leans cyan. */
+.dark[data-classy='true'][data-accent='teal'] {
+  --hover: rgba(94, 234, 212, 0.12);
+  --selected: rgba(45, 212, 191, 0.2);
+  --pressed: rgba(45, 212, 191, 0.28);
+  --accent-quiet: rgba(45, 212, 191, 0.2);
+  --elevation-panel:
+    0 2px 8px rgba(0, 0, 0, 0.55),
+    0 28px 70px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(45, 212, 191, 0.12);
+  --classy-glow-r: 45;
+  --classy-glow-g: 212;
+  --classy-glow-b: 191;
+}
+
+/* Dark Classy - violet accent: same blue glass, secondary glow leans violet. */
+.dark[data-classy='true'][data-accent='violet'] {
+  --hover: rgba(196, 181, 253, 0.13);
+  --selected: rgba(139, 92, 246, 0.22);
+  --pressed: rgba(139, 92, 246, 0.3);
+  --accent-quiet: rgba(139, 92, 246, 0.22);
+  --elevation-panel:
+    0 2px 8px rgba(0, 0, 0, 0.55),
+    0 28px 70px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(139, 92, 246, 0.14);
+  --classy-glow-r: 139;
+  --classy-glow-g: 120;
+  --classy-glow-b: 250;
+}
+
+/* Light Classy - frosted icy-blue glass (same blue identity, pale side). */
+:root[data-classy='true'] {
+  --canvas: #dfe8f5;
+  --panel: rgba(226, 235, 248, 0.72);
+  --raised: rgba(244, 248, 253, 0.78);
+  --well: rgba(203, 216, 236, 0.6);
+  --hover: rgba(37, 99, 235, 0.1);
+  --selected: rgba(37, 99, 235, 0.14);
+  --pressed: rgba(37, 99, 235, 0.2);
+  --line: rgba(37, 80, 160, 0.16);
+  --line-strong: rgba(37, 80, 160, 0.32);
+  --ink: #101a30;
+  --accent-quiet: #d9e7fd;
+  --accent-line: rgba(37, 99, 235, 0.35);
+  --solid: #1d2942;
+  --solid-hover: #27344f;
+  --overlay: rgba(15, 22, 38, 0.5);
+  --elevation-raised: 0 1px 2px rgba(23, 32, 60, 0.1), 0 10px 26px rgba(35, 70, 140, 0.14);
+  --elevation-panel: 0 2px 6px rgba(23, 32, 60, 0.12), 0 22px 54px rgba(35, 70, 140, 0.2);
+  --scrollbar-thumb: #b9c2d4;
+  --scrollbar-thumb-hover: #93a0bb;
+  /* Glass material knobs (private to the Classy layer, icy side). */
+  --classy-glass: rgba(226, 235, 248, 0.72);
+  --classy-glass-strong: rgba(238, 244, 252, 0.86);
+  --classy-edge: rgba(255, 255, 255, 0.65);
+  --classy-edge-strong: rgba(37, 99, 235, 0.3);
+  --classy-hi: rgba(255, 255, 255, 0.55);
+  --classy-glow-r: 37;
+  --classy-glow-g: 99;
+  --classy-glow-b: 235;
+  --classy-blur: 16px;
+  --classy-blur-strong: 24px;
+}
+
+/* Light Classy - teal accent: blue glass, secondary glow leans cyan. */
+:root[data-classy='true'][data-accent='teal'] {
+  --hover: rgba(13, 148, 136, 0.12);
+  --selected: rgba(13, 148, 136, 0.15);
+  --pressed: rgba(13, 148, 136, 0.22);
+  --accent-quiet: #cdeee6;
+  --classy-glow-r: 13;
+  --classy-glow-g: 148;
+  --classy-glow-b: 136;
+}
+
+/* Light Classy - violet accent: blue glass, secondary glow leans violet. */
+:root[data-classy='true'][data-accent='violet'] {
+  --hover: rgba(124, 58, 237, 0.12);
+  --selected: rgba(124, 58, 237, 0.14);
+  --pressed: rgba(124, 58, 237, 0.2);
+  --accent-quiet: #e2d9fd;
+  --classy-glow-r: 124;
+  --classy-glow-g: 58;
+  --classy-glow-b: 237;
+}
+
+/* ----------------------------------------------------------------------------
+   Font-size preference. Tailwind's spacing/typography utilities are rem-based,
+   so scaling the root font size rescales text and layout together. The px
+   values below are the 16px-default equivalents.
+   ---------------------------------------------------------------------------- */
+:root {
+  --ui-scale: 1;
+}
+
+:root[data-font-size='small'] {
+  --ui-scale: 0.9375;
+}
+
+:root[data-font-size='large'] {
+  --ui-scale: 1.125;
+}
+
+html {
+  font-size: calc(16px * var(--ui-scale));
+}
+
+/* ----------------------------------------------------------------------------
+   Classy Mode overlay. A single fixed canvas; drawing happens in lib/mouseWave.
+   ---------------------------------------------------------------------------- */
+.wave-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+}
+
+/* ============================================================================
+   Token -> utility bridge.
+   `@theme inline` exposes the runtime variables above as Tailwind utilities
+   (bg-canvas, text-muted, border-line, bg-success-quiet, rounded-card,
+   duration-hover, shadow-panel, ...) without duplicating any value.
+   ============================================================================ */
+
+@theme inline {
+  --font-sans: var(--app-font-sans);
+  --font-mono: var(--app-font-mono);
+
+  /* surfaces */
+  --color-canvas: var(--canvas);
+  --color-panel: var(--panel);
+  --color-raised: var(--raised);
+  --color-well: var(--well);
+  --color-hover: var(--hover);
+  --color-selected: var(--selected);
+  --color-pressed: var(--pressed);
+
+  /* lines */
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  /* text */
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+
+  /* accent */
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-quiet: var(--accent-quiet);
+  --color-accent-line: var(--accent-line);
+  --color-accent-solid: var(--accent-solid);
+  --color-accent-solid-hover: var(--accent-solid-hover);
+  --color-on-accent: var(--on-accent);
+
+  /* neutral filled control */
+  --color-solid: var(--solid);
+  --color-solid-hover: var(--solid-hover);
+  --color-on-solid: var(--on-solid);
+
+  /* semantic state */
+  --color-success: var(--success);
+  --color-success-quiet: var(--success-quiet);
+  --color-success-line: var(--success-line);
+  --color-warning: var(--warning);
+  --color-warning-quiet: var(--warning-quiet);
+  --color-warning-line: var(--warning-line);
+  --color-danger: var(--danger);
+  --color-danger-quiet: var(--danger-quiet);
+  --color-danger-line: var(--danger-line);
+  --color-danger-solid: var(--danger-solid);
+  --color-danger-solid-hover: var(--danger-solid-hover);
+  --color-on-danger: var(--on-danger);
+  --color-running: var(--running);
+  --color-running-quiet: var(--running-quiet);
+  --color-running-line: var(--running-line);
+  --color-artifact: var(--artifact);
+  --color-artifact-quiet: var(--artifact-quiet);
+  --color-artifact-line: var(--artifact-line);
+  --color-upstream: var(--upstream);
+  --color-upstream-quiet: var(--upstream-quiet);
+  --color-upstream-line: var(--upstream-line);
+
+  --color-ring: var(--ring);
+  --color-overlay: var(--overlay);
+
+  /* radius ladder */
+  --radius-chip: 6px;
+  --radius-control: 8px;
+  --radius-card: 12px;
+  --radius-panel: 16px;
+  --radius-pill: 999px;
+
+  /* motion */
+  --ease-standard: var(--motion-ease);
+  --duration-hover: var(--motion-hover);
+  --duration-content: var(--motion-content);
+  --duration-panel: var(--motion-panel);
+
+  /* elevation */
+  --shadow-raised: var(--elevation-raised);
+  --shadow-panel: var(--elevation-panel);
+}
+
+/* ============================================================================
+   Base
+   ============================================================================ */
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100%;
+    margin: 0;
+  }
+
+  html {
+    font-family: var(--app-font-sans);
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    min-width: 320px;
+    background: var(--canvas);
+    color: var(--ink);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /*
+   * Global keyboard focus treatment. Do not remove without replacing it - a
+   * visible focus ring is the minimum requirement for keyboard operation.
+   * Utilities such as `outline-none` still win where a control owns its own
+   * focus affordance (e.g. composed fields with a focus-within ring).
+   */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--accent-quiet);
+    color: var(--ink);
+  }
+}
+
+/* ============================================================================
+   Components
+   ============================================================================ */
+
+@layer components {
+  /*
+   * Typography scale. Nothing outside this set should be introduced.
+   *   display 20/28  surface titles      title 15/22  section titles
+   *   body    14/20  prose, controls     meta  12/16  labels, metadata
+   *   micro   11/14  badges + dense tabular chips (last resort - never 9/10px)
+   *   code    12/18  monospace
+   */
+  .text-display {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .text-title {
+    font-size: 0.9375rem;
+    line-height: 1.375rem;
+    font-weight: 600;
+  }
+
+  .text-body {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .text-meta {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  .text-micro {
+    font-size: 0.6875rem;
+    line-height: 0.875rem;
+    font-weight: 500;
+  }
+
+  .text-code {
+    font-family: var(--app-font-mono);
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+  }
+
+  /*
+   * Shared control transition: colour, opacity and transform only, so it stays
+   * on the compositor and can never animate layout.
+   */
+  .transition-control {
+    transition-property: background-color, border-color, color, box-shadow, opacity, transform;
+    transition-duration: var(--motion-hover);
+    transition-timing-function: var(--motion-ease);
+  }
+
+  /*
+   * Focus affordances.
+   *
+   * The global `:focus-visible` rule in @layer base is the default. These two
+   * helpers exist for the cases it cannot cover:
+   *   .focus-ring        composed fields - ring the container, not the input
+   *   .focus-ring-inset  dense list rows - draw the ring inside the bounds so
+   *                      it is not clipped by an ancestor's overflow
+   */
+  .focus-ring:focus-visible,
+  .focus-ring:focus-within {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  .focus-ring-inset:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: -2px;
+  }
+
+  /*
+   * Native <dialog> reset: a transparent, full-viewport layer that centres a
+   * surface. Guarded by [open] so a closed dialog keeps the user-agent
+   * `display: none`. `showModal()` provides the focus trap, Escape handling
+   * and focus restoration.
+   */
+  .dialog-root {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    overflow: hidden;
+  }
+
+  .dialog-root[open] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .dialog-root::backdrop {
+    background: var(--overlay);
+  }
+
+  .dialog-panel {
+    max-height: 100%;
+  }
+
+  /*
+   * Classy unlayered overrides: dialog surface gains a breath of accent
+   * atmosphere at its top edge (layout/size unchanged).
+   */
+  [data-classy='true'] .dialog-panel {
+    background:
+      radial-gradient(
+        420px 200px at 50% -60px,
+        color-mix(in srgb, var(--accent) 10%, transparent),
+        transparent 70%
+      ),
+      var(--raised);
+    border-color: var(--line-strong);
+  }
+
+
+}
+
+/* Ambient atmosphere: layered navy depth with a soft blue-cyan breath.
+   Plain CSS (outside layers) so it paints above the base body background. */
+[data-classy='true'] body {
+  background-color: var(--canvas);
+  background-image:
+    radial-gradient(
+      1200px 520px at 50% -10%,
+      rgba(96, 165, 250, 0.22),
+      transparent 70%
+    ),
+    radial-gradient(
+      900px 500px at 12% 110%,
+      rgba(34, 211, 238, 0.12),
+      transparent 65%
+    ),
+    radial-gradient(
+      900px 520px at 88% 108%,
+      rgba(var(--classy-glow-r), var(--classy-glow-g), var(--classy-glow-b), 0.14),
+      transparent 65%
+    );
+  background-attachment: fixed;
+}
+
+.dark[data-classy='true'] body {
+  background-image:
+    radial-gradient(
+      1300px 560px at 50% -10%,
+      rgba(80, 140, 250, 0.28),
+      transparent 70%
+    ),
+    radial-gradient(
+      950px 520px at 10% 112%,
+      rgba(34, 211, 238, 0.13),
+      transparent 65%
+    ),
+    radial-gradient(
+      950px 540px at 90% 110%,
+      rgba(var(--classy-glow-r), var(--classy-glow-g), var(--classy-glow-b), 0.16),
+      transparent 65%
+    );
+}
+
+/* Classy liquid-glass layer: unlayered so it refines utilities without
+   touching component files. OFF = absent entirely. Glass is reserved for
+   the functional layer (rail, sidebar, header, buttons, tabs, dialogs);
+   content cards stay near-solid for readability. */
+
+/* Pointer-aware light: mouseWave mirrors pointer into --classy-px/py (px). */
+[data-classy='true'] {
+  --classy-px: -500px;
+  --classy-py: -500px;
+}
+
+/* Rail: floating translucent deep-blue glass column. */
+[data-classy='true'] nav[aria-label].w-14 {
+  background:
+    linear-gradient(180deg, rgba(190, 220, 255, 0.1), rgba(190, 220, 255, 0) 22%),
+    var(--classy-glass);
+  backdrop-filter: blur(var(--classy-blur)) saturate(1.35);
+  border-right: 1px solid var(--classy-edge);
+  box-shadow:
+    inset 1px 0 0 var(--classy-hi),
+    inset -1px 0 0 rgba(4, 10, 24, 0.35),
+    10px 0 34px rgba(2, 8, 26, 0.5),
+    0 0 26px rgba(var(--classy-glow-r), var(--classy-glow-g), var(--classy-glow-b), 0.1);
+}
+
+/* Rail icons: glass capsules; active = luminous blue glass, brighter icon. */
+[data-classy='true'] nav[aria-label].w-14 button {
+  background: rgba(150, 190, 250, 0.07);
+  border: 1px solid transparent;
+  color: var(--muted);
+}
+
+[data-classy='true'] nav[aria-label].w-14 button:hover {
+  background: rgba(150, 190, 250, 0.15);
+  border-color: var(--classy-edge);
+  color: var(--ink);
+  box-shadow:
+    inset 0 1px 0 var(--classy-hi),
+    0 0 16px rgba(var(--classy-glow-r), var(--classy-glow-g), var(--classy-glow-b), 0.22);
+}
+
+[data-classy='true'] nav[aria-label].w-14 button svg {
+  filter: drop-shadow(0 0 5px rgba(var(--classy-glow-r), var(--classy-glow-g), var(--classy-glow-b), 0.4));
+}
+
+[data-classy='true'] nav[aria-label].w-14 [aria-current='page'] {
+  background:
+    linear-gradient(180deg, rgba(200, 228, 255, 0.22), rgba(120, 170, 255, 0.12)),
+    rgba(80, 140, 255, 0.24);
+  backdrop-filter: blur(calc(var(--classy-blur) / 2)) saturate(1.5);
+  border-color: var(--classy-edge-strong);
+  color: #fff;
+  box-shadow:
+    inset 0 1px 0 rgba(230, 242, 255, 0.5),
+    inset 0 -1px 0 rgba(20, 50, 120, 0.35),
+    0 0 20px rgba(var(--classy-glow-r), var(--classy-glow-g), var(--classy-glow-b), 0.42);
+}
+
+/* Sidebar + header: floating blue-glass panels sharing the pointer light. */
+[data-classy='true'] aside.bg-panel {
+  background:
+    radial-gradient(
+      460px 220px at var(--classy-px) var(--classy-py),
+      rgba(var(--classy-glow-r), var(--classy-glow-g), var(--classy-glow-b), 0.1),
+      transparent 65%
+    ),
+    linear-gradient(180deg, rgba(190, 220, 255, 0.08), rgba(190, 220, 255, 0) 18%),
+    var(--classy-glass-strong);
+  backdrop-filter: blur(var(--classy-blur-strong)) saturate(1.4);
+  border-right: 1px solid var(--classy-edge);
+  box-shadow:
+    inset 1px 0 0 var(--classy-hi),
+    14px 0 44px rgba(2, 8, 26, 0.5),
+    0 0 30px rgba(var(--classy-glow-r), var(--classy-glow-g), var(--classy-glow-b), 0.08);
+}
+
+[data-classy='true'] header.bg-canvas {
+  background:
+    radial-gradient(
+      560px 200px at var(--classy-px) var(--classy-py),
+      rgba(var(--classy-glow-r), var(--classy-glow-g), var(--classy-glow-b), 0.09),
+      transparent 65%
+    ),
+    linear-gradient(180deg, rgba(190, 220, 255, 0.09), rgba(190, 220, 255, 0) 30%),
+    var(--classy-glass-strong);
+  backdrop-filter: blur(var(--classy-blur)) saturate(1.4);
+  border-bottom: 1px solid var(--classy-edge);
+  box-shadow:
+    inset 0 1px 0 var(--classy-hi),
+    0 12px 34px rgba(2, 8, 26, 0.42);
+}
+
+/* Glass buttons: luminous blue material, prominent only when primary. */
+[data-classy='true'] .bg-accent-solid {
+  background-image:
+    linear-gradient(180deg, rgba(225, 240, 255, 0.34), rgba(225, 240, 255, 0) 48%),
+    linear-gradient(180deg, rgba(96, 165, 250, 0.55), rgba(37, 99, 235, 0.55));
+  backdrop-filter: blur(calc(var(--classy-blur) / 3)) saturate(1.5);
+  border-color: rgba(190, 220, 255, 0.55);
+  box-shadow:
+    inset 0 1px 0 rgba(235, 246, 255, 0.6),
+    inset 0 -1px 0 rgba(15, 40, 110, 0.4),
+    0 1px 2px rgba(3, 9, 26, 0.5),
+    0 10px 26px rgba(var(--classy-glow-r), var(--classy-glow-g), var(--classy-glow-b), 0.38);
+}
+
+[data-classy='true'] .bg-accent-solid:hover {
+  filter: brightness(1.08);
+  box-shadow:
+    inset 0 1px 0 rgba(235, 246, 255, 0.7),
+    inset 0 -1px 0 rgba(15, 40, 110, 0.4),
+    0 1px 2px rgba(3, 9, 26, 0.5),
+    0 12px 32px rgba(var(--classy-glow-r), var(--classy-glow-g), var(--classy-glow-b), 0.48);
+}
+
+/* Secondary + icon-outline controls: clear translucent blue glass. */
+[data-classy='true'] .border-line.bg-raised {
+  background:
+    linear-gradient(180deg, rgba(190, 220, 255, 0.1), rgba(190, 220, 255, 0) 45%),
+    var(--classy-glass);
+  backdrop-filter: blur(calc(var(--classy-blur) / 2)) saturate(1.3);
+  border-color: var(--classy-edge);
+  box-shadow:
+    inset 0 1px 0 var(--classy-hi),
+    var(--elevation-raised);
+}
+
+/* Ghost controls: minimal until hover, then a blue glass wash. */
+[data-classy='true'] .text-muted.hover\:bg-hover:hover {
+  background-color: rgba(var(--classy-glow-r), var(--classy-glow-g), var(--classy-glow-b), 0.14);
+  border-color: var(--classy-edge);
+  box-shadow: inset 0 1px 0 var(--classy-hi);
+}
+
+/* Segmented tabs: a glass tray with a raised luminous glass capsule for the
+   active segment. Layout, labels and behaviour untouched. */
+[data-classy='true'] .border-line.bg-well.p-1 {
+  background:
+    linear-gradient(180deg, rgba(190, 220, 255, 0.08), rgba(190, 220, 255, 0) 55%),
+    var(--classy-glass);
+  backdrop-filter: blur(calc(var(--classy-blur) / 2)) saturate(1.3);
+  border-color: var(--classy-edge);
+  box-shadow:
+    inset 0 1px 0 var(--classy-hi),
+    0 4px 14px rgba(2, 8, 26, 0.22);
+}
+
+[data-classy='true'] .border-line.bg-well.p-1 > button[aria-pressed='true'] {
+  background:
+    linear-gradient(180deg, rgba(210, 232, 255, 0.2), rgba(130, 175, 255, 0.08)),
+    var(--classy-glass-strong);
+  border-color: var(--classy-edge-strong);
+  box-shadow:
+    inset 0 1px 0 var(--classy-hi),
+    0 2px 8px rgba(2, 8, 26, 0.3);
+  color: var(--ink);
+}
+
+/* Dialogs: the premium modal tier - deep blue glass, controlled blur, a cool
+   top reflection and a layered shadow that lifts it off the backdrop. Size,
+   layout and behaviour are unchanged. */
+[data-classy='true'] .dialog-panel {
+  background:
+    radial-gradient(
+      420px 200px at 50% -60px,
+      rgba(var(--classy-glow-r), var(--classy-glow-g), var(--classy-glow-b), 0.14),
+      transparent 70%
+    ),
+    linear-gradient(180deg, rgba(190, 220, 255, 0.08), rgba(190, 220, 255, 0) 26%),
+    var(--classy-glass-strong);
+  backdrop-filter: blur(var(--classy-blur-strong)) saturate(1.4);
+  border-color: var(--classy-edge);
+  box-shadow:
+    inset 0 1px 0 var(--classy-hi),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02),
+    0 2px 8px rgba(2, 8, 26, 0.4),
+    0 34px 90px rgba(2, 8, 26, 0.55),
+    0 0 46px rgba(var(--classy-glow-r), var(--classy-glow-g), var(--classy-glow-b), 0.1);
+}
+
+[data-classy='true'] .dialog-root::backdrop {
+  background:
+    radial-gradient(
+      900px 480px at var(--classy-px) var(--classy-py),
+      rgba(var(--classy-glow-r), var(--classy-glow-g), var(--classy-glow-b), 0.08),
+      transparent 70%
+    ),
+    var(--overlay);
+  backdrop-filter: blur(3px);
+}
+
+/* Light Classy dialogs keep the icy side of the identity: whiter glass, blue
+   edge, soft blue depth instead of black depth. */
+:root[data-classy='true'] .dialog-panel {
+  --classy-glass-strong: rgba(240, 246, 253, 0.9);
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 2px 6px rgba(23, 32, 60, 0.08),
+    0 30px 80px rgba(35, 70, 140, 0.24),
+    0 0 40px rgba(var(--classy-glow-r), var(--classy-glow-g), var(--classy-glow-b), 0.12);
+}
+
+:root[data-classy='true'] .dialog-root::backdrop {
+  --overlay: rgba(15, 22, 38, 0.42);
+}
+
+/* ============================================================================
+   Motion - restrained, transform/opacity only
+   ============================================================================ */
+
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .dialog-root[open]::backdrop {
+    animation: overlay-in var(--motion-panel) var(--motion-ease);
+  }
+
+  .dialog-root[open] .dialog-panel {
+    animation: panel-in var(--motion-panel) var(--motion-ease);
+  }
+
+  .view-enter {
+    animation: panel-in var(--motion-content) var(--motion-ease);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================================
+   Scrollbars - token driven; transparent track so panels show no seam
+   ============================================================================ */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  background-clip: content-box;
+  border: 3px solid transparent;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Right drawers share the modal focus trap, Escape and backdrop behavior. */
+.dialog-root[data-placement='right'][open] {
+  justify-content: flex-end;
+  padding: 0;
+}
+
+
+/* Use the resized picker width, not the browser width, to choose its columns. */
+.dataset-picker-layout { grid-template-rows: minmax(0, 1fr) minmax(0, 0.4fr); }
+.dataset-picker-registered { border-top-width: 1px; }
+@container (min-width: 760px) {
+  .dataset-picker-layout { grid-template-columns: minmax(0, 1fr) 280px; grid-template-rows: minmax(0, 1fr); }
+  .dataset-picker-registered { border-top-width: 0; border-left-width: 1px; }
+}
+
+/* The graph editor owns the viewport; docks scroll inside their allocated rows. */
+.dialog-root[data-placement='fullscreen'][open] { padding: 0; }

@@ -1,0 +1,28 @@
+
+COMMAND: 
+     KellyKapowski
+
+OPTIONS: 
+     -d, --image-dimensionality 2/3
+     -s, --segmentation-image imageFilename
+                              [imageFilename,<grayMatterLabel=2>,<whiteMatterLabel=3>]
+     -g, --gray-matter-probability-image imageFilename
+     -w, --white-matter-probability-image imageFilename
+     -c, --convergence [<numberOfIterations=45>,<convergenceThreshold=0.0>,<convergenceWindowSize=10>]
+     -t, --thickness-prior-estimate thicknessPriorEstimate
+     -a, --thickness-prior-image thicknessPriorFileName
+     -r, --gradient-step stepSize
+     -l, --smoothing-variance variance
+     -m, --smoothing-velocity-field-parameter variance
+                                              isotropicMeshSpacing
+     -b, --use-bspline-smoothing 1/(0)
+     -x, --use-masked-smoothing 1/(0)
+     -q, --time-points 1
+     -e, --restrict-deformation 1/(0)
+     -n, --number-of-integration-points numberOfPoints
+     -p, --maximum-number-of-invert-displacement-field-iterations numberOfIterations
+     -o, --output imageFileName
+                  [imageFileName,cumulativeVelocityFieldFileNamePrefix]
+     -v, --verbose (0)/1
+     -h 
+     --help 

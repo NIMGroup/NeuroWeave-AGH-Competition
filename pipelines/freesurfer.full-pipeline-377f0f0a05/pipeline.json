@@ -1,0 +1,320 @@
+{
+  "schema_version": 1,
+  "id": "freesurfer.full-pipeline-377f0f0a05",
+  "version": "1",
+  "kind": "pipeline",
+  "description": "依次执行：FreeSurfer recon-all（可执行）。输入和参数由方法契约定义。",
+  "label": "FreeSurfer 完整 recon-all",
+  "parameters": [
+    {
+      "id": "threads",
+      "argument": "openmp",
+      "label": "OpenMP 线程数",
+      "description": "recon-all 可使用的 CPU 线程数。",
+      "type": "integer",
+      "control": "number",
+      "level": "basic",
+      "group": "计算资源",
+      "unit": "",
+      "required": true,
+      "default": 4,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 32.0,
+      "step": 1.0,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "use_t2",
+      "argument": "T2pial",
+      "label": "使用 T2 优化 pial 面",
+      "description": "启用后必须绑定 T2w。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "辅助模态",
+      "unit": "",
+      "required": true,
+      "default": false,
+      "options": [
+        {
+          "value": true,
+          "label": "启用",
+          "description": ""
+        },
+        {
+          "value": false,
+          "label": "关闭",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "use_flair",
+      "argument": "FLAIRpial",
+      "label": "使用 FLAIR 优化 pial 面",
+      "description": "启用后必须绑定 FLAIR。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "辅助模态",
+      "unit": "",
+      "required": true,
+      "default": false,
+      "options": [
+        {
+          "value": true,
+          "label": "启用",
+          "description": ""
+        },
+        {
+          "value": false,
+          "label": "关闭",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "t1w",
+      "type": "t1w_image",
+      "label": "T1w 输入",
+      "description": "完整 recon-all 使用的原始全头 T1w。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mgz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "t2w",
+      "type": "imaging_input",
+      "label": "可选 T2w",
+      "description": "启用 T2 pial refinement 时提供。",
+      "required": false,
+      "required_when": {
+        "use_t2": [
+          true
+        ]
+      },
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mgz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "flair",
+      "type": "imaging_input",
+      "label": "可选 FLAIR",
+      "description": "启用 FLAIR pial refinement 时提供。",
+      "required": false,
+      "required_when": {
+        "use_flair": [
+          true
+        ]
+      },
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mgz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "subject",
+      "type": "freesurfer_subject",
+      "label": "FreeSurfer 受试者目录",
+      "description": "FreeSurfer subject directory containing mri, surf, label and stats. Its existence alone does not certify completion of later stages; use the stage-specific file ports for downstream binding.",
+      "format": "",
+      "primary": true,
+      "path_template": "{subject}/",
+      "generated_when": {}
+    },
+    {
+      "id": "t1w",
+      "type": "t1w_image",
+      "label": "T1 volume",
+      "description": "Conformed T1 volume in the FreeSurfer subject grid. This grid may differ from the original acquisition and from DWI.",
+      "format": ".mgz",
+      "primary": false,
+      "path_template": "{subject}/mri/T1.mgz",
+      "generated_when": {}
+    },
+    {
+      "id": "brain_t1w",
+      "type": "t1w_image",
+      "label": "Brain-extracted T1",
+      "description": "Skull-stripped T1 intensities, despite the filename brainmask.mgz. This is not a binary brain mask.",
+      "format": ".mgz",
+      "primary": false,
+      "path_template": "{subject}/mri/brainmask.mgz",
+      "generated_when": {}
+    },
+    {
+      "id": "parcellation",
+      "type": "parcellation_image",
+      "label": "Anatomical cortical and subcortical parcellation",
+      "description": "Integer Desikan-Killiany cortical and aseg subcortical labels in subject structural space. FreeSurferColorLUT defines label meaning; labels are not contiguous connectome indices. Confirm alignment to streamlines, and remap with the appropriate LUT if needed. Do not use linear interpolation for labels.",
+      "format": ".mgz",
+      "primary": false,
+      "path_template": "{subject}/mri/aparc+aseg.mgz",
+      "generated_when": {}
+    },
+    {
+      "id": "aseg",
+      "type": "label_image",
+      "label": "Subcortical segmentation",
+      "description": "FreeSurfer anatomical segmentation labels in subject space. This alone does not provide the cortical atlas regions contained in aparc+aseg.mgz.",
+      "format": ".mgz",
+      "primary": false,
+      "path_template": "{subject}/mri/aseg.mgz",
+      "generated_when": {}
+    },
+    {
+      "id": "aseg_stats",
+      "type": "generated_file",
+      "label": "Segmentation statistics",
+      "description": "Region statistics table with label IDs, voxel counts and volumes. It is a text report, not a spatial node image. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".stats",
+      "primary": false,
+      "path_template": "{subject}/stats/aseg.stats",
+      "generated_when": {}
+    }
+  ],
+  "steps": [
+    {
+      "id": "recon_all",
+      "title": "FreeSurfer 完整 recon-all",
+      "fixed_parameters": {
+        "processing_stage": "all"
+      },
+      "parameter_bindings": {},
+      "inherit_parameters": true,
+      "input_bindings": {
+        "t1w": {
+          "source": "workflow_input",
+          "slot_id": "t1w",
+          "step_id": null,
+          "output_slot_id": null
+        },
+        "t2w": {
+          "source": "workflow_input",
+          "slot_id": "t2w",
+          "step_id": null,
+          "output_slot_id": null
+        },
+        "flair": {
+          "source": "workflow_input",
+          "slot_id": "flair",
+          "step_id": null,
+          "output_slot_id": null
+        }
+      },
+      "workspace": "subject",
+      "method_ref": "freesurfer.recon_all",
+      "method_version": "2",
+      "capability": "skill.freesurfer-tool"
+    }
+  ],
+  "output_bindings": {
+    "subject": {
+      "step_id": "recon_all",
+      "output_slot_id": "subject"
+    },
+    "t1w": {
+      "step_id": "recon_all",
+      "output_slot_id": "t1w"
+    },
+    "brain_t1w": {
+      "step_id": "recon_all",
+      "output_slot_id": "brain_t1w"
+    },
+    "parcellation": {
+      "step_id": "recon_all",
+      "output_slot_id": "parcellation"
+    },
+    "aseg": {
+      "step_id": "recon_all",
+      "output_slot_id": "aseg"
+    },
+    "aseg_stats": {
+      "step_id": "recon_all",
+      "output_slot_id": "aseg_stats"
+    }
+  },
+  "included_capabilities": [
+    "skill.freesurfer-tool"
+  ],
+  "category": [
+    "内置 Pipeline",
+    "其他软件"
+  ]
+}

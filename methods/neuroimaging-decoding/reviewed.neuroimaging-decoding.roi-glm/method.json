@@ -1,0 +1,229 @@
+{
+  "label": "ROI GLM 与 FDR",
+  "description": "Join ROI features and the design table by subject ID, fit the original ROI-wise GLM with the selected contrast column, and export ROI test results and FDR summary counts. Inputs: features: 特征 CSV (file); design: 设计矩阵 CSV (file). Registered outputs: results/roi_glm_results.csv. Fixed invocation options: --mode roi-glm.",
+  "runner_id": "reviewed.neuroimaging-decoding.roi-glm",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "subject_col",
+      "argument": "subject-col",
+      "label": "subject-col",
+      "description": "输入表中的样本标识列名，用于按样本对应特征与标签。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "subject_id",
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 subject_col，由结构化 Runner 映射到现有入口参数 subject-col。 平台默认值：subject_id；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "contrast_index",
+      "argument": "contrast-index",
+      "label": "contrast-index",
+      "description": "传给既有 ROI GLM 入口的设计矩阵对比列索引；应与提供的设计矩阵对应。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 1,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 100.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 contrast_index，由结构化 Runner 映射到现有入口参数 contrast-index。 平台默认值：1；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "features",
+      "type": "analysis_input",
+      "label": "特征 CSV",
+      "description": "特征 CSV. Required file input for ROI GLM 与 FDR; bind to port features.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "design",
+      "type": "analysis_input",
+      "label": "设计矩阵 CSV",
+      "description": "设计矩阵 CSV. Required file input for ROI GLM 与 FDR; bind to port design.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for ROI GLM 与 FDR. Contains this operation's generated files, including results/roi_glm_results.csv; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_roi_glm_results_csv",
+      "type": "generated_file",
+      "label": "roi_glm_results.csv",
+      "description": "roi_glm_results.csv: output of ROI GLM and FDR. Relative run path: results/roi_glm_results.csv. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".csv",
+      "primary": false,
+      "path_template": "results/roi_glm_results.csv",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/neuroimaging-decoding/scripts/train_reference.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.neuroimaging-decoding.roi-glm",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.neuroimaging-decoding.roi-glm",
+      "script": "skills/neuroimaging-decoding/scripts/train_reference.py",
+      "inputs": [
+        {
+          "id": "features",
+          "flag": "--features",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "design",
+          "flag": "--design",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "subject_col",
+          "flag": "--subject-col"
+        },
+        {
+          "id": "contrast_index",
+          "flag": "--contrast-index"
+        }
+      ],
+      "modules": [
+        "numpy",
+        "pandas",
+        "scipy",
+        "sklearn",
+        "joblib",
+        "statsmodels",
+        "nilearn"
+      ],
+      "expected": [
+        "roi_glm_results.csv"
+      ],
+      "profile": "scientific",
+      "fixed_args": [
+        "--mode",
+        "roi-glm"
+      ],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/neuroimaging-decoding/scripts/train_reference.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/neuroimaging-decoding/scripts/train_reference.py",
+          "source_sha256": "f8666f909b379a1f8012194d971ec73049c42b9e4f2298d9f2b7c68a0b1cd973"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/neuroimaging-decoding/scripts/train_reference.py",
+          "sha256": "f8666f909b379a1f8012194d971ec73049c42b9e4f2298d9f2b7c68a0b1cd973"
+        }
+      ],
+      "artifact_types": {
+        "roi_glm_results.csv": "generated_file"
+      }
+    }
+  }
+}

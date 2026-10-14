@@ -1,0 +1,71 @@
+// NeuroWeave competition Web adapter. Session creation stays with the official host.
+let workbenchSessionCreation: Promise<string> | undefined
+async function ensureWorkbenchSession(): Promise<string> {
+  if (workbenchSessionCreation) return workbenchSessionCreation
+  if (current) return current.id
+  if (!connected || sending || sessionPending || !draftingNew)
+    throw new Error('会话正在准备或连接尚未就绪，请稍后重试')
+  if (!selectedWorkspace?.available) {
+    openNewSessionDialog()
+    throw new Error('请先在 AGH 选择可用的工作区，再打开工作台')
+  }
+  const epoch = selection
+  const connectionEpoch = permissionConnectionEpoch
+  const workspace = selectedWorkspace
+  const draftModel = knownSessionModel
+  const key = pendingSessionKey ?? crypto.randomUUID()
+  pendingSessionKey = key
+  sessionPending = true
+  newSessionCreating = true
+  renderControls()
+  const unchanged = () => {
+    if (!connected || connectionEpoch !== permissionConnectionEpoch)
+      throw new Error('连接已改变，请重新连接后打开当前会话')
+  }
+  workbenchSessionCreation = (async () => {
+    unchanged()
+    const created = await client.session.new({ cwd: workspace.path, sessionKey: key })
+    if (selection !== epoch) {
+      await created.detach()
+      throw new Error('会话已切换，请重新打开当前会话的工作台')
+    }
+    await open(created.id, { created, preserveSending: true, workspace,
+      ...(draftModel ? { initialModel: draftModel } : {}) })
+    const selected = () => {
+      unchanged()
+      if (current !== created) throw new Error('会话已切换，请重新打开当前会话的工作台')
+    }
+    selected()
+    if (initialModelPending) {
+      const model = initialModelPending
+      const applied = await created.setModel({ slot: 'primary', route: model.route,
+        model: model.id, thinking: model.settings?.thinking ?? null,
+        contextWindow: model.settings?.contextWindow ?? null })
+      selected()
+      modelSelectionSeq = applied.effectiveFromSeq
+      knownSessionModel = model
+      initialModelPending = undefined
+    }
+    if (initialPermissionPending !== undefined) {
+      const permission = initialPermissionPending
+      const enabled = yoloEnabled(permission)
+      const applied = await created.setYolo(enabled)
+      selected()
+      permissionSelectionSeq = applied.effectiveFromSeq
+      sessionYoloEnabled = enabled
+      permissionMode = permission
+      initialPermissionPending = undefined
+    }
+    permissionRefreshPending = false
+    pendingSessionKey = undefined
+    return created.id
+  })().finally(() => {
+    workbenchSessionCreation = undefined
+    newSessionCreating = false
+    sessionPending = false
+    render()
+  })
+  return workbenchSessionCreation
+}
+// Cordis binds methods through a proxy; configurable methods allow that wrapper.
+Object.defineProperty(clientModules.session, 'ensure', { configurable: true, value: ensureWorkbenchSession })

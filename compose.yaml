@@ -1,0 +1,35 @@
+name: localflow
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      args:
+        NEUROWEAVE_REVISION: ${NEUROWEAVE_REVISION:-development}
+    restart: unless-stopped
+    healthcheck:
+      # Also accepts the previous Node image during a frontend-only rollback.
+      test: ["CMD-SHELL", "if command -v node >/dev/null 2>&1; then node -e \"fetch('http://127.0.0.1:3000/').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))\"; else wget -q --spider http://127.0.0.1:3000/healthz; fi"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  gateway:
+    image: public.ecr.aws/docker/library/nginx:1.28-alpine@sha256:a8b39bd9cf0f83869a2162827a0caf6137ddf759d50a171451b335cecc87d236
+    depends_on:
+      frontend:
+        condition: service_healthy
+    ports:
+      - "${LOCALFLOW_BIND_ADDRESS:-127.0.0.1}:${LOCALFLOW_PORT:-3000}:80"
+    volumes:
+      - ./deploy/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./runtime:/run/localflow
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/healthz"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 5s

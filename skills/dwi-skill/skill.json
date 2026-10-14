@@ -1,0 +1,979 @@
+{
+  "schema_version": 1,
+  "id": "dwi-skill",
+  "description": "dwi-skill 统筹已登记的独立方法和可复用流程。支持：MRtrix3 tck2connectome；MRtrix3 5ttgen（FSL）；MRtrix3 CSD / MSMT-CSD；MRtrix3 响应函数估计；MRtrix3 基于已有 FOD 的纤维追踪；FSL ProbtrackX（已有方向采样，输出纤维密度图）；MRtrix3 从已有 5TT 生成灰白质界面种子；MRtrix3 MP-PCA DWI 去噪；其他方法可在详情中分页查询。",
+  "method_refs": [
+    {
+      "capability": "dwi.connectome",
+      "method_id": "mrtrix-tck2connectome",
+      "label": "MRtrix3 tck2connectome",
+      "default_recommended": true,
+      "default_reason": "纤维追踪后生成可审计的 ROI×ROI 连接矩阵。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "把流线与脑区分区映射为结构连接矩阵，可选使用 SIFT2 权重或标量边权。",
+      "method_ref": "mrtrix.tck2connectome"
+    },
+    {
+      "capability": "dwi.five_tt",
+      "method_id": "mrtrix-5ttgen-fsl",
+      "label": "MRtrix3 5ttgen（FSL）",
+      "default_recommended": true,
+      "default_reason": "服务器已有 MRtrix3 与 FSL，可直接生成 ACT 输入。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "由 T1w 结构像生成 ACT 纤维追踪使用的五组织类型影像。",
+      "method_ref": "mrtrix.5ttgen"
+    },
+    {
+      "capability": "dwi.fod",
+      "method_id": "mrtrix-dwi2fod",
+      "label": "MRtrix3 CSD / MSMT-CSD",
+      "default_recommended": true,
+      "default_reason": "为 tckgen 生成真实可执行的 FOD 上游输入。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "使用 dwi2fod 从预处理 DWI 与组织响应函数估计白质 FOD。",
+      "method_ref": "mrtrix.dwi2fod"
+    },
+    {
+      "capability": "dwi.response",
+      "method_id": "mrtrix-dwi2response",
+      "label": "MRtrix3 响应函数估计",
+      "default_recommended": true,
+      "default_reason": "在 FOD 估计之前生成经过记录的组织响应函数。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "使用 dwi2response 的 dhollander 或 tournier 算法生成 CSD 所需组织响应函数。",
+      "method_ref": "mrtrix.dwi2response"
+    },
+    {
+      "capability": "dwi.tractography",
+      "method_id": "mrtrix3-existing-fod",
+      "label": "MRtrix3 基于已有 FOD 的纤维追踪",
+      "default_recommended": true,
+      "default_reason": "数据集中已经检测到 FOD 时，这是最短、可实际执行且避免重复预处理的路径。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "使用已有 FOD 调用 tckgen 生成流线。ACT 按参数绑定已有 5TT；本方法不生成 5TT、不运行 SIFT2。",
+      "method_ref": "mrtrix.tckgen"
+    },
+    {
+      "capability": "dwi.tractography",
+      "method_id": "fsl-probtrackx--via-reviewed-probtrackx-existing-dwi-skill",
+      "label": "FSL ProbtrackX（已有方向采样，输出纤维密度图）",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "fsl-probtrackx",
+        "target_method_id": "reviewed-probtrackx-existing-dwi-skill"
+      },
+      "role": "Run FSL probtrackx2 from existing BEDPOSTX posterior samples with a brain mask and seed mask. Write path-density images and waytotal; it neither recomputes BEDPOSTX nor produces an MRtrix tractogram。 Inputs: samples: BEDPOSTX 结果目录 (directory); mask: 脑掩膜 (file); seed: 种子掩膜 (file). Registered outputs: results/fdt_paths.nii.gz, results/waytotal. Fixed invocation options: --operation probtrackx.",
+      "method_ref": "reviewed.dwi-skill.probtrackx-existing"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "command-5tt2gmwmi",
+      "label": "MRtrix3 从已有 5TT 生成灰白质界面种子",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "独立调用 MRtrix3 3.0.8 的 5tt2gmwmi；保留原软件计算，参数按原版本帮助定义。\n\nGenerate a mask image appropriate for seeding streamlines on the grey matter-white matter interface",
+      "method_ref": "mrtrix.command.5tt2gmwmi"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "command-dwidenoise",
+      "label": "MRtrix3 MP-PCA DWI 去噪",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "独立调用 MRtrix3 3.0.8 的 dwidenoise；保留原软件计算，参数按原版本帮助定义。\n\ndMRI noise level estimation and denoising using Marchenko-Pastur PCA\nDWI data denoising and noise map estimation by exploiting data redundancy in the PCA domain using the prior knowledge that the eigenspectrum of random covariance matrices is described by the universal Marchenko-Pastur (MP) distribution. Fitting the MP distribution to the spectrum of patch-wise signal matrices hence provides an estimator of the noise level 'sigma', as was first shown in Veraart et al. (2016) and later improved in Cordero-Grande et al. (2019). This noise level estimate then determines the optimal cut-off for PCA denoising.\nImportant note: image denoising must be performed as the first step of the image processing pipeline. The routine will fail if interpolation or smoothing has been applied to the data prior to denoising.\nNote that this function does not correct for non-Gaussian noise biases present in magnitude-reconstructed MRI images. If available, including the MRI phase data can reduce such non-Gaussian biases, and the command now supports complex input data.",
+      "method_ref": "mrtrix.command.dwidenoise"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "command-mrdegibbs",
+      "label": "MRtrix3 Gibbs 振铃校正",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "独立调用 MRtrix3 3.0.8 的 mrdegibbs；保留原软件计算，参数按原版本帮助定义。\n\nRemove Gibbs Ringing Artifacts\nThis application attempts to remove Gibbs ringing artefacts from MRI images using the method of local subvoxel-shifts proposed by Kellner et al. (see reference below for details).\nThis command is designed to run on data directly after it has been reconstructed by the scanner, before any interpolation of any kind has taken place. You should not run this command after any form of motion correction (e.g. not after dwifslpreproc). Similarly, if you intend running dwidenoise, you should run denoising before this command to not alter the noise structure, which would impact on dwidenoise's performance.\nFor best results, any form of filtering performed by the scanner should be disabled, whether performed in the image domain or k-space. This includes elliptic filtering and other filters that are often applied to reduce Gibbs ringing artifacts. While this method can still safely be applied to such data, some residual ringing artefacts may still be present in the output.\nNote that this method is designed to work on images acquired with full k-space coverage. If this method is executed on data acquired with partial Fourier (eg. \"half-scan\") acceleration, it may not fully remove all ringing artifacts, and you may observe residuals of the original artifact in the partial Fourier direction. Nonetheless, application of the method is still considered safe and worthwhile. Users are however encouraged to acquired full-Fourier data where possible.",
+      "method_ref": "mrtrix.command.mrdegibbs"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "command-mrthreshold",
+      "label": "MRtrix3 影像阈值处理",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "独立调用 MRtrix3 3.0.8 的 mrthreshold；保留原软件计算，参数按原版本帮助定义。\n\nCreate bitwise image by thresholding image intensity\nThe threshold value to be applied can be determined in one of a number of ways:\n- If no relevant command-line option is used, the command will automatically determine an optimal threshold;\n- The -abs option provides the threshold value explicitly;\n- The -percentile, -top and -bottom options enable more fine-grained control over how the threshold value is determined.\nThe -mask option only influences those image values that contribute toward the determination of the threshold value; once the threshold is determined, it is applied to the entire image, irrespective of use of the -mask option. If you wish for the voxels outside of the specified mask to additionally be excluded from the output mask, this can be achieved by providing the -out_masked option.\nThe four operators available through the \"-comparison\" option (\"lt\", \"le\", \"ge\" and \"gt\") correspond to \"less-than\" (<), \"less-than-or-equal\" (<=), \"greater-than-or-equal\" (>=) and \"greater-than\" (>). This offers fine-grained control over how the thresholding operation will behave in the presence of values equivalent to the threshold. By default, the command will select voxels with values greater than or equal to the determined threshold (\"ge\"); unless the -bottom option is used, in which case after a threshold is determined from the relevant lowest-valued image voxels, those voxels with values less than or equal to that threshold (\"le\") are selected. This provides more fine-grained control than the -invert option; the latter is provided for backwards compatibility, but is equivalent to selection of the opposite comparison within this selection.\nIf no output image path is specified, the command will instead write to standard output the determined threshold value.",
+      "method_ref": "mrtrix.command.mrthreshold"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "command-tckresample",
+      "label": "MRtrix3 流线顶点重采样",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "独立调用 MRtrix3 3.0.8 的 tckresample；保留原软件计算，参数按原版本帮助定义。\n\nResample each streamline in a track file to a new set of vertices\nIt is necessary to specify precisely ONE of the command-line options for controlling how this resampling takes place; this may be either increasing or decreasing the number of samples along each streamline, or may involve changing the positions of the samples according to some specified trajectory.\nNote that because the length of a streamline is calculated based on the sums of distances between adjacent vertices, resampling a streamline to a new set of vertices will typically change the quantified length of that streamline; the magnitude of the difference will typically depend on the discrepancy in the number of vertices, with less vertices leading to a shorter length (due to taking chordal lengths of curved trajectories).",
+      "method_ref": "mrtrix.command.tckresample"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "command-tcksift2",
+      "label": "MRtrix3 SIFT2 独立流线赋权",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "独立调用 MRtrix3 3.0.8 的 tcksift2；保留原软件计算，参数按原版本帮助定义。\n\nOptimise per-streamline cross-section multipliers to match a whole-brain tractogram to fixel-wise fibre densities",
+      "method_ref": "mrtrix.command.tcksift2"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "reviewed-roi-stats-dipy-tool",
+      "label": "分区影像统计",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "roi-stats",
+        "roi-wise-diffusion-features",
+        "roi-wise-feature-extraction"
+      ],
+      "execution_resolution": {},
+      "role": "Reference DIPY snippet for atlas-based ROI statistics on tensor metrics。 Inputs: metric: 标量影像 (file); roi: 分区图谱 (file); labels: 标签表 (file). Registered outputs: results/roi_stats.csv.",
+      "method_ref": "reviewed.dipy-tool.roi-stats"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "reviewed-dwidenoise-dwi-skill",
+      "label": "MRtrix MP-PCA 去噪",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "独立调用 MRtrix3 3.0.8 的 dwidenoise；保留原软件计算，参数按原版本帮助定义。\n\ndMRI noise level estimation and denoising using Marchenko-Pastur PCA\nDWI data denoising and noise map estimation by exploiting data redundancy in the PCA domain using the prior knowledge that the eigenspectrum of random covariance matrices is described by the universal Marchenko-Pastur (MP) distribution. Fitting the MP distribution to the spectrum of patch-wise signal matrices hence provides an estimator of the noise level 'sigma', as was first shown in Veraart et al. (2016) and later improved in Cordero-Grande et al. (2019). This noise level estimate then determines the optimal cut-off for PCA denoising.\nImportant note: image denoising must be performed as the first step of the image processing pipeline. The routine will fail if interpolation or smoothing has been applied to the data prior to denoising.\nNote that this function does not correct for non-Gaussian noise biases present in magnitude-reconstructed MRI images. If available, including the MRI phase data can reduce such non-Gaussian biases, and the command now supports complex input data.",
+      "method_ref": "mrtrix.command.dwidenoise"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "reviewed-mrdegibbs-dwi-skill",
+      "label": "MRtrix Gibbs 校正",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "独立调用 MRtrix3 3.0.8 的 mrdegibbs；保留原软件计算，参数按原版本帮助定义。\n\nRemove Gibbs Ringing Artifacts\nThis application attempts to remove Gibbs ringing artefacts from MRI images using the method of local subvoxel-shifts proposed by Kellner et al. (see reference below for details).\nThis command is designed to run on data directly after it has been reconstructed by the scanner, before any interpolation of any kind has taken place. You should not run this command after any form of motion correction (e.g. not after dwifslpreproc). Similarly, if you intend running dwidenoise, you should run denoising before this command to not alter the noise structure, which would impact on dwidenoise's performance.\nFor best results, any form of filtering performed by the scanner should be disabled, whether performed in the image domain or k-space. This includes elliptic filtering and other filters that are often applied to reduce Gibbs ringing artifacts. While this method can still safely be applied to such data, some residual ringing artefacts may still be present in the output.\nNote that this method is designed to work on images acquired with full k-space coverage. If this method is executed on data acquired with partial Fourier (eg. \"half-scan\") acceleration, it may not fully remove all ringing artifacts, and you may observe residuals of the original artifact in the partial Fourier direction. Nonetheless, application of the method is still considered safe and worthwhile. Users are however encouraged to acquired full-Fourier data where possible.",
+      "method_ref": "mrtrix.command.mrdegibbs"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "reviewed-mrconvert-dwi-skill",
+      "label": "MRtrix 格式转换",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Convert an image through MRtrix mrconvert to a NIfTI output. Optional FSL bval and bvec inputs must be provided together; this entry does not perform motion or distortion correction。 Inputs: input: 输入影像 (file); bval: bval (file); bvec: bvec (file). Registered outputs: results/image.nii.gz. Fixed invocation options: --operation mrconvert.",
+      "method_ref": "reviewed.dwi-skill.mrconvert"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "reviewed-dwibiascorrect-dwi-skill",
+      "label": "MRtrix/ANTs 偏置场校正",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Correct a DWI intensity bias field with MRtrix dwibiascorrect using its ANTs backend. Export the corrected image as NIfTI and the supplied unchanged diffusion gradient scheme。 Inputs: input: 输入影像 (file); bval: bval (file); bvec: bvec (file). Registered outputs: results/image.nii.gz, results/dwi.bval, results/dwi.bvec. Fixed invocation options: --operation dwibiascorrect.",
+      "method_ref": "reviewed.dwi-skill.dwibiascorrect"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "reviewed-dwifslpreproc-dwi-skill",
+      "label": "MRtrix/FSL DWI 预处理（无反向相位编码）",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run MRtrix dwifslpreproc with FSL in fixed -rpe_none mode using the selected phase-encoding direction and readout time. Export the corrected DWI and rotated gradients. This entry does not accept reverse phase-encoding images or run their TOPUP correction。 Inputs: input: 输入影像 (file); bval: bval (file); bvec: bvec (file). Registered outputs: results/image.nii.gz, results/dwi.bval, results/dwi.bvec. Fixed invocation options: --operation dwifslpreproc.",
+      "method_ref": "reviewed.dwi-skill.dwifslpreproc"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "reviewed-sift-existing-dwi-skill",
+      "label": "MRtrix SIFT（筛选已有纤维）",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Filter an existing tractogram with MRtrix tcksift against a white-matter FOD, optionally using an existing 5TT image for ACT. The output is a selected set of streamlines, not SIFT2 weights。 Inputs: input: 已有 tractogram (file); fod: 同空间白质 FOD (file); five_tt: 同空间 5TT (file). Registered outputs: results/tracks.tck. Fixed invocation options: --operation sift.",
+      "method_ref": "reviewed.dwi-skill.sift-existing"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "reviewed-bedpostx-dwi-skill",
+      "label": "FSL BEDPOSTX 纤维方向采样",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run FSL BEDPOSTX on a staged copy of preprocessed DWI, a matching brain mask and FSL gradients; estimate fibre-orientation posterior samples. FSL subprocesses stay inside the allocated job。 Inputs: input: 预处理 DWI NIfTI (file); mask: 脑掩膜 (file); bval: bval (file); bvec: bvec (file). Registered outputs: results/data.bedpostX/merged_th1samples.nii.gz, results/data.bedpostX/merged_ph1samples.nii.gz, results/data.bedpostX/merged_f1samples.nii.gz. Fixed invocation options: --operation bedpostx.",
+      "method_ref": "reviewed.dwi-skill.bedpostx"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "reviewed-probtrackx-existing-dwi-skill",
+      "label": "FSL ProbtrackX（已有方向采样，输出纤维密度图）",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run FSL probtrackx2 from existing BEDPOSTX posterior samples with a brain mask and seed mask. Write path-density images and waytotal; it neither recomputes BEDPOSTX nor produces an MRtrix tractogram。 Inputs: samples: BEDPOSTX 结果目录 (directory); mask: 脑掩膜 (file); seed: 种子掩膜 (file). Registered outputs: results/fdt_paths.nii.gz, results/waytotal. Fixed invocation options: --operation probtrackx.",
+      "method_ref": "reviewed.dwi-skill.probtrackx-existing"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "linked-mrtrix-dwi2response",
+      "label": "MRtrix3 响应函数估计",
+      "default_recommended": false,
+      "default_reason": "在 FOD 估计之前生成经过记录的组织响应函数。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "使用 dwi2response 的 dhollander 或 tournier 算法生成 CSD 所需组织响应函数。",
+      "method_ref": "mrtrix.dwi2response"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "linked-mrtrix-dwi2fod",
+      "label": "MRtrix3 CSD / MSMT-CSD",
+      "default_recommended": false,
+      "default_reason": "为 tckgen 生成真实可执行的 FOD 上游输入。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "使用 dwi2fod 从预处理 DWI 与组织响应函数估计白质 FOD。",
+      "method_ref": "mrtrix.dwi2fod"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "linked-mrtrix-5ttgen-fsl",
+      "label": "MRtrix3 5ttgen（FSL）",
+      "default_recommended": false,
+      "default_reason": "服务器已有 MRtrix3 与 FSL，可直接生成 ACT 输入。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "由 T1w 结构像生成 ACT 纤维追踪使用的五组织类型影像。",
+      "method_ref": "mrtrix.5ttgen"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "linked-mrtrix-tck2connectome",
+      "label": "MRtrix3 tck2connectome",
+      "default_recommended": false,
+      "default_reason": "纤维追踪后生成可审计的 ROI×ROI 连接矩阵。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "把流线与脑区分区映射为结构连接矩阵，可选使用 SIFT2 权重或标量边权。",
+      "method_ref": "mrtrix.tck2connectome"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "linked-mrtrix3-existing-fod",
+      "label": "MRtrix3 基于已有 FOD 的纤维追踪",
+      "default_recommended": false,
+      "default_reason": "数据集中已经检测到 FOD 时，这是最短、可实际执行且避免重复预处理的路径。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "使用已有 FOD 调用 tckgen 生成流线。ACT 按参数绑定已有 5TT；本方法不生成 5TT、不运行 SIFT2。",
+      "method_ref": "mrtrix.tckgen"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "dwi-skill-guided--dicom-nifti",
+      "label": "dcm2niix 实际转换",
+      "default_recommended": false,
+      "default_reason": "服务器已检测到 dcm2niix，适合把 DICOM 序列转换为 NIfTI。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "dwi-skill-guided--dicom-nifti",
+        "target_method_id": "dcm2niix-convert"
+      },
+      "role": "调用服务器现有 dcm2niix，将只读 DICOM 输入转换到隔离输出目录并生成 JSON sidecar。",
+      "method_ref": "dcm2niix.convert"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "dwi-skill-guided--organize-to-bids",
+      "label": "按用户文件映射整理 BIDS（文件名检查）",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "支持显式文件映射整理；完整数据集验证仍需 BIDS Validator CLI，不把文件名检查当作完整验证。",
+        "source_method_id": "dwi-skill-guided--organize-to-bids",
+        "target_method_id": "reviewed-explicit-stage-bids-organizer"
+      },
+      "role": "Copy files according to an explicit source-relative to BIDS-relative JSON mapping, check destination filenames with BIDSValidator, and write dataset metadata and a staging report. It does not infer missing entities or perform full dataset validation。 Inputs: input: 源数据集目录 (directory); mapping: 显式文件映射 JSON（源相对路径 → BIDS 相对路径） (file). Registered outputs: results/dataset_description.json, results/staging_report.json. Fixed invocation options: --operation stage.",
+      "method_ref": "reviewed.bids-organizer.explicit-stage"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "dwi-skill-guided--best-practice-dwi-preprocessing-recommended",
+      "label": "QSIPrep",
+      "default_recommended": false,
+      "default_reason": "适合大多数标准 BIDS DWI 数据。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "dwi-skill-guided--best-practice-dwi-preprocessing-recommended",
+        "target_method_id": "qsiprep"
+      },
+      "role": "容器化的标准 BIDS-App 路线，输出统一且包含 QC 报告。",
+      "method_ref": "qsiprep.run"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "dwi-skill-guided--manual-fsl-preprocessing",
+      "label": "FSL topup / eddy",
+      "default_recommended": false,
+      "default_reason": "当需要手动控制校正细节或已有 FSL 环境时更合适。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "dwi-skill-guided--manual-fsl-preprocessing",
+        "target_method_id": "fsl_eddy"
+      },
+      "role": "使用 FSL eddy_cpu 或 eddy_cuda 完成涡流、运动与离群值校正；topup 输出可以按需接入。",
+      "method_ref": "fsl.eddy"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "dwi-skill-guided--tensor-metrics--via-dipy",
+      "label": "DIPY TensorModel",
+      "default_recommended": false,
+      "default_reason": "适合 FA/MD 指标计算和后续扩展。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "dwi-skill-guided--tensor-metrics",
+        "target_method_id": "dipy"
+      },
+      "role": "Python 路线，便于扩展、自定义和生成结构化扩散指标。",
+      "method_ref": "dipy.tensor_fit"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "dwi-skill-guided--tensor-metrics--via-fsl_dtifit",
+      "label": "FSL dtifit",
+      "default_recommended": false,
+      "default_reason": "预处理已经采用 FSL 时可以减少工具切换。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "dwi-skill-guided--tensor-metrics",
+        "target_method_id": "fsl_dtifit"
+      },
+      "role": "复用 FSL 环境完成经典 DTI 张量拟合。",
+      "method_ref": "fsl.dtifit"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "dwi-skill-guided--tractography-connectome-mrtrix3-based--via-mrtrix-tck2connectome",
+      "label": "MRtrix3 tck2connectome",
+      "default_recommended": false,
+      "default_reason": "纤维追踪后生成可审计的 ROI×ROI 连接矩阵。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "dwi-skill-guided--tractography-connectome-mrtrix3-based",
+        "target_method_id": "mrtrix-tck2connectome"
+      },
+      "role": "把流线与脑区分区映射为结构连接矩阵，可选使用 SIFT2 权重或标量边权。",
+      "method_ref": "mrtrix.tck2connectome"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "dwi-skill-guided--fiber-orientation-distribution-fod--via-mrtrix-dwi2fod",
+      "label": "MRtrix3 CSD / MSMT-CSD",
+      "default_recommended": false,
+      "default_reason": "为 tckgen 生成真实可执行的 FOD 上游输入。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "dwi-skill-guided--fiber-orientation-distribution-fod",
+        "target_method_id": "mrtrix-dwi2fod"
+      },
+      "role": "使用 dwi2fod 从预处理 DWI 与组织响应函数估计白质 FOD。",
+      "method_ref": "mrtrix.dwi2fod"
+    }
+  ],
+  "pipeline_refs": [
+    {
+      "capability": "dwi.tractography",
+      "method_id": "mrtrix3-act-sift2--via-existing-fod-act-sift2",
+      "label": "已有 FOD → ACT + SIFT2（复用已有 5TT）",
+      "default_recommended": false,
+      "default_reason": "数据集中已经检测到 FOD 时，这是最短、可实际执行且避免重复预处理的路径。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "mrtrix3-act-sift2",
+        "target_method_id": "mrtrix3-existing-fod"
+      },
+      "role": "依次执行：MRtrix3 基于已有 FOD 的纤维追踪 → MRtrix3 SIFT2 独立流线赋权。输入和参数由方法契约定义。",
+      "pipeline_ref": "reviewed-existing-fod-act-sift2-8c274e3ff3"
+    },
+    {
+      "capability": "dwi.tractography",
+      "method_id": "mrtrix3-act-sift2--via-rebuild-fod-act-sift2",
+      "label": "重建 FOD → ACT + SIFT2（复用已有 5TT）",
+      "default_recommended": false,
+      "default_reason": "数据集中已经检测到 FOD 时，这是最短、可实际执行且避免重复预处理的路径。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "mrtrix3-act-sift2",
+        "target_method_id": "mrtrix3-existing-fod"
+      },
+      "role": "依次执行：MRtrix3 响应函数估计 → MRtrix3 CSD / MSMT-CSD → MRtrix3 基于已有 FOD 的纤维追踪 → MRtrix3 SIFT2 独立流线赋权。输入和参数由方法契约定义。",
+      "pipeline_ref": "reviewed-rebuild-fod-act-sift2-db22ac11b4"
+    },
+    {
+      "capability": "dwi.tractography",
+      "method_id": "mrtrix3-act-sift2--via-existing-fod-connectome",
+      "label": "已有 FOD → ACT + SIFT2 → 连接矩阵（复用已有 5TT）",
+      "default_recommended": false,
+      "default_reason": "纤维追踪后生成可审计的 ROI×ROI 连接矩阵。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "mrtrix3-act-sift2",
+        "target_method_id": "mrtrix-tck2connectome"
+      },
+      "role": "依次执行：MRtrix3 基于已有 FOD 的纤维追踪 → MRtrix3 SIFT2 独立流线赋权 → MRtrix3 tck2connectome。输入和参数由方法契约定义。",
+      "pipeline_ref": "reviewed-existing-fod-connectome-abbfdbddaf"
+    },
+    {
+      "capability": "dwi.tractography",
+      "method_id": "mrtrix3-act-sift2--via-rebuild-fod-connectome",
+      "label": "重建 FOD → ACT + SIFT2 → 连接矩阵（复用已有 5TT）",
+      "default_recommended": false,
+      "default_reason": "纤维追踪后生成可审计的 ROI×ROI 连接矩阵。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "mrtrix3-act-sift2",
+        "target_method_id": "mrtrix-tck2connectome"
+      },
+      "role": "依次执行：MRtrix3 响应函数估计 → MRtrix3 CSD / MSMT-CSD → MRtrix3 基于已有 FOD 的纤维追踪 → MRtrix3 SIFT2 独立流线赋权 → MRtrix3 tck2connectome。输入和参数由方法契约定义。",
+      "pipeline_ref": "reviewed-rebuild-fod-connectome-4aa083106a"
+    },
+    {
+      "capability": "dwi.tractography",
+      "method_id": "fsl-probtrackx--via-bedpostx-probtrackx",
+      "label": "DWI → BEDPOSTX → ProbtrackX（种子纤维密度图）",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "fsl-probtrackx",
+        "target_method_id": "reviewed-probtrackx-existing-dwi-skill"
+      },
+      "role": "依次执行：FSL BEDPOSTX 纤维方向采样 → FSL ProbtrackX（已有方向采样，输出纤维密度图）。输入和参数由方法契约定义。",
+      "pipeline_ref": "reviewed-bedpostx-probtrackx-bb1f496b05"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "dwi-skill-guided--tractography-connectome-mrtrix3-based--via-existing-fod-connectome",
+      "label": "已有 FOD → ACT + SIFT2 → 连接矩阵（复用已有 5TT）",
+      "default_recommended": false,
+      "default_reason": "纤维追踪后生成可审计的 ROI×ROI 连接矩阵。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "dwi-skill-guided--tractography-connectome-mrtrix3-based",
+        "target_method_id": "mrtrix-tck2connectome"
+      },
+      "role": "依次执行：MRtrix3 基于已有 FOD 的纤维追踪 → MRtrix3 SIFT2 独立流线赋权 → MRtrix3 tck2connectome。输入和参数由方法契约定义。",
+      "pipeline_ref": "reviewed-existing-fod-connectome-abbfdbddaf"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "dwi-skill-guided--tractography-connectome-mrtrix3-based--via-rebuild-fod-connectome",
+      "label": "重建 FOD → ACT + SIFT2 → 连接矩阵（复用已有 5TT）",
+      "default_recommended": false,
+      "default_reason": "纤维追踪后生成可审计的 ROI×ROI 连接矩阵。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "dwi-skill-guided--tractography-connectome-mrtrix3-based",
+        "target_method_id": "mrtrix-tck2connectome"
+      },
+      "role": "依次执行：MRtrix3 响应函数估计 → MRtrix3 CSD / MSMT-CSD → MRtrix3 基于已有 FOD 的纤维追踪 → MRtrix3 SIFT2 独立流线赋权 → MRtrix3 tck2connectome。输入和参数由方法契约定义。",
+      "pipeline_ref": "reviewed-rebuild-fod-connectome-4aa083106a"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "dwi-skill-guided--fiber-orientation-distribution-fod--via-response-fod",
+      "label": "预处理 DWI → 响应函数 → MSMT-CSD FOD",
+      "default_recommended": false,
+      "default_reason": "为 tckgen 生成真实可执行的 FOD 上游输入。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "dwi-skill-guided--fiber-orientation-distribution-fod",
+        "target_method_id": "mrtrix-dwi2fod"
+      },
+      "role": "依次执行：MRtrix3 响应函数估计 → MRtrix3 CSD / MSMT-CSD。输入和参数由方法契约定义。",
+      "pipeline_ref": "reviewed-response-fod-21ed9aded5"
+    },
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "dwi-skill-guided--anatomically-constrained-tractography-act",
+      "label": "ACT 纤维追踪（已有 FOD 和 5TT）",
+      "default_recommended": false,
+      "default_reason": "数据集中已经检测到 FOD 时，这是最短、可实际执行且避免重复预处理的路径。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "dwi-skill-guided--anatomically-constrained-tractography-act",
+        "target_method_id": "mrtrix3-existing-fod"
+      },
+      "role": "依次执行：MRtrix3 基于已有 FOD 的纤维追踪 → MRtrix3 SIFT2 独立流线赋权。输入和参数由方法契约定义。",
+      "pipeline_ref": "reviewed-mrtrix3-existing-fod-true-ebb543ab01"
+    }
+  ],
+  "planning_capabilities": [
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "dwi-skill-guided--hcp-grade-diffusion-preprocessing",
+      "skill_id": "dwi-skill",
+      "label": "HCP-grade diffusion preprocessing",
+      "description": "该入口为规划能力；用于讨论HCP-grade diffusion preprocessing的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "hcp-grade-diffusion-preprocessing",
+          "options": [
+            {
+              "value": "hcp-grade-diffusion-preprocessing",
+              "label": "HCP-grade diffusion preprocessing",
+              "description": "规划选项：HCP-grade diffusion preprocessing；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "workflow_scope",
+          "argument": "workflow-scope",
+          "label": "工作流范围",
+          "description": "选择只做预处理、提取特征或规划端到端模态流程。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "end_to_end",
+          "options": [
+            {
+              "value": "preprocess",
+              "label": "仅预处理",
+              "description": ""
+            },
+            {
+              "value": "features",
+              "label": "特征提取",
+              "description": ""
+            },
+            {
+              "value": "end_to_end",
+              "label": "端到端流程",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "quality_control",
+          "argument": "quality-control",
+          "label": "包含质量控制",
+          "description": "在流程方案中保留输入检查、中间 QC 和结果核验步骤。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "artifact_strategy",
+          "argument": "artifact-strategy",
+          "label": "伪影处理策略",
+          "description": "选择保守标记、自动校正或排除受影响数据。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "预处理细节",
+          "unit": "",
+          "required": true,
+          "default": "correct",
+          "options": [
+            {
+              "value": "flag",
+              "label": "仅标记",
+              "description": ""
+            },
+            {
+              "value": "correct",
+              "label": "自动校正",
+              "description": ""
+            },
+            {
+              "value": "exclude",
+              "label": "排除受影响数据",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "normalization_space",
+          "argument": "normalization-space",
+          "label": "标准空间",
+          "description": "规划空间标准化目标；原生空间不会应用模板归一化。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "空间与输出",
+          "unit": "",
+          "required": true,
+          "default": "native",
+          "options": [
+            {
+              "value": "native",
+              "label": "原生空间",
+              "description": ""
+            },
+            {
+              "value": "template",
+              "label": "标准模板空间",
+              "description": ""
+            },
+            {
+              "value": "both",
+              "label": "同时保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "smoothing_extent",
+          "argument": "smoothing-extent",
+          "label": "平滑尺度",
+          "description": "按模态解释为空间或时间平滑尺度；0 表示关闭。",
+          "type": "number",
+          "control": "number",
+          "level": "advanced",
+          "group": "空间与输出",
+          "unit": "",
+          "required": true,
+          "default": 0,
+          "options": [],
+          "minimum": 0.0,
+          "maximum": 20.0,
+          "step": 0.5,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "compute_threads",
+          "argument": "compute-threads",
+          "label": "计算线程数",
+          "description": "为支持并行的软件规划线程数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": 4,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 128.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "dataset_folder",
+          "label": "输入数据集",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "folder",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/dwi-skill/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/dwi-skill/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_runtime",
+        "reason": "HCP Pipelines、Workbench/MSM/FIX 及其模板/分类器尚未完整配置；已有 FSL/FreeSurfer 不能替代 HCP 的完整流程。",
+        "source_method_id": "dwi-skill-guided--hcp-grade-diffusion-preprocessing",
+        "requirements": [
+          "HCP Pipelines",
+          "Workbench / MSM / ICA-FIX（按阶段）",
+          "模板、配置与分类器"
+        ]
+      }
+    }
+  ],
+  "selection_rules": [
+    "已有 5TT 时直接复用；重新估计 FOD 不意味着重新生成 5TT。",
+    "响应函数与 FOD 的算法必须匹配；多组织 FOD 应确认 WM、GM、CSF 响应及壳层条件。",
+    "纤维追踪、SIFT/SIFT2 和连接组分别选择；未要求的后处理不自动添加。"
+  ],
+  "name": "dwi-skill",
+  "category": [
+    "任务能力",
+    "dwi"
+  ],
+  "scope": "modality",
+  "applicability": [
+    "用户需要从 DWI、响应函数、FOD、5TT 或已有纤维束继续处理；先确认实际已有输入及目标产物。"
+  ],
+  "examples": [
+    {
+      "request": "重新生成 FOD，使用已有 5TT 进行 ACT 追踪",
+      "decision": "先检查 DWI、梯度、响应函数与 5TT；选择缺少的响应/FOD 方法及 tckgen，保留 5TT 外部输入，不添加 5ttgen。"
+    },
+    {
+      "request": "仅对已有纤维束计算 SIFT2 权重",
+      "decision": "选择 tcksift2，绑定既有纤维束和 FOD；不重新追踪。"
+    }
+  ],
+  "keywords": [
+    "dwi-skill",
+    "DWI",
+    "DTI",
+    "扩散磁共振",
+    "纤维追踪",
+    "MRI",
+    "FOD"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    },
+    {
+      "id": "mrtrix-3.0.8-5tt2gmwmi",
+      "title": "MRtrix3 3.0.8 原生帮助：5tt2gmwmi",
+      "path": "references/mrtrix-3.0.8/5tt2gmwmi.md"
+    },
+    {
+      "id": "mrtrix-3.0.8-dwidenoise",
+      "title": "MRtrix3 3.0.8 原生帮助：dwidenoise",
+      "path": "references/mrtrix-3.0.8/dwidenoise.md"
+    },
+    {
+      "id": "mrtrix-3.0.8-mrdegibbs",
+      "title": "MRtrix3 3.0.8 原生帮助：mrdegibbs",
+      "path": "references/mrtrix-3.0.8/mrdegibbs.md"
+    },
+    {
+      "id": "mrtrix-3.0.8-mrthreshold",
+      "title": "MRtrix3 3.0.8 原生帮助：mrthreshold",
+      "path": "references/mrtrix-3.0.8/mrthreshold.md"
+    },
+    {
+      "id": "mrtrix-3.0.8-tckgen",
+      "title": "MRtrix3 3.0.8 原生帮助：tckgen",
+      "path": "references/mrtrix-3.0.8/tckgen.md"
+    },
+    {
+      "id": "mrtrix-3.0.8-tckresample",
+      "title": "MRtrix3 3.0.8 原生帮助：tckresample",
+      "path": "references/mrtrix-3.0.8/tckresample.md"
+    },
+    {
+      "id": "mrtrix-3.0.8-tcksift2",
+      "title": "MRtrix3 3.0.8 原生帮助：tcksift2",
+      "path": "references/mrtrix-3.0.8/tcksift2.md"
+    }
+  ]
+}

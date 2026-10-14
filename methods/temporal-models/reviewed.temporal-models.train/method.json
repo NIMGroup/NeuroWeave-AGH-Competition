@@ -1,0 +1,514 @@
+{
+  "label": "时序模型训练",
+  "description": "Cross-validated sequence trainer。 Inputs: input: NPZ 训练数据（X、y） (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+  "runner_id": "reviewed.temporal-models.train",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "operation",
+      "argument": "operation",
+      "label": "时序模型",
+      "description": "选择此入口允许的现有操作或模型，具体选项见参数选项列表。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "gru",
+      "options": [
+        {
+          "value": "lstm",
+          "label": "lstm",
+          "description": ""
+        },
+        {
+          "value": "gru",
+          "label": "gru",
+          "description": ""
+        },
+        {
+          "value": "tcn",
+          "label": "tcn",
+          "description": ""
+        },
+        {
+          "value": "transformer",
+          "label": "transformer",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 operation，由结构化 Runner 映射到现有入口参数 operation。 可选值：lstm, gru, tcn, transformer。 平台默认值：gru；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "task",
+      "argument": "task",
+      "label": "task",
+      "description": "原训练入口的任务类型：分类或回归；影响目标、拆分及损失函数。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "classification",
+      "options": [
+        {
+          "value": "classification",
+          "label": "classification",
+          "description": ""
+        },
+        {
+          "value": "regression",
+          "label": "regression",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 task，由结构化 Runner 映射到现有入口参数 task。 可选值：classification, regression。 平台默认值：classification；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "epochs",
+      "argument": "epochs",
+      "label": "epochs",
+      "description": "训练轮数；一次轮次按照现有训练循环处理训练数据。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 20,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 1000.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 epochs，由结构化 Runner 映射到现有入口参数 epochs。 平台默认值：20；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "batch_size",
+      "argument": "batch-size",
+      "label": "batch-size",
+      "description": "每个训练批次的样本数；应结合样本量和实际分配的设备内存设置。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 4,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 256.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 batch_size，由结构化 Runner 映射到现有入口参数 batch-size。 平台默认值：4；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "lr",
+      "argument": "lr",
+      "label": "lr",
+      "description": "优化器学习率，使用现有训练入口的优化器实现。",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 0.001,
+      "options": [],
+      "minimum": 1e-06,
+      "maximum": 0.1,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 lr，由结构化 Runner 映射到现有入口参数 lr。 平台默认值：0.001；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "device",
+      "argument": "device",
+      "label": "device",
+      "description": "现有训练入口使用的设备选择；auto 由运行环境判断，CUDA 仍须实际申请 GPU 节点资源。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "auto",
+      "options": [
+        {
+          "value": "auto",
+          "label": "auto",
+          "description": ""
+        },
+        {
+          "value": "cpu",
+          "label": "cpu",
+          "description": ""
+        },
+        {
+          "value": "cuda",
+          "label": "cuda",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 device，由结构化 Runner 映射到现有入口参数 device。 可选值：auto, cpu, cuda。 平台默认值：auto；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "folds",
+      "argument": "folds",
+      "label": "folds",
+      "description": "交叉验证的折数；每折须有足够样本，分类时还需满足类别数量约束。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 5,
+      "options": [],
+      "minimum": 2.0,
+      "maximum": 20.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 folds，由结构化 Runner 映射到现有入口参数 folds。 平台默认值：5；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "seed",
+      "argument": "seed",
+      "label": "seed",
+      "description": "现有入口使用的随机种子；相同种子不保证不同硬件或软件版本的结果逐位一致。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 123,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 2147483647.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 seed，由结构化 Runner 映射到现有入口参数 seed。 平台默认值：123；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "hidden_dim",
+      "argument": "hidden-dim",
+      "label": "hidden-dim",
+      "description": "现有时序模型隐藏状态的维度。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 32,
+      "options": [],
+      "minimum": 4.0,
+      "maximum": 512.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 hidden_dim，由结构化 Runner 映射到现有入口参数 hidden-dim。 平台默认值：32；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "layers",
+      "argument": "layers",
+      "label": "layers",
+      "description": "现有时序模型的循环网络层数。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 1,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 8.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 layers，由结构化 Runner 映射到现有入口参数 layers。 平台默认值：1；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "NPZ 训练数据（X、y）",
+      "description": "NPZ with X, y, optional lengths/id. Required file input for 时序模型训练; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for 时序模型训练. Contains this operation's generated files, including results/metrics.json, results/predictions.csv; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_metrics_json",
+      "type": "generated_file",
+      "label": "metrics.json",
+      "description": "metrics.json: output of time series model training. Relative run path: results/metrics.json. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".json",
+      "primary": false,
+      "path_template": "results/metrics.json",
+      "generated_when": {}
+    },
+    {
+      "id": "file_predictions_csv",
+      "type": "generated_file",
+      "label": "predictions.csv",
+      "description": "predictions.csv: output of time series model training. Relative run path: results/predictions.csv. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".csv",
+      "primary": false,
+      "path_template": "results/predictions.csv",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/temporal-models/scripts/train_reference.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.temporal-models.train",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.temporal-models.train",
+      "script": "skills/temporal-models/scripts/train_reference.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "operation",
+          "flag": "--model"
+        },
+        {
+          "id": "task",
+          "flag": "--task"
+        },
+        {
+          "id": "epochs",
+          "flag": "--epochs"
+        },
+        {
+          "id": "batch_size",
+          "flag": "--batch-size"
+        },
+        {
+          "id": "lr",
+          "flag": "--lr"
+        },
+        {
+          "id": "device",
+          "flag": "--device"
+        },
+        {
+          "id": "folds",
+          "flag": "--folds"
+        },
+        {
+          "id": "seed",
+          "flag": "--seed"
+        },
+        {
+          "id": "hidden_dim",
+          "flag": "--hidden-dim"
+        },
+        {
+          "id": "layers",
+          "flag": "--layers"
+        }
+      ],
+      "modules": [
+        "numpy",
+        "pandas",
+        "scipy",
+        "sklearn",
+        "joblib",
+        "torch"
+      ],
+      "expected": [
+        "metrics.json",
+        "predictions.csv"
+      ],
+      "profile": "torch",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [
+        "models/temporal_models/train.py"
+      ],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/temporal-models/scripts/train_reference.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/temporal-models/scripts/train_reference.py",
+          "source_sha256": "751ba1d476b4a0a87cecfcd8b837d75e9f7225b95339ec76f9e1d2bab47a84bf"
+        },
+        "dependencies": {
+          "models/temporal_models/train.py": {
+            "origin": "User-provided NeuroClaw source snapshot",
+            "source_path": "models/temporal_models/train.py",
+            "source_sha256": "504e5cef33f106e5a9fbca378f3b3d49da8fad8ca9928db95df68bff7f0850a8",
+            "local_adjustments": "Input loading disables Pickle, device auto selects the allocated runtime, optional torch import, or isolated vendored imports; algorithm and training definitions unchanged."
+          }
+        },
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/temporal-models/scripts/train_reference.py",
+          "sha256": "751ba1d476b4a0a87cecfcd8b837d75e9f7225b95339ec76f9e1d2bab47a84bf"
+        },
+        {
+          "path": "models/temporal_models/train.py",
+          "sha256": "ebaddbb4dac75bc10bd2d3f8fd5e709d8be2b8ec5189f8929efe09967f3ca8a2"
+        }
+      ],
+      "artifact_types": {
+        "metrics.json": "generated_file",
+        "predictions.csv": "generated_file"
+      }
+    }
+  }
+}

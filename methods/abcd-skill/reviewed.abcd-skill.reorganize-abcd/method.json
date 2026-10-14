@@ -1,0 +1,179 @@
+{
+  "label": "abcd 复制整理为 BIDS 目录",
+  "description": "Reorganize ABCD Study raw data into BIDS-style directory structure. Handles NDAR-style subject IDs, ABCD event names, and multimodal routing for T1w, T2w, dMRI, rs-fMRI, and task-fMRI。 Inputs: input: Path to ABCD raw data directory (directory); participants_file: Optional: path to ABCD phenotype file for participant metadata (file). Registered outputs: results/.",
+  "runner_id": "reviewed.abcd-skill.reorganize-abcd",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "release_version",
+      "argument": "release-version",
+      "label": "release-version",
+      "description": "ABCD release version (default: 5.1)",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": "5.1",
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/abcd-skill/scripts/reorganize_abcd.py:339。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "Path to ABCD raw data directory",
+      "description": "Path to ABCD raw data directory. Required directory input for abcd 复制整理为 BIDS 目录; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "folder",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "participants_file",
+      "type": "analysis_input",
+      "label": "Optional: path to ABCD phenotype file for participant metadata",
+      "description": "Optional: path to ABCD phenotype file for participant metadata. Optional file input for abcd 复制整理为 BIDS 目录; bind to port participants_file.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for abcd 复制整理为 BIDS 目录. Contains this operation's generated files, including results/; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/abcd-skill/scripts/reorganize_abcd.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.abcd-skill.reorganize-abcd",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.abcd-skill.reorganize-abcd",
+      "script": "skills/abcd-skill/scripts/reorganize_abcd.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "participants_file",
+          "flag": "--participants-file",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "release_version",
+          "flag": "--release-version",
+          "split": false
+        }
+      ],
+      "modules": [
+        "pandas",
+        "numpy"
+      ],
+      "expected": [
+        "bids/**/*.nii*"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output",
+          "bids"
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/abcd-skill/scripts/reorganize_abcd.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/abcd-skill/scripts/reorganize_abcd.py",
+          "source_sha256": "ca09e139c91dc667faa600a5d8eb5af11947be20c92a30ecdbd12ca75d183c8d"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/abcd-skill/scripts/reorganize_abcd.py",
+          "sha256": "ca09e139c91dc667faa600a5d8eb5af11947be20c92a30ecdbd12ca75d183c8d"
+        }
+      ],
+      "artifact_types": {}
+    }
+  }
+}

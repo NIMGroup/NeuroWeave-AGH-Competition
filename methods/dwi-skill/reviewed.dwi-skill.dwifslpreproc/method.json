@@ -1,0 +1,302 @@
+{
+  "label": "MRtrix/FSL DWI 预处理（无反向相位编码）",
+  "description": "Run MRtrix dwifslpreproc with FSL in fixed -rpe_none mode using the selected phase-encoding direction and readout time. Export the corrected DWI and rotated gradients. This entry does not accept reverse phase-encoding images or run their TOPUP correction。 Inputs: input: 输入影像 (file); bval: bval (file); bvec: bvec (file). Registered outputs: results/image.nii.gz, results/dwi.bval, results/dwi.bvec. Fixed invocation options: --operation dwifslpreproc.",
+  "runner_id": "reviewed.dwi-skill.dwifslpreproc",
+  "input_types": [
+    "analysis_input",
+    "b_values",
+    "b_vectors"
+  ],
+  "output_types": [
+    "generated_folder",
+    "preprocessed_dwi",
+    "b_values",
+    "b_vectors"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "pe_dir",
+      "argument": "pe-dir",
+      "label": "pe-dir",
+      "description": "DWI 的相位编码方向标记，传给 dwifslpreproc 的 -pe_dir；必须依据真实采集信息填写。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "AP",
+      "options": [
+        {
+          "value": "AP",
+          "label": "AP",
+          "description": ""
+        },
+        {
+          "value": "PA",
+          "label": "PA",
+          "description": ""
+        },
+        {
+          "value": "LR",
+          "label": "LR",
+          "description": ""
+        },
+        {
+          "value": "RL",
+          "label": "RL",
+          "description": ""
+        },
+        {
+          "value": "IS",
+          "label": "IS",
+          "description": ""
+        },
+        {
+          "value": "SI",
+          "label": "SI",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 pe_dir，由结构化 Runner 映射到现有入口参数 pe-dir。 可选值：AP, PA, LR, RL, IS, SI。 平台默认值：AP；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "readout",
+      "argument": "readout",
+      "label": "readout",
+      "description": "总读出时间，单位为秒，传给 -readout_time；必须依据采集元数据填写。",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 0.05,
+      "options": [],
+      "minimum": 1e-05,
+      "maximum": 1.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 readout，由结构化 Runner 映射到现有入口参数 readout。 平台默认值：0.05；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "输入影像",
+      "description": "输入影像. Required file input for MRtrix/FSL DWI 预处理（无反向相位编码）; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "bval",
+      "type": "b_values",
+      "label": "bval",
+      "description": "bval. Required file input for MRtrix/FSL DWI 预处理（无反向相位编码）; bind to port bval.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "bvec",
+      "type": "b_vectors",
+      "label": "bvec",
+      "description": "bvec. Required file input for MRtrix/FSL DWI 预处理（无反向相位编码）; bind to port bvec.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for MRtrix/FSL DWI 预处理（无反向相位编码）. Contains this operation's generated files, including results/image.nii.gz, results/dwi.bval, results/dwi.bvec; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_image_nii_gz",
+      "type": "preprocessed_dwi",
+      "label": "image.nii.gz",
+      "description": "image.nii.gz: output of MRtrix/FSL DWI 预处理（无反向相位编码）. Relative run path: results/image.nii.gz.",
+      "format": ".nii.gz",
+      "primary": false,
+      "path_template": "results/image.nii.gz",
+      "generated_when": {}
+    },
+    {
+      "id": "file_dwi_bval",
+      "type": "b_values",
+      "label": "dwi.bval",
+      "description": "dwi.bval: output of MRtrix/FSL DWI 预处理（无反向相位编码）. Relative run path: results/dwi.bval.",
+      "format": ".bval",
+      "primary": false,
+      "path_template": "results/dwi.bval",
+      "generated_when": {}
+    },
+    {
+      "id": "file_dwi_bvec",
+      "type": "b_vectors",
+      "label": "dwi.bvec",
+      "description": "dwi.bvec: output of MRtrix/FSL DWI 预处理（无反向相位编码）. Relative run path: results/dwi.bvec.",
+      "format": ".bvec",
+      "primary": false,
+      "path_template": "results/dwi.bvec",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "bakend/app/execution/native_worker.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.dwi-skill.dwifslpreproc",
+  "version": "2",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.dwi-skill.dwifslpreproc",
+      "script": "bakend/app/execution/native_worker.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "bval",
+          "flag": "--bval",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "bvec",
+          "flag": "--bvec",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "pe_dir",
+          "flag": "--pe-dir"
+        },
+        {
+          "id": "readout",
+          "flag": "--readout"
+        }
+      ],
+      "modules": [],
+      "expected": [
+        "image.nii.gz",
+        "dwi.bval",
+        "dwi.bvec"
+      ],
+      "profile": "scientific",
+      "fixed_args": [
+        "--operation",
+        "dwifslpreproc"
+      ],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [
+        "/opt/software/mrtrix3-master/bin/dwifslpreproc",
+        "/opt/software/fsl/bin/eddy_cpu"
+      ],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "software_command",
+        "entrypoints": [
+          "/opt/software/mrtrix3-master/bin/dwifslpreproc",
+          "/opt/software/fsl/bin/eddy_cpu"
+        ],
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "bakend/app/execution/native_worker.py",
+          "sha256": "22d3605475d0c26bb0d90bb1543ba9242e916677ebe00e92c2e75c2ba828dd77"
+        }
+      ],
+      "artifact_types": {
+        "image.nii.gz": "preprocessed_dwi",
+        "dwi.bval": "b_values",
+        "dwi.bvec": "b_vectors"
+      }
+    }
+  }
+}

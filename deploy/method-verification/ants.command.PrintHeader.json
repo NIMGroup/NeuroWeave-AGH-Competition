@@ -1,0 +1,11 @@
+{
+  "method_id": "ants.command.PrintHeader",
+  "method_version": "1",
+  "execution_fingerprint": "2bc2d909c7f1704139e36358cc9c927fa7ffd17746091158eba4ffc7ab1c9488",
+  "report_path": "deploy/method-verification/reports/scientific-synthetic.json",
+  "report_sha256": "77b9848ad9a4be60e4c0c3f79a3e2128a6705cb91fd1a400c0b5878782dfe577",
+  "test_type": "synthetic",
+  "tested_at": "2026-09-23T13:35:29.692029+00:00",
+  "environment": "mgr Linux CPU, 1 thread; isolated synthetic inputs",
+  "result": "passed"
+}

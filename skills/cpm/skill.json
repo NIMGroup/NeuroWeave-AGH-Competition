@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "id": "cpm",
+  "description": "cpm 统筹已登记的独立方法和可复用流程。支持：连接组预测模型 CPM。",
+  "method_refs": [
+    {
+      "capability": "skill.cpm",
+      "method_id": "reviewed-train-cpm",
+      "label": "连接组预测模型 CPM",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Canonical CLI for CPM using NPZ connectomes。 Inputs: connectomes: NPZ 连接矩阵（X、subject_id） (file); labels: 标签 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.cpm.train"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "selection_rules": [
+    "目标是从连接组边预测表型时选择 CPM；先按 subject_id 对齐连接矩阵与标签，而不是按文件排列顺序对应。"
+  ],
+  "name": "cpm",
+  "category": [
+    "任务能力",
+    "cpm"
+  ],
+  "scope": "model",
+  "keywords": [
+    "cpm",
+    "CPM"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "label": "nii2dcm 实际转换",
+  "description": "把一个 3D NIfTI 转换为研究用途的单帧 DICOM 序列；可从参考 DICOM 复制元数据。",
+  "runner_id": "nii2dcm.convert",
+  "input_types": [
+    "imaging_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "execution_log"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "dicom_type",
+      "argument": "dicom-type",
+      "label": "DICOM 类型",
+      "description": "MR 和 SVR 会写入相应模态元数据；Generic 使用基础转换。",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "MR",
+      "options": [
+        {
+          "value": "MR",
+          "label": "MR",
+          "description": ""
+        },
+        {
+          "value": "SVR",
+          "label": "SVR",
+          "description": ""
+        },
+        {
+          "value": "generic",
+          "label": "Generic",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "copy_reference_metadata",
+      "argument": "ref-dicom",
+      "label": "复制参考 DICOM 元数据",
+      "description": "仅在明确需要保留研究元数据时启用；输出仍须人工检查。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "元数据",
+      "unit": "",
+      "required": true,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "nifti",
+      "type": "imaging_input",
+      "label": "3D NIfTI",
+      "description": "待转换的单个 3D .nii 或 .nii.gz；不支持 4D DWI/fMRI。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "reference_dicom",
+      "type": "imaging_input",
+      "label": "参考 DICOM",
+      "description": "复制参考元数据时使用的一个 DICOM 文件。",
+      "required": false,
+      "required_when": {
+        "copy_reference_metadata": [
+          true
+        ]
+      },
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".dcm"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "dicom_series",
+      "type": "generated_folder",
+      "label": "DICOM 序列",
+      "description": "逐切片 DICOM 输出目录，仅供研究和查看验证。",
+      "format": "",
+      "primary": true,
+      "path_template": "dicom-series/",
+      "generated_when": {}
+    },
+    {
+      "id": "log",
+      "type": "execution_log",
+      "label": "转换日志",
+      "description": "nii2dcm 完整输出。",
+      "format": "",
+      "primary": false,
+      "path_template": "nii2dcm.log",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/nii2dcm/skill.json",
+      "label": "nii2dcm Skill",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "nii2dcm.convert",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "builtin"
+  }
+}

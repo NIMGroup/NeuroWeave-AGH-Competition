@@ -1,0 +1,292 @@
+{
+  "label": "BOLD 平滑与时间滤波（保持原空间）",
+  "description": "Drop the requested initial BOLD volumes, apply the original spatial smoothing and temporal band-pass filtering, and save the processed series. Geometry stays in the input space; this entry does not estimate registration or motion correction. Inputs: bold: 预处理 BOLD 影像 (file). Registered outputs: results/preprocessed_bold.nii.gz.",
+  "runner_id": "reviewed.nilearn-tool.preprocess",
+  "input_types": [
+    "bold_image"
+  ],
+  "output_types": [
+    "generated_folder",
+    "bold_image"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "tr",
+      "argument": "tr",
+      "label": "TR（秒）",
+      "description": "Repetition time in seconds.",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 2.0,
+      "options": [],
+      "minimum": 0.01,
+      "maximum": 100.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/nilearn-tool/scripts/denoise_timeseries_reference.py:38。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "fwhm",
+      "argument": "fwhm",
+      "label": "fwhm",
+      "description": "Smoothing kernel FWHM in mm.",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 6.0,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 30.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/nilearn-tool/scripts/preprocess_bold_reference.py:59。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "high_pass",
+      "argument": "high-pass",
+      "label": "high-pass",
+      "description": "High-pass frequency in Hz.",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 0.01,
+      "options": [],
+      "minimum": 1e-05,
+      "maximum": 1.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/nilearn-tool/scripts/preprocess_bold_reference.py:60。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "low_pass",
+      "argument": "low-pass",
+      "label": "low-pass",
+      "description": "Low-pass frequency in Hz.",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 0.1,
+      "options": [],
+      "minimum": 0.001,
+      "maximum": 1.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/nilearn-tool/scripts/preprocess_bold_reference.py:61。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "n_dummies",
+      "argument": "n-dummies",
+      "label": "n-dummies",
+      "description": "Number of initial dummy scans to drop.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 0,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 100.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/nilearn-tool/scripts/preprocess_bold_reference.py:62。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "bold",
+      "type": "bold_image",
+      "label": "预处理 BOLD 影像",
+      "description": "Input 4D BOLD NIfTI. Required file input for BOLD 平滑与时间滤波（保持原空间）; bind to port bold.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for BOLD 平滑与时间滤波（保持原空间）. Contains this operation's generated files, including results/preprocessed_bold.nii.gz; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_preprocessed_bold_nii_gz",
+      "type": "bold_image",
+      "label": "preprocessed_bold.nii.gz",
+      "description": "Output preprocessed BOLD NIfTI.: output of BOLD 平滑与时间滤波（保持原空间）. Relative run path: results/preprocessed_bold.nii.gz.",
+      "format": ".nii.gz",
+      "primary": false,
+      "path_template": "results/preprocessed_bold.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/nilearn-tool/scripts/preprocess_bold_reference.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.nilearn-tool.preprocess",
+  "version": "2",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.nilearn-tool.preprocess",
+      "script": "skills/nilearn-tool/scripts/preprocess_bold_reference.py",
+      "inputs": [
+        {
+          "id": "bold",
+          "flag": "--bold",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "tr",
+          "flag": "--tr"
+        },
+        {
+          "id": "fwhm",
+          "flag": "--fwhm"
+        },
+        {
+          "id": "high_pass",
+          "flag": "--high-pass"
+        },
+        {
+          "id": "low_pass",
+          "flag": "--low-pass"
+        },
+        {
+          "id": "n_dummies",
+          "flag": "--n-dummies"
+        }
+      ],
+      "modules": [
+        "numpy",
+        "pandas",
+        "nibabel",
+        "nilearn"
+      ],
+      "expected": [
+        "preprocessed_bold.nii.gz"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output",
+          "preprocessed_bold.nii.gz"
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/nilearn-tool/scripts/preprocess_bold_reference.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/nilearn-tool/scripts/preprocess_bold_reference.py",
+          "source_sha256": "1fa90db2ffbeeff2ab36c38974180e2233e4a1ebbc504c920fe54748405066d1"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/nilearn-tool/scripts/preprocess_bold_reference.py",
+          "sha256": "0d85a9519a4d2f688d855eb34375c53d41adf97e5aa5f016b29ed338df91023e"
+        }
+      ],
+      "artifact_types": {
+        "preprocessed_bold.nii.gz": "bold_image"
+      }
+    }
+  }
+}

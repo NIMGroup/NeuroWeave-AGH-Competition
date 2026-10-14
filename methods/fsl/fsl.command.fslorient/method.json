@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "id": "fsl.command.fslorient",
+  "version": "1",
+  "kind": "method",
+  "label": "FSL fslorient",
+  "description": "Inspect orientation, qform, and sform. In-place editing flags are intentionally excluded.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "fsl.command.fslorient",
+  "parameters": [
+    {
+      "id": "query",
+      "argument": "",
+      "label": "query",
+      "description": "Read-only orientation query.",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": "-getorient",
+      "options": [
+        {
+          "value": "-getorient",
+          "label": "-getorient",
+          "description": ""
+        },
+        {
+          "value": "-getqform",
+          "label": "-getqform",
+          "description": ""
+        },
+        {
+          "value": "-getsform",
+          "label": "-getsform",
+          "description": ""
+        },
+        {
+          "value": "-getqformcode",
+          "label": "-getqformcode",
+          "description": ""
+        },
+        {
+          "value": "-getsformcode",
+          "label": "-getsformcode",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Read-only orientation query. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "report",
+      "type": "execution_log",
+      "label": "report",
+      "description": "Native command output, saved in this run’s output directory. Inspect orientation, qform, and sform. In-place editing flags are intentionally excluded.",
+      "format": ".log",
+      "primary": true,
+      "path_template": "command.log",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "imaging_input"
+  ],
+  "output_types": [
+    "execution_log"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/fsl-fslorient.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "fsl",
+      "command": "fslorient",
+      "version": "installed-2412.6",
+      "argv": [
+        {
+          "tokens": [
+            {
+              "parameter": "query"
+            },
+            {
+              "input": "input"
+            }
+          ],
+          "when": {},
+          "optional": false
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

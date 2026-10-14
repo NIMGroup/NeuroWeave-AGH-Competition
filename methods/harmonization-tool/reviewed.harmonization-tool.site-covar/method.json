@@ -1,0 +1,316 @@
+{
+  "label": "站点协变量校正",
+  "description": "Run the original harmonization dispatcher in fixed site-covar mode on a subject-by-feature NPY matrix and row-aligned metadata containing batch and protected covariates. Retain harmonized features, metadata, site-effect reports and a manifest. Use the original implementation and its declared statistical assumptions。 Inputs: features: NPY 特征矩阵 (file); meta: 样本协变量 CSV (file). Registered outputs: results/harmonized_features.npy, results/manifest.json. Fixed invocation options: --method site-covar.",
+  "runner_id": "reviewed.harmonization-tool.site-covar",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "batch",
+      "argument": "batch",
+      "label": "batch",
+      "description": "batch column to harmonize away",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "site",
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/harmonization-tool/scripts/harmonize.py:58。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "protected",
+      "argument": "protected",
+      "label": "protected",
+      "description": "protected covariates",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "age,sex",
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/harmonization-tool/scripts/harmonize.py:59。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "split",
+      "argument": "split",
+      "label": "split",
+      "description": "optional split to fit harmonization on train only",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "site-stratified",
+      "options": [
+        {
+          "value": "none",
+          "label": "none",
+          "description": ""
+        },
+        {
+          "value": "site-stratified",
+          "label": "site-stratified",
+          "description": ""
+        },
+        {
+          "value": "leave-site-out",
+          "label": "leave-site-out",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/harmonization-tool/scripts/harmonize.py:70。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "seed",
+      "argument": "seed",
+      "label": "seed",
+      "description": "现有入口使用的随机种子；相同种子不保证不同硬件或软件版本的结果逐位一致。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 123,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 2147483647.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 seed，由结构化 Runner 映射到现有入口参数 seed。 平台默认值：123；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "features",
+      "type": "analysis_input",
+      "label": "NPY 特征矩阵",
+      "description": "path to features .npy. Required file input for 站点协变量校正; bind to port features.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "meta",
+      "type": "analysis_input",
+      "label": "样本协变量 CSV",
+      "description": "path to meta .csv. Required file input for 站点协变量校正; bind to port meta.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for 站点协变量校正. Contains this operation's generated files, including results/harmonized_features.npy, results/manifest.json; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_harmonized_features_npy",
+      "type": "generated_file",
+      "label": "harmonized_features.npy",
+      "description": "harmonized_features.npy: output of site covariate correction. Relative run path: results/harmonized_features.npy. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".npy",
+      "primary": false,
+      "path_template": "results/harmonized_features.npy",
+      "generated_when": {}
+    },
+    {
+      "id": "file_manifest_json",
+      "type": "generated_file",
+      "label": "manifest.json",
+      "description": "manifest.json: output of site covariate correction. Relative run path: results/manifest.json. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".json",
+      "primary": false,
+      "path_template": "results/manifest.json",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/harmonization-tool/scripts/harmonize.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.harmonization-tool.site-covar",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.harmonization-tool.site-covar",
+      "script": "skills/harmonization-tool/scripts/harmonize.py",
+      "inputs": [
+        {
+          "id": "features",
+          "flag": "--features",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "meta",
+          "flag": "--meta",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "batch",
+          "flag": "--batch"
+        },
+        {
+          "id": "protected",
+          "flag": "--protected",
+          "split": true
+        },
+        {
+          "id": "split",
+          "flag": "--split"
+        },
+        {
+          "id": "seed",
+          "flag": "--seed"
+        }
+      ],
+      "modules": [
+        "numpy",
+        "pandas",
+        "scipy",
+        "sklearn",
+        "joblib"
+      ],
+      "expected": [
+        "harmonized_features.npy",
+        "manifest.json"
+      ],
+      "profile": "scientific",
+      "fixed_args": [
+        "--method",
+        "site-covar"
+      ],
+      "outputs": [
+        [
+          "--out",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/harmonization-tool/scripts/harmonize.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/harmonization-tool/scripts/harmonize.py",
+          "source_sha256": "3980be9712f8a1d9fb65282a933d0997111580c2c1a7a0b5c214ce6b6b96e848"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/harmonization-tool/scripts/harmonize.py",
+          "sha256": "3980be9712f8a1d9fb65282a933d0997111580c2c1a7a0b5c214ce6b6b96e848"
+        }
+      ],
+      "artifact_types": {
+        "harmonized_features.npy": "generated_file",
+        "manifest.json": "generated_file"
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+  Usage: LabelGeometryMeasures imageDimension labelImage [intensityImage] [outputCSV]
+
+  Arguments:
+    imageDimension
+        The dimension of the input images. Allowed values: 2, 3
+
+    labelImage
+        Path to the input label image.
+        This image should contain 0 for background and positive integer labels in the range of uint32.
+
+    intensityImage
+        (Optional.)
+        The filename of an intensity image (scalar type) that corresponds to the label image.
+        If provided, intensity statistics will be computed for each labeled region. This can be set to
+         'none' or 'na' if no intensity image is available.
+
+    outputCSV
+        (Optional.)
+        The filename for the output CSV file containing computed shape and intensity measures.
+        If not specified, the output will be tab-separated printed to stdout.
+
+  Output:
+    The program computes geometric and statistical properties for each labeled region in the label image.
+    The output includes:
+      - Label index
+      - Number of pixels/voxels
+      - Centroid coordinates
+      - Physical size of each label
+      - Bounding box coordinates
+      - Principal moments and axes of shape
+      - Ellipsoid parameters
+      - Intensity statistics (if an intensity image is provided)
+
+  Note: use 'none' or 'na' as a placeholder to output a CSV file without using an intensity image.
+
+

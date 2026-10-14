@@ -1,0 +1,17 @@
+{
+  "policy": "Only existing implementations may be called. Generated/replacement algorithms or training workflows are withdrawn; source Skill plans remain available.",
+  "runner_ids": [
+    "reviewed.mne-eeg-tool.clean",
+    "reviewed.mne-eeg-tool.bands",
+    "reviewed.mne-eeg-tool.features",
+    "reviewed.mne-eeg-tool.erp",
+    "reviewed.mne-eeg-tool.alpha-asymmetry",
+    "reviewed.mne-eeg-tool.microstates",
+    "reviewed.mne-eeg-tool.mel",
+    "reviewed.brainnetcnn.train",
+    "reviewed.bnt.train",
+    "reviewed.combraintf.train",
+    "reviewed.connectome-discovery.rank",
+    "reviewed.nilearn-tool.zalff"
+  ]
+}

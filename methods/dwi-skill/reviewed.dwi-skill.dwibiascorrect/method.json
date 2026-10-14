@@ -1,0 +1,209 @@
+{
+  "label": "MRtrix/ANTs 偏置场校正",
+  "description": "Correct a DWI intensity bias field with MRtrix dwibiascorrect using its ANTs backend. Export the corrected image as NIfTI and the supplied unchanged diffusion gradient scheme。 Inputs: input: 输入影像 (file); bval: bval (file); bvec: bvec (file). Registered outputs: results/image.nii.gz, results/dwi.bval, results/dwi.bvec. Fixed invocation options: --operation dwibiascorrect.",
+  "runner_id": "reviewed.dwi-skill.dwibiascorrect",
+  "input_types": [
+    "analysis_input",
+    "b_values",
+    "b_vectors"
+  ],
+  "output_types": [
+    "generated_folder",
+    "preprocessed_dwi",
+    "b_values",
+    "b_vectors"
+  ],
+  "requires_features": [],
+  "parameters": [],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "输入影像",
+      "description": "输入影像. Required file input for MRtrix/ANTs 偏置场校正; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "bval",
+      "type": "b_values",
+      "label": "bval",
+      "description": "bval. Required file input for MRtrix/ANTs 偏置场校正; bind to port bval.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "bvec",
+      "type": "b_vectors",
+      "label": "bvec",
+      "description": "bvec. Required file input for MRtrix/ANTs 偏置场校正; bind to port bvec.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for MRtrix/ANTs 偏置场校正. Contains this operation's generated files, including results/image.nii.gz, results/dwi.bval, results/dwi.bvec; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_image_nii_gz",
+      "type": "preprocessed_dwi",
+      "label": "image.nii.gz",
+      "description": "image.nii.gz: output of MRtrix/ANTs 偏置场校正. Relative run path: results/image.nii.gz.",
+      "format": ".nii.gz",
+      "primary": false,
+      "path_template": "results/image.nii.gz",
+      "generated_when": {}
+    },
+    {
+      "id": "file_dwi_bval",
+      "type": "b_values",
+      "label": "dwi.bval",
+      "description": "dwi.bval: output of MRtrix/ANTs 偏置场校正. Relative run path: results/dwi.bval.",
+      "format": ".bval",
+      "primary": false,
+      "path_template": "results/dwi.bval",
+      "generated_when": {}
+    },
+    {
+      "id": "file_dwi_bvec",
+      "type": "b_vectors",
+      "label": "dwi.bvec",
+      "description": "dwi.bvec: output of MRtrix/ANTs 偏置场校正. Relative run path: results/dwi.bvec.",
+      "format": ".bvec",
+      "primary": false,
+      "path_template": "results/dwi.bvec",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "bakend/app/execution/native_worker.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.dwi-skill.dwibiascorrect",
+  "version": "2",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.dwi-skill.dwibiascorrect",
+      "script": "bakend/app/execution/native_worker.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "bval",
+          "flag": "--bval",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "bvec",
+          "flag": "--bvec",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [],
+      "modules": [],
+      "expected": [
+        "image.nii.gz",
+        "dwi.bval",
+        "dwi.bvec"
+      ],
+      "profile": "scientific",
+      "fixed_args": [
+        "--operation",
+        "dwibiascorrect"
+      ],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [
+        "/opt/software/mrtrix3-master/bin/dwibiascorrect",
+        "/opt/software/ants-2.6.5/bin/N4BiasFieldCorrection"
+      ],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "software_command",
+        "entrypoints": [
+          "/opt/software/mrtrix3-master/bin/dwibiascorrect",
+          "/opt/software/ants-2.6.5/bin/N4BiasFieldCorrection"
+        ],
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "bakend/app/execution/native_worker.py",
+          "sha256": "22d3605475d0c26bb0d90bb1543ba9242e916677ebe00e92c2e75c2ba828dd77"
+        }
+      ],
+      "artifact_types": {
+        "image.nii.gz": "preprocessed_dwi",
+        "dwi.bval": "b_values",
+        "dwi.bvec": "b_vectors"
+      }
+    }
+  }
+}

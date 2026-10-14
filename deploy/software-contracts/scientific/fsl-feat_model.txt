@@ -1,0 +1,1 @@
+Usage: feat_model <design_name_root> [confound matrix text file]

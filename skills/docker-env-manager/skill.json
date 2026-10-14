@@ -1,0 +1,2451 @@
+{
+  "schema_version": 1,
+  "id": "docker-env-manager",
+  "description": "docker-env-manager 的领域规划与方法选择指导。覆盖：Pull latest model image；Run GPU container with data mount；Docker Compose stack；Build custom Dockerfile；List containers / images；Safe cleanup of unused resources；Fix common permission issues；GPU check & NVIDIA Toolkit install。当前没有独立执行 Method，不能直接提交计算任务。",
+  "method_refs": [],
+  "pipeline_refs": [],
+  "planning_capabilities": [
+    {
+      "capability": "skill.docker-env-manager",
+      "method_id": "docker-env-manager-guided--pull-latest-model-image",
+      "skill_id": "docker-env-manager",
+      "label": "Pull latest model image",
+      "description": "该入口为规划能力；用于讨论Pull latest model image的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": true,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "pull-latest-model-image",
+          "options": [
+            {
+              "value": "pull-latest-model-image",
+              "label": "Pull latest model image",
+              "description": "规划选项：Pull latest model image；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "change_policy",
+          "argument": "change-policy",
+          "label": "变更策略",
+          "description": "当前平台只支持检查、方案和验证型 Dry-run，不执行系统修改。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "plan_only",
+          "options": [
+            {
+              "value": "inspection_only",
+              "label": "仅检查",
+              "description": ""
+            },
+            {
+              "value": "plan_only",
+              "label": "只生成方案",
+              "description": ""
+            },
+            {
+              "value": "validated_dry_run",
+              "label": "验证型 Dry-run",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "preserve_existing",
+          "argument": "preserve-existing",
+          "label": "保留现有状态",
+          "description": "要求方案默认不覆盖已有环境、文件或版本状态。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "允许替换方案",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "isolation_mode",
+          "argument": "isolation-mode",
+          "label": "隔离方式",
+          "description": "规划原生环境、Conda 环境或容器隔离。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "环境隔离",
+          "unit": "",
+          "required": true,
+          "default": "existing",
+          "options": [
+            {
+              "value": "existing",
+              "label": "使用现有环境",
+              "description": ""
+            },
+            {
+              "value": "conda",
+              "label": "Conda 环境",
+              "description": ""
+            },
+            {
+              "value": "container",
+              "label": "容器",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "rollback_plan",
+          "argument": "rollback-plan",
+          "label": "生成回滚方案",
+          "description": "对可能改变环境或文件状态的步骤生成回滚说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "安全与审计",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "生成",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不生成",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "log_level",
+          "argument": "log-level",
+          "label": "日志级别",
+          "description": "控制规划中建议保留的日志详细程度。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "安全与审计",
+          "unit": "",
+          "required": true,
+          "default": "info",
+          "options": [
+            {
+              "value": "warning",
+              "label": "仅警告",
+              "description": ""
+            },
+            {
+              "value": "info",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "debug",
+              "label": "调试",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "timeout_minutes",
+          "argument": "timeout-minutes",
+          "label": "步骤超时",
+          "description": "单个外部软件或命令步骤的计划超时时间。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "执行限制",
+          "unit": "分钟",
+          "required": true,
+          "default": 60,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 10080.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/docker-env-manager/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "interactive",
+        "reason": "此 Skill 是交互式管理/讨论流程，依赖用户指定命令、仓库、安装目标或研究方案，没有固定科学任务契约；现有平台仍负责审批、环境管理、日志和任务调度。",
+        "source_method_id": "docker-env-manager-guided--pull-latest-model-image",
+        "requirements": [
+          "明确管理对象与动作；不能把文档中的任意 shell 命令直接注册为算法"
+        ]
+      }
+    },
+    {
+      "capability": "skill.docker-env-manager",
+      "method_id": "docker-env-manager-guided--run-gpu-container-with-data-mount",
+      "skill_id": "docker-env-manager",
+      "label": "Run GPU container with data mount",
+      "description": "该入口为规划能力；用于讨论Run GPU container with data mount的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "run-gpu-container-with-data-mount",
+          "options": [
+            {
+              "value": "run-gpu-container-with-data-mount",
+              "label": "Run GPU container with data mount",
+              "description": "规划选项：Run GPU container with data mount；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "change_policy",
+          "argument": "change-policy",
+          "label": "变更策略",
+          "description": "当前平台只支持检查、方案和验证型 Dry-run，不执行系统修改。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "plan_only",
+          "options": [
+            {
+              "value": "inspection_only",
+              "label": "仅检查",
+              "description": ""
+            },
+            {
+              "value": "plan_only",
+              "label": "只生成方案",
+              "description": ""
+            },
+            {
+              "value": "validated_dry_run",
+              "label": "验证型 Dry-run",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "preserve_existing",
+          "argument": "preserve-existing",
+          "label": "保留现有状态",
+          "description": "要求方案默认不覆盖已有环境、文件或版本状态。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "允许替换方案",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "isolation_mode",
+          "argument": "isolation-mode",
+          "label": "隔离方式",
+          "description": "规划原生环境、Conda 环境或容器隔离。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "环境隔离",
+          "unit": "",
+          "required": true,
+          "default": "existing",
+          "options": [
+            {
+              "value": "existing",
+              "label": "使用现有环境",
+              "description": ""
+            },
+            {
+              "value": "conda",
+              "label": "Conda 环境",
+              "description": ""
+            },
+            {
+              "value": "container",
+              "label": "容器",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "rollback_plan",
+          "argument": "rollback-plan",
+          "label": "生成回滚方案",
+          "description": "对可能改变环境或文件状态的步骤生成回滚说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "安全与审计",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "生成",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不生成",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "log_level",
+          "argument": "log-level",
+          "label": "日志级别",
+          "description": "控制规划中建议保留的日志详细程度。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "安全与审计",
+          "unit": "",
+          "required": true,
+          "default": "info",
+          "options": [
+            {
+              "value": "warning",
+              "label": "仅警告",
+              "description": ""
+            },
+            {
+              "value": "info",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "debug",
+              "label": "调试",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "timeout_minutes",
+          "argument": "timeout-minutes",
+          "label": "步骤超时",
+          "description": "单个外部软件或命令步骤的计划超时时间。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "执行限制",
+          "unit": "分钟",
+          "required": true,
+          "default": 60,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 10080.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/docker-env-manager/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "interactive",
+        "reason": "此 Skill 是交互式管理/讨论流程，依赖用户指定命令、仓库、安装目标或研究方案，没有固定科学任务契约；现有平台仍负责审批、环境管理、日志和任务调度。",
+        "source_method_id": "docker-env-manager-guided--run-gpu-container-with-data-mount",
+        "requirements": [
+          "明确管理对象与动作；不能把文档中的任意 shell 命令直接注册为算法"
+        ]
+      }
+    },
+    {
+      "capability": "skill.docker-env-manager",
+      "method_id": "docker-env-manager-guided--docker-compose-stack",
+      "skill_id": "docker-env-manager",
+      "label": "Docker Compose stack",
+      "description": "该入口为规划能力；用于讨论Docker Compose stack的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "docker-compose-stack",
+          "options": [
+            {
+              "value": "docker-compose-stack",
+              "label": "Docker Compose stack",
+              "description": "规划选项：Docker Compose stack；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "change_policy",
+          "argument": "change-policy",
+          "label": "变更策略",
+          "description": "当前平台只支持检查、方案和验证型 Dry-run，不执行系统修改。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "plan_only",
+          "options": [
+            {
+              "value": "inspection_only",
+              "label": "仅检查",
+              "description": ""
+            },
+            {
+              "value": "plan_only",
+              "label": "只生成方案",
+              "description": ""
+            },
+            {
+              "value": "validated_dry_run",
+              "label": "验证型 Dry-run",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "preserve_existing",
+          "argument": "preserve-existing",
+          "label": "保留现有状态",
+          "description": "要求方案默认不覆盖已有环境、文件或版本状态。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "允许替换方案",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "isolation_mode",
+          "argument": "isolation-mode",
+          "label": "隔离方式",
+          "description": "规划原生环境、Conda 环境或容器隔离。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "环境隔离",
+          "unit": "",
+          "required": true,
+          "default": "existing",
+          "options": [
+            {
+              "value": "existing",
+              "label": "使用现有环境",
+              "description": ""
+            },
+            {
+              "value": "conda",
+              "label": "Conda 环境",
+              "description": ""
+            },
+            {
+              "value": "container",
+              "label": "容器",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "rollback_plan",
+          "argument": "rollback-plan",
+          "label": "生成回滚方案",
+          "description": "对可能改变环境或文件状态的步骤生成回滚说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "安全与审计",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "生成",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不生成",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "log_level",
+          "argument": "log-level",
+          "label": "日志级别",
+          "description": "控制规划中建议保留的日志详细程度。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "安全与审计",
+          "unit": "",
+          "required": true,
+          "default": "info",
+          "options": [
+            {
+              "value": "warning",
+              "label": "仅警告",
+              "description": ""
+            },
+            {
+              "value": "info",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "debug",
+              "label": "调试",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "timeout_minutes",
+          "argument": "timeout-minutes",
+          "label": "步骤超时",
+          "description": "单个外部软件或命令步骤的计划超时时间。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "执行限制",
+          "unit": "分钟",
+          "required": true,
+          "default": 60,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 10080.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/docker-env-manager/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "interactive",
+        "reason": "此 Skill 是交互式管理/讨论流程，依赖用户指定命令、仓库、安装目标或研究方案，没有固定科学任务契约；现有平台仍负责审批、环境管理、日志和任务调度。",
+        "source_method_id": "docker-env-manager-guided--docker-compose-stack",
+        "requirements": [
+          "明确管理对象与动作；不能把文档中的任意 shell 命令直接注册为算法"
+        ]
+      }
+    },
+    {
+      "capability": "skill.docker-env-manager",
+      "method_id": "docker-env-manager-guided--build-custom-dockerfile",
+      "skill_id": "docker-env-manager",
+      "label": "Build custom Dockerfile",
+      "description": "该入口为规划能力；用于讨论Build custom Dockerfile的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "build-custom-dockerfile",
+          "options": [
+            {
+              "value": "build-custom-dockerfile",
+              "label": "Build custom Dockerfile",
+              "description": "规划选项：Build custom Dockerfile；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "change_policy",
+          "argument": "change-policy",
+          "label": "变更策略",
+          "description": "当前平台只支持检查、方案和验证型 Dry-run，不执行系统修改。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "plan_only",
+          "options": [
+            {
+              "value": "inspection_only",
+              "label": "仅检查",
+              "description": ""
+            },
+            {
+              "value": "plan_only",
+              "label": "只生成方案",
+              "description": ""
+            },
+            {
+              "value": "validated_dry_run",
+              "label": "验证型 Dry-run",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "preserve_existing",
+          "argument": "preserve-existing",
+          "label": "保留现有状态",
+          "description": "要求方案默认不覆盖已有环境、文件或版本状态。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "允许替换方案",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "isolation_mode",
+          "argument": "isolation-mode",
+          "label": "隔离方式",
+          "description": "规划原生环境、Conda 环境或容器隔离。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "环境隔离",
+          "unit": "",
+          "required": true,
+          "default": "existing",
+          "options": [
+            {
+              "value": "existing",
+              "label": "使用现有环境",
+              "description": ""
+            },
+            {
+              "value": "conda",
+              "label": "Conda 环境",
+              "description": ""
+            },
+            {
+              "value": "container",
+              "label": "容器",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "rollback_plan",
+          "argument": "rollback-plan",
+          "label": "生成回滚方案",
+          "description": "对可能改变环境或文件状态的步骤生成回滚说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "安全与审计",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "生成",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不生成",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "log_level",
+          "argument": "log-level",
+          "label": "日志级别",
+          "description": "控制规划中建议保留的日志详细程度。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "安全与审计",
+          "unit": "",
+          "required": true,
+          "default": "info",
+          "options": [
+            {
+              "value": "warning",
+              "label": "仅警告",
+              "description": ""
+            },
+            {
+              "value": "info",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "debug",
+              "label": "调试",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "timeout_minutes",
+          "argument": "timeout-minutes",
+          "label": "步骤超时",
+          "description": "单个外部软件或命令步骤的计划超时时间。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "执行限制",
+          "unit": "分钟",
+          "required": true,
+          "default": 60,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 10080.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/docker-env-manager/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "interactive",
+        "reason": "此 Skill 是交互式管理/讨论流程，依赖用户指定命令、仓库、安装目标或研究方案，没有固定科学任务契约；现有平台仍负责审批、环境管理、日志和任务调度。",
+        "source_method_id": "docker-env-manager-guided--build-custom-dockerfile",
+        "requirements": [
+          "明确管理对象与动作；不能把文档中的任意 shell 命令直接注册为算法"
+        ]
+      }
+    },
+    {
+      "capability": "skill.docker-env-manager",
+      "method_id": "docker-env-manager-guided--list-containers-images",
+      "skill_id": "docker-env-manager",
+      "label": "List containers / images",
+      "description": "该入口为规划能力；用于讨论List containers / images的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "list-containers-images",
+          "options": [
+            {
+              "value": "list-containers-images",
+              "label": "List containers / images",
+              "description": "规划选项：List containers / images；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "change_policy",
+          "argument": "change-policy",
+          "label": "变更策略",
+          "description": "当前平台只支持检查、方案和验证型 Dry-run，不执行系统修改。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "plan_only",
+          "options": [
+            {
+              "value": "inspection_only",
+              "label": "仅检查",
+              "description": ""
+            },
+            {
+              "value": "plan_only",
+              "label": "只生成方案",
+              "description": ""
+            },
+            {
+              "value": "validated_dry_run",
+              "label": "验证型 Dry-run",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "preserve_existing",
+          "argument": "preserve-existing",
+          "label": "保留现有状态",
+          "description": "要求方案默认不覆盖已有环境、文件或版本状态。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "允许替换方案",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "isolation_mode",
+          "argument": "isolation-mode",
+          "label": "隔离方式",
+          "description": "规划原生环境、Conda 环境或容器隔离。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "环境隔离",
+          "unit": "",
+          "required": true,
+          "default": "existing",
+          "options": [
+            {
+              "value": "existing",
+              "label": "使用现有环境",
+              "description": ""
+            },
+            {
+              "value": "conda",
+              "label": "Conda 环境",
+              "description": ""
+            },
+            {
+              "value": "container",
+              "label": "容器",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "rollback_plan",
+          "argument": "rollback-plan",
+          "label": "生成回滚方案",
+          "description": "对可能改变环境或文件状态的步骤生成回滚说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "安全与审计",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "生成",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不生成",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "log_level",
+          "argument": "log-level",
+          "label": "日志级别",
+          "description": "控制规划中建议保留的日志详细程度。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "安全与审计",
+          "unit": "",
+          "required": true,
+          "default": "info",
+          "options": [
+            {
+              "value": "warning",
+              "label": "仅警告",
+              "description": ""
+            },
+            {
+              "value": "info",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "debug",
+              "label": "调试",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "timeout_minutes",
+          "argument": "timeout-minutes",
+          "label": "步骤超时",
+          "description": "单个外部软件或命令步骤的计划超时时间。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "执行限制",
+          "unit": "分钟",
+          "required": true,
+          "default": 60,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 10080.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/docker-env-manager/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "interactive",
+        "reason": "此 Skill 是交互式管理/讨论流程，依赖用户指定命令、仓库、安装目标或研究方案，没有固定科学任务契约；现有平台仍负责审批、环境管理、日志和任务调度。",
+        "source_method_id": "docker-env-manager-guided--list-containers-images",
+        "requirements": [
+          "明确管理对象与动作；不能把文档中的任意 shell 命令直接注册为算法"
+        ]
+      }
+    },
+    {
+      "capability": "skill.docker-env-manager",
+      "method_id": "docker-env-manager-guided--safe-cleanup-of-unused-resources",
+      "skill_id": "docker-env-manager",
+      "label": "Safe cleanup of unused resources",
+      "description": "该入口为规划能力；用于讨论Safe cleanup of unused resources的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "safe-cleanup-of-unused-resources",
+          "options": [
+            {
+              "value": "safe-cleanup-of-unused-resources",
+              "label": "Safe cleanup of unused resources",
+              "description": "规划选项：Safe cleanup of unused resources；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "change_policy",
+          "argument": "change-policy",
+          "label": "变更策略",
+          "description": "当前平台只支持检查、方案和验证型 Dry-run，不执行系统修改。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "plan_only",
+          "options": [
+            {
+              "value": "inspection_only",
+              "label": "仅检查",
+              "description": ""
+            },
+            {
+              "value": "plan_only",
+              "label": "只生成方案",
+              "description": ""
+            },
+            {
+              "value": "validated_dry_run",
+              "label": "验证型 Dry-run",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "preserve_existing",
+          "argument": "preserve-existing",
+          "label": "保留现有状态",
+          "description": "要求方案默认不覆盖已有环境、文件或版本状态。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "允许替换方案",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "isolation_mode",
+          "argument": "isolation-mode",
+          "label": "隔离方式",
+          "description": "规划原生环境、Conda 环境或容器隔离。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "环境隔离",
+          "unit": "",
+          "required": true,
+          "default": "existing",
+          "options": [
+            {
+              "value": "existing",
+              "label": "使用现有环境",
+              "description": ""
+            },
+            {
+              "value": "conda",
+              "label": "Conda 环境",
+              "description": ""
+            },
+            {
+              "value": "container",
+              "label": "容器",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "rollback_plan",
+          "argument": "rollback-plan",
+          "label": "生成回滚方案",
+          "description": "对可能改变环境或文件状态的步骤生成回滚说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "安全与审计",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "生成",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不生成",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "log_level",
+          "argument": "log-level",
+          "label": "日志级别",
+          "description": "控制规划中建议保留的日志详细程度。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "安全与审计",
+          "unit": "",
+          "required": true,
+          "default": "info",
+          "options": [
+            {
+              "value": "warning",
+              "label": "仅警告",
+              "description": ""
+            },
+            {
+              "value": "info",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "debug",
+              "label": "调试",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "timeout_minutes",
+          "argument": "timeout-minutes",
+          "label": "步骤超时",
+          "description": "单个外部软件或命令步骤的计划超时时间。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "执行限制",
+          "unit": "分钟",
+          "required": true,
+          "default": 60,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 10080.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/docker-env-manager/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "interactive",
+        "reason": "此 Skill 是交互式管理/讨论流程，依赖用户指定命令、仓库、安装目标或研究方案，没有固定科学任务契约；现有平台仍负责审批、环境管理、日志和任务调度。",
+        "source_method_id": "docker-env-manager-guided--safe-cleanup-of-unused-resources",
+        "requirements": [
+          "明确管理对象与动作；不能把文档中的任意 shell 命令直接注册为算法"
+        ]
+      }
+    },
+    {
+      "capability": "skill.docker-env-manager",
+      "method_id": "docker-env-manager-guided--fix-common-permission-issues",
+      "skill_id": "docker-env-manager",
+      "label": "Fix common permission issues",
+      "description": "该入口为规划能力；用于讨论Fix common permission issues的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "fix-common-permission-issues",
+          "options": [
+            {
+              "value": "fix-common-permission-issues",
+              "label": "Fix common permission issues",
+              "description": "规划选项：Fix common permission issues；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "change_policy",
+          "argument": "change-policy",
+          "label": "变更策略",
+          "description": "当前平台只支持检查、方案和验证型 Dry-run，不执行系统修改。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "plan_only",
+          "options": [
+            {
+              "value": "inspection_only",
+              "label": "仅检查",
+              "description": ""
+            },
+            {
+              "value": "plan_only",
+              "label": "只生成方案",
+              "description": ""
+            },
+            {
+              "value": "validated_dry_run",
+              "label": "验证型 Dry-run",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "preserve_existing",
+          "argument": "preserve-existing",
+          "label": "保留现有状态",
+          "description": "要求方案默认不覆盖已有环境、文件或版本状态。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "允许替换方案",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "isolation_mode",
+          "argument": "isolation-mode",
+          "label": "隔离方式",
+          "description": "规划原生环境、Conda 环境或容器隔离。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "环境隔离",
+          "unit": "",
+          "required": true,
+          "default": "existing",
+          "options": [
+            {
+              "value": "existing",
+              "label": "使用现有环境",
+              "description": ""
+            },
+            {
+              "value": "conda",
+              "label": "Conda 环境",
+              "description": ""
+            },
+            {
+              "value": "container",
+              "label": "容器",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "rollback_plan",
+          "argument": "rollback-plan",
+          "label": "生成回滚方案",
+          "description": "对可能改变环境或文件状态的步骤生成回滚说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "安全与审计",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "生成",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不生成",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "log_level",
+          "argument": "log-level",
+          "label": "日志级别",
+          "description": "控制规划中建议保留的日志详细程度。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "安全与审计",
+          "unit": "",
+          "required": true,
+          "default": "info",
+          "options": [
+            {
+              "value": "warning",
+              "label": "仅警告",
+              "description": ""
+            },
+            {
+              "value": "info",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "debug",
+              "label": "调试",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "timeout_minutes",
+          "argument": "timeout-minutes",
+          "label": "步骤超时",
+          "description": "单个外部软件或命令步骤的计划超时时间。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "执行限制",
+          "unit": "分钟",
+          "required": true,
+          "default": 60,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 10080.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/docker-env-manager/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "interactive",
+        "reason": "此 Skill 是交互式管理/讨论流程，依赖用户指定命令、仓库、安装目标或研究方案，没有固定科学任务契约；现有平台仍负责审批、环境管理、日志和任务调度。",
+        "source_method_id": "docker-env-manager-guided--fix-common-permission-issues",
+        "requirements": [
+          "明确管理对象与动作；不能把文档中的任意 shell 命令直接注册为算法"
+        ]
+      }
+    },
+    {
+      "capability": "skill.docker-env-manager",
+      "method_id": "docker-env-manager-guided--gpu-check-nvidia-toolkit-install",
+      "skill_id": "docker-env-manager",
+      "label": "GPU check & NVIDIA Toolkit install",
+      "description": "该入口为规划能力；用于讨论GPU check & NVIDIA Toolkit install的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "gpu-check-nvidia-toolkit-install",
+          "options": [
+            {
+              "value": "gpu-check-nvidia-toolkit-install",
+              "label": "GPU check & NVIDIA Toolkit install",
+              "description": "规划选项：GPU check & NVIDIA Toolkit install；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "change_policy",
+          "argument": "change-policy",
+          "label": "变更策略",
+          "description": "当前平台只支持检查、方案和验证型 Dry-run，不执行系统修改。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "plan_only",
+          "options": [
+            {
+              "value": "inspection_only",
+              "label": "仅检查",
+              "description": ""
+            },
+            {
+              "value": "plan_only",
+              "label": "只生成方案",
+              "description": ""
+            },
+            {
+              "value": "validated_dry_run",
+              "label": "验证型 Dry-run",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "preserve_existing",
+          "argument": "preserve-existing",
+          "label": "保留现有状态",
+          "description": "要求方案默认不覆盖已有环境、文件或版本状态。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "允许替换方案",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "isolation_mode",
+          "argument": "isolation-mode",
+          "label": "隔离方式",
+          "description": "规划原生环境、Conda 环境或容器隔离。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "环境隔离",
+          "unit": "",
+          "required": true,
+          "default": "existing",
+          "options": [
+            {
+              "value": "existing",
+              "label": "使用现有环境",
+              "description": ""
+            },
+            {
+              "value": "conda",
+              "label": "Conda 环境",
+              "description": ""
+            },
+            {
+              "value": "container",
+              "label": "容器",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "rollback_plan",
+          "argument": "rollback-plan",
+          "label": "生成回滚方案",
+          "description": "对可能改变环境或文件状态的步骤生成回滚说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "安全与审计",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "生成",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不生成",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "log_level",
+          "argument": "log-level",
+          "label": "日志级别",
+          "description": "控制规划中建议保留的日志详细程度。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "安全与审计",
+          "unit": "",
+          "required": true,
+          "default": "info",
+          "options": [
+            {
+              "value": "warning",
+              "label": "仅警告",
+              "description": ""
+            },
+            {
+              "value": "info",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "debug",
+              "label": "调试",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "timeout_minutes",
+          "argument": "timeout-minutes",
+          "label": "步骤超时",
+          "description": "单个外部软件或命令步骤的计划超时时间。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "执行限制",
+          "unit": "分钟",
+          "required": true,
+          "default": 60,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 10080.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/docker-env-manager/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [
+        "dependency-planner"
+      ],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "interactive",
+        "reason": "此 Skill 是交互式管理/讨论流程，依赖用户指定命令、仓库、安装目标或研究方案，没有固定科学任务契约；现有平台仍负责审批、环境管理、日志和任务调度。",
+        "source_method_id": "docker-env-manager-guided--gpu-check-nvidia-toolkit-install",
+        "requirements": [
+          "明确管理对象与动作；不能把文档中的任意 shell 命令直接注册为算法"
+        ]
+      }
+    }
+  ],
+  "name": "docker-env-manager",
+  "category": [
+    "软件工具",
+    "docker"
+  ],
+  "scope": "software",
+  "keywords": [
+    "docker-env-manager"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

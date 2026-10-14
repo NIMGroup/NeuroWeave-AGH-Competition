@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "kmeans",
+  "description": "kmeans 统筹已登记的独立方法和可复用流程。支持：kmeans 空间分区。",
+  "method_refs": [
+    {
+      "capability": "skill.kmeans",
+      "method_id": "reviewed-kmeans-nilearn-tool",
+      "label": "kmeans 空间分区",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Create data-driven spatial clusters using the existing kmeans reference implementation on a list of aligned images and a common mask. The requested cluster count controls a learned label map. Cluster IDs have no predefined anatomical atlas meaning and are not a drop-in substitute for a FreeSurfer anatomical parcellation. Use only when this data-driven region definition matches the study; validate alignment, reproducibility and region interpretation before connectivity analysis.",
+      "method_ref": "reviewed.nilearn-tool.kmeans"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "name": "kmeans",
+  "category": [
+    "任务能力",
+    "kmeans"
+  ],
+  "scope": "model",
+  "keywords": [
+    "kmeans"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

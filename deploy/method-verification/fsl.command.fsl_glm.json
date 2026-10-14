@@ -1,0 +1,11 @@
+{
+  "method_id": "fsl.command.fsl_glm",
+  "method_version": "1",
+  "execution_fingerprint": "1c5f07d53ca2da5654ae934f693264dca1b3be4c8b84b3b2d35a21ecb1921a52",
+  "report_path": "deploy/method-verification/reports/catalog-flags-synthetic.json",
+  "report_sha256": "b0eb6a400469f5c2018ad40ab3fc5f094ac75d176bd483a577be7ea48e463181",
+  "test_type": "synthetic",
+  "tested_at": "2026-09-24T14:41:11.239330+00:00",
+  "environment": "mgr Linux CPU, 1 thread; isolated synthetic inputs",
+  "result": "passed"
+}

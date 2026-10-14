@@ -1,0 +1,197 @@
+{
+  "label": "dcm2niix 实际转换",
+  "description": "调用服务器现有 dcm2niix，将只读 DICOM 输入转换到隔离输出目录并生成 JSON sidecar。",
+  "runner_id": "dcm2niix.convert",
+  "input_types": [
+    "dataset_folder"
+  ],
+  "output_types": [
+    "generated_folder",
+    "execution_log"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "compression",
+      "argument": "-z",
+      "label": "压缩方式",
+      "description": "y 使用 gzip 压缩；n 输出未压缩 NIfTI；i 使用内部压缩。",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "y",
+      "options": [
+        {
+          "value": "y",
+          "label": "GZip",
+          "description": ""
+        },
+        {
+          "value": "n",
+          "label": "不压缩",
+          "description": ""
+        },
+        {
+          "value": "i",
+          "label": "内部压缩",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "bids_sidecar",
+      "argument": "-b",
+      "label": "生成 BIDS JSON",
+      "description": "为每个序列输出包含采集元数据的 JSON sidecar。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": true,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "anonymize",
+      "argument": "-ba",
+      "label": "匿名化 sidecar",
+      "description": "移除 dcm2niix 支持匿名化的个人标识字段。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "隐私",
+      "unit": "",
+      "required": true,
+      "default": true,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "filename_template",
+      "argument": "-f",
+      "label": "文件名模板",
+      "description": "dcm2niix 文件名占位符；不允许路径分隔符或上级目录。",
+      "type": "string",
+      "control": "text",
+      "level": "advanced",
+      "group": "输出命名",
+      "unit": "",
+      "required": true,
+      "default": "%p_%s",
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "%p_%s",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "dicom_directory",
+      "type": "dataset_folder",
+      "label": "DICOM 目录",
+      "description": "包含一个或多个 DICOM 序列的目录；源目录只读。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "folder",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path"
+      ],
+      "validation": [
+        "path_exists",
+        "within_authorized_root"
+      ]
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "converted",
+      "type": "generated_folder",
+      "label": "NIfTI 转换目录",
+      "description": "转换后的 NIfTI、JSON 与扩散梯度文件。",
+      "format": "",
+      "primary": true,
+      "path_template": "converted-nifti/",
+      "generated_when": {}
+    },
+    {
+      "id": "log",
+      "type": "execution_log",
+      "label": "转换日志",
+      "description": "dcm2niix 完整输出。",
+      "format": "",
+      "primary": false,
+      "path_template": "dcm2niix.log",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/dcm2nii/skill.json",
+      "label": "dcm2nii Skill",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "dcm2niix.convert",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "builtin"
+  }
+}

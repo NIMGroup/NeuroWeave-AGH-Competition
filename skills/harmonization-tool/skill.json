@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "id": "harmonization-tool",
+  "description": "harmonization-tool 统筹已登记的独立方法和可复用流程。支持：站点协变量校正；原项目多站点校正：none；原项目多站点校正：combat；原项目多站点校正：combat-gam；原项目多站点校正：covbat。",
+  "method_refs": [
+    {
+      "capability": "skill.harmonization-tool",
+      "method_id": "reviewed-site-covar-harmonization-tool",
+      "label": "站点协变量校正",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "site-covar"
+      ],
+      "execution_resolution": {},
+      "role": "Run the original harmonization dispatcher in fixed site-covar mode on a subject-by-feature NPY matrix and row-aligned metadata containing batch and protected covariates. Retain harmonized features, metadata, site-effect reports and a manifest. Use the original implementation and its declared statistical assumptions。 Inputs: features: NPY 特征矩阵 (file); meta: 样本协变量 CSV (file). Registered outputs: results/harmonized_features.npy, results/manifest.json. Fixed invocation options: --method site-covar.",
+      "method_ref": "reviewed.harmonization-tool.site-covar"
+    },
+    {
+      "capability": "skill.harmonization-tool",
+      "method_id": "reviewed-none-harmonization-tool",
+      "label": "原项目多站点校正：none",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the original harmonization dispatcher in fixed none mode on a subject-by-feature NPY matrix and row-aligned metadata containing batch and protected covariates. Retain harmonized features, metadata, site-effect reports and a manifest. The none mode is an uncorrected baseline。 Inputs: features: NPY 特征矩阵 (file); meta: 样本协变量 CSV (file). Registered outputs: results/harmonized_features.npy, results/manifest.json. Fixed invocation options: --method none.",
+      "method_ref": "reviewed.harmonization-tool.none"
+    },
+    {
+      "capability": "skill.harmonization-tool",
+      "method_id": "reviewed-combat-harmonization-tool",
+      "label": "原项目多站点校正：combat",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the original harmonization dispatcher in fixed combat mode on a subject-by-feature NPY matrix and row-aligned metadata containing batch and protected covariates. Retain harmonized features, metadata, site-effect reports and a manifest. Use the original implementation and its declared statistical assumptions。 Inputs: features: NPY 特征矩阵 (file); meta: 样本协变量 CSV (file). Registered outputs: results/harmonized_features.npy, results/manifest.json. Fixed invocation options: --method combat.",
+      "method_ref": "reviewed.harmonization-tool.combat"
+    },
+    {
+      "capability": "skill.harmonization-tool",
+      "method_id": "reviewed-combat-gam-harmonization-tool",
+      "label": "原项目多站点校正：combat-gam",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the original harmonization dispatcher in fixed combat-gam mode on a subject-by-feature NPY matrix and row-aligned metadata containing batch and protected covariates. Retain harmonized features, metadata, site-effect reports and a manifest. Use the original implementation and its declared statistical assumptions。 Inputs: features: NPY 特征矩阵 (file); meta: 样本协变量 CSV (file). Registered outputs: results/harmonized_features.npy, results/manifest.json. Fixed invocation options: --method combat-gam.",
+      "method_ref": "reviewed.harmonization-tool.combat-gam"
+    },
+    {
+      "capability": "skill.harmonization-tool",
+      "method_id": "reviewed-covbat-harmonization-tool",
+      "label": "原项目多站点校正：covbat",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the original harmonization dispatcher in fixed covbat mode on a subject-by-feature NPY matrix and row-aligned metadata containing batch and protected covariates. Retain harmonized features, metadata, site-effect reports and a manifest. Use the original implementation and its declared statistical assumptions。 Inputs: features: NPY 特征矩阵 (file); meta: 样本协变量 CSV (file). Registered outputs: results/harmonized_features.npy, results/manifest.json. Fixed invocation options: --method covbat.",
+      "method_ref": "reviewed.harmonization-tool.covbat"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "selection_rules": [
+    "按需要处理均值/方差、非线性协变量或协方差差异选择 ComBat、ComBat-GAM 或 CovBat，不能只凭年龄跨度自动决定。"
+  ],
+  "name": "harmonization-tool",
+  "category": [
+    "软件工具",
+    "harmonization"
+  ],
+  "scope": "software",
+  "limitations": [
+    "站点与研究目标高度混杂、测试站点未见或站点样本不足时，需要评估校正是否可识别以及是否移除了目标效应。"
+  ],
+  "keywords": [
+    "harmonization-tool",
+    "ComBat",
+    "批次效应",
+    "多中心"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

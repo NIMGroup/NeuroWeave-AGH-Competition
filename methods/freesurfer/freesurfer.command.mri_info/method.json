@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "id": "freesurfer.command.mri_info",
+  "version": "1",
+  "kind": "method",
+  "label": "FreeSurfer mri_info",
+  "description": "Inspect volume metadata using a read-only query.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "freesurfer.command.mri_info",
+  "parameters": [
+    {
+      "id": "query",
+      "argument": "",
+      "label": "query",
+      "description": "Header property; all prints the standard complete header.",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": "all",
+      "options": [
+        {
+          "value": "all",
+          "label": "all",
+          "description": ""
+        },
+        {
+          "value": "--dims",
+          "label": "--dims",
+          "description": ""
+        },
+        {
+          "value": "--res",
+          "label": "--res",
+          "description": ""
+        },
+        {
+          "value": "--vox2ras",
+          "label": "--vox2ras",
+          "description": ""
+        },
+        {
+          "value": "--ras2vox",
+          "label": "--ras2vox",
+          "description": ""
+        },
+        {
+          "value": "--orientation",
+          "label": "--orientation",
+          "description": ""
+        },
+        {
+          "value": "--nframes",
+          "label": "--nframes",
+          "description": ""
+        },
+        {
+          "value": "--type",
+          "label": "--type",
+          "description": ""
+        },
+        {
+          "value": "--tr",
+          "label": "--tr",
+          "description": ""
+        },
+        {
+          "value": "--te",
+          "label": "--te",
+          "description": ""
+        },
+        {
+          "value": "--ti",
+          "label": "--ti",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Header property; all prints the standard complete header. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "report",
+      "type": "execution_log",
+      "label": "report",
+      "description": "Native command output, saved in this run’s output directory. Inspect volume metadata using a read-only query.",
+      "format": ".log",
+      "primary": true,
+      "path_template": "command.log",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "imaging_input"
+  ],
+  "output_types": [
+    "execution_log"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/freesurfer-mri_info.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "freesurfer",
+      "command": "mri_info",
+      "version": "7.4.1",
+      "argv": [
+        {
+          "tokens": [
+            {
+              "parameter": "query"
+            }
+          ],
+          "when": {
+            "query": [
+              "--dims",
+              "--res",
+              "--vox2ras",
+              "--ras2vox",
+              "--orientation",
+              "--nframes",
+              "--type",
+              "--tr",
+              "--te",
+              "--ti"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "input": "input"
+            }
+          ],
+          "when": {},
+          "optional": false
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

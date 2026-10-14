@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "id": "causal-treatment-models",
+  "description": "causal-treatment-models 统筹已登记的独立方法和可复用流程。支持：处理效应估计。",
+  "method_refs": [
+    {
+      "capability": "skill.causal-treatment-models",
+      "method_id": "reviewed-cate-causal-treatment-models--ipw",
+      "label": "ipw",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-fitted treatment-effect and policy evaluation CLI。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.causal-treatment-models.cate"
+    },
+    {
+      "capability": "skill.causal-treatment-models",
+      "method_id": "reviewed-cate-causal-treatment-models--s-learner",
+      "label": "s_learner",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-fitted treatment-effect and policy evaluation CLI。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.causal-treatment-models.cate"
+    },
+    {
+      "capability": "skill.causal-treatment-models",
+      "method_id": "reviewed-cate-causal-treatment-models--t-learner",
+      "label": "t_learner",
+      "default_recommended": true,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-fitted treatment-effect and policy evaluation CLI。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.causal-treatment-models.cate"
+    },
+    {
+      "capability": "skill.causal-treatment-models",
+      "method_id": "reviewed-cate-causal-treatment-models--x-learner",
+      "label": "x_learner",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-fitted treatment-effect and policy evaluation CLI。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.causal-treatment-models.cate"
+    },
+    {
+      "capability": "skill.causal-treatment-models",
+      "method_id": "reviewed-cate-causal-treatment-models--doubly-robust",
+      "label": "doubly_robust",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-fitted treatment-effect and policy evaluation CLI。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.causal-treatment-models.cate"
+    },
+    {
+      "capability": "skill.causal-treatment-models",
+      "method_id": "reviewed-cate-causal-treatment-models--policy-learner",
+      "label": "policy_learner",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-fitted treatment-effect and policy evaluation CLI。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.causal-treatment-models.cate"
+    },
+    {
+      "capability": "skill.causal-treatment-models",
+      "method_id": "reviewed-cate-causal-treatment-models--tarnet",
+      "label": "tarnet",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-fitted treatment-effect and policy evaluation CLI。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.causal-treatment-models.cate"
+    },
+    {
+      "capability": "skill.causal-treatment-models",
+      "method_id": "reviewed-cate-causal-treatment-models--dragonnet",
+      "label": "dragonnet",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-fitted treatment-effect and policy evaluation CLI。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.causal-treatment-models.cate"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "selection_rules": [
+    "先确认处理变量、结局变量和处理效应目标，再选择 CATE 或策略评估；一般表型预测不能自动转成因果推断。"
+  ],
+  "name": "causal-treatment-models",
+  "category": [
+    "任务能力",
+    "causal"
+  ],
+  "scope": "model",
+  "keywords": [
+    "causal-treatment-models"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

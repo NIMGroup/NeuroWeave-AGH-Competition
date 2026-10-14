@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "id": "software-ants",
+  "name": "ants",
+  "category": [
+    "软件工具",
+    "ants"
+  ],
+  "description": "ants 统筹已登记的独立方法和可复用流程。支持：ANTs Registration；ANTs N4BiasFieldCorrection；ANTs DenoiseImage；ANTs ThresholdImage；ANTs SmoothImage；ANTs ResampleImage；ANTs MultiplyImages；ANTs ConvertImagePixelType；其他方法可在详情中分页查询。",
+  "selection_rules": [
+    "检查移动与参考影像的模态、方向和空间，按需求选择变换类型。",
+    "现有变换复用应查询独立的变换应用方法，不默认再次估计配准。"
+  ],
+  "method_refs": [
+    {
+      "method_ref": "ants.registration",
+      "method_id": "ants.registration",
+      "capability": "software.ants",
+      "label": "ANTs Registration",
+      "role": "使用 ANTs 完成刚体、仿射或 SyN 非线性配准，并保存复合变换与完整日志。"
+    },
+    {
+      "capability": "software.ants",
+      "method_id": "ants.command.N4BiasFieldCorrection",
+      "method_ref": "ants.command.N4BiasFieldCorrection",
+      "label": "ANTs N4BiasFieldCorrection",
+      "role": "Correct smooth intensity bias using N4.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.ants",
+      "method_id": "ants.command.DenoiseImage",
+      "method_ref": "ants.command.DenoiseImage",
+      "label": "ANTs DenoiseImage",
+      "role": "Denoise an image using the native ANTs patch-based algorithm.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.ants",
+      "method_id": "ants.command.ThresholdImage",
+      "method_ref": "ants.command.ThresholdImage",
+      "label": "ANTs ThresholdImage",
+      "role": "Inclusive thresholding, Otsu or K-means segmentation.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.ants",
+      "method_id": "ants.command.SmoothImage",
+      "method_ref": "ants.command.SmoothImage",
+      "label": "ANTs SmoothImage",
+      "role": "Gaussian smoothing or median filtering with a scalar/per-axis width.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.ants",
+      "method_id": "ants.command.ResampleImage",
+      "method_ref": "ants.command.ResampleImage",
+      "label": "ANTs ResampleImage",
+      "role": "Resample an image to specified voxel spacing or voxel counts.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.ants",
+      "method_id": "ants.command.MultiplyImages",
+      "method_ref": "ants.command.MultiplyImages",
+      "label": "ANTs MultiplyImages",
+      "role": "Multiply two images or scale an image by a scalar.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.ants",
+      "method_id": "ants.command.ConvertImagePixelType",
+      "method_ref": "ants.command.ConvertImagePixelType",
+      "label": "ANTs ConvertImagePixelType",
+      "role": "Convert integer pixel type, scaling intensities to the new dynamic range.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.ants",
+      "method_id": "ants.command.ExtractSliceFromImage",
+      "method_ref": "ants.command.ExtractSliceFromImage",
+      "label": "ANTs ExtractSliceFromImage",
+      "role": "Extract one slice along a selected axis.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.ants",
+      "method_id": "ants.command.ExtractRegionFromImage",
+      "method_ref": "ants.command.ExtractRegionFromImage",
+      "label": "ANTs ExtractRegionFromImage",
+      "role": "Extract an axis-aligned image region using start and end indices.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.ants",
+      "method_id": "ants.command.ImageIntensityStatistics",
+      "method_ref": "ants.command.ImageIntensityStatistics",
+      "label": "ANTs ImageIntensityStatistics",
+      "role": "Summarize image intensities, optionally within labels.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.ants",
+      "method_id": "ants.command.LabelOverlapMeasures",
+      "method_ref": "ants.command.LabelOverlapMeasures",
+      "label": "ANTs LabelOverlapMeasures",
+      "role": "Measure agreement between source and target label images.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.ants",
+      "method_id": "ants.command.LabelGeometryMeasures",
+      "method_ref": "ants.command.LabelGeometryMeasures",
+      "label": "ANTs LabelGeometryMeasures",
+      "role": "Measure shape and intensity statistics of labelled regions.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.ants",
+      "method_id": "ants.command.AverageImages",
+      "method_ref": "ants.command.AverageImages",
+      "label": "ANTs AverageImages",
+      "role": "Average two to eight images, optionally normalizing their intensities.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.ants",
+      "method_id": "ants.command.PrintHeader",
+      "method_ref": "ants.command.PrintHeader",
+      "label": "ANTs PrintHeader",
+      "role": "Inspect image header fields without changing the image.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.ants",
+      "method_id": "ants.command.ImageMath",
+      "method_ref": "ants.command.ImageMath",
+      "label": "ANTs ImageMath",
+      "role": "Native ANTs image arithmetic and morphology; choose one operation per method step.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.ants",
+      "method_id": "ants.command.ConvertTransformFile",
+      "method_ref": "ants.command.ConvertTransformFile",
+      "label": "ANTs ConvertTransformFile",
+      "role": "Convert an ITK transform to a matrix file.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    },
+    {
+      "capability": "software.ants",
+      "method_id": "ants.command.Atropos",
+      "method_ref": "ants.command.Atropos",
+      "label": "ANTs Atropos",
+      "role": "Classify tissue intensities with native Atropos and an explicit mask.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references."
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "scope": "software",
+  "applicability": [
+    "需要 ANTs 的配准、偏置场校正、图像运算或标签统计，并明确所需输入的空间与维度。"
+  ],
+  "keywords": [
+    "software-ants",
+    "ants",
+    "ANTs"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "配准与影像处理注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

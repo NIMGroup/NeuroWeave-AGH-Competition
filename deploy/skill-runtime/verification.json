@@ -1,0 +1,2437 @@
+{
+  "verified_at": "2026-09-07T06:13:03.580940+00:00",
+  "scope": "Existing implementations only; synthetic inputs; separate test databases; unchanged calls retain prior evidence.",
+  "direct_cases": 175,
+  "direct_cases_passed": 175,
+  "slurm_cases_passed": 4,
+  "slurm": [
+    {
+      "case": "bold_chain",
+      "passed": true,
+      "device": null,
+      "artifacts": 9,
+      "jobs": [
+        {
+          "job_id": "28",
+          "node": "node01",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 0
+        },
+        {
+          "job_id": "29",
+          "node": "node01",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 0
+        }
+      ],
+      "evidence_set": "skill-slurm-v3"
+    },
+    {
+      "case": "cnn_cpu",
+      "passed": true,
+      "device": "cpu",
+      "artifacts": 8,
+      "jobs": [
+        {
+          "job_id": "35",
+          "node": "node01",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 0
+        }
+      ],
+      "evidence_set": "existing-only-slurm-v1"
+    },
+    {
+      "case": "eddy_cpu",
+      "passed": true,
+      "device": null,
+      "artifacts": 5,
+      "jobs": [
+        {
+          "job_id": "34",
+          "node": "node01",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 0
+        }
+      ],
+      "evidence_set": "skill-slurm-v5"
+    },
+    {
+      "case": "cnn_gpu",
+      "passed": true,
+      "device": "cuda",
+      "artifacts": 8,
+      "jobs": [
+        {
+          "job_id": "36",
+          "node": "node01",
+          "state": "COMPLETED",
+          "exit_code": "0:0",
+          "gpus": 1
+        }
+      ],
+      "evidence_set": "existing-only-slurm-v1"
+    }
+  ],
+  "direct_results": [
+    {
+      "runner_id": "reviewed.abcd-skill.abcd-qc-summary",
+      "variant": null,
+      "case": "reviewed.abcd-skill.abcd-qc-summary",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [],
+      "seconds": 1.273,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.abcd-skill.extract-abcd-phenotype",
+      "variant": null,
+      "case": "reviewed.abcd-skill.extract-abcd-phenotype",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.168,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.abcd-skill.reorganize-abcd",
+      "variant": null,
+      "case": "reviewed.abcd-skill.reorganize-abcd",
+      "passed": true,
+      "artifacts": 5,
+      "checked_images": [
+        {
+          "path": "sub-001_ses-baselineYear1Arm1_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 0.624,
+      "evidence_set": "skill-smoke-v5"
+    },
+    {
+      "runner_id": "reviewed.abide-skill.abide-qc-summary",
+      "variant": null,
+      "case": "reviewed.abide-skill.abide-qc-summary",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [],
+      "seconds": 1.183,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.abide-skill.extract-abide-phenotype",
+      "variant": null,
+      "case": "reviewed.abide-skill.extract-abide-phenotype",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.121,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.abide-skill.reorganize-abide",
+      "variant": null,
+      "case": "reviewed.abide-skill.reorganize-abide",
+      "passed": true,
+      "artifacts": 7,
+      "checked_images": [
+        {
+          "path": "sub-000_ses-1_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "sub-001_ses-1_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "sub-002_ses-1_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 0.718,
+      "evidence_set": "skill-smoke-v5"
+    },
+    {
+      "runner_id": "reviewed.adhd200-skill.adhd200-qc-summary",
+      "variant": null,
+      "case": "reviewed.adhd200-skill.adhd200-qc-summary",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [],
+      "seconds": 1.159,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.adhd200-skill.extract-adhd200-phenotype",
+      "variant": null,
+      "case": "reviewed.adhd200-skill.extract-adhd200-phenotype",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.129,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.adhd200-skill.reorganize-adhd200",
+      "variant": null,
+      "case": "reviewed.adhd200-skill.reorganize-adhd200",
+      "passed": true,
+      "artifacts": 7,
+      "checked_images": [
+        {
+          "path": "sub-sub000_ses-1_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "sub-sub001_ses-1_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "sub-sub002_ses-1_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 0.723,
+      "evidence_set": "skill-smoke-v5"
+    },
+    {
+      "runner_id": "reviewed.aibl-skill.aibl-qc-summary",
+      "variant": null,
+      "case": "reviewed.aibl-skill.aibl-qc-summary",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [],
+      "seconds": 1.299,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.aibl-skill.extract-aibl-phenotype",
+      "variant": null,
+      "case": "reviewed.aibl-skill.extract-aibl-phenotype",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.155,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.aibl-skill.reorganize-aibl",
+      "variant": null,
+      "case": "reviewed.aibl-skill.reorganize-aibl",
+      "passed": true,
+      "artifacts": 5,
+      "checked_images": [
+        {
+          "path": "sub-001_ses-baseline_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 0.747,
+      "evidence_set": "skill-smoke-v5"
+    },
+    {
+      "runner_id": "reviewed.aomic-skill.aomic-qc-summary",
+      "variant": null,
+      "case": "reviewed.aomic-skill.aomic-qc-summary",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [],
+      "seconds": 1.222,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.aomic-skill.extract-aomic-phenotype",
+      "variant": null,
+      "case": "reviewed.aomic-skill.extract-aomic-phenotype",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.235,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.aomic-skill.reorganize-aomic",
+      "variant": null,
+      "case": "reviewed.aomic-skill.reorganize-aomic",
+      "passed": true,
+      "artifacts": 10,
+      "checked_images": [
+        {
+          "path": "sub-000_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "sub-000_lesion.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "sub-001_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "sub-001_lesion.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "sub-002_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "sub-002_lesion.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 0.745,
+      "evidence_set": "skill-smoke-v5"
+    },
+    {
+      "runner_id": "reviewed.beautiful-log.beautiful-log",
+      "variant": null,
+      "case": "reviewed.beautiful-log.beautiful-log",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.561,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.bold5000-skill.bold5000-qc-summary",
+      "variant": null,
+      "case": "reviewed.bold5000-skill.bold5000-qc-summary",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [],
+      "seconds": 1.155,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.bold5000-skill.extract-bold5000-stimulus",
+      "variant": null,
+      "case": "reviewed.bold5000-skill.extract-bold5000-stimulus",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.626,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.bold5000-skill.reorganize-bold5000",
+      "variant": null,
+      "case": "reviewed.bold5000-skill.reorganize-bold5000",
+      "passed": true,
+      "artifacts": 18,
+      "checked_images": [
+        {
+          "path": "sub-000_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "sub-000_lesion.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "sub-001_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "sub-001_lesion.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "sub-002_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "sub-002_lesion.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 0.984,
+      "evidence_set": "skill-smoke-v5"
+    },
+    {
+      "runner_id": "reviewed.brain-age-modeling.train",
+      "variant": null,
+      "case": "reviewed.brain-age-modeling.train",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 2.238,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.brain-visualization.connectome",
+      "variant": null,
+      "case": "reviewed.brain-visualization.connectome",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 5.211,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.brain-visualization.surface-ply",
+      "variant": null,
+      "case": "reviewed.brain-visualization.surface-ply",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.041,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.camcan-skill.camcan-qc-summary",
+      "variant": null,
+      "case": "reviewed.camcan-skill.camcan-qc-summary",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.152,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.camcan-skill.extract-camcan-phenotype",
+      "variant": null,
+      "case": "reviewed.camcan-skill.extract-camcan-phenotype",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.566,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.camcan-skill.validate-camcan",
+      "variant": null,
+      "case": "reviewed.camcan-skill.validate-camcan",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.595,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.causal-treatment-models.cate",
+      "variant": "doubly_robust",
+      "case": "reviewed.causal-treatment-models.cate-doubly_robust",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 5.016,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.causal-treatment-models.cate",
+      "variant": "dragonnet",
+      "case": "reviewed.causal-treatment-models.cate-dragonnet",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 4.722,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.causal-treatment-models.cate",
+      "variant": "ipw",
+      "case": "reviewed.causal-treatment-models.cate-ipw",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 3.619,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.causal-treatment-models.cate",
+      "variant": "policy_learner",
+      "case": "reviewed.causal-treatment-models.cate-policy_learner",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 4.833,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.causal-treatment-models.cate",
+      "variant": "s_learner",
+      "case": "reviewed.causal-treatment-models.cate-s_learner",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 4.052,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.causal-treatment-models.cate",
+      "variant": "t_learner",
+      "case": "reviewed.causal-treatment-models.cate-t_learner",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 4.41,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.causal-treatment-models.cate",
+      "variant": "tarnet",
+      "case": "reviewed.causal-treatment-models.cate-tarnet",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 4.641,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.causal-treatment-models.cate",
+      "variant": "x_learner",
+      "case": "reviewed.causal-treatment-models.cate-x_learner",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 5.208,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.cnn3d.train",
+      "variant": null,
+      "case": "reviewed.cnn3d.train",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 4.846,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.cobre-skill.cobre-qc-summary",
+      "variant": null,
+      "case": "reviewed.cobre-skill.cobre-qc-summary",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [],
+      "seconds": 1.146,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.cobre-skill.extract-cobre-phenotype",
+      "variant": null,
+      "case": "reviewed.cobre-skill.extract-cobre-phenotype",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.108,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.cobre-skill.reorganize-cobre",
+      "variant": null,
+      "case": "reviewed.cobre-skill.reorganize-cobre",
+      "passed": true,
+      "artifacts": 7,
+      "checked_images": [
+        {
+          "path": "sub-sub000_ses-1_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "sub-sub001_ses-1_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "sub-sub002_ses-1_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 0.711,
+      "evidence_set": "skill-smoke-v5"
+    },
+    {
+      "runner_id": "reviewed.cpm.train",
+      "variant": null,
+      "case": "reviewed.cpm.train",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 2.114,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.dipy-tool.mask",
+      "variant": null,
+      "case": "reviewed.dipy-tool.mask",
+      "passed": true,
+      "artifacts": 5,
+      "checked_images": [
+        {
+          "path": "brain_mask.nii.gz",
+          "shape": [
+            32,
+            32,
+            32
+          ]
+        },
+        {
+          "path": "mean_b0.nii.gz",
+          "shape": [
+            32,
+            32,
+            32
+          ]
+        }
+      ],
+      "seconds": 2.23,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.dipy-tool.roi-stats",
+      "variant": null,
+      "case": "reviewed.dipy-tool.roi-stats",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.271,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.dmt-har-med-skill.dmt-har-med-qc-summary",
+      "variant": null,
+      "case": "reviewed.dmt-har-med-skill.dmt-har-med-qc-summary",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [],
+      "seconds": 1.16,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.dmt-har-med-skill.extract-dmt-har-med-phenotype",
+      "variant": null,
+      "case": "reviewed.dmt-har-med-skill.extract-dmt-har-med-phenotype",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.12,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.dmt-har-med-skill.reorganize-dmt-har-med",
+      "variant": null,
+      "case": "reviewed.dmt-har-med-skill.reorganize-dmt-har-med",
+      "passed": true,
+      "artifacts": 9,
+      "checked_images": [
+        {
+          "path": "sub-000_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "sub-000_lesion.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "sub-001_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "sub-001_lesion.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "sub-002_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "sub-002_lesion.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 0.655,
+      "evidence_set": "skill-smoke-v5"
+    },
+    {
+      "runner_id": "reviewed.dwi-skill.dwibiascorrect",
+      "variant": null,
+      "case": "reviewed.dwi-skill.dwibiascorrect",
+      "passed": true,
+      "artifacts": 5,
+      "checked_images": [
+        {
+          "path": "image.nii.gz",
+          "shape": [
+            32,
+            32,
+            32,
+            32
+          ]
+        }
+      ],
+      "seconds": 3.364,
+      "evidence_set": "skill-smoke-v7"
+    },
+    {
+      "runner_id": "reviewed.dwi-skill.dwidenoise",
+      "variant": null,
+      "case": "reviewed.dwi-skill.dwidenoise",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [
+        {
+          "path": "image.nii.gz",
+          "shape": [
+            32,
+            32,
+            32,
+            32
+          ]
+        }
+      ],
+      "seconds": 2.441,
+      "evidence_set": "skill-smoke-v6"
+    },
+    {
+      "runner_id": "reviewed.dwi-skill.mrconvert",
+      "variant": null,
+      "case": "reviewed.dwi-skill.mrconvert",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [
+        {
+          "path": "image.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 0.628,
+      "evidence_set": "skill-smoke-v6"
+    },
+    {
+      "runner_id": "reviewed.dwi-skill.mrdegibbs",
+      "variant": null,
+      "case": "reviewed.dwi-skill.mrdegibbs",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [
+        {
+          "path": "image.nii.gz",
+          "shape": [
+            32,
+            32,
+            32,
+            32
+          ]
+        }
+      ],
+      "seconds": 2.605,
+      "evidence_set": "skill-smoke-v6"
+    },
+    {
+      "runner_id": "reviewed.fsl-tool.applywarp",
+      "variant": null,
+      "case": "reviewed.fsl-tool.applywarp",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [
+        {
+          "path": "image.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 0.588,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.fsl-tool.bet",
+      "variant": null,
+      "case": "reviewed.fsl-tool.bet",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [
+        {
+          "path": "image.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "image_mask.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 1.623,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.fsl-tool.fast",
+      "variant": null,
+      "case": "reviewed.fsl-tool.fast",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [
+        {
+          "path": "tissue_mixeltype.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "tissue_pve_0.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "tissue_pve_1.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "tissue_pve_2.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "tissue_pveseg.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "tissue_seg.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 0.727,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.fsl-tool.fnirt",
+      "variant": null,
+      "case": "reviewed.fsl-tool.fnirt",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [
+        {
+          "path": "image.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "warp.nii.gz",
+          "shape": [
+            5,
+            5,
+            5,
+            3
+          ]
+        }
+      ],
+      "seconds": 0.66,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.fsl-tool.mcflirt",
+      "variant": null,
+      "case": "reviewed.fsl-tool.mcflirt",
+      "passed": true,
+      "artifacts": 84,
+      "checked_images": [
+        {
+          "path": "image.nii.gz",
+          "shape": [
+            12,
+            12,
+            12,
+            80
+          ]
+        }
+      ],
+      "seconds": 1.535,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.fsl-tool.slicetimer",
+      "variant": null,
+      "case": "reviewed.fsl-tool.slicetimer",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [
+        {
+          "path": "image.nii.gz",
+          "shape": [
+            12,
+            12,
+            12,
+            80
+          ]
+        }
+      ],
+      "seconds": 0.69,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.harmonization-tool.site-covar",
+      "variant": null,
+      "case": "reviewed.harmonization-tool.site-covar",
+      "passed": true,
+      "artifacts": 7,
+      "checked_images": [],
+      "seconds": 1.249,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.hbn-skill.extract-hbn-phenotype",
+      "variant": null,
+      "case": "reviewed.hbn-skill.extract-hbn-phenotype",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.102,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.hbn-skill.hbn-qc-summary",
+      "variant": null,
+      "case": "reviewed.hbn-skill.hbn-qc-summary",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [],
+      "seconds": 1.178,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.hbn-skill.reorganize-hbn",
+      "variant": null,
+      "case": "reviewed.hbn-skill.reorganize-hbn",
+      "passed": true,
+      "artifacts": 5,
+      "checked_images": [
+        {
+          "path": "sub-sub001_ses-1_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 0.58,
+      "evidence_set": "skill-smoke-v5"
+    },
+    {
+      "runner_id": "reviewed.hcpa-skill.extract-hcpa-phenotype",
+      "variant": null,
+      "case": "reviewed.hcpa-skill.extract-hcpa-phenotype",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.57,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.hcpa-skill.hcpa-qc-summary",
+      "variant": null,
+      "case": "reviewed.hcpa-skill.hcpa-qc-summary",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.132,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.hcpa-skill.reorganize-hcpa",
+      "variant": null,
+      "case": "reviewed.hcpa-skill.reorganize-hcpa",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [
+        {
+          "path": "sub-1001_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 0.618,
+      "evidence_set": "skill-smoke-v5"
+    },
+    {
+      "runner_id": "reviewed.hcpd-skill.extract-hcpd-phenotype",
+      "variant": null,
+      "case": "reviewed.hcpd-skill.extract-hcpd-phenotype",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.59,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.hcpd-skill.hcpd-qc-summary",
+      "variant": null,
+      "case": "reviewed.hcpd-skill.hcpd-qc-summary",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.131,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.hcpd-skill.reorganize-hcpd",
+      "variant": null,
+      "case": "reviewed.hcpd-skill.reorganize-hcpd",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [
+        {
+          "path": "sub-1001_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 0.585,
+      "evidence_set": "skill-smoke-v5"
+    },
+    {
+      "runner_id": "reviewed.hcpep-skill.extract-hcpep-phenotype",
+      "variant": null,
+      "case": "reviewed.hcpep-skill.extract-hcpep-phenotype",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.565,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.hcpep-skill.hcpep-qc-summary",
+      "variant": null,
+      "case": "reviewed.hcpep-skill.hcpep-qc-summary",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.135,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.hcpep-skill.reorganize-hcpep",
+      "variant": null,
+      "case": "reviewed.hcpep-skill.reorganize-hcpep",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [
+        {
+          "path": "sub-1001_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 0.631,
+      "evidence_set": "skill-smoke-v5"
+    },
+    {
+      "runner_id": "reviewed.hcpya-skill.extract-hcpya-phenotype",
+      "variant": null,
+      "case": "reviewed.hcpya-skill.extract-hcpya-phenotype",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.566,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.hcpya-skill.hcpya-qc-summary",
+      "variant": null,
+      "case": "reviewed.hcpya-skill.hcpya-qc-summary",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.149,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.hcpya-skill.reorganize-hcpya",
+      "variant": null,
+      "case": "reviewed.hcpya-skill.reorganize-hcpya",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [
+        {
+          "path": "sub-1001_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 0.595,
+      "evidence_set": "skill-smoke-v5"
+    },
+    {
+      "runner_id": "reviewed.imaging-genetics-models.association",
+      "variant": "association",
+      "case": "reviewed.imaging-genetics-models.association-association",
+      "passed": true,
+      "artifacts": 6,
+      "checked_images": [],
+      "seconds": 2.016,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.imaging-genetics-models.association",
+      "variant": "cca",
+      "case": "reviewed.imaging-genetics-models.association-cca",
+      "passed": true,
+      "artifacts": 7,
+      "checked_images": [],
+      "seconds": 1.956,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.imaging-genetics-models.association",
+      "variant": "lmm",
+      "case": "reviewed.imaging-genetics-models.association-lmm",
+      "passed": true,
+      "artifacts": 6,
+      "checked_images": [],
+      "seconds": 1.946,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.imaging-genetics-models.association",
+      "variant": "pls",
+      "case": "reviewed.imaging-genetics-models.association-pls",
+      "passed": true,
+      "artifacts": 7,
+      "checked_images": [],
+      "seconds": 1.988,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.imaging-genetics-models.association",
+      "variant": "prs",
+      "case": "reviewed.imaging-genetics-models.association-prs",
+      "passed": true,
+      "artifacts": 6,
+      "checked_images": [],
+      "seconds": 1.956,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.ixi-skill.ixi-qc-summary",
+      "variant": null,
+      "case": "reviewed.ixi-skill.ixi-qc-summary",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.605,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.ixi-skill.reorganize-ixi",
+      "variant": null,
+      "case": "reviewed.ixi-skill.reorganize-ixi",
+      "passed": true,
+      "artifacts": 5,
+      "checked_images": [
+        {
+          "path": "sub-IXI001_T1w.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 0.603,
+      "evidence_set": "skill-smoke-v6"
+    },
+    {
+      "runner_id": "reviewed.kg-link-prediction.complex",
+      "variant": null,
+      "case": "reviewed.kg-link-prediction.complex",
+      "passed": true,
+      "artifacts": 6,
+      "checked_images": [],
+      "seconds": 4.29,
+      "evidence_set": "skill-smoke-v5"
+    },
+    {
+      "runner_id": "reviewed.mnd-skill.extract-mnd-phenotype",
+      "variant": null,
+      "case": "reviewed.mnd-skill.extract-mnd-phenotype",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.562,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.mnd-skill.mnd-qc-summary",
+      "variant": null,
+      "case": "reviewed.mnd-skill.mnd-qc-summary",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.136,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.mnd-skill.validate-mnd",
+      "variant": null,
+      "case": "reviewed.mnd-skill.validate-mnd",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.583,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.mne-eeg-tool.autoreject",
+      "variant": null,
+      "case": "reviewed.mne-eeg-tool.autoreject",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [],
+      "seconds": 5.985,
+      "evidence_set": "existing-only-smoke-v1"
+    },
+    {
+      "runner_id": "reviewed.mne-eeg-tool.bad-channels",
+      "variant": null,
+      "case": "reviewed.mne-eeg-tool.bad-channels",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [],
+      "seconds": 5.089,
+      "evidence_set": "existing-only-smoke-v1"
+    },
+    {
+      "runner_id": "reviewed.mne-eeg-tool.connectivity",
+      "variant": null,
+      "case": "reviewed.mne-eeg-tool.connectivity",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [],
+      "seconds": 5.545,
+      "evidence_set": "existing-only-smoke-v1"
+    },
+    {
+      "runner_id": "reviewed.mne-eeg-tool.epoch",
+      "variant": null,
+      "case": "reviewed.mne-eeg-tool.epoch",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [],
+      "seconds": 4.356,
+      "evidence_set": "existing-only-smoke-v1"
+    },
+    {
+      "runner_id": "reviewed.mne-eeg-tool.filter",
+      "variant": null,
+      "case": "reviewed.mne-eeg-tool.filter",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [],
+      "seconds": 4.426,
+      "evidence_set": "existing-only-smoke-v1"
+    },
+    {
+      "runner_id": "reviewed.mne-eeg-tool.ica",
+      "variant": null,
+      "case": "reviewed.mne-eeg-tool.ica",
+      "passed": true,
+      "artifacts": 6,
+      "checked_images": [],
+      "seconds": 4.83,
+      "evidence_set": "existing-only-smoke-v1"
+    },
+    {
+      "runner_id": "reviewed.mne-eeg-tool.inspect",
+      "variant": null,
+      "case": "reviewed.mne-eeg-tool.inspect",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [],
+      "seconds": 4.385,
+      "evidence_set": "existing-only-smoke-v1"
+    },
+    {
+      "runner_id": "reviewed.mne-eeg-tool.maxwell",
+      "variant": null,
+      "case": "reviewed.mne-eeg-tool.maxwell",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [],
+      "seconds": 4.92,
+      "evidence_set": "existing-only-smoke-v1"
+    },
+    {
+      "runner_id": "reviewed.mne-eeg-tool.source",
+      "variant": null,
+      "case": "reviewed.mne-eeg-tool.source",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [],
+      "seconds": 4.593,
+      "evidence_set": "existing-only-smoke-v1"
+    },
+    {
+      "runner_id": "reviewed.mne-eeg-tool.time-frequency",
+      "variant": null,
+      "case": "reviewed.mne-eeg-tool.time-frequency",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [],
+      "seconds": 4.644,
+      "evidence_set": "existing-only-smoke-v1"
+    },
+    {
+      "runner_id": "reviewed.mschallenge-skill.analyze-lesions",
+      "variant": null,
+      "case": "reviewed.mschallenge-skill.analyze-lesions",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.214,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.mschallenge-skill.longitudinal-lesion",
+      "variant": null,
+      "case": "reviewed.mschallenge-skill.longitudinal-lesion",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.038,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.mschallenge-skill.mschallenge-qc-summary",
+      "variant": null,
+      "case": "reviewed.mschallenge-skill.mschallenge-qc-summary",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [],
+      "seconds": 0.663,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.mschallenge-skill.validate-mschallenge",
+      "variant": null,
+      "case": "reviewed.mschallenge-skill.validate-mschallenge",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.694,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.neuroimaging-decoding.mvpa",
+      "variant": null,
+      "case": "reviewed.neuroimaging-decoding.mvpa",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 2.231,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.neuroimaging-decoding.roi-glm",
+      "variant": null,
+      "case": "reviewed.neuroimaging-decoding.roi-glm",
+      "passed": true,
+      "artifacts": 6,
+      "checked_images": [],
+      "seconds": 2.551,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.neuroimaging-decoding.searchlight",
+      "variant": null,
+      "case": "reviewed.neuroimaging-decoding.searchlight",
+      "passed": true,
+      "artifacts": 6,
+      "checked_images": [
+        {
+          "path": "searchlight_scores.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 5.932,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.nibabel-skill.atlas-coordinates",
+      "variant": null,
+      "case": "reviewed.nibabel-skill.atlas-coordinates",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.262,
+      "evidence_set": "existing-only-smoke-v1"
+    },
+    {
+      "runner_id": "reviewed.nibabel-skill.inspect",
+      "variant": null,
+      "case": "reviewed.nibabel-skill.inspect",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.163,
+      "evidence_set": "existing-only-smoke-v1"
+    },
+    {
+      "runner_id": "reviewed.nibabel-skill.surface",
+      "variant": null,
+      "case": "reviewed.nibabel-skill.surface",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.347,
+      "evidence_set": "existing-only-smoke-v1"
+    },
+    {
+      "runner_id": "reviewed.nifd-skill.extract-nifd-phenotype",
+      "variant": null,
+      "case": "reviewed.nifd-skill.extract-nifd-phenotype",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.611,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.nifd-skill.nifd-qc-summary",
+      "variant": null,
+      "case": "reviewed.nifd-skill.nifd-qc-summary",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.12,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.nifd-skill.validate-nifd",
+      "variant": null,
+      "case": "reviewed.nifd-skill.validate-nifd",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.589,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.nilearn-tool.connectome",
+      "variant": null,
+      "case": "reviewed.nilearn-tool.connectome",
+      "passed": true,
+      "artifacts": 5,
+      "checked_images": [],
+      "seconds": 2.738,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.nilearn-tool.denoise",
+      "variant": null,
+      "case": "reviewed.nilearn-tool.denoise",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [
+        {
+          "path": "cleaned_bold.nii.gz",
+          "shape": [
+            12,
+            12,
+            12,
+            80
+          ]
+        }
+      ],
+      "seconds": 2.442,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.nilearn-tool.dictlearning",
+      "variant": null,
+      "case": "reviewed.nilearn-tool.dictlearning",
+      "passed": true,
+      "artifacts": 6,
+      "checked_images": [
+        {
+          "path": "components.nii.gz",
+          "shape": [
+            12,
+            12,
+            12,
+            2
+          ]
+        }
+      ],
+      "seconds": 3.28,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.nilearn-tool.group-glm",
+      "variant": null,
+      "case": "reviewed.nilearn-tool.group-glm",
+      "passed": true,
+      "artifacts": 5,
+      "checked_images": [
+        {
+          "path": "second_level_effect_map.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "second_level_z_map.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 3.873,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.nilearn-tool.hierarchical",
+      "variant": null,
+      "case": "reviewed.nilearn-tool.hierarchical",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [
+        {
+          "path": "parcel_labels.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 2.862,
+      "evidence_set": "existing-only-smoke-v1"
+    },
+    {
+      "runner_id": "reviewed.nilearn-tool.ica",
+      "variant": null,
+      "case": "reviewed.nilearn-tool.ica",
+      "passed": true,
+      "artifacts": 7,
+      "checked_images": [
+        {
+          "path": "components.nii.gz",
+          "shape": [
+            12,
+            12,
+            12,
+            2
+          ]
+        }
+      ],
+      "seconds": 3.264,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.nilearn-tool.kmeans",
+      "variant": null,
+      "case": "reviewed.nilearn-tool.kmeans",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [
+        {
+          "path": "parcel_labels.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 3.087,
+      "evidence_set": "existing-only-smoke-v1"
+    },
+    {
+      "runner_id": "reviewed.nilearn-tool.preprocess",
+      "variant": null,
+      "case": "reviewed.nilearn-tool.preprocess",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [
+        {
+          "path": "preprocessed_bold.nii.gz",
+          "shape": [
+            12,
+            12,
+            12,
+            80
+          ]
+        }
+      ],
+      "seconds": 2.292,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.nilearn-tool.spacenet",
+      "variant": null,
+      "case": "reviewed.nilearn-tool.spacenet",
+      "passed": true,
+      "artifacts": 5,
+      "checked_images": [
+        {
+          "path": "coef_map.nii.gz",
+          "shape": [
+            12,
+            12,
+            12,
+            1
+          ]
+        }
+      ],
+      "seconds": 3.935,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.nilearn-tool.svm",
+      "variant": null,
+      "case": "reviewed.nilearn-tool.svm",
+      "passed": true,
+      "artifacts": 4,
+      "checked_images": [],
+      "seconds": 2.009,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.nilearn-tool.task-glm",
+      "variant": null,
+      "case": "reviewed.nilearn-tool.task-glm",
+      "passed": true,
+      "artifacts": 6,
+      "checked_images": [
+        {
+          "path": "effect_map.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        },
+        {
+          "path": "z_map.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 4.026,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.nsd-skill.extract-nsd-stimulus",
+      "variant": null,
+      "case": "reviewed.nsd-skill.extract-nsd-stimulus",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.604,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.nsd-skill.nsd-qc-summary",
+      "variant": null,
+      "case": "reviewed.nsd-skill.nsd-qc-summary",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.157,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.nsd-skill.validate-nsd",
+      "variant": null,
+      "case": "reviewed.nsd-skill.validate-nsd",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.569,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.oasis-skill.extract-oasis-phenotype",
+      "variant": null,
+      "case": "reviewed.oasis-skill.extract-oasis-phenotype",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.581,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.oasis-skill.oasis-qc-summary",
+      "variant": null,
+      "case": "reviewed.oasis-skill.oasis-qc-summary",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.15,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.oasis-skill.validate-oasis",
+      "variant": null,
+      "case": "reviewed.oasis-skill.validate-oasis",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.581,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.pnc-skill.extract-pnc-phenotype",
+      "variant": null,
+      "case": "reviewed.pnc-skill.extract-pnc-phenotype",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.568,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.pnc-skill.pnc-qc-summary",
+      "variant": null,
+      "case": "reviewed.pnc-skill.pnc-qc-summary",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.118,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.pnc-skill.validate-pnc",
+      "variant": null,
+      "case": "reviewed.pnc-skill.validate-pnc",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.571,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.ppmi-skill.extract-ppmi-phenotype",
+      "variant": null,
+      "case": "reviewed.ppmi-skill.extract-ppmi-phenotype",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.559,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.ppmi-skill.ppmi-qc-summary",
+      "variant": null,
+      "case": "reviewed.ppmi-skill.ppmi-qc-summary",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.13,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.ppmi-skill.validate-ppmi",
+      "variant": null,
+      "case": "reviewed.ppmi-skill.validate-ppmi",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.602,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.rest-mneta-mdd-skill.extract-rest-mdd-phenotype",
+      "variant": null,
+      "case": "reviewed.rest-mneta-mdd-skill.extract-rest-mdd-phenotype",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.577,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.rest-mneta-mdd-skill.rest-mdd-qc-summary",
+      "variant": null,
+      "case": "reviewed.rest-mneta-mdd-skill.rest-mdd-qc-summary",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.135,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.rest-mneta-mdd-skill.validate-rest-mdd",
+      "variant": null,
+      "case": "reviewed.rest-mneta-mdd-skill.validate-rest-mdd",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.582,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.seed-iv-skill.classify",
+      "variant": null,
+      "case": "reviewed.seed-iv-skill.classify",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 2.431,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.seed-iv-skill.features",
+      "variant": null,
+      "case": "reviewed.seed-iv-skill.features",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.712,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.seed-iv-skill.validate-seed-iv",
+      "variant": null,
+      "case": "reviewed.seed-iv-skill.validate-seed-iv",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.573,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.seed-vig-skill.classify",
+      "variant": null,
+      "case": "reviewed.seed-vig-skill.classify",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 2.724,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.seed-vig-skill.features",
+      "variant": null,
+      "case": "reviewed.seed-vig-skill.features",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.707,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.seed-vig-skill.validate-seed-vig",
+      "variant": null,
+      "case": "reviewed.seed-vig-skill.validate-seed-vig",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.593,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.smri-skill.ants-apply",
+      "variant": null,
+      "case": "reviewed.smri-skill.ants-apply",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [
+        {
+          "path": "image.nii.gz",
+          "shape": [
+            12,
+            12,
+            12
+          ]
+        }
+      ],
+      "seconds": 0.603,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.statistical-ml.classification",
+      "variant": "elastic_net",
+      "case": "reviewed.statistical-ml.classification-elastic_net",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 2.243,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.statistical-ml.classification",
+      "variant": "extra_trees",
+      "case": "reviewed.statistical-ml.classification-extra_trees",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 3.019,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.statistical-ml.classification",
+      "variant": "hist_gradient_boosting",
+      "case": "reviewed.statistical-ml.classification-hist_gradient_boosting",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 2.522,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.statistical-ml.classification",
+      "variant": "logistic",
+      "case": "reviewed.statistical-ml.classification-logistic",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 2.257,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.statistical-ml.classification",
+      "variant": "random_forest",
+      "case": "reviewed.statistical-ml.classification-random_forest",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 3.371,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.statistical-ml.classification",
+      "variant": "ridge",
+      "case": "reviewed.statistical-ml.classification-ridge",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 2.22,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.statistical-ml.classification",
+      "variant": "svm",
+      "case": "reviewed.statistical-ml.classification-svm",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 2.238,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.statistical-ml.classification",
+      "variant": "xgboost",
+      "case": "reviewed.statistical-ml.classification-xgboost",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 2.358,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.statistical-ml.regression",
+      "variant": "elastic_net",
+      "case": "reviewed.statistical-ml.regression-elastic_net",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 2.267,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.statistical-ml.regression",
+      "variant": "extra_trees",
+      "case": "reviewed.statistical-ml.regression-extra_trees",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 2.742,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.statistical-ml.regression",
+      "variant": "hist_gradient_boosting",
+      "case": "reviewed.statistical-ml.regression-hist_gradient_boosting",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 2.338,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.statistical-ml.regression",
+      "variant": "ols",
+      "case": "reviewed.statistical-ml.regression-ols",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 2.25,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.statistical-ml.regression",
+      "variant": "random_forest",
+      "case": "reviewed.statistical-ml.regression-random_forest",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 2.897,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.statistical-ml.regression",
+      "variant": "ridge",
+      "case": "reviewed.statistical-ml.regression-ridge",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 2.218,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.statistical-ml.regression",
+      "variant": "svm",
+      "case": "reviewed.statistical-ml.regression-svm",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 2.263,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.statistical-ml.regression",
+      "variant": "xgboost",
+      "case": "reviewed.statistical-ml.regression-xgboost",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 2.323,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.subject-subtyping.cluster",
+      "variant": "consensus",
+      "case": "reviewed.subject-subtyping.cluster-consensus",
+      "passed": true,
+      "artifacts": 7,
+      "checked_images": [],
+      "seconds": 2.814,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.subject-subtyping.cluster",
+      "variant": "gmm",
+      "case": "reviewed.subject-subtyping.cluster-gmm",
+      "passed": true,
+      "artifacts": 7,
+      "checked_images": [],
+      "seconds": 2.341,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.subject-subtyping.cluster",
+      "variant": "kmeans",
+      "case": "reviewed.subject-subtyping.cluster-kmeans",
+      "passed": true,
+      "artifacts": 7,
+      "checked_images": [],
+      "seconds": 2.269,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.subject-subtyping.cluster",
+      "variant": "nmf",
+      "case": "reviewed.subject-subtyping.cluster-nmf",
+      "passed": true,
+      "artifacts": 7,
+      "checked_images": [],
+      "seconds": 2.233,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.subject-subtyping.cluster",
+      "variant": "spectral",
+      "case": "reviewed.subject-subtyping.cluster-spectral",
+      "passed": true,
+      "artifacts": 7,
+      "checked_images": [],
+      "seconds": 2.282,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.survival-models.survival-scientific",
+      "variant": "cox",
+      "case": "reviewed.survival-models.survival-scientific-cox",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 2.266,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.survival-models.survival-scientific",
+      "variant": "rsf",
+      "case": "reviewed.survival-models.survival-scientific-rsf",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 2.922,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.survival-models.survival-scientific",
+      "variant": "xgb_cox",
+      "case": "reviewed.survival-models.survival-scientific-xgb_cox",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 2.389,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.survival-models.survival-torch",
+      "variant": "deepsurv",
+      "case": "reviewed.survival-models.survival-torch-deepsurv",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 5.472,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.tcp-skill.extract-tcp-phenotype",
+      "variant": null,
+      "case": "reviewed.tcp-skill.extract-tcp-phenotype",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.58,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.tcp-skill.tcp-qc-summary",
+      "variant": null,
+      "case": "reviewed.tcp-skill.tcp-qc-summary",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.117,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.tcp-skill.validate-tcp",
+      "variant": null,
+      "case": "reviewed.tcp-skill.validate-tcp",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.574,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.temporal-models.train",
+      "variant": "gru",
+      "case": "reviewed.temporal-models.train-gru",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 4.758,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.temporal-models.train",
+      "variant": "lstm",
+      "case": "reviewed.temporal-models.train-lstm",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 4.615,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.temporal-models.train",
+      "variant": "tcn",
+      "case": "reviewed.temporal-models.train-tcn",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 4.572,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.temporal-models.train",
+      "variant": "transformer",
+      "case": "reviewed.temporal-models.train-transformer",
+      "passed": true,
+      "artifacts": 8,
+      "checked_images": [],
+      "seconds": 4.543,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.ucla-cnp-skill.extract-ucla-cnp-phenotype",
+      "variant": null,
+      "case": "reviewed.ucla-cnp-skill.extract-ucla-cnp-phenotype",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.592,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.ucla-cnp-skill.ucla-cnp-qc-summary",
+      "variant": null,
+      "case": "reviewed.ucla-cnp-skill.ucla-cnp-qc-summary",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.135,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.ucla-cnp-skill.validate-ucla-cnp",
+      "variant": null,
+      "case": "reviewed.ucla-cnp-skill.validate-ucla-cnp",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 0.655,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.ukb-skill.extract-ukb-cases",
+      "variant": null,
+      "case": "reviewed.ukb-skill.extract-ukb-cases",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.243,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.ukb-skill.extract-ukb-phenotype",
+      "variant": null,
+      "case": "reviewed.ukb-skill.extract-ukb-phenotype",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.169,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.ukb-skill.survival-dataset",
+      "variant": null,
+      "case": "reviewed.ukb-skill.survival-dataset",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.169,
+      "evidence_set": "skill-smoke-v4"
+    },
+    {
+      "runner_id": "reviewed.ukb-skill.ukb-qc-summary",
+      "variant": null,
+      "case": "reviewed.ukb-skill.ukb-qc-summary",
+      "passed": true,
+      "artifacts": 3,
+      "checked_images": [],
+      "seconds": 1.101,
+      "evidence_set": "skill-smoke-v4"
+    }
+  ],
+  "backend_regression": {
+    "tests_passed": 119,
+    "subtests_passed": 467,
+    "seconds": 151.64,
+    "command": "python -m pytest bakend/tests -q"
+  },
+  "retained_call_adapters": 142,
+  "withdrawn_adapters": [
+    "reviewed.bnt.train",
+    "reviewed.brainnetcnn.train",
+    "reviewed.combraintf.train",
+    "reviewed.connectome-discovery.rank",
+    "reviewed.mne-eeg-tool.alpha-asymmetry",
+    "reviewed.mne-eeg-tool.bands",
+    "reviewed.mne-eeg-tool.clean",
+    "reviewed.mne-eeg-tool.erp",
+    "reviewed.mne-eeg-tool.features",
+    "reviewed.mne-eeg-tool.mel",
+    "reviewed.mne-eeg-tool.microstates",
+    "reviewed.nilearn-tool.zalff"
+  ],
+  "current_revision_direct_cases": 15
+}

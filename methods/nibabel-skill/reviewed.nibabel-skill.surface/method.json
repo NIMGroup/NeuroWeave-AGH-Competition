@@ -1,0 +1,168 @@
+{
+  "label": "FreeSurfer 表面与分区读取",
+  "description": "Read FreeSurfer surface vertices/faces and annotation labels/colours with NiBabel; verify matching vertex counts and export the arrays in surface.npz。 Inputs: surf: 表面 (file); annot: 标注 (file). Registered outputs: results/surface.npz. Fixed invocation options: --operation surface.",
+  "runner_id": "reviewed.nibabel-skill.surface",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [],
+  "input_slots": [
+    {
+      "id": "surf",
+      "type": "analysis_input",
+      "label": "表面",
+      "description": "表面. Required file input for FreeSurfer 表面与分区读取; bind to port surf.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "annot",
+      "type": "analysis_input",
+      "label": "标注",
+      "description": "标注. Required file input for FreeSurfer 表面与分区读取; bind to port annot.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for FreeSurfer 表面与分区读取. Contains this operation's generated files, including results/surface.npz; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_surface_npz",
+      "type": "generated_file",
+      "label": "surface.npz",
+      "description": "surface.npz: output of FreeSurfer surface and parcellation reading. Relative run path: results/surface.npz. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".npz",
+      "primary": false,
+      "path_template": "results/surface.npz",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "bakend/app/execution/image_summary_worker.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.nibabel-skill.surface",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.nibabel-skill.surface",
+      "script": "bakend/app/execution/image_summary_worker.py",
+      "inputs": [
+        {
+          "id": "surf",
+          "flag": "--surf",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "annot",
+          "flag": "--annot",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [],
+      "modules": [
+        "numpy",
+        "pandas",
+        "nibabel",
+        "scipy"
+      ],
+      "expected": [
+        "surface.npz"
+      ],
+      "profile": "scientific",
+      "fixed_args": [
+        "--operation",
+        "surface"
+      ],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [
+        [
+          "nibabel.freesurfer",
+          "read_geometry"
+        ],
+        [
+          "nibabel.freesurfer",
+          "read_annot"
+        ]
+      ],
+      "implementation_source": {
+        "kind": "library_api",
+        "entrypoints": [
+          "nibabel.freesurfer.read_geometry",
+          "nibabel.freesurfer.read_annot"
+        ],
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "bakend/app/execution/image_summary_worker.py",
+          "sha256": "ce298add94eda8567cb0addd046ffaaedfd84d408eedde324350144d3647568f"
+        }
+      ],
+      "artifact_types": {
+        "surface.npz": "generated_file"
+      }
+    }
+  }
+}

@@ -1,0 +1,682 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix3.command.mtnormalise",
+  "version": "1",
+  "kind": "method",
+  "label": "MRtrix3 mtnormalise",
+  "description": "Multi-tissue log-domain intensity normalization of one to three tissue compartments.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "mrtrix3.command.mtnormalise",
+  "parameters": [
+    {
+      "id": "tissues",
+      "argument": "",
+      "label": "tissues",
+      "description": "Number of ordered tissue input/output pairs; this controls argv construction, not a new algorithm.",
+      "type": "integer",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 3,
+      "options": [
+        {
+          "value": 1,
+          "label": "1",
+          "description": ""
+        },
+        {
+          "value": 2,
+          "label": "2",
+          "description": ""
+        },
+        {
+          "value": 3,
+          "label": "3",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Number of ordered tissue input/output pairs; this controls argv construction, not a new algorithm. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "order",
+      "argument": "-order",
+      "label": "order",
+      "description": "Maximum polynomial order.",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": "3",
+      "options": [
+        {
+          "value": "0",
+          "label": "0",
+          "description": ""
+        },
+        {
+          "value": "1",
+          "label": "1",
+          "description": ""
+        },
+        {
+          "value": "2",
+          "label": "2",
+          "description": ""
+        },
+        {
+          "value": "3",
+          "label": "3",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Maximum polynomial order. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "niter",
+      "argument": "-niter",
+      "label": "niter",
+      "description": "Main-loop iterations and optional balance-loop iterations.",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": "15,7",
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Main-loop iterations and optional balance-loop iterations. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "reference",
+      "argument": "-reference",
+      "label": "reference",
+      "description": "Positive reference intensity.",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": 1e-06,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Positive reference intensity. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "balanced",
+      "argument": "-balanced",
+      "label": "balanced",
+      "description": "Apply tissue balancing factors; changes AFD interpretation and requires scientific justification.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Apply tissue balancing factors; changes AFD interpretation and requires scientific justification. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "save_check_norm",
+      "argument": "",
+      "label": "save_check_norm",
+      "description": "Save check_norm diagnostic output.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Save check_norm diagnostic output. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "save_check_mask",
+      "argument": "",
+      "label": "save_check_mask",
+      "description": "Save check_mask diagnostic output.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Save check_mask diagnostic output. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "save_check_factors",
+      "argument": "",
+      "label": "save_check_factors",
+      "description": "Save check_factors diagnostic output.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Save check_factors diagnostic output. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "nthreads",
+      "argument": "-nthreads",
+      "label": "nthreads",
+      "description": "CPU threads within the allocated scheduler budget.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 1,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "CPU threads within the allocated scheduler budget. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "wm",
+      "type": "fod_image",
+      "label": "wm",
+      "description": "WM tissue compartment.",
+      "required": false,
+      "required_when": {
+        "tissues": [
+          1,
+          2,
+          3
+        ]
+      },
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "gm",
+      "type": "scalar_image",
+      "label": "gm",
+      "description": "GM tissue compartment.",
+      "required": false,
+      "required_when": {
+        "tissues": [
+          2,
+          3
+        ]
+      },
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "csf",
+      "type": "scalar_image",
+      "label": "csf",
+      "description": "CSF tissue compartment.",
+      "required": false,
+      "required_when": {
+        "tissues": [
+          3
+        ]
+      },
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "mask",
+      "type": "brain_mask",
+      "label": "mask",
+      "description": "Required brain mask for intensity normalization.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "wm_normalized",
+      "type": "fod_image",
+      "label": "wm_normalized",
+      "description": "Native command output, saved in this run’s output directory. Multi-tissue log-domain intensity normalization of one to three tissue compartments.",
+      "format": ".mif",
+      "primary": true,
+      "path_template": "wm_normalized.mif",
+      "generated_when": {
+        "tissues": [
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "id": "gm_normalized",
+      "type": "scalar_image",
+      "label": "gm_normalized",
+      "description": "Native command output, saved in this run’s output directory. Multi-tissue log-domain intensity normalization of one to three tissue compartments.",
+      "format": ".mif",
+      "primary": false,
+      "path_template": "gm_normalized.mif",
+      "generated_when": {
+        "tissues": [
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "id": "csf_normalized",
+      "type": "scalar_image",
+      "label": "csf_normalized",
+      "description": "Native command output, saved in this run’s output directory. Multi-tissue log-domain intensity normalization of one to three tissue compartments.",
+      "format": ".mif",
+      "primary": false,
+      "path_template": "csf_normalized.mif",
+      "generated_when": {
+        "tissues": [
+          3
+        ]
+      }
+    },
+    {
+      "id": "check_norm",
+      "type": "scalar_image",
+      "label": "check_norm",
+      "description": "Native command output, saved in this run’s output directory. Multi-tissue log-domain intensity normalization of one to three tissue compartments.",
+      "format": ".mif",
+      "primary": false,
+      "path_template": "check_norm.mif",
+      "generated_when": {
+        "save_check_norm": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "check_mask",
+      "type": "brain_mask",
+      "label": "check_mask",
+      "description": "Native command output, saved in this run’s output directory. Multi-tissue log-domain intensity normalization of one to three tissue compartments.",
+      "format": ".mif",
+      "primary": false,
+      "path_template": "check_mask.mif",
+      "generated_when": {
+        "save_check_mask": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "check_factors",
+      "type": "generated_file",
+      "label": "check_factors",
+      "description": "Native command output, saved in this run’s output directory. Multi-tissue log-domain intensity normalization of one to three tissue compartments. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".txt",
+      "primary": false,
+      "path_template": "check_factors.txt",
+      "generated_when": {
+        "save_check_factors": [
+          true
+        ]
+      }
+    }
+  ],
+  "input_types": [
+    "fod_image",
+    "scalar_image",
+    "brain_mask"
+  ],
+  "output_types": [
+    "fod_image",
+    "scalar_image",
+    "brain_mask",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/mtnormalise.usage.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "mrtrix3",
+      "command": "mtnormalise",
+      "version": "3.0.8",
+      "argv": [
+        {
+          "tokens": [
+            {
+              "input": "wm"
+            },
+            {
+              "output": "wm_normalized"
+            }
+          ],
+          "when": {
+            "tissues": [
+              1,
+              2,
+              3
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "input": "gm"
+            },
+            {
+              "output": "gm_normalized"
+            }
+          ],
+          "when": {
+            "tissues": [
+              2,
+              3
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "input": "csf"
+            },
+            {
+              "output": "csf_normalized"
+            }
+          ],
+          "when": {
+            "tissues": [
+              3
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-mask",
+            {
+              "input": "mask"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-order",
+            {
+              "parameter": "order"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-niter",
+            {
+              "parameter": "niter"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-reference",
+            {
+              "parameter": "reference"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-balanced"
+          ],
+          "when": {
+            "balanced": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-check_norm",
+            {
+              "output": "check_norm"
+            }
+          ],
+          "when": {
+            "save_check_norm": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-check_mask",
+            {
+              "output": "check_mask"
+            }
+          ],
+          "when": {
+            "save_check_mask": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-check_factors",
+            {
+              "output": "check_factors"
+            }
+          ],
+          "when": {
+            "save_check_factors": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-nthreads",
+            {
+              "parameter": "nthreads"
+            }
+          ],
+          "when": {},
+          "optional": false
+        }
+      ],
+      "patterns": {
+        "niter": "\\d+(,\\d+)?"
+      },
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

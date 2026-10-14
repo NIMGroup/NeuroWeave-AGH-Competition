@@ -1,0 +1,582 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix3.command.mrregister",
+  "version": "1",
+  "kind": "method",
+  "label": "MRtrix3 mrregister",
+  "description": "Symmetric rigid, affine or nonlinear image/FOD registration.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "mrtrix3.command.mrregister",
+  "parameters": [
+    {
+      "id": "type",
+      "argument": "-type",
+      "label": "type",
+      "description": "Native registration stages.",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": "affine_nonlinear",
+      "options": [
+        {
+          "value": "rigid",
+          "label": "rigid",
+          "description": ""
+        },
+        {
+          "value": "affine",
+          "label": "affine",
+          "description": ""
+        },
+        {
+          "value": "nonlinear",
+          "label": "nonlinear",
+          "description": ""
+        },
+        {
+          "value": "rigid_affine",
+          "label": "rigid_affine",
+          "description": ""
+        },
+        {
+          "value": "rigid_nonlinear",
+          "label": "rigid_nonlinear",
+          "description": ""
+        },
+        {
+          "value": "affine_nonlinear",
+          "label": "affine_nonlinear",
+          "description": ""
+        },
+        {
+          "value": "rigid_affine_nonlinear",
+          "label": "rigid_affine_nonlinear",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Native registration stages. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "no_reorientation",
+      "argument": "-no_reorientation",
+      "label": "no_reorientation",
+      "description": "Disable automatic FOD reorientation; use only when scientifically appropriate.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Disable automatic FOD reorientation; use only when scientifically appropriate. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "rigid_niter",
+      "argument": "-rigid_niter",
+      "label": "rigid_niter",
+      "description": "Iteration count per resolution level.",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Iteration count per resolution level. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "affine_niter",
+      "argument": "-affine_niter",
+      "label": "affine_niter",
+      "description": "Iteration count per resolution level.",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Iteration count per resolution level. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "nl_niter",
+      "argument": "-nl_niter",
+      "label": "nl_niter",
+      "description": "Iteration count per resolution level.",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Iteration count per resolution level. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "nthreads",
+      "argument": "-nthreads",
+      "label": "nthreads",
+      "description": "CPU threads within the allocated scheduler budget.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 1,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "CPU threads within the allocated scheduler budget. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "moving",
+      "type": "imaging_input",
+      "label": "moving",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "fixed",
+      "type": "imaging_input",
+      "label": "fixed",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "mask1",
+      "type": "brain_mask",
+      "label": "mask1",
+      "description": "Optional registration mask.",
+      "required": false,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "mask2",
+      "type": "brain_mask",
+      "label": "mask2",
+      "description": "Optional registration mask.",
+      "required": false,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "registered",
+      "type": "registered_image",
+      "label": "registered",
+      "description": "Native command output, saved in this run’s output directory. Symmetric rigid, affine or nonlinear image/FOD registration.",
+      "format": ".mif",
+      "primary": true,
+      "path_template": "registered.mif",
+      "generated_when": {}
+    },
+    {
+      "id": "rigid",
+      "type": "transform_matrix",
+      "label": "rigid",
+      "description": "Native command output, saved in this run’s output directory. Symmetric rigid, affine or nonlinear image/FOD registration.",
+      "format": ".txt",
+      "primary": false,
+      "path_template": "rigid.txt",
+      "generated_when": {
+        "type": [
+          "rigid",
+          "rigid_affine",
+          "rigid_nonlinear",
+          "rigid_affine_nonlinear"
+        ]
+      }
+    },
+    {
+      "id": "affine",
+      "type": "transform_matrix",
+      "label": "affine",
+      "description": "Native command output, saved in this run’s output directory. Symmetric rigid, affine or nonlinear image/FOD registration.",
+      "format": ".txt",
+      "primary": false,
+      "path_template": "affine.txt",
+      "generated_when": {
+        "type": [
+          "affine",
+          "rigid_affine",
+          "affine_nonlinear",
+          "rigid_affine_nonlinear"
+        ]
+      }
+    },
+    {
+      "id": "forward_warp",
+      "type": "imaging_input",
+      "label": "forward_warp",
+      "description": "Native command output, saved in this run’s output directory. Symmetric rigid, affine or nonlinear image/FOD registration. The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".mif",
+      "primary": false,
+      "path_template": "forward.mif",
+      "generated_when": {
+        "type": [
+          "nonlinear",
+          "rigid_nonlinear",
+          "affine_nonlinear",
+          "rigid_affine_nonlinear"
+        ]
+      }
+    },
+    {
+      "id": "inverse_warp",
+      "type": "imaging_input",
+      "label": "inverse_warp",
+      "description": "Native command output, saved in this run’s output directory. Symmetric rigid, affine or nonlinear image/FOD registration. The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".mif",
+      "primary": false,
+      "path_template": "inverse.mif",
+      "generated_when": {
+        "type": [
+          "nonlinear",
+          "rigid_nonlinear",
+          "affine_nonlinear",
+          "rigid_affine_nonlinear"
+        ]
+      }
+    }
+  ],
+  "input_types": [
+    "imaging_input",
+    "brain_mask"
+  ],
+  "output_types": [
+    "registered_image",
+    "transform_matrix",
+    "imaging_input"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/mrregister.usage.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "mrtrix3",
+      "command": "mrregister",
+      "version": "3.0.8",
+      "argv": [
+        {
+          "tokens": [
+            {
+              "input": "moving"
+            },
+            {
+              "input": "fixed"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-type",
+            {
+              "parameter": "type"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-transformed",
+            {
+              "output": "registered"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-rigid",
+            {
+              "output": "rigid"
+            }
+          ],
+          "when": {
+            "type": [
+              "rigid",
+              "rigid_affine",
+              "rigid_nonlinear",
+              "rigid_affine_nonlinear"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-affine",
+            {
+              "output": "affine"
+            }
+          ],
+          "when": {
+            "type": [
+              "affine",
+              "rigid_affine",
+              "affine_nonlinear",
+              "rigid_affine_nonlinear"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-nl_warp",
+            {
+              "output": "forward_warp"
+            },
+            {
+              "output": "inverse_warp"
+            }
+          ],
+          "when": {
+            "type": [
+              "nonlinear",
+              "rigid_nonlinear",
+              "affine_nonlinear",
+              "rigid_affine_nonlinear"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-mask1",
+            {
+              "input": "mask1"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-mask2",
+            {
+              "input": "mask2"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-no_reorientation"
+          ],
+          "when": {
+            "no_reorientation": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-rigid_niter",
+            {
+              "parameter": "rigid_niter"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-affine_niter",
+            {
+              "parameter": "affine_niter"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-nl_niter",
+            {
+              "parameter": "nl_niter"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-nthreads",
+            {
+              "parameter": "nthreads"
+            }
+          ],
+          "when": {},
+          "optional": false
+        }
+      ],
+      "patterns": {
+        "rigid_niter": "\\d+(,\\d+)*",
+        "affine_niter": "\\d+(,\\d+)*",
+        "nl_niter": "\\d+(,\\d+)*"
+      },
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "id": "qsiprep-tool",
+  "description": "qsiprep-tool 统筹已登记的独立方法和可复用流程。支持：QSIPrep。",
+  "method_refs": [
+    {
+      "capability": "dwi.preprocess",
+      "method_id": "qsiprep",
+      "label": "QSIPrep",
+      "default_recommended": true,
+      "default_reason": "适合大多数标准 BIDS DWI 数据。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "容器化的标准 BIDS-App 路线，输出统一且包含 QC 报告。",
+      "method_ref": "qsiprep.run"
+    },
+    {
+      "capability": "skill.qsiprep-tool",
+      "method_id": "linked-qsiprep",
+      "label": "QSIPrep",
+      "default_recommended": false,
+      "default_reason": "适合大多数标准 BIDS DWI 数据。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "容器化的标准 BIDS-App 路线，输出统一且包含 QC 报告。",
+      "method_ref": "qsiprep.run"
+    },
+    {
+      "capability": "skill.qsiprep-tool",
+      "method_id": "qsiprep-tool-guided--standard-dwi-preprocessing",
+      "label": "QSIPrep",
+      "default_recommended": false,
+      "default_reason": "适合大多数标准 BIDS DWI 数据。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已指向现有软件适配；公共环境缺少该软件，界面和 Dry-run 会显示实际缺项。具体可用参数以该适配声明为准。",
+        "source_method_id": "qsiprep-tool-guided--standard-dwi-preprocessing",
+        "target_method_id": "qsiprep"
+      },
+      "role": "容器化的标准 BIDS-App 路线，输出统一且包含 QC 报告。",
+      "method_ref": "qsiprep.run"
+    },
+    {
+      "capability": "skill.qsiprep-tool",
+      "method_id": "qsiprep-tool-guided--multi-subject-run",
+      "label": "QSIPrep",
+      "default_recommended": false,
+      "default_reason": "适合大多数标准 BIDS DWI 数据。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已指向现有软件适配；公共环境缺少该软件，界面和 Dry-run 会显示实际缺项。具体可用参数以该适配声明为准。",
+        "source_method_id": "qsiprep-tool-guided--multi-subject-run",
+        "target_method_id": "qsiprep"
+      },
+      "role": "容器化的标准 BIDS-App 路线，输出统一且包含 QC 报告。",
+      "method_ref": "qsiprep.run"
+    },
+    {
+      "capability": "skill.qsiprep-tool",
+      "method_id": "qsiprep-tool-guided--hpc-cluster",
+      "label": "QSIPrep",
+      "default_recommended": false,
+      "default_reason": "适合大多数标准 BIDS DWI 数据。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已指向现有软件适配；公共环境缺少该软件，界面和 Dry-run 会显示实际缺项。具体可用参数以该适配声明为准。",
+        "source_method_id": "qsiprep-tool-guided--hpc-cluster",
+        "target_method_id": "qsiprep"
+      },
+      "role": "容器化的标准 BIDS-App 路线，输出统一且包含 QC 报告。",
+      "method_ref": "qsiprep.run"
+    },
+    {
+      "capability": "skill.qsiprep-tool",
+      "method_id": "qsiprep-tool-guided--qc",
+      "label": "QSIPrep",
+      "default_recommended": false,
+      "default_reason": "适合大多数标准 BIDS DWI 数据。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已指向现有软件适配；公共环境缺少该软件，界面和 Dry-run 会显示实际缺项。具体可用参数以该适配声明为准。",
+        "source_method_id": "qsiprep-tool-guided--qc",
+        "target_method_id": "qsiprep"
+      },
+      "role": "容器化的标准 BIDS-App 路线，输出统一且包含 QC 报告。",
+      "method_ref": "qsiprep.run"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "name": "qsiprep-tool",
+  "category": [
+    "软件工具",
+    "qsiprep"
+  ],
+  "scope": "software",
+  "limitations": [
+    "QSIPrep 输入需要可对应的 DWI、bval、bvec 和 sidecar；单独一幅 NIfTI 不能证明已具备扩散预处理所需的 BIDS 输入。"
+  ],
+  "keywords": [
+    "qsiprep-tool",
+    "QSIPrep",
+    "DWI 预处理",
+    "topup",
+    "eddy"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

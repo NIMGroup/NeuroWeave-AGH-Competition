@@ -1,0 +1,264 @@
+{
+  "label": "MRtrix3 从已有 5TT 生成灰白质界面种子",
+  "description": "独立调用 MRtrix3 3.0.8 的 5tt2gmwmi；保留原软件计算，参数按原版本帮助定义。\n\nGenerate a mask image appropriate for seeding streamlines on the grey matter-white matter interface",
+  "runner_id": "mrtrix.command.5tt2gmwmi",
+  "input_types": [
+    "five_tt_image",
+    "brain_mask"
+  ],
+  "output_types": [
+    "seed_mask"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "info",
+      "argument": "-info",
+      "label": "info",
+      "description": "display information messages.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "quiet",
+      "argument": "-quiet",
+      "label": "quiet",
+      "description": "do not display information messages or progress status; alternatively, this can be achieved by setting the MRTRIX_QUIET environment variable to a non-empty string.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "debug",
+      "argument": "-debug",
+      "label": "debug",
+      "description": "display debugging messages.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "nthreads",
+      "argument": "-nthreads",
+      "label": "CPU 线程数",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).",
+      "type": "integer",
+      "control": "auto",
+      "level": "advanced",
+      "group": "计算资源",
+      "unit": "",
+      "required": true,
+      "default": 1,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/5tt2gmwmi.html"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "5tt_in",
+      "type": "five_tt_image",
+      "label": "5tt_in",
+      "description": "the input 5TT segmented anatomical image",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".mif",
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "mask_in",
+      "type": "brain_mask",
+      "label": "限制界面种子的掩膜",
+      "description": "Filter an input mask image according to those voxels that lie upon the grey matter - white matter boundary. If no input mask is provided, the output will be a whole-brain mask image calculated using the anatomical image only.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".mif",
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "mask_out",
+      "type": "seed_mask",
+      "label": "输出：从已有 5TT 生成灰白质界面种子",
+      "description": "the output mask image 文件名由平台固定在本次输出目录内。",
+      "format": ".mif",
+      "primary": true,
+      "path_template": "gmwmi.mif",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/dwi-skill/references/mrtrix-3.0.8/5tt2gmwmi.md",
+      "label": "安装版本原始命令帮助",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "mrtrix.command.5tt2gmwmi",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "command": "5tt2gmwmi",
+      "version": "3.0.8",
+      "positional": [
+        {
+          "source": "input",
+          "id": "5tt_in"
+        },
+        {
+          "source": "output",
+          "id": "mask_out"
+        }
+      ],
+      "options": [
+        {
+          "flag": "-mask_in",
+          "values": [
+            {
+              "source": "input",
+              "id": "mask_in"
+            }
+          ]
+        },
+        {
+          "flag": "-info",
+          "values": [],
+          "when": {
+            "info": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-quiet",
+          "values": [],
+          "when": {
+            "quiet": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-debug",
+          "values": [],
+          "when": {
+            "debug": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-nthreads",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "nthreads",
+              "kind": "INT"
+            }
+          ]
+        }
+      ],
+      "total_options": 9,
+      "omitted_options": {
+        "force": "运行输出目录独立分配，不允许覆盖输入或其他运行。",
+        "config": "不开放任意软件配置键，以免绕过路径、线程及运行环境管理。",
+        "help": "通过命令说明面板提供，不作为计算参数。",
+        "version": "由运行环境探测提供。"
+      }
+    }
+  }
+}

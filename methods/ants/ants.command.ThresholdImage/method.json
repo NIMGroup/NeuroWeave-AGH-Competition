@@ -1,0 +1,469 @@
+{
+  "schema_version": 1,
+  "id": "ants.command.ThresholdImage",
+  "version": "1",
+  "kind": "method",
+  "label": "ANTs ThresholdImage",
+  "description": "Inclusive thresholding, Otsu or K-means segmentation.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "ants.command.ThresholdImage",
+  "parameters": [
+    {
+      "id": "dimension",
+      "argument": "",
+      "label": "dimension",
+      "description": "Image dimensionality. Match the actual input image.",
+      "type": "integer",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 3,
+      "options": [
+        {
+          "value": 2,
+          "label": "2",
+          "description": ""
+        },
+        {
+          "value": 3,
+          "label": "3",
+          "description": ""
+        },
+        {
+          "value": 4,
+          "label": "4",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Image dimensionality. Match the actual input image. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://github.com/ANTsX/ANTs/wiki"
+    },
+    {
+      "id": "mode",
+      "argument": "",
+      "label": "mode",
+      "description": "Thresholding algorithm.",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": "range",
+      "options": [
+        {
+          "value": "range",
+          "label": "range",
+          "description": ""
+        },
+        {
+          "value": "Otsu",
+          "label": "Otsu",
+          "description": ""
+        },
+        {
+          "value": "Kmeans",
+          "label": "Kmeans",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Thresholding algorithm. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://github.com/ANTsX/ANTs/wiki"
+    },
+    {
+      "id": "lower",
+      "argument": "",
+      "label": "lower",
+      "description": "Inclusive range threshold or assigned voxel value.",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 0,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "mode": [
+          "range"
+        ]
+      },
+      "required_when": {
+        "mode": [
+          "range"
+        ]
+      },
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "Required only for the selected operation.",
+      "usage": "Inclusive range threshold or assigned voxel value. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://github.com/ANTsX/ANTs/wiki"
+    },
+    {
+      "id": "upper",
+      "argument": "",
+      "label": "upper",
+      "description": "Inclusive range threshold or assigned voxel value.",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 1,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "mode": [
+          "range"
+        ]
+      },
+      "required_when": {
+        "mode": [
+          "range"
+        ]
+      },
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "Required only for the selected operation.",
+      "usage": "Inclusive range threshold or assigned voxel value. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://github.com/ANTsX/ANTs/wiki"
+    },
+    {
+      "id": "inside",
+      "argument": "",
+      "label": "inside",
+      "description": "Inclusive range threshold or assigned voxel value.",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 1,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "mode": [
+          "range"
+        ]
+      },
+      "required_when": {
+        "mode": [
+          "range"
+        ]
+      },
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "Required only for the selected operation.",
+      "usage": "Inclusive range threshold or assigned voxel value. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://github.com/ANTsX/ANTs/wiki"
+    },
+    {
+      "id": "outside",
+      "argument": "",
+      "label": "outside",
+      "description": "Inclusive range threshold or assigned voxel value.",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 0,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "mode": [
+          "range"
+        ]
+      },
+      "required_when": {
+        "mode": [
+          "range"
+        ]
+      },
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "Required only for the selected operation.",
+      "usage": "Inclusive range threshold or assigned voxel value. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://github.com/ANTsX/ANTs/wiki"
+    },
+    {
+      "id": "classes",
+      "argument": "",
+      "label": "classes",
+      "description": "Number of thresholds/classes.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 2,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "mode": [
+          "Otsu",
+          "Kmeans"
+        ]
+      },
+      "required_when": {
+        "mode": [
+          "Otsu",
+          "Kmeans"
+        ]
+      },
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "Required only for the selected operation.",
+      "usage": "Number of thresholds/classes. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://github.com/ANTsX/ANTs/wiki"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "mask",
+      "type": "brain_mask",
+      "label": "mask",
+      "description": "Optional mask for Otsu/K-means.",
+      "required": false,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "labels",
+      "type": "label_image",
+      "label": "labels",
+      "description": "Native command output, saved in this run’s output directory. Inclusive thresholding, Otsu or K-means segmentation.",
+      "format": ".nii.gz",
+      "primary": true,
+      "path_template": "output.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "imaging_input",
+    "brain_mask"
+  ],
+  "output_types": [
+    "label_image"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/ants-ThresholdImage.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "ants",
+      "command": "ThresholdImage",
+      "version": "2.6.5",
+      "argv": [
+        {
+          "tokens": [
+            {
+              "parameter": "dimension"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "input": "input"
+            },
+            {
+              "output": "labels"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "parameter": "lower"
+            }
+          ],
+          "when": {
+            "mode": [
+              "range"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "parameter": "upper"
+            }
+          ],
+          "when": {
+            "mode": [
+              "range"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "parameter": "inside"
+            }
+          ],
+          "when": {
+            "mode": [
+              "range"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "parameter": "outside"
+            }
+          ],
+          "when": {
+            "mode": [
+              "range"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "parameter": "mode"
+            },
+            {
+              "parameter": "classes"
+            }
+          ],
+          "when": {
+            "mode": [
+              "Otsu",
+              "Kmeans"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "input": "mask"
+            }
+          ],
+          "when": {
+            "mode": [
+              "Otsu",
+              "Kmeans"
+            ]
+          },
+          "optional": true
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

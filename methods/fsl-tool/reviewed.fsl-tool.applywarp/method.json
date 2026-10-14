@@ -1,0 +1,222 @@
+{
+  "label": "FSL 应用形变",
+  "description": "Apply an existing FSL warp to the input image on the supplied reference grid, using linear or nearest-neighbour interpolation. This entry does not estimate a new registration。 Inputs: input: 输入影像 (file); reference: 参考影像 (file); transform: 变换/形变场 (file). Registered outputs: results/image.nii.gz. Fixed invocation options: --operation applywarp.",
+  "runner_id": "reviewed.fsl-tool.applywarp",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "registered_image"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "interp",
+      "argument": "interp",
+      "label": "interp",
+      "description": "变换应用时的插值方法；标签图与连续强度影像应按数据性质选择对应选项。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "linear",
+      "options": [
+        {
+          "value": "linear",
+          "label": "linear",
+          "description": ""
+        },
+        {
+          "value": "nearest",
+          "label": "nearest",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 interp，由结构化 Runner 映射到现有入口参数 interp。 可选值：linear, nearest。 平台默认值：linear；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "输入影像",
+      "description": "输入影像. Required file input for FSL 应用形变; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "reference",
+      "type": "analysis_input",
+      "label": "参考影像",
+      "description": "参考影像. Required file input for FSL 应用形变; bind to port reference.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "transform",
+      "type": "analysis_input",
+      "label": "变换/形变场",
+      "description": "变换/形变场. Required file input for FSL 应用形变; bind to port transform.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for FSL 应用形变. Contains this operation's generated files, including results/image.nii.gz; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_image_nii_gz",
+      "type": "registered_image",
+      "label": "image.nii.gz",
+      "description": "image.nii.gz: output of FSL 应用形变. Relative run path: results/image.nii.gz.",
+      "format": ".nii.gz",
+      "primary": false,
+      "path_template": "results/image.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "bakend/app/execution/native_worker.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.fsl-tool.applywarp",
+  "version": "2",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.fsl-tool.applywarp",
+      "script": "bakend/app/execution/native_worker.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "reference",
+          "flag": "--reference",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "transform",
+          "flag": "--transform",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "interp",
+          "flag": "--interp"
+        }
+      ],
+      "modules": [],
+      "expected": [
+        "image.nii.gz"
+      ],
+      "profile": "scientific",
+      "fixed_args": [
+        "--operation",
+        "applywarp"
+      ],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [
+        "/opt/software/fsl/bin/applywarp"
+      ],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "software_command",
+        "entrypoints": [
+          "/opt/software/fsl/bin/applywarp"
+        ],
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "bakend/app/execution/native_worker.py",
+          "sha256": "22d3605475d0c26bb0d90bb1543ba9242e916677ebe00e92c2e75c2ba828dd77"
+        }
+      ],
+      "artifact_types": {
+        "image.nii.gz": "registered_image"
+      }
+    }
+  }
+}

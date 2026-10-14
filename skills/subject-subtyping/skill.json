@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "id": "subject-subtyping",
+  "description": "subject-subtyping 统筹已登记的独立方法和可复用流程。支持：受试者分型。",
+  "method_refs": [
+    {
+      "capability": "skill.subject-subtyping",
+      "method_id": "reviewed-cluster-subject-subtyping--kmeans",
+      "label": "kmeans",
+      "default_recommended": true,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "CLI for disease-subtyping models。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json.",
+      "method_ref": "reviewed.subject-subtyping.cluster"
+    },
+    {
+      "capability": "skill.subject-subtyping",
+      "method_id": "reviewed-cluster-subject-subtyping--gmm",
+      "label": "gmm",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "CLI for disease-subtyping models。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json.",
+      "method_ref": "reviewed.subject-subtyping.cluster"
+    },
+    {
+      "capability": "skill.subject-subtyping",
+      "method_id": "reviewed-cluster-subject-subtyping--spectral",
+      "label": "spectral",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "CLI for disease-subtyping models。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json.",
+      "method_ref": "reviewed.subject-subtyping.cluster"
+    },
+    {
+      "capability": "skill.subject-subtyping",
+      "method_id": "reviewed-cluster-subject-subtyping--nmf",
+      "label": "nmf",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "CLI for disease-subtyping models。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json.",
+      "method_ref": "reviewed.subject-subtyping.cluster"
+    },
+    {
+      "capability": "skill.subject-subtyping",
+      "method_id": "reviewed-cluster-subject-subtyping--consensus",
+      "label": "consensus",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "CLI for disease-subtyping models。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json.",
+      "method_ref": "reviewed.subject-subtyping.cluster"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "name": "subject-subtyping",
+  "category": [
+    "任务能力",
+    "subject"
+  ],
+  "scope": "model",
+  "limitations": [
+    "聚类编号表示模型得到的分组，不自动对应临床诊断类别；分型解释还需独立稳定性和外部表型检查。"
+  ],
+  "keywords": [
+    "subject-subtyping"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

@@ -1,0 +1,797 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix3.command.mrfilter",
+  "version": "1",
+  "kind": "method",
+  "label": "MRtrix3 mrfilter",
+  "description": "Perform filtering operations on 3D / 4D MR images\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "mrtrix3.command.mrfilter",
+  "parameters": [
+    {
+      "id": "filter",
+      "argument": "",
+      "label": "filter",
+      "description": "the type of filter to be applied",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "fft",
+      "options": [
+        {
+          "value": "fft",
+          "label": "fft",
+          "description": ""
+        },
+        {
+          "value": "gradient",
+          "label": "gradient",
+          "description": ""
+        },
+        {
+          "value": "median",
+          "label": "median",
+          "description": ""
+        },
+        {
+          "value": "smooth",
+          "label": "smooth",
+          "description": ""
+        },
+        {
+          "value": "normalise",
+          "label": "normalise",
+          "description": ""
+        },
+        {
+          "value": "zclean",
+          "label": "zclean",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "the type of filter to be applied Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "axes",
+      "argument": "",
+      "label": "axes",
+      "description": "For filters fft: the axes along which to apply the Fourier Transform. By default, the transform is applied along the three spatial axes. Provide as a comma-separate list of axis indices. ",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "filter": [
+          "fft"
+        ]
+      },
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "the axes along which to apply the Fourier Transform. By default, the transform is applied along the three spatial axes. Provide as a comma-separate list of axis indices.  Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "inverse",
+      "argument": "-inverse",
+      "label": "inverse",
+      "description": "apply the inverse FFT",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "apply the inverse FFT Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "magnitude",
+      "argument": "-magnitude",
+      "label": "magnitude",
+      "description": "output a magnitude image rather than a complex-valued image",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "output a magnitude image rather than a complex-valued image Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "centre_zero",
+      "argument": "-centre_zero",
+      "label": "centre_zero",
+      "description": "re-arrange the FFT results so that the zero-frequency component appears in the centre of the image, rather than at the edges",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "re-arrange the FFT results so that the zero-frequency component appears in the centre of the image, rather than at the edges Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "stdev",
+      "argument": "",
+      "label": "stdev",
+      "description": "For filters gradient, smooth: the standard deviation of the Gaussian kernel used to smooth the input image (in mm). The image is smoothed to reduced large spurious gradients caused by noise. Use this option to override the default stdev of 1 voxel. This can be specified either as a single value to be used for all 3 axes, or as a comma-separated list of 3 values, one for each axis. ",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "filter": [
+          "gradient",
+          "smooth"
+        ]
+      },
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [
+        "fwhm"
+      ],
+      "condition_help": "",
+      "usage": "the standard deviation of the Gaussian kernel used to smooth the input image (in mm). The image is smoothed to reduced large spurious gradients caused by noise. Use this option to override the default stdev of 1 voxel. This can be specified either as a single value to be used for all 3 axes, or as a comma-separated list of 3 values, one for each axis.  Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "scanner",
+      "argument": "-scanner",
+      "label": "scanner",
+      "description": "define the gradient with respect to the scanner coordinate frame of reference.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "define the gradient with respect to the scanner coordinate frame of reference. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "extent",
+      "argument": "",
+      "label": "extent",
+      "description": "For filters median, normalise, smooth: specify extent of median filtering neighbourhood in voxels. This can be specified either as a single value to be used for all 3 axes, or as a comma-separated list of 3 values, one for each axis (default: 3x3x3). ",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "filter": [
+          "median",
+          "normalise",
+          "smooth"
+        ]
+      },
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "specify extent of median filtering neighbourhood in voxels. This can be specified either as a single value to be used for all 3 axes, or as a comma-separated list of 3 values, one for each axis (default: 3x3x3).  Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "fwhm",
+      "argument": "",
+      "label": "fwhm",
+      "description": "For filters smooth: apply Gaussian smoothing with the specified full-width half maximum. The FWHM is defined in mm (Default 1 voxel * 2.3548). This can be specified either as a single value to be used for all axes, or as a comma-separated list of the FWHM for each axis. ",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "filter": [
+          "smooth"
+        ]
+      },
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [
+        "stdev"
+      ],
+      "condition_help": "",
+      "usage": "apply Gaussian smoothing with the specified full-width half maximum. The FWHM is defined in mm (Default 1 voxel * 2.3548). This can be specified either as a single value to be used for all axes, or as a comma-separated list of the FWHM for each axis.  Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "zupper",
+      "argument": "",
+      "label": "zupper",
+      "description": "For filters zclean: define high intensity outliers: default: 2.5 ",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "filter": [
+          "zclean"
+        ]
+      },
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "define high intensity outliers: default: 2.5  Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "zlower",
+      "argument": "",
+      "label": "zlower",
+      "description": "For filters zclean: define low intensity outliers: default: 2.5 ",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "filter": [
+          "zclean"
+        ]
+      },
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "define low intensity outliers: default: 2.5  Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "bridge",
+      "argument": "",
+      "label": "bridge",
+      "description": "For filters zclean: number of voxels to gap to fill holes in mask: default: 4 ",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "filter": [
+          "zclean"
+        ]
+      },
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "number of voxels to gap to fill holes in mask: default: 4  Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "save_maskout",
+      "argument": "",
+      "label": "save_maskout",
+      "description": "Output a refined mask based on a spatially coherent region with normal intensity range.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "filter": [
+          "zclean"
+        ]
+      },
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Output a refined mask based on a spatially coherent region with normal intensity range. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "nthreads",
+      "argument": "",
+      "label": "nthreads",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading). ",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 1,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 128.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).  Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "the input image.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "maskin",
+      "type": "imaging_input",
+      "label": "maskin",
+      "description": "initial mask that defines the maximum spatial extent and the region from which to smaple the intensity range. ",
+      "required": false,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "output",
+      "type": "imaging_input",
+      "label": "output",
+      "description": "Native command output, saved in this run’s output directory. Perform filtering operations on 3D / 4D MR images The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".mif",
+      "primary": true,
+      "path_template": "output.mif",
+      "generated_when": {}
+    },
+    {
+      "id": "maskout",
+      "type": "imaging_input",
+      "label": "maskout",
+      "description": "Native command output, saved in this run’s output directory. Perform filtering operations on 3D / 4D MR images The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".mif",
+      "primary": false,
+      "path_template": "maskout.mif",
+      "generated_when": {
+        "save_maskout": [
+          true
+        ],
+        "filter": [
+          "zclean"
+        ]
+      }
+    }
+  ],
+  "input_types": [
+    "imaging_input"
+  ],
+  "output_types": [
+    "imaging_input"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/mrfilter.usage.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "mrtrix3",
+      "command": "mrfilter",
+      "version": "3.0.8",
+      "argv": [
+        {
+          "tokens": [
+            {
+              "input": "input"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "parameter": "filter"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "output": "output"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-axes",
+            {
+              "parameter": "axes"
+            }
+          ],
+          "when": {
+            "filter": [
+              "fft"
+            ]
+          },
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-inverse"
+          ],
+          "when": {
+            "inverse": [
+              true
+            ],
+            "filter": [
+              "fft"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-magnitude"
+          ],
+          "when": {
+            "magnitude": [
+              true
+            ],
+            "filter": [
+              "fft",
+              "gradient"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-centre_zero"
+          ],
+          "when": {
+            "centre_zero": [
+              true
+            ],
+            "filter": [
+              "fft"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-stdev",
+            {
+              "parameter": "stdev"
+            }
+          ],
+          "when": {
+            "filter": [
+              "gradient",
+              "smooth"
+            ]
+          },
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-scanner"
+          ],
+          "when": {
+            "scanner": [
+              true
+            ],
+            "filter": [
+              "gradient"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-extent",
+            {
+              "parameter": "extent"
+            }
+          ],
+          "when": {
+            "filter": [
+              "median",
+              "normalise",
+              "smooth"
+            ]
+          },
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-fwhm",
+            {
+              "parameter": "fwhm"
+            }
+          ],
+          "when": {
+            "filter": [
+              "smooth"
+            ]
+          },
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-zupper",
+            {
+              "parameter": "zupper"
+            }
+          ],
+          "when": {
+            "filter": [
+              "zclean"
+            ]
+          },
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-zlower",
+            {
+              "parameter": "zlower"
+            }
+          ],
+          "when": {
+            "filter": [
+              "zclean"
+            ]
+          },
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-bridge",
+            {
+              "parameter": "bridge"
+            }
+          ],
+          "when": {
+            "filter": [
+              "zclean"
+            ]
+          },
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-maskin",
+            {
+              "input": "maskin"
+            }
+          ],
+          "when": {
+            "filter": [
+              "zclean"
+            ]
+          },
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-maskout",
+            {
+              "output": "maskout"
+            }
+          ],
+          "when": {
+            "save_maskout": [
+              true
+            ],
+            "filter": [
+              "zclean"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-nthreads",
+            {
+              "parameter": "nthreads"
+            }
+          ],
+          "when": {},
+          "optional": true
+        }
+      ],
+      "patterns": {
+        "axes": "-?\\d+(,-?\\d+)*",
+        "stdev": "[+-]?[0-9.eE]+(,[+-]?[0-9.eE]+)*",
+        "extent": "-?\\d+(,-?\\d+)*",
+        "fwhm": "[+-]?[0-9.eE]+(,[+-]?[0-9.eE]+)*"
+      },
+      "complete_groups": [],
+      "omitted_options": {
+        "strides": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "info": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "quiet": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "debug": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "force": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "config": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "help": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "version": "Managed by the platform or requires a specialized repeated/text argument contract."
+      }
+    }
+  }
+}

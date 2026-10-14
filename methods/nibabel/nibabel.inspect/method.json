@@ -1,0 +1,117 @@
+{
+  "label": "Nibabel NIfTI 实际检查",
+  "description": "读取 NIfTI 头、维度、数据类型、体素尺寸与仿射矩阵，并可保存规范化副本。",
+  "runner_id": "nibabel.inspect",
+  "input_types": [
+    "imaging_input"
+  ],
+  "output_types": [
+    "execution_log",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "save_copy",
+      "argument": "copy-output",
+      "label": "保存 NIfTI 副本",
+      "description": "使用 nibabel 重新写出一份影像到隔离输出目录；默认只检查。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "basic",
+      "group": "输出",
+      "unit": "",
+      "required": true,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "image",
+      "type": "imaging_input",
+      "label": "NIfTI 影像",
+      "description": "要检查的 .nii 或 .nii.gz 文件。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "inspection",
+      "type": "execution_log",
+      "label": "NIfTI 头信息",
+      "description": "头、维度、数据类型、体素尺寸和仿射矩阵。",
+      "format": "",
+      "primary": true,
+      "path_template": "nifti-inspection.log",
+      "generated_when": {}
+    },
+    {
+      "id": "copy",
+      "type": "generated_file",
+      "label": "NIfTI 副本",
+      "description": "Optional re-written images. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".nii.gz",
+      "primary": false,
+      "path_template": "nifti-copy.nii.gz",
+      "generated_when": {
+        "save_copy": [
+          true
+        ]
+      }
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/nibabel-skill/scripts/nifti_inspection_reference.py",
+      "label": "Nibabel 实现脚本",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "skills/nibabel-skill/skill.json",
+      "label": "Nibabel Skill",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "nibabel.inspect",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "builtin"
+  }
+}

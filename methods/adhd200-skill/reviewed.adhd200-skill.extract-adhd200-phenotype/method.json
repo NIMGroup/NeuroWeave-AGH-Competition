@@ -1,0 +1,247 @@
+{
+  "label": "adhd200 表型/刺激提取",
+  "description": "Extract and merge ADHD-200 phenotype tables for downstream analysis。 Inputs: phenotype_dir: Directory containing ADHD-200 phenotype CSV files (directory); phenotype_file: Direct path to ADHD-200 phenotype CSV file (file); imaging_ids: Path to BIDS participants.tsv for imaging subject filtering (file). Registered outputs: results/output.csv.",
+  "runner_id": "reviewed.adhd200-skill.extract-adhd200-phenotype",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "columns",
+      "argument": "columns",
+      "label": "columns",
+      "description": "Comma-separated list of columns to select (default: all)",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/adhd200-skill/scripts/extract_adhd200_phenotype.py:51。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "missing_threshold",
+      "argument": "missing-threshold",
+      "label": "missing-threshold",
+      "description": "Drop columns with > this fraction missing",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 0.5,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 1000000.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/adhd200-skill/scripts/extract_adhd200_phenotype.py:53。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "phenotype_dir",
+      "type": "analysis_input",
+      "label": "Directory containing ADHD-200 phenotype CSV files",
+      "description": "Directory containing ADHD-200 phenotype CSV files. Optional directory input for adhd200 表型/刺激提取; bind to port phenotype_dir.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "folder",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "phenotype_file",
+      "type": "analysis_input",
+      "label": "Direct path to ADHD-200 phenotype CSV file",
+      "description": "Direct path to ADHD-200 phenotype CSV file. Optional file input for adhd200 表型/刺激提取; bind to port phenotype_file.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "imaging_ids",
+      "type": "analysis_input",
+      "label": "Path to BIDS participants.tsv for imaging subject filtering",
+      "description": "Path to BIDS participants.tsv for imaging subject filtering. Optional file input for adhd200 表型/刺激提取; bind to port imaging_ids.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for adhd200 表型/刺激提取. Contains this operation's generated files, including results/output.csv; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_output_csv",
+      "type": "generated_file",
+      "label": "output.csv",
+      "description": "Output path for merged phenotype CSV: output of adhd200 phenotype/stimulus extraction. Relative run path: results/output.csv. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".csv",
+      "primary": false,
+      "path_template": "results/output.csv",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/adhd200-skill/scripts/extract_adhd200_phenotype.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.adhd200-skill.extract-adhd200-phenotype",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.adhd200-skill.extract-adhd200-phenotype",
+      "script": "skills/adhd200-skill/scripts/extract_adhd200_phenotype.py",
+      "inputs": [
+        {
+          "id": "phenotype_dir",
+          "flag": "--phenotype-dir",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "phenotype_file",
+          "flag": "--phenotype-file",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "imaging_ids",
+          "flag": "--imaging-ids",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "columns",
+          "flag": "--columns",
+          "split": false
+        },
+        {
+          "id": "missing_threshold",
+          "flag": "--missing-threshold",
+          "split": false
+        }
+      ],
+      "modules": [
+        "pandas",
+        "numpy"
+      ],
+      "expected": [
+        "output.csv"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output",
+          "output.csv"
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/adhd200-skill/scripts/extract_adhd200_phenotype.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/adhd200-skill/scripts/extract_adhd200_phenotype.py",
+          "source_sha256": "26ce34e3fc0dbbc2533b4f46d1fc758eb5093f9485a6982c9dc935ce2c5a9694"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/adhd200-skill/scripts/extract_adhd200_phenotype.py",
+          "sha256": "d0ff9f096e07a416a4d5c2b805d2fc7abadb87b478518217c198d6306d8d4adc"
+        }
+      ],
+      "artifact_types": {
+        "output.csv": "generated_file"
+      }
+    }
+  }
+}

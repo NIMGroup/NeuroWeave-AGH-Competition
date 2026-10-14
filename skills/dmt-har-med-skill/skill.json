@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "id": "dmt-har-med-skill",
+  "description": "DMT-HAR-MED 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：dmt-har-med 质控汇总；dmt-har-med 表型/刺激提取；dmt-har-med 复制整理为 BIDS 目录。",
+  "method_refs": [
+    {
+      "capability": "skill.dmt-har-med-skill",
+      "method_id": "reviewed-dmt-har-med-qc-summary-dmt-har-med-skill",
+      "label": "dmt-har-med 质控汇总",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "qc-summary"
+      ],
+      "execution_resolution": {},
+      "role": "Generate per-subject QC summaries and exclusion lists for DMT-HAR-MED。 Inputs: fmriprep_dir: Path to fMRIPrep output directory (directory). Registered outputs: results/output.csv.",
+      "method_ref": "reviewed.dmt-har-med-skill.dmt-har-med-qc-summary"
+    },
+    {
+      "capability": "skill.dmt-har-med-skill",
+      "method_id": "reviewed-extract-dmt-har-med-phenotype-dmt-har-med-skill",
+      "label": "dmt-har-med 表型/刺激提取",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "phenotype-extraction",
+        "stimulus-extraction"
+      ],
+      "execution_resolution": {},
+      "role": "Extract and merge DMT-HAR-MED phenotype data for downstream analysis。 Inputs: phenotype_dir: Directory containing phenotype CSV/TSV files (directory); phenotype_file: Direct path to phenotype CSV/TSV file (file); imaging_ids: Path to BIDS participants.tsv for filtering (file). Registered outputs: results/output.csv.",
+      "method_ref": "reviewed.dmt-har-med-skill.extract-dmt-har-med-phenotype"
+    },
+    {
+      "capability": "skill.dmt-har-med-skill",
+      "method_id": "reviewed-reorganize-dmt-har-med-dmt-har-med-skill",
+      "label": "dmt-har-med 复制整理为 BIDS 目录",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "bids-reorganization",
+        "data-reorganization"
+      ],
+      "execution_resolution": {},
+      "role": "Validate and optionally reorganize DMT-HAR-MED OpenNeuro BIDS data。 Inputs: input: Path to DMT-HAR-MED BIDS directory (directory). Registered outputs: results/.",
+      "method_ref": "reviewed.dmt-har-med-skill.reorganize-dmt-har-med"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "name": "dmt-har-med-skill",
+  "category": [
+    "数据集专属",
+    "数据集适配与质控"
+  ],
+  "scope": "dataset",
+  "keywords": [
+    "dmt-har-med-skill",
+    "BIDS"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

@@ -1,0 +1,332 @@
+{
+  "label": "ComplEx 知识图谱链路预测",
+  "description": "Run the original knowledge-graph link-prediction trainer on the supplied graph data using the registered model selection and training parameters; retain its validation metrics and checkpoint outputs. Only model values exposed in this Method are supported. Inputs: kg: 知识图谱 JSON（concepts、edges） (file). Registered outputs: results/metrics.json, results/checkpoint.pt. Fixed invocation options: --model complex.",
+  "runner_id": "reviewed.kg-link-prediction.complex",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "epochs",
+      "argument": "epochs",
+      "label": "epochs",
+      "description": "训练轮数；一次轮次按照现有训练循环处理训练数据。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 50,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 1000.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 epochs，由结构化 Runner 映射到现有入口参数 epochs。 平台默认值：50；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "embedding_dim",
+      "argument": "embedding-dim",
+      "label": "embedding-dim",
+      "description": "链接预测模型的实体嵌入维度。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 64,
+      "options": [],
+      "minimum": 4.0,
+      "maximum": 512.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 embedding_dim，由结构化 Runner 映射到现有入口参数 embedding-dim。 平台默认值：64；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "negatives",
+      "argument": "negatives",
+      "label": "negatives",
+      "description": "链接预测训练中由既有采样器生成的负样本数量参数。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 5,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 100.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 negatives，由结构化 Runner 映射到现有入口参数 negatives。 平台默认值：5；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "device",
+      "argument": "device",
+      "label": "device",
+      "description": "现有训练入口使用的设备选择；auto 由运行环境判断，CUDA 仍须实际申请 GPU 节点资源。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "auto",
+      "options": [
+        {
+          "value": "auto",
+          "label": "auto",
+          "description": ""
+        },
+        {
+          "value": "cpu",
+          "label": "cpu",
+          "description": ""
+        },
+        {
+          "value": "cuda",
+          "label": "cuda",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 device，由结构化 Runner 映射到现有入口参数 device。 可选值：auto, cpu, cuda。 平台默认值：auto；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "seed",
+      "argument": "seed",
+      "label": "seed",
+      "description": "现有入口使用的随机种子；相同种子不保证不同硬件或软件版本的结果逐位一致。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 123,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 2147483647.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 seed，由结构化 Runner 映射到现有入口参数 seed。 平台默认值：123；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "kg",
+      "type": "analysis_input",
+      "label": "知识图谱 JSON（concepts、edges）",
+      "description": "知识图谱 JSON（concepts、edges）. Required file input for ComplEx 知识图谱链路预测; bind to port kg.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for ComplEx 知识图谱链路预测. Contains this operation's generated files, including results/metrics.json, results/checkpoint.pt; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_metrics_json",
+      "type": "generated_file",
+      "label": "metrics.json",
+      "description": "metrics.json: output of ComplEx knowledge graph link prediction. Relative run path: results/metrics.json. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".json",
+      "primary": false,
+      "path_template": "results/metrics.json",
+      "generated_when": {}
+    },
+    {
+      "id": "file_checkpoint_pt",
+      "type": "generated_file",
+      "label": "checkpoint.pt",
+      "description": "checkpoint.pt: output of ComplEx knowledge graph link prediction. Relative run path: results/checkpoint.pt. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": "",
+      "primary": false,
+      "path_template": "results/checkpoint.pt",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/kg-link-prediction/scripts/train_reference.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.kg-link-prediction.complex",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.kg-link-prediction.complex",
+      "script": "skills/kg-link-prediction/scripts/train_reference.py",
+      "inputs": [
+        {
+          "id": "kg",
+          "flag": "--kg",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "epochs",
+          "flag": "--epochs"
+        },
+        {
+          "id": "embedding_dim",
+          "flag": "--embedding-dim"
+        },
+        {
+          "id": "negatives",
+          "flag": "--negatives"
+        },
+        {
+          "id": "device",
+          "flag": "--device"
+        },
+        {
+          "id": "seed",
+          "flag": "--seed"
+        }
+      ],
+      "modules": [
+        "torch",
+        "numpy",
+        "pandas",
+        "sklearn"
+      ],
+      "expected": [
+        "metrics.json",
+        "checkpoint.pt"
+      ],
+      "profile": "torch",
+      "fixed_args": [
+        "--model",
+        "complex"
+      ],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [
+        "models/kg_link_prediction/vendor/complex_scorer.py"
+      ],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/kg-link-prediction/scripts/train_reference.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/kg-link-prediction/scripts/train_reference.py",
+          "source_sha256": "0b646b6cf680e6ca7e7d69e7f36b573a1ccceb770cdcb9fbedff7aca58c64837"
+        },
+        "dependencies": {
+          "models/kg_link_prediction/vendor/complex_scorer.py": {
+            "origin": "User-provided NeuroClaw source snapshot",
+            "source_path": "neurooracle/src/kge/complex_scorer.py",
+            "source_sha256": "6510984574af76c0c72ed280dee41daafc130cb8f20d9069674babc7520f330a"
+          }
+        },
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/kg-link-prediction/scripts/train_reference.py",
+          "sha256": "0b646b6cf680e6ca7e7d69e7f36b573a1ccceb770cdcb9fbedff7aca58c64837"
+        },
+        {
+          "path": "models/kg_link_prediction/vendor/complex_scorer.py",
+          "sha256": "6510984574af76c0c72ed280dee41daafc130cb8f20d9069674babc7520f330a"
+        }
+      ],
+      "artifact_types": {
+        "metrics.json": "generated_file",
+        "checkpoint.pt": "generated_file"
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "hierarchical",
+  "description": "hierarchical 统筹已登记的独立方法和可复用流程。支持：hierarchical 空间分区。",
+  "method_refs": [
+    {
+      "capability": "skill.hierarchical",
+      "method_id": "reviewed-hierarchical-nilearn-tool",
+      "label": "hierarchical 空间分区",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Create data-driven spatial clusters using the existing hierarchical reference implementation on a list of aligned images and a common mask. The requested cluster count controls a learned label map. Cluster IDs have no predefined anatomical atlas meaning and are not a drop-in substitute for a FreeSurfer anatomical parcellation. Use only when this data-driven region definition matches the study; validate alignment, reproducibility and region interpretation before connectivity analysis.",
+      "method_ref": "reviewed.nilearn-tool.hierarchical"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "name": "hierarchical",
+  "category": [
+    "任务能力",
+    "hierarchical"
+  ],
+  "scope": "model",
+  "keywords": [
+    "hierarchical"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

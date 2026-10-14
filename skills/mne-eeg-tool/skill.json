@@ -1,0 +1,1178 @@
+{
+  "schema_version": 1,
+  "id": "mne-eeg-tool",
+  "description": "mne-eeg-tool 统筹已登记的独立方法和可复用流程。支持：EEG/MEG 数据检查；MNE LOF 坏导联检测与插值；EEG/MEG 滤波与降采样；MNE ICA 分解与指定成分去除；重参考与分段；Epoch AutoReject 自动质控；传感器 PLV/相干/wPLI；Morlet 时频功率与 ITC；其他方法可在详情中分页查询。",
+  "method_refs": [
+    {
+      "capability": "skill.mne-eeg-tool",
+      "method_id": "reviewed-inspect-mne-eeg-tool",
+      "label": "EEG/MEG 数据检查",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "loadeeg",
+        "load-validation",
+        "load-basic-validation"
+      ],
+      "execution_resolution": {},
+      "role": "Read a supported continuous EEG/MEG recording, reject non-finite data, report channel/sample counts and sampling frequency, and save the recording as FIF。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file). Registered outputs: results/processed-raw.fif. Fixed invocation options: --operation inspect.",
+      "method_ref": "reviewed.mne-eeg-tool.inspect"
+    },
+    {
+      "capability": "skill.mne-eeg-tool",
+      "method_id": "reviewed-bad-channels-mne-eeg-tool",
+      "label": "MNE LOF 坏导联检测与插值",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Detect EEG bad channels using MNE local-outlier-factor detection and interpolate them using channel positions; retain the detected-channel list in the summary。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file). Registered outputs: results/processed-raw.fif. Fixed invocation options: --operation bad-channels.",
+      "method_ref": "reviewed.mne-eeg-tool.bad-channels"
+    },
+    {
+      "capability": "skill.mne-eeg-tool",
+      "method_id": "reviewed-filter-mne-eeg-tool",
+      "label": "EEG/MEG 滤波与降采样",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "preprocessfiltering",
+        "downsampling-filtering",
+        "filtering"
+      ],
+      "execution_resolution": {},
+      "role": "Apply MNE IIR band-pass filtering, optional notch filtering and optional downsampling to continuous data; validate cutoffs against the original and requested Nyquist frequencies。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file). Registered outputs: results/processed-raw.fif. Fixed invocation options: --operation filter.",
+      "method_ref": "reviewed.mne-eeg-tool.filter"
+    },
+    {
+      "capability": "skill.mne-eeg-tool",
+      "method_id": "reviewed-ica-mne-eeg-tool",
+      "label": "MNE ICA 分解与指定成分去除",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Fit MNE ICA on a high-pass-filtered copy, identify EOG/ECG-related components when corresponding channels exist, combine explicit exclusions and apply the fitted cleaning to the recording。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file). Registered outputs: results/processed-raw.fif. Fixed invocation options: --operation ica.",
+      "method_ref": "reviewed.mne-eeg-tool.ica"
+    },
+    {
+      "capability": "skill.mne-eeg-tool",
+      "method_id": "reviewed-epoch-mne-eeg-tool",
+      "label": "重参考与分段",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "rereferenceandepoch",
+        "re-referencing-epoching",
+        "epoching"
+      ],
+      "execution_resolution": {},
+      "role": "Create MNE epochs from supplied events and time limits, or fixed-duration epochs when events are absent; apply average EEG referencing and save accepted epochs as FIF。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file); events: MNE 事件文件 (file). Registered outputs: results/processed-epo.fif. Fixed invocation options: --operation epoch.",
+      "method_ref": "reviewed.mne-eeg-tool.epoch"
+    },
+    {
+      "capability": "skill.mne-eeg-tool",
+      "method_id": "reviewed-autoreject-mne-eeg-tool",
+      "label": "Epoch AutoReject 自动质控",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Create epochs and run AutoReject with cross-validation to repair/reject contaminated epochs. At least four epochs and valid sensor positions are required。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file); events: MNE 事件文件 (file). Registered outputs: results/processed-epo.fif. Fixed invocation options: --operation autoreject.",
+      "method_ref": "reviewed.mne-eeg-tool.autoreject"
+    },
+    {
+      "capability": "skill.mne-eeg-tool",
+      "method_id": "reviewed-connectivity-mne-eeg-tool",
+      "label": "传感器 PLV/相干/wPLI",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "computeconnectivity",
+        "sensor-level-connectivity"
+      ],
+      "execution_resolution": {},
+      "role": "Create epochs and compute spectral PLV, coherence and wPLI in the requested frequency band using mne-connectivity; export matrices and channel names in NPZ。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file); events: MNE 事件文件 (file). Registered outputs: results/connectivity.npz. Fixed invocation options: --operation connectivity.",
+      "method_ref": "reviewed.mne-eeg-tool.connectivity"
+    },
+    {
+      "capability": "skill.mne-eeg-tool",
+      "method_id": "reviewed-time-frequency-mne-eeg-tool",
+      "label": "Morlet 时频功率与 ITC",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "time-frequency-analysis"
+      ],
+      "execution_resolution": {},
+      "role": "Compute averaged Morlet time-frequency power and inter-trial coherence from epochs at twelve frequencies spanning the selected band; export power, ITC, frequencies and times。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file); events: MNE 事件文件 (file). Registered outputs: results/time_frequency.npz. Fixed invocation options: --operation time-frequency.",
+      "method_ref": "reviewed.mne-eeg-tool.time-frequency"
+    },
+    {
+      "capability": "skill.mne-eeg-tool",
+      "method_id": "reviewed-maxwell-mne-eeg-tool",
+      "label": "MEG Maxwell 滤波",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "maxwell-filtering"
+      ],
+      "execution_resolution": {},
+      "role": "Apply MNE Maxwell filtering to continuous MEG using the adapter origin (0, 0, 0.04 m); MEG sensors and a device-to-head transform are required。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file). Registered outputs: results/processed-raw.fif. Fixed invocation options: --operation maxwell.",
+      "method_ref": "reviewed.mne-eeg-tool.maxwell"
+    },
+    {
+      "capability": "skill.mne-eeg-tool",
+      "method_id": "reviewed-source-mne-eeg-tool",
+      "label": "dSPM 源定位（需前向模型和噪声协方差）",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "source-localization"
+      ],
+      "execution_resolution": {},
+      "role": "Construct an MNE inverse operator from the supplied forward solution and noise covariance, then apply dSPM to continuous data with lambda2=1/9; export source amplitudes, times and vertices。 Inputs: input: EEG/MEG 原始文件（FIF/EDF/BDF/SET） (file); forward: 前向模型 FIF (file); noise_cov: 噪声协方差 FIF (file). Registered outputs: results/source.npz. Fixed invocation options: --operation source.",
+      "method_ref": "reviewed.mne-eeg-tool.source"
+    },
+    {
+      "capability": "skill.mne-eeg-tool",
+      "method_id": "reviewed-original-bands-mne-eeg-tool",
+      "label": "原脚本 Welch 频带功率与分频文件",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Use the original function to filter delta, theta, alpha, beta and gamma bands, compute channel-wise mean Welch spectral power and export band-specific FIF recordings plus band_power.csv. Inputs: input: 原始 EEG 文件 (file). Registered outputs: results/band_power.csv. Fixed invocation options: --operation bands.",
+      "method_ref": "reviewed.mne-eeg-tool.original-bands"
+    },
+    {
+      "capability": "skill.mne-eeg-tool",
+      "method_id": "reviewed-original-erp-mne-eeg-tool",
+      "label": "原脚本 ERP 峰值、潜伏期与 AUC",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Average existing MNE epochs and extract each channel’s maximum-absolute ERP peak, peak latency and trapezoidal sum of absolute amplitudes. The original AUC calculation integrates over sample indices, without a time-spacing factor. Inputs: input: Epochs FIF (file). Registered outputs: results/erp_features.csv. Fixed invocation options: --operation erp.",
+      "method_ref": "reviewed.mne-eeg-tool.original-erp"
+    },
+    {
+      "capability": "skill.mne-eeg-tool",
+      "method_id": "reviewed-original-alpha-ratio-mne-eeg-tool",
+      "label": "原脚本 F3/F4 滤波后均值比值（非对数功率差）",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Filter continuous EEG at 8–13 Hz, split into 2-second epochs and compute (F3 mean - F4 mean) / (F3 mean + F4 mean), as implemented by the original function. Both F3 and F4 channels are required. This is a ratio of mean signals, not logarithmic alpha-power asymmetry. Inputs: input: 原始 EEG 文件 (file). Registered outputs: results/alpha_asymmetry.npy. Fixed invocation options: --operation alpha-ratio.",
+      "method_ref": "reviewed.mne-eeg-tool.original-alpha-ratio"
+    },
+    {
+      "capability": "skill.mne-eeg-tool",
+      "method_id": "reviewed-original-features-mne-eeg-tool",
+      "label": "原脚本 CSP、频带、Hjorth 与熵特征",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "From existing labelled MNE epochs, call the original feature extractor for alpha-band multitaper power, four supervised CSP components, Hjorth mobility and sample entropy. Save the feature arrays in NPZ; the original CSP fit is not a cross-validated prediction test. Inputs: input: Epochs FIF (file). Registered outputs: results/features.npz. Fixed invocation options: --operation features.",
+      "method_ref": "reviewed.mne-eeg-tool.original-features"
+    },
+    {
+      "capability": "skill.mne-eeg-tool",
+      "method_id": "reviewed-original-microstates-mne-eeg-tool",
+      "label": "原脚本 mne_microstates 分析",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Fit the original mne_microstates Microstates model with four states to a continuous recording and save its FIF output. No alternative clustering implementation is substituted. Inputs: input: 原始 EEG 文件 (file). Registered outputs: results/microstates.fif. Fixed invocation options: --operation microstates.",
+      "method_ref": "reviewed.mne-eeg-tool.original-microstates"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [
+    {
+      "capability": "skill.mne-eeg-tool",
+      "method_id": "mne-eeg-tool-guided--detectandinterpolatebadchannels",
+      "skill_id": "mne-eeg-tool",
+      "label": "detectandinterpolatebadchannels()",
+      "description": "该入口为规划能力；用于讨论detectandinterpolatebadchannels()的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "detectandinterpolatebadchannels",
+          "options": [
+            {
+              "value": "detectandinterpolatebadchannels",
+              "label": "detectandinterpolatebadchannels()",
+              "description": "规划选项：detectandinterpolatebadchannels()；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "processing_level",
+          "argument": "processing-level",
+          "label": "处理级别",
+          "description": "控制方案中启用的步骤深度，不会直接启动对应软件。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "minimal",
+              "label": "最小必要步骤",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准流程",
+              "description": ""
+            },
+            {
+              "value": "advanced",
+              "label": "高级选项",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "quality_control",
+          "argument": "quality-control",
+          "label": "包含质量控制",
+          "description": "要求规划结果包含工具输出的质量检查。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "resource_profile",
+          "argument": "resource-profile",
+          "label": "资源配置",
+          "description": "选择偏向低内存、平衡或高性能的工具运行方案。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": "balanced",
+          "options": [
+            {
+              "value": "conservative",
+              "label": "低资源",
+              "description": ""
+            },
+            {
+              "value": "balanced",
+              "label": "平衡",
+              "description": ""
+            },
+            {
+              "value": "performance",
+              "label": "高性能",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "threads",
+          "argument": "threads",
+          "label": "线程数",
+          "description": "工具支持时使用的 CPU 线程数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": 4,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 128.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "memory_limit_gb",
+          "argument": "memory-limit-gb",
+          "label": "内存上限",
+          "description": "规划任务可使用的内存上限。",
+          "type": "number",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "GB",
+          "required": true,
+          "default": 8,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 1024.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "keep_intermediates",
+          "argument": "keep-intermediates",
+          "label": "保留中间文件",
+          "description": "保留关键中间结果以便复核和断点恢复。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "输出与复现",
+          "unit": "",
+          "required": true,
+          "default": false,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "imaging_input",
+          "label": "影像或工具输入",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "artifact",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/mne-eeg-tool/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/mne-eeg-tool/scripts/eeg_pipeline_reference.py",
+          "label": "eeg_pipeline_reference.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "source_error",
+        "reason": "原脚本依赖不存在的 mne.preprocessing.find_bad_channels / AutoReject，且连续 Raw 的 AutoReject 调用不符合该 API；不得用 LOF 或另一种清理算法替代原定义。",
+        "source_method_id": "mne-eeg-tool-guided--detectandinterpolatebadchannels",
+        "requirements": [
+          "修复原 Skill 的算法/API 定义并重新审核；可另选已提供的独立 MNE 方法"
+        ]
+      }
+    },
+    {
+      "capability": "skill.mne-eeg-tool",
+      "method_id": "mne-eeg-tool-guided--removeartifacts",
+      "skill_id": "mne-eeg-tool",
+      "label": "removeartifacts()",
+      "description": "该入口为规划能力；用于讨论removeartifacts()的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "removeartifacts",
+          "options": [
+            {
+              "value": "removeartifacts",
+              "label": "removeartifacts()",
+              "description": "规划选项：removeartifacts()；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "processing_level",
+          "argument": "processing-level",
+          "label": "处理级别",
+          "description": "控制方案中启用的步骤深度，不会直接启动对应软件。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "minimal",
+              "label": "最小必要步骤",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准流程",
+              "description": ""
+            },
+            {
+              "value": "advanced",
+              "label": "高级选项",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "quality_control",
+          "argument": "quality-control",
+          "label": "包含质量控制",
+          "description": "要求规划结果包含工具输出的质量检查。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "resource_profile",
+          "argument": "resource-profile",
+          "label": "资源配置",
+          "description": "选择偏向低内存、平衡或高性能的工具运行方案。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": "balanced",
+          "options": [
+            {
+              "value": "conservative",
+              "label": "低资源",
+              "description": ""
+            },
+            {
+              "value": "balanced",
+              "label": "平衡",
+              "description": ""
+            },
+            {
+              "value": "performance",
+              "label": "高性能",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "threads",
+          "argument": "threads",
+          "label": "线程数",
+          "description": "工具支持时使用的 CPU 线程数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": 4,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 128.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "memory_limit_gb",
+          "argument": "memory-limit-gb",
+          "label": "内存上限",
+          "description": "规划任务可使用的内存上限。",
+          "type": "number",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "GB",
+          "required": true,
+          "default": 8,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 1024.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "keep_intermediates",
+          "argument": "keep-intermediates",
+          "label": "保留中间文件",
+          "description": "保留关键中间结果以便复核和断点恢复。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "输出与复现",
+          "unit": "",
+          "required": true,
+          "default": false,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "imaging_input",
+          "label": "影像或工具输入",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "artifact",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/mne-eeg-tool/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/mne-eeg-tool/scripts/eeg_pipeline_reference.py",
+          "label": "eeg_pipeline_reference.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "source_error",
+        "reason": "原脚本依赖不存在的 mne.preprocessing.find_bad_channels / AutoReject，且连续 Raw 的 AutoReject 调用不符合该 API；不得用 LOF 或另一种清理算法替代原定义。",
+        "source_method_id": "mne-eeg-tool-guided--removeartifacts",
+        "requirements": [
+          "修复原 Skill 的算法/API 定义并重新审核；可另选已提供的独立 MNE 方法"
+        ]
+      }
+    },
+    {
+      "capability": "skill.mne-eeg-tool",
+      "method_id": "mne-eeg-tool-guided--continuousdatacleaning",
+      "skill_id": "mne-eeg-tool",
+      "label": "continuousdatacleaning()",
+      "description": "该入口为规划能力；用于讨论continuousdatacleaning()的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "continuousdatacleaning",
+          "options": [
+            {
+              "value": "continuousdatacleaning",
+              "label": "continuousdatacleaning()",
+              "description": "规划选项：continuousdatacleaning()；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "processing_level",
+          "argument": "processing-level",
+          "label": "处理级别",
+          "description": "控制方案中启用的步骤深度，不会直接启动对应软件。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "minimal",
+              "label": "最小必要步骤",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准流程",
+              "description": ""
+            },
+            {
+              "value": "advanced",
+              "label": "高级选项",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "quality_control",
+          "argument": "quality-control",
+          "label": "包含质量控制",
+          "description": "要求规划结果包含工具输出的质量检查。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "resource_profile",
+          "argument": "resource-profile",
+          "label": "资源配置",
+          "description": "选择偏向低内存、平衡或高性能的工具运行方案。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": "balanced",
+          "options": [
+            {
+              "value": "conservative",
+              "label": "低资源",
+              "description": ""
+            },
+            {
+              "value": "balanced",
+              "label": "平衡",
+              "description": ""
+            },
+            {
+              "value": "performance",
+              "label": "高性能",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "threads",
+          "argument": "threads",
+          "label": "线程数",
+          "description": "工具支持时使用的 CPU 线程数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": 4,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 128.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "memory_limit_gb",
+          "argument": "memory-limit-gb",
+          "label": "内存上限",
+          "description": "规划任务可使用的内存上限。",
+          "type": "number",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "GB",
+          "required": true,
+          "default": 8,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 1024.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "keep_intermediates",
+          "argument": "keep-intermediates",
+          "label": "保留中间文件",
+          "description": "保留关键中间结果以便复核和断点恢复。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "输出与复现",
+          "unit": "",
+          "required": true,
+          "default": false,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "imaging_input",
+          "label": "影像或工具输入",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "artifact",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/mne-eeg-tool/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/mne-eeg-tool/scripts/eeg_pipeline_reference.py",
+          "label": "eeg_pipeline_reference.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "source_error",
+        "reason": "原脚本依赖不存在的 mne.preprocessing.find_bad_channels / AutoReject，且连续 Raw 的 AutoReject 调用不符合该 API；不得用 LOF 或另一种清理算法替代原定义。",
+        "source_method_id": "mne-eeg-tool-guided--continuousdatacleaning",
+        "requirements": [
+          "修复原 Skill 的算法/API 定义并重新审核；可另选已提供的独立 MNE 方法"
+        ]
+      }
+    }
+  ],
+  "name": "mne-eeg-tool",
+  "category": [
+    "软件工具",
+    "mne"
+  ],
+  "scope": "software",
+  "limitations": [
+    "ICA 入口会处理检测到的 EOG/ECG 关联成分和明确指定的排除成分；其他伪迹不能因此视为已被清除。"
+  ],
+  "keywords": [
+    "mne-eeg-tool",
+    "MNE",
+    "EEG",
+    "ICA",
+    "脑电预处理",
+    "MEG",
+    "LOF"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

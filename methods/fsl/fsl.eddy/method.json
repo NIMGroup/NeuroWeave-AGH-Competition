@@ -1,0 +1,528 @@
+{
+  "label": "FSL topup / eddy",
+  "description": "使用 FSL eddy_cpu 或 eddy_cuda 完成涡流、运动与离群值校正；topup 输出可以按需接入。",
+  "runner_id": "fsl.eddy",
+  "input_types": [
+    "raw_dwi",
+    "brain_mask",
+    "analysis_input",
+    "gradient_table"
+  ],
+  "output_types": [
+    "preprocessed_dwi",
+    "gradient_table",
+    "preprocess_qc",
+    "execution_log"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "backend",
+      "argument": "backend",
+      "label": "Eddy 计算后端",
+      "description": "选择 CPU 或 CUDA 加速实现；执行前仍需环境检查。",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "cpu",
+      "options": [
+        {
+          "value": "cpu",
+          "label": "CPU",
+          "description": ""
+        },
+        {
+          "value": "cuda",
+          "label": "CUDA GPU",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "outlier_replacement",
+      "argument": "outlier-replacement",
+      "label": "离群值替换",
+      "description": "启用 slice 离群值检测与替换。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": true,
+      "options": [
+        {
+          "value": true,
+          "label": "启用",
+          "description": ""
+        },
+        {
+          "value": false,
+          "label": "关闭",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "susceptibility_correction",
+      "argument": "susceptibility-correction",
+      "label": "磁敏感畸变校正",
+      "description": "根据反向相位编码数据使用 topup，或跳过该步骤。",
+      "type": "string",
+      "control": "select",
+      "level": "advanced",
+      "group": "畸变校正",
+      "unit": "",
+      "required": true,
+      "default": "auto",
+      "options": [
+        {
+          "value": "auto",
+          "label": "自动检测",
+          "description": ""
+        },
+        {
+          "value": "topup",
+          "label": "强制使用 topup",
+          "description": ""
+        },
+        {
+          "value": "none",
+          "label": "不校正",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "slice_to_volume",
+      "argument": "slice-to-volume",
+      "label": "Slice-to-volume 校正阶数",
+      "description": "0 表示关闭；大于 0 时启用切片到体积运动校正。",
+      "type": "integer",
+      "control": "number",
+      "level": "advanced",
+      "group": "运动与离群值",
+      "unit": "",
+      "required": true,
+      "default": 0,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 16.0,
+      "step": 1.0,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "iterations",
+      "argument": "iterations",
+      "label": "优化迭代次数",
+      "description": "eddy 多尺度优化的迭代次数。",
+      "type": "integer",
+      "control": "number",
+      "level": "advanced",
+      "group": "运动与离群值",
+      "unit": "",
+      "required": true,
+      "default": 5,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 20.0,
+      "step": 1.0,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "spatial_model",
+      "argument": "spatial-model",
+      "label": "场空间模型",
+      "description": "运动与涡流场的空间模型。",
+      "type": "string",
+      "control": "select",
+      "level": "advanced",
+      "group": "优化模型",
+      "unit": "",
+      "required": true,
+      "default": "quadratic",
+      "options": [
+        {
+          "value": "linear",
+          "label": "线性",
+          "description": ""
+        },
+        {
+          "value": "quadratic",
+          "label": "二次",
+          "description": ""
+        },
+        {
+          "value": "movement_by_susceptibility",
+          "label": "运动×磁敏感",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "data_is_shelled",
+      "argument": "data-is-shelled",
+      "label": "按壳层建模",
+      "description": "声明数据由离散 b-value 壳层构成。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "优化模型",
+      "unit": "",
+      "required": true,
+      "default": true,
+      "options": [
+        {
+          "value": true,
+          "label": "按壳层",
+          "description": ""
+        },
+        {
+          "value": false,
+          "label": "连续 b-value",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "threads",
+      "argument": "threads",
+      "label": "CPU 线程数",
+      "description": "CPU 后端使用的线程数量。",
+      "type": "integer",
+      "control": "number",
+      "level": "advanced",
+      "group": "计算资源",
+      "unit": "",
+      "required": true,
+      "default": 4,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 128.0,
+      "step": 1.0,
+      "placeholder": "",
+      "visible_when": {
+        "backend": [
+          "cpu"
+        ]
+      },
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "dwi",
+      "type": "raw_dwi",
+      "label": "DWI 影像",
+      "description": "待校正的 4D DWI NIfTI。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "mask",
+      "type": "brain_mask",
+      "label": "DWI 脑 Mask",
+      "description": "与 DWI 第一至三维一致的二值脑掩膜。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "acqp",
+      "type": "analysis_input",
+      "label": "acqp 参数文件",
+      "description": "每种相位编码方向与总读出时间，每行 4 列。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".txt"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "index",
+      "type": "analysis_input",
+      "label": "index 文件",
+      "description": "为每个 DWI 体积指定 acqp 行号。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".txt"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "bvecs",
+      "type": "gradient_table",
+      "label": "bvec 梯度方向",
+      "description": "与 DWI 体积顺序一致的 FSL 格式 bvec。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".bvec",
+        ".txt"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "bvals",
+      "type": "gradient_table",
+      "label": "bval 梯度强度",
+      "description": "与 DWI 体积顺序一致的 bval。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".bval",
+        ".txt"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "topup_fieldcoef",
+      "type": "analysis_input",
+      "label": "Topup fieldcoef（可选）",
+      "description": "topup 生成的 *_fieldcoef.nii.gz；同目录必须存在对应 *_movpar.txt。",
+      "required": false,
+      "required_when": {
+        "susceptibility_correction": [
+          "topup"
+        ]
+      },
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "preprocessed_dwi",
+      "type": "preprocessed_dwi",
+      "label": "FSL 预处理 DWI",
+      "description": "完成 topup/eddy 校正后的 DWI 数据。",
+      "format": ".nii.gz",
+      "primary": true,
+      "path_template": "eddy_corrected.nii.gz",
+      "generated_when": {}
+    },
+    {
+      "id": "rotated_bvecs",
+      "type": "gradient_table",
+      "label": "旋转后的 bvec",
+      "description": "按照 eddy 运动估计旋转后的梯度方向。",
+      "format": "",
+      "primary": false,
+      "path_template": "eddy_corrected.eddy_rotated_bvecs",
+      "generated_when": {}
+    },
+    {
+      "id": "preprocess_qc",
+      "type": "preprocess_qc",
+      "label": "Eddy QC",
+      "description": "运动、离群切片和校正质量指标。",
+      "format": "",
+      "primary": false,
+      "path_template": "eddy_corrected.eddy_*",
+      "generated_when": {}
+    },
+    {
+      "id": "log",
+      "type": "execution_log",
+      "label": "Eddy 日志",
+      "description": "完整标准输出与错误输出。",
+      "format": "",
+      "primary": false,
+      "path_template": "eddy.log",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "methods/fsl/fsl.eddy/method.json",
+      "label": "结构化方法声明",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "skills/fsl-tool/skill.json",
+      "label": "Skill 使用说明",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "fsl.eddy",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "builtin"
+  }
+}

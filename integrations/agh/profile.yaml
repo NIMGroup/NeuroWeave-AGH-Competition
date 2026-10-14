@@ -1,0 +1,19 @@
+name: local-dev
+packages:
+  - { id: "@agnes/ai", source: builtin }
+  - { id: "@agnes/base", source: builtin }
+  - { id: "@agnes/code", source: builtin }
+  - { id: "@neuroweave/agh-roi", source: "file:./integrations/agh", enabled: true }
+computerUse:
+  enabled: false
+approvals:
+  mode: off
+presets:
+  default: neuroweave-roi
+  allowed: [neuroweave-roi]
+policy:
+  # tools-core/search require artifacts; web requires network.publicRead;
+  # code mode requires tools.invoke; subagents require subagent.
+  # Excluding their required capabilities prevents builtin row admission.
+  capabilityCeiling: [tools, hooks, services, slots, ui, resources]
+  workspacePackages: deny

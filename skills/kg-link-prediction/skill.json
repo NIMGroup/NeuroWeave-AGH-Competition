@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "kg-link-prediction",
+  "description": "kg-link-prediction 统筹已登记的独立方法和可复用流程。支持：ComplEx 知识图谱链路预测。",
+  "method_refs": [
+    {
+      "capability": "skill.kg-link-prediction",
+      "method_id": "reviewed-complex-kg-link-prediction",
+      "label": "ComplEx 知识图谱链路预测",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the original knowledge-graph link-prediction trainer on the supplied graph data using the registered model selection and training parameters; retain its validation metrics and checkpoint outputs. Only model values exposed in this Method are supported. Inputs: kg: 知识图谱 JSON（concepts、edges） (file). Registered outputs: results/metrics.json, results/checkpoint.pt. Fixed invocation options: --model complex.",
+      "method_ref": "reviewed.kg-link-prediction.complex"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "name": "kg-link-prediction",
+  "category": [
+    "任务能力",
+    "kg"
+  ],
+  "scope": "model",
+  "keywords": [
+    "kg-link-prediction"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

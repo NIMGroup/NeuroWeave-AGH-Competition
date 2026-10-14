@@ -1,0 +1,213 @@
+{
+  "schema_version": 1,
+  "id": "rest-mneta-mdd-skill",
+  "description": "REST-MNETA-MDD 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：站点协变量校正；rest-mneta-mdd 表型/刺激提取；rest-mneta-mdd 质控汇总；rest-mneta-mdd 数据校验；fMRIPrep 本地环境执行；混杂回归与去趋势；ROI 时间序列与功能连接；任务态一级 GLM；其他方法可在详情中分页查询。",
+  "method_refs": [
+    {
+      "capability": "skill.rest-mneta-mdd-skill",
+      "method_id": "reviewed-site-covar-harmonization-tool",
+      "label": "站点协变量校正",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "site-covar"
+      ],
+      "execution_resolution": {},
+      "role": "Run the original harmonization dispatcher in fixed site-covar mode on a subject-by-feature NPY matrix and row-aligned metadata containing batch and protected covariates. Retain harmonized features, metadata, site-effect reports and a manifest. Use the original implementation and its declared statistical assumptions。 Inputs: features: NPY 特征矩阵 (file); meta: 样本协变量 CSV (file). Registered outputs: results/harmonized_features.npy, results/manifest.json. Fixed invocation options: --method site-covar.",
+      "method_ref": "reviewed.harmonization-tool.site-covar"
+    },
+    {
+      "capability": "skill.rest-mneta-mdd-skill",
+      "method_id": "reviewed-extract-rest-mdd-phenotype-rest-mneta-mdd-skill",
+      "label": "rest-mneta-mdd 表型/刺激提取",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "phenotype-extraction",
+        "stimulus-extraction"
+      ],
+      "execution_resolution": {},
+      "role": "Extract and merge REST-meta-MDD phenotype data. Reads REST-meta-MDD phenotype files (diagnosis, clinical measures, site info) and produces a merged phenotype table aligned with imaging subject list。 Inputs: phenotype_files: 文件路径清单（每行一项） (file); imaging_ids: imaging-ids (file). Registered outputs: results/output.csv.",
+      "method_ref": "reviewed.rest-mneta-mdd-skill.extract-rest-mdd-phenotype"
+    },
+    {
+      "capability": "skill.rest-mneta-mdd-skill",
+      "method_id": "reviewed-rest-mdd-qc-summary-rest-mneta-mdd-skill",
+      "label": "rest-mneta-mdd 质控汇总",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "qc-summary"
+      ],
+      "execution_resolution": {},
+      "role": "Generate per-subject QC summaries for REST-meta-MDD processing. Multi-site QC: tracks site effects and applies site-appropriate thresholds。 Inputs: fmriprep_dir: Path to fMRIPrep output directory (directory). Registered outputs: results/output.csv.",
+      "method_ref": "reviewed.rest-mneta-mdd-skill.rest-mdd-qc-summary"
+    },
+    {
+      "capability": "skill.rest-mneta-mdd-skill",
+      "method_id": "reviewed-validate-rest-mdd-rest-mneta-mdd-skill",
+      "label": "rest-mneta-mdd 数据校验",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "bids-validation",
+        "data-validation",
+        "eeg-validation"
+      ],
+      "execution_resolution": {},
+      "role": "Validate REST-meta-MDD BIDS structure and generate compliance report. Checks directory structure, site identification, and diagnostic group labeling。 Inputs: input: input (directory). Registered outputs: results/output.csv.",
+      "method_ref": "reviewed.rest-mneta-mdd-skill.validate-rest-mdd"
+    },
+    {
+      "capability": "skill.rest-mneta-mdd-skill",
+      "method_id": "rest-mneta-mdd-skill-guided--rs-fmri-processing--via-fmriprep-local-environment",
+      "label": "fMRIPrep 本地环境执行",
+      "default_recommended": false,
+      "default_reason": "配置 LOCALFLOW_FMRIPREP_EXECUTABLE 后可直接运行，不向后端开放 Docker socket。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "完整预处理需要 fMRIPrep 环境；已有预处理 BOLD 可直接选择所需的原去噪、连接或任务 GLM。",
+        "source_method_id": "rest-mneta-mdd-skill-guided--rs-fmri-processing",
+        "target_method_id": "fmriprep-local-environment"
+      },
+      "role": "通过 NeuroClaw 式可执行环境路径运行单个受试者的 fMRIPrep；环境未配置时保留为明确的禁用选项。",
+      "method_ref": "fmriprep.run"
+    },
+    {
+      "capability": "skill.rest-mneta-mdd-skill",
+      "method_id": "rest-mneta-mdd-skill-guided--rs-fmri-processing--via-reviewed-denoise-nilearn-tool",
+      "label": "混杂回归与去趋势",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "完整预处理需要 fMRIPrep 环境；已有预处理 BOLD 可直接选择所需的原去噪、连接或任务 GLM。",
+        "source_method_id": "rest-mneta-mdd-skill-guided--rs-fmri-processing",
+        "target_method_id": "reviewed-denoise-nilearn-tool"
+      },
+      "role": "Reference Nilearn snippet for confound regression and detrending。 Inputs: bold: 预处理 BOLD 影像 (file); confounds: 混杂变量表 (file); mask: 脑掩膜 (file). Registered outputs: results/cleaned_bold.nii.gz.",
+      "method_ref": "reviewed.nilearn-tool.denoise"
+    },
+    {
+      "capability": "skill.rest-mneta-mdd-skill",
+      "method_id": "rest-mneta-mdd-skill-guided--rs-fmri-processing--via-reviewed-connectome-nilearn-tool",
+      "label": "ROI 时间序列与功能连接",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [
+        "roi-time-series-extraction",
+        "functional-connectivity-clean"
+      ],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "完整预处理需要 fMRIPrep 环境；已有预处理 BOLD 可直接选择所需的原去噪、连接或任务 GLM。",
+        "source_method_id": "rest-mneta-mdd-skill-guided--rs-fmri-processing",
+        "target_method_id": "reviewed-connectome-nilearn-tool"
+      },
+      "role": "Extract standardized, detrended ROI time series with Nilearn NiftiLabelsMasker and calculate a correlation connectivity matrix with ConnectivityMeasure; export ROI time series and NPY/CSV matrices。 Inputs: bold: 预处理 BOLD 影像 (file); atlas: 分区图谱 (file); labels: 图谱标签 (file). Registered outputs: results/connectome.npy, results/roi_timeseries.csv.",
+      "method_ref": "reviewed.nilearn-tool.connectome"
+    },
+    {
+      "capability": "skill.rest-mneta-mdd-skill",
+      "method_id": "rest-mneta-mdd-skill-guided--rs-fmri-processing--via-reviewed-task-glm-nilearn-tool",
+      "label": "任务态一级 GLM",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [
+        "first-level-glm-task-based"
+      ],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "完整预处理需要 fMRIPrep 环境；已有预处理 BOLD 可直接选择所需的原去噪、连接或任务 GLM。",
+        "source_method_id": "rest-mneta-mdd-skill-guided--rs-fmri-processing",
+        "target_method_id": "reviewed-task-glm-nilearn-tool"
+      },
+      "role": "Reference Nilearn snippet for first-level task GLM。 Inputs: bold: 预处理 BOLD 影像 (file); events: 事件表 (file); confounds: 混杂变量 (file); mask: 脑掩膜 (file). Registered outputs: results/z_map.nii.gz, results/effect_map.nii.gz.",
+      "method_ref": "reviewed.nilearn-tool.task-glm"
+    },
+    {
+      "capability": "skill.rest-mneta-mdd-skill",
+      "method_id": "rest-mneta-mdd-skill-guided--site-harmonization--via-reviewed-none-harmonization-tool",
+      "label": "原项目多站点校正：none",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "rest-mneta-mdd-skill-guided--site-harmonization",
+        "target_method_id": "reviewed-none-harmonization-tool"
+      },
+      "role": "Run the original harmonization dispatcher in fixed none mode on a subject-by-feature NPY matrix and row-aligned metadata containing batch and protected covariates. Retain harmonized features, metadata, site-effect reports and a manifest. The none mode is an uncorrected baseline。 Inputs: features: NPY 特征矩阵 (file); meta: 样本协变量 CSV (file). Registered outputs: results/harmonized_features.npy, results/manifest.json. Fixed invocation options: --method none.",
+      "method_ref": "reviewed.harmonization-tool.none"
+    },
+    {
+      "capability": "skill.rest-mneta-mdd-skill",
+      "method_id": "rest-mneta-mdd-skill-guided--site-harmonization--via-reviewed-combat-harmonization-tool",
+      "label": "原项目多站点校正：combat",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "rest-mneta-mdd-skill-guided--site-harmonization",
+        "target_method_id": "reviewed-combat-harmonization-tool"
+      },
+      "role": "Run the original harmonization dispatcher in fixed combat mode on a subject-by-feature NPY matrix and row-aligned metadata containing batch and protected covariates. Retain harmonized features, metadata, site-effect reports and a manifest. Use the original implementation and its declared statistical assumptions。 Inputs: features: NPY 特征矩阵 (file); meta: 样本协变量 CSV (file). Registered outputs: results/harmonized_features.npy, results/manifest.json. Fixed invocation options: --method combat.",
+      "method_ref": "reviewed.harmonization-tool.combat"
+    },
+    {
+      "capability": "skill.rest-mneta-mdd-skill",
+      "method_id": "rest-mneta-mdd-skill-guided--site-harmonization--via-reviewed-combat-gam-harmonization-tool",
+      "label": "原项目多站点校正：combat-gam",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "rest-mneta-mdd-skill-guided--site-harmonization",
+        "target_method_id": "reviewed-combat-gam-harmonization-tool"
+      },
+      "role": "Run the original harmonization dispatcher in fixed combat-gam mode on a subject-by-feature NPY matrix and row-aligned metadata containing batch and protected covariates. Retain harmonized features, metadata, site-effect reports and a manifest. Use the original implementation and its declared statistical assumptions。 Inputs: features: NPY 特征矩阵 (file); meta: 样本协变量 CSV (file). Registered outputs: results/harmonized_features.npy, results/manifest.json. Fixed invocation options: --method combat-gam.",
+      "method_ref": "reviewed.harmonization-tool.combat-gam"
+    },
+    {
+      "capability": "skill.rest-mneta-mdd-skill",
+      "method_id": "rest-mneta-mdd-skill-guided--site-harmonization--via-reviewed-covbat-harmonization-tool",
+      "label": "原项目多站点校正：covbat",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "rest-mneta-mdd-skill-guided--site-harmonization",
+        "target_method_id": "reviewed-covbat-harmonization-tool"
+      },
+      "role": "Run the original harmonization dispatcher in fixed covbat mode on a subject-by-feature NPY matrix and row-aligned metadata containing batch and protected covariates. Retain harmonized features, metadata, site-effect reports and a manifest. Use the original implementation and its declared statistical assumptions。 Inputs: features: NPY 特征矩阵 (file); meta: 样本协变量 CSV (file). Registered outputs: results/harmonized_features.npy, results/manifest.json. Fixed invocation options: --method covbat.",
+      "method_ref": "reviewed.harmonization-tool.covbat"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "name": "rest-mneta-mdd-skill",
+  "category": [
+    "数据集专属",
+    "数据集适配与质控"
+  ],
+  "scope": "dataset",
+  "keywords": [
+    "rest-mneta-mdd-skill"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

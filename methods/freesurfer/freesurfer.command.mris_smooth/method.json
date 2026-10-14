@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "id": "freesurfer.command.mris_smooth",
+  "version": "1",
+  "kind": "method",
+  "label": "FreeSurfer mris_smooth",
+  "description": "Smooth a surface using the native FreeSurfer algorithm.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "freesurfer.command.mris_smooth",
+  "parameters": [
+    {
+      "id": "n",
+      "argument": "-n",
+      "label": "n",
+      "description": "Number of smoothing iterations.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 10,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Number of smoothing iterations. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    },
+    {
+      "id": "nw",
+      "argument": "-nw",
+      "label": "nw",
+      "description": "Do not write curvature and area auxiliary files.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": true,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Do not write curvature and area auxiliary files. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferCommands"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "surface",
+      "type": "generated_file",
+      "label": "surface",
+      "description": "Input surface file.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "surface",
+      "type": "generated_file",
+      "label": "surface",
+      "description": "Native command output, saved in this run’s output directory. Smooth a surface using the native FreeSurfer algorithm. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".smooth",
+      "primary": true,
+      "path_template": "surface.smooth",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "generated_file"
+  ],
+  "output_types": [
+    "generated_file"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/freesurfer-mris_smooth.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "freesurfer",
+      "command": "mris_smooth",
+      "version": "7.4.1",
+      "argv": [
+        {
+          "tokens": [
+            "-n",
+            {
+              "parameter": "n"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-nw"
+          ],
+          "when": {
+            "nw": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "input": "surface"
+            },
+            {
+              "output": "surface"
+            }
+          ],
+          "when": {},
+          "optional": false
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

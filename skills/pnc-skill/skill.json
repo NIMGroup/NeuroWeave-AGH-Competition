@@ -1,0 +1,303 @@
+{
+  "schema_version": 1,
+  "id": "pnc-skill",
+  "description": "PNC 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：pnc 表型/刺激提取；pnc 质控汇总；pnc 数据校验；FSL 完整结构预处理（fsl_anat）；fMRIPrep 本地环境执行；混杂回归与去趋势；ROI 时间序列与功能连接；任务态一级 GLM；其他方法可在详情中分页查询。",
+  "method_refs": [
+    {
+      "capability": "skill.pnc-skill",
+      "method_id": "reviewed-extract-pnc-phenotype-pnc-skill",
+      "label": "pnc 表型/刺激提取",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "phenotype-extraction",
+        "stimulus-extraction"
+      ],
+      "execution_resolution": {},
+      "role": "Extract and merge PNC phenotype data. Reads PNC phenotype files (cognitive battery, psychiatric, demographics) and produces a merged phenotype table aligned with imaging subject list。 Inputs: phenotype_files: 文件路径清单（每行一项） (file); imaging_ids: imaging-ids (file). Registered outputs: results/output.csv.",
+      "method_ref": "reviewed.pnc-skill.extract-pnc-phenotype"
+    },
+    {
+      "capability": "skill.pnc-skill",
+      "method_id": "reviewed-pnc-qc-summary-pnc-skill",
+      "label": "pnc 质控汇总",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "qc-summary"
+      ],
+      "execution_resolution": {},
+      "role": "Generate per-subject QC summaries for PNC processing. Pediatric-specific: uses higher FD threshold (0.4mm) for developmental data。 Inputs: fmriprep_dir: Path to fMRIPrep output directory (directory); phenotype_file: CSV with age/diagnosis info (file). Registered outputs: results/output.csv.",
+      "method_ref": "reviewed.pnc-skill.pnc-qc-summary"
+    },
+    {
+      "capability": "skill.pnc-skill",
+      "method_id": "reviewed-validate-pnc-pnc-skill",
+      "label": "pnc 数据校验",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "bids-validation",
+        "data-validation",
+        "eeg-validation"
+      ],
+      "execution_resolution": {},
+      "role": "Validate PNC BIDS structure and generate compliance report. Checks directory structure, modality completeness, and task paradigm presence。 Inputs: input: input (directory). Registered outputs: results/output.csv.",
+      "method_ref": "reviewed.pnc-skill.validate-pnc"
+    },
+    {
+      "capability": "skill.pnc-skill",
+      "method_id": "pnc-skill-guided--smri-processing--via-reviewed-fsl-anat-fsl-tool",
+      "label": "FSL 完整结构预处理（fsl_anat）",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "选择原文委托的具体结构处理入口；不同流程分别列出，按用户所需范围执行。",
+        "source_method_id": "pnc-skill-guided--smri-processing",
+        "target_method_id": "reviewed-fsl-anat-fsl-tool"
+      },
+      "role": "Invoke the existing FSL fsl_anat workflow on a T1-weighted image and retain its structural.anat directory, including the bias-corrected brain image。 Inputs: input: T1w NIfTI (file). Registered outputs: results/structural.anat/T1_biascorr_brain.nii.gz. Fixed invocation options: --operation fsl-anat.",
+      "method_ref": "reviewed.fsl-tool.fsl-anat"
+    },
+    {
+      "capability": "skill.pnc-skill",
+      "method_id": "pnc-skill-guided--rs-fmri-processing--via-fmriprep-local-environment",
+      "label": "fMRIPrep 本地环境执行",
+      "default_recommended": false,
+      "default_reason": "配置 LOCALFLOW_FMRIPREP_EXECUTABLE 后可直接运行，不向后端开放 Docker socket。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "完整预处理需要 fMRIPrep 环境；已有预处理 BOLD 可直接选择所需的原去噪、连接或任务 GLM。",
+        "source_method_id": "pnc-skill-guided--rs-fmri-processing",
+        "target_method_id": "fmriprep-local-environment"
+      },
+      "role": "通过 NeuroClaw 式可执行环境路径运行单个受试者的 fMRIPrep；环境未配置时保留为明确的禁用选项。",
+      "method_ref": "fmriprep.run"
+    },
+    {
+      "capability": "skill.pnc-skill",
+      "method_id": "pnc-skill-guided--rs-fmri-processing--via-reviewed-denoise-nilearn-tool",
+      "label": "混杂回归与去趋势",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "完整预处理需要 fMRIPrep 环境；已有预处理 BOLD 可直接选择所需的原去噪、连接或任务 GLM。",
+        "source_method_id": "pnc-skill-guided--rs-fmri-processing",
+        "target_method_id": "reviewed-denoise-nilearn-tool"
+      },
+      "role": "Reference Nilearn snippet for confound regression and detrending。 Inputs: bold: 预处理 BOLD 影像 (file); confounds: 混杂变量表 (file); mask: 脑掩膜 (file). Registered outputs: results/cleaned_bold.nii.gz.",
+      "method_ref": "reviewed.nilearn-tool.denoise"
+    },
+    {
+      "capability": "skill.pnc-skill",
+      "method_id": "pnc-skill-guided--rs-fmri-processing--via-reviewed-connectome-nilearn-tool",
+      "label": "ROI 时间序列与功能连接",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [
+        "roi-time-series-extraction",
+        "functional-connectivity-clean"
+      ],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "完整预处理需要 fMRIPrep 环境；已有预处理 BOLD 可直接选择所需的原去噪、连接或任务 GLM。",
+        "source_method_id": "pnc-skill-guided--rs-fmri-processing",
+        "target_method_id": "reviewed-connectome-nilearn-tool"
+      },
+      "role": "Extract standardized, detrended ROI time series with Nilearn NiftiLabelsMasker and calculate a correlation connectivity matrix with ConnectivityMeasure; export ROI time series and NPY/CSV matrices。 Inputs: bold: 预处理 BOLD 影像 (file); atlas: 分区图谱 (file); labels: 图谱标签 (file). Registered outputs: results/connectome.npy, results/roi_timeseries.csv.",
+      "method_ref": "reviewed.nilearn-tool.connectome"
+    },
+    {
+      "capability": "skill.pnc-skill",
+      "method_id": "pnc-skill-guided--rs-fmri-processing--via-reviewed-task-glm-nilearn-tool",
+      "label": "任务态一级 GLM",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [
+        "first-level-glm-task-based"
+      ],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "完整预处理需要 fMRIPrep 环境；已有预处理 BOLD 可直接选择所需的原去噪、连接或任务 GLM。",
+        "source_method_id": "pnc-skill-guided--rs-fmri-processing",
+        "target_method_id": "reviewed-task-glm-nilearn-tool"
+      },
+      "role": "Reference Nilearn snippet for first-level task GLM。 Inputs: bold: 预处理 BOLD 影像 (file); events: 事件表 (file); confounds: 混杂变量 (file); mask: 脑掩膜 (file). Registered outputs: results/z_map.nii.gz, results/effect_map.nii.gz.",
+      "method_ref": "reviewed.nilearn-tool.task-glm"
+    },
+    {
+      "capability": "skill.pnc-skill",
+      "method_id": "pnc-skill-guided--task-fmri-processing--via-fmriprep-local-environment",
+      "label": "fMRIPrep 本地环境执行",
+      "default_recommended": false,
+      "default_reason": "配置 LOCALFLOW_FMRIPREP_EXECUTABLE 后可直接运行，不向后端开放 Docker socket。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "完整预处理需要 fMRIPrep 环境；已有预处理 BOLD 可直接选择所需的原去噪、连接或任务 GLM。",
+        "source_method_id": "pnc-skill-guided--task-fmri-processing",
+        "target_method_id": "fmriprep-local-environment"
+      },
+      "role": "通过 NeuroClaw 式可执行环境路径运行单个受试者的 fMRIPrep；环境未配置时保留为明确的禁用选项。",
+      "method_ref": "fmriprep.run"
+    },
+    {
+      "capability": "skill.pnc-skill",
+      "method_id": "pnc-skill-guided--task-fmri-processing--via-reviewed-denoise-nilearn-tool",
+      "label": "混杂回归与去趋势",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "完整预处理需要 fMRIPrep 环境；已有预处理 BOLD 可直接选择所需的原去噪、连接或任务 GLM。",
+        "source_method_id": "pnc-skill-guided--task-fmri-processing",
+        "target_method_id": "reviewed-denoise-nilearn-tool"
+      },
+      "role": "Reference Nilearn snippet for confound regression and detrending。 Inputs: bold: 预处理 BOLD 影像 (file); confounds: 混杂变量表 (file); mask: 脑掩膜 (file). Registered outputs: results/cleaned_bold.nii.gz.",
+      "method_ref": "reviewed.nilearn-tool.denoise"
+    },
+    {
+      "capability": "skill.pnc-skill",
+      "method_id": "pnc-skill-guided--task-fmri-processing--via-reviewed-connectome-nilearn-tool",
+      "label": "ROI 时间序列与功能连接",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [
+        "roi-time-series-extraction",
+        "functional-connectivity-clean"
+      ],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "完整预处理需要 fMRIPrep 环境；已有预处理 BOLD 可直接选择所需的原去噪、连接或任务 GLM。",
+        "source_method_id": "pnc-skill-guided--task-fmri-processing",
+        "target_method_id": "reviewed-connectome-nilearn-tool"
+      },
+      "role": "Extract standardized, detrended ROI time series with Nilearn NiftiLabelsMasker and calculate a correlation connectivity matrix with ConnectivityMeasure; export ROI time series and NPY/CSV matrices。 Inputs: bold: 预处理 BOLD 影像 (file); atlas: 分区图谱 (file); labels: 图谱标签 (file). Registered outputs: results/connectome.npy, results/roi_timeseries.csv.",
+      "method_ref": "reviewed.nilearn-tool.connectome"
+    },
+    {
+      "capability": "skill.pnc-skill",
+      "method_id": "pnc-skill-guided--task-fmri-processing--via-reviewed-task-glm-nilearn-tool",
+      "label": "任务态一级 GLM",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [
+        "first-level-glm-task-based"
+      ],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "完整预处理需要 fMRIPrep 环境；已有预处理 BOLD 可直接选择所需的原去噪、连接或任务 GLM。",
+        "source_method_id": "pnc-skill-guided--task-fmri-processing",
+        "target_method_id": "reviewed-task-glm-nilearn-tool"
+      },
+      "role": "Reference Nilearn snippet for first-level task GLM。 Inputs: bold: 预处理 BOLD 影像 (file); events: 事件表 (file); confounds: 混杂变量 (file); mask: 脑掩膜 (file). Registered outputs: results/z_map.nii.gz, results/effect_map.nii.gz.",
+      "method_ref": "reviewed.nilearn-tool.task-glm"
+    },
+    {
+      "capability": "skill.pnc-skill",
+      "method_id": "pnc-skill-guided--dmri-processing--via-fsl_eddy",
+      "label": "FSL topup / eddy",
+      "default_recommended": false,
+      "default_reason": "当需要手动控制校正细节或已有 FSL 环境时更合适。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "选择原文委托的具体扩散处理阶段，已有上游结果直接绑定；完整采集流程需明确相位编码/图谱。",
+        "source_method_id": "pnc-skill-guided--dmri-processing",
+        "target_method_id": "fsl_eddy"
+      },
+      "role": "使用 FSL eddy_cpu 或 eddy_cuda 完成涡流、运动与离群值校正；topup 输出可以按需接入。",
+      "method_ref": "fsl.eddy"
+    },
+    {
+      "capability": "skill.pnc-skill",
+      "method_id": "pnc-skill-guided--dmri-processing--via-dipy",
+      "label": "DIPY TensorModel",
+      "default_recommended": false,
+      "default_reason": "适合 FA/MD 指标计算和后续扩展。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "选择原文委托的具体扩散处理阶段，已有上游结果直接绑定；完整采集流程需明确相位编码/图谱。",
+        "source_method_id": "pnc-skill-guided--dmri-processing",
+        "target_method_id": "dipy"
+      },
+      "role": "Python 路线，便于扩展、自定义和生成结构化扩散指标。",
+      "method_ref": "dipy.tensor_fit"
+    }
+  ],
+  "pipeline_refs": [
+    {
+      "capability": "skill.pnc-skill",
+      "method_id": "pnc-skill-guided--smri-processing--via-freesurfer-recon-all-all",
+      "label": "FreeSurfer recon-all（可执行）",
+      "default_recommended": false,
+      "default_reason": "当用户明确要求 FreeSurfer 分割/皮层重建且已提供 T1w 时，选择服务器已验证的 recon-all Runner。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "选择原文委托的具体结构处理入口；不同流程分别列出，按用户所需范围执行。",
+        "source_method_id": "pnc-skill-guided--smri-processing",
+        "target_method_id": "freesurfer-recon-all"
+      },
+      "role": "依次执行：FreeSurfer recon-all（可执行）。输入和参数由方法契约定义。",
+      "pipeline_ref": "reviewed-freesurfer-recon-all-all-9ffa727fda"
+    },
+    {
+      "capability": "skill.pnc-skill",
+      "method_id": "pnc-skill-guided--dmri-processing--via-existing-fod-connectome",
+      "label": "已有 FOD → ACT + SIFT2 → 连接矩阵（复用已有 5TT）",
+      "default_recommended": false,
+      "default_reason": "纤维追踪后生成可审计的 ROI×ROI 连接矩阵。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "选择原文委托的具体扩散处理阶段，已有上游结果直接绑定；完整采集流程需明确相位编码/图谱。",
+        "source_method_id": "pnc-skill-guided--dmri-processing",
+        "target_method_id": "mrtrix-tck2connectome"
+      },
+      "role": "依次执行：MRtrix3 基于已有 FOD 的纤维追踪 → MRtrix3 SIFT2 独立流线赋权 → MRtrix3 tck2connectome。输入和参数由方法契约定义。",
+      "pipeline_ref": "reviewed-existing-fod-connectome-abbfdbddaf"
+    },
+    {
+      "capability": "skill.pnc-skill",
+      "method_id": "pnc-skill-guided--dmri-processing--via-rebuild-fod-connectome",
+      "label": "重建 FOD → ACT + SIFT2 → 连接矩阵（复用已有 5TT）",
+      "default_recommended": false,
+      "default_reason": "纤维追踪后生成可审计的 ROI×ROI 连接矩阵。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "选择原文委托的具体扩散处理阶段，已有上游结果直接绑定；完整采集流程需明确相位编码/图谱。",
+        "source_method_id": "pnc-skill-guided--dmri-processing",
+        "target_method_id": "mrtrix-tck2connectome"
+      },
+      "role": "依次执行：MRtrix3 响应函数估计 → MRtrix3 CSD / MSMT-CSD → MRtrix3 基于已有 FOD 的纤维追踪 → MRtrix3 SIFT2 独立流线赋权 → MRtrix3 tck2connectome。输入和参数由方法契约定义。",
+      "pipeline_ref": "reviewed-rebuild-fod-connectome-4aa083106a"
+    }
+  ],
+  "planning_capabilities": [],
+  "name": "pnc-skill",
+  "category": [
+    "数据集专属",
+    "数据集适配与质控"
+  ],
+  "scope": "dataset",
+  "keywords": [
+    "pnc-skill",
+    "FSL"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

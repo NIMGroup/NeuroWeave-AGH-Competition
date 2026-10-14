@@ -1,0 +1,11 @@
+{
+  "method_id": "freesurfer.command.mri_binarize",
+  "method_version": "1",
+  "execution_fingerprint": "1facb0b60308dd8dfb203023e97718a05fa660438d9c588ac6d26478051c973e",
+  "report_path": "deploy/method-verification/reports/catalog-flags-synthetic.json",
+  "report_sha256": "b0eb6a400469f5c2018ad40ab3fc5f094ac75d176bd483a577be7ea48e463181",
+  "test_type": "synthetic",
+  "tested_at": "2026-09-24T14:41:11.239330+00:00",
+  "environment": "mgr Linux CPU, 1 thread; isolated synthetic inputs",
+  "result": "passed"
+}

@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "id": "brain-visualization",
+  "description": "brain-visualization 统筹已登记的独立方法和可复用流程。支持：脑连接图；FreeSurfer 表面导出 PLY；原脚本 BOLD 频带波动区域摘要（STD 指标）。",
+  "method_refs": [
+    {
+      "capability": "skill.brain-visualization",
+      "method_id": "reviewed-connectome-brain-visualization",
+      "label": "脑连接图",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "3d-connectome-figure",
+        "publication-ready-snapshots"
+      ],
+      "execution_resolution": {},
+      "role": "Reference script for 3D brain connectome plotting。 Inputs: atlas: 分区图谱 (file); template: 背景模板 (file); matrix: 连接矩阵 (file). Registered outputs: results/connectome.png.",
+      "method_ref": "reviewed.brain-visualization.connectome"
+    },
+    {
+      "capability": "skill.brain-visualization",
+      "method_id": "reviewed-surface-ply-brain-visualization",
+      "label": "FreeSurfer 表面导出 PLY",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "freesurfer-surface-export"
+      ],
+      "execution_resolution": {},
+      "role": "Reference script for exporting FreeSurfer surfaces to colored PLY。 Inputs: surf: FreeSurfer 表面 (file); annot: 分区标注 (file). Registered outputs: results/surface.ply.",
+      "method_ref": "reviewed.brain-visualization.surface-ply"
+    },
+    {
+      "capability": "skill.brain-visualization",
+      "method_id": "reviewed-original-region-summary-brain-visualization",
+      "label": "原脚本 BOLD 频带波动区域摘要（STD 指标）",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Resample BOLD to the mask grid, detrend and filter at 0.01–0.1 Hz, compute temporal standard deviation and normalize that map within the mask. Summarize values and ROI centres by atlas. The source names this zALFF, but this adapter computes filtered-signal STD, not Fourier-amplitude ALFF. Inputs: bold: 原脚本所需 4D BOLD (file); atlas: 同空间分区图谱 (file); labels: 图谱标签 (file); mask: 分析掩膜 (file). Registered outputs: results/TOP_active_regions.csv, results/top_coordinates.csv, results/all_brain_regions_activity.csv.",
+      "method_ref": "reviewed.brain-visualization.original-region-summary"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "selection_rules": [
+    "画连接组时核对矩阵行列、图谱标签和节点位置的对应；导出彩色表面时核对表面与 annot 的顶点匹配。"
+  ],
+  "name": "brain-visualization",
+  "category": [
+    "软件工具",
+    "brain"
+  ],
+  "scope": "software",
+  "limitations": [
+    "当前区域摘要入口计算的是滤波后时间标准差及 Mask 内标准化结果，不能因源脚本使用 zALFF 名称就把它当作频域 ALFF。"
+  ],
+  "keywords": [
+    "brain-visualization",
+    "FreeSurfer",
+    "PLY",
+    "BOLD",
+    "STD"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

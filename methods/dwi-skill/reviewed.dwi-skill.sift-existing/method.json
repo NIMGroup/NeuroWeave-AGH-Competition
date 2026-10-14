@@ -1,0 +1,221 @@
+{
+  "label": "MRtrix SIFT（筛选已有纤维）",
+  "description": "Filter an existing tractogram with MRtrix tcksift against a white-matter FOD, optionally using an existing 5TT image for ACT. The output is a selected set of streamlines, not SIFT2 weights。 Inputs: input: 已有 tractogram (file); fod: 同空间白质 FOD (file); five_tt: 同空间 5TT (file). Registered outputs: results/tracks.tck. Fixed invocation options: --operation sift.",
+  "runner_id": "reviewed.dwi-skill.sift-existing",
+  "input_types": [
+    "tractogram",
+    "fod_image",
+    "five_tt_image"
+  ],
+  "output_types": [
+    "generated_folder",
+    "tractogram"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "term_number",
+      "argument": "term-number",
+      "label": "保留纤维数量",
+      "description": "SIFT 过滤终止时希望保留的纤维条数，传给已有纤维过滤入口。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 1000,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 100000000.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 term_number，由结构化 Runner 映射到现有入口参数 term-number。 平台默认值：1000；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "tractogram",
+      "label": "已有 tractogram",
+      "description": "已有 tractogram. Required file input for MRtrix SIFT（筛选已有纤维）; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "fod",
+      "type": "fod_image",
+      "label": "同空间白质 FOD",
+      "description": "同空间白质 FOD. Required file input for MRtrix SIFT（筛选已有纤维）; bind to port fod.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "five_tt",
+      "type": "five_tt_image",
+      "label": "同空间 5TT",
+      "description": "同空间 5TT. Optional file input for MRtrix SIFT（筛选已有纤维）; bind to port five_tt.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for MRtrix SIFT（筛选已有纤维）. Contains this operation's generated files, including results/tracks.tck; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_tracks_tck",
+      "type": "tractogram",
+      "label": "tracks.tck",
+      "description": "tracks.tck: output of MRtrix SIFT（筛选已有纤维）. Relative run path: results/tracks.tck.",
+      "format": ".tck",
+      "primary": false,
+      "path_template": "results/tracks.tck",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "bakend/app/execution/planning_native_worker.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.dwi-skill.sift-existing",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.dwi-skill.sift-existing",
+      "script": "bakend/app/execution/planning_native_worker.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "fod",
+          "flag": "--fod",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "five_tt",
+          "flag": "--five-tt",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "term_number",
+          "flag": "--term-number"
+        }
+      ],
+      "modules": [],
+      "expected": [
+        "tracks.tck"
+      ],
+      "profile": "scientific",
+      "fixed_args": [
+        "--operation",
+        "sift"
+      ],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [
+        "/opt/software/mrtrix3-master/bin/tcksift"
+      ],
+      "input_artifact_types": {
+        "input": "tractogram",
+        "fod": "fod_image",
+        "five_tt": "five_tt_image"
+      },
+      "output_artifact_types": {
+        "tracks.tck": "tractogram"
+      },
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "software_command",
+        "entrypoints": [
+          "/opt/software/mrtrix3-master/bin/tcksift"
+        ],
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "bakend/app/execution/planning_native_worker.py",
+          "sha256": "b8758b07bf02f10c8fbcc5ddbc2ade3486bb0cc12fc6bd31bc6f957669f6dd8d"
+        }
+      ],
+      "artifact_types": {
+        "tracks.tck": "tractogram"
+      }
+    }
+  }
+}

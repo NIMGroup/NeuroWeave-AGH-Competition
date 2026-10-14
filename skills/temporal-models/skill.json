@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "id": "temporal-models",
+  "description": "temporal-models 统筹已登记的独立方法和可复用流程。支持：时序模型训练。",
+  "method_refs": [
+    {
+      "capability": "skill.temporal-models",
+      "method_id": "reviewed-train-temporal-models--lstm",
+      "label": "lstm",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-validated sequence trainer。 Inputs: input: NPZ 训练数据（X、y） (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.temporal-models.train"
+    },
+    {
+      "capability": "skill.temporal-models",
+      "method_id": "reviewed-train-temporal-models--gru",
+      "label": "gru",
+      "default_recommended": true,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-validated sequence trainer。 Inputs: input: NPZ 训练数据（X、y） (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.temporal-models.train"
+    },
+    {
+      "capability": "skill.temporal-models",
+      "method_id": "reviewed-train-temporal-models--tcn",
+      "label": "tcn",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-validated sequence trainer。 Inputs: input: NPZ 训练数据（X、y） (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.temporal-models.train"
+    },
+    {
+      "capability": "skill.temporal-models",
+      "method_id": "reviewed-train-temporal-models--transformer",
+      "label": "transformer",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-validated sequence trainer。 Inputs: input: NPZ 训练数据（X、y） (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.temporal-models.train"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "name": "temporal-models",
+  "category": [
+    "任务能力",
+    "temporal"
+  ],
+  "scope": "model",
+  "keywords": [
+    "temporal-models"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

@@ -1,0 +1,197 @@
+{
+  "label": "静息态 ICA",
+  "description": "Reference Nilearn snippet for resting-state ICA。 Inputs: input_list: 影像路径清单 (file); mask: 脑掩膜 (file). Registered outputs: results/components.nii.gz.",
+  "runner_id": "reviewed.nilearn-tool.ica",
+  "input_types": [
+    "analysis_input",
+    "brain_mask"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "n_components",
+      "argument": "n-components",
+      "label": "n-components",
+      "description": "Number of ICA components.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 10,
+      "options": [],
+      "minimum": 2.0,
+      "maximum": 200.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/nilearn-tool/scripts/rest_ica_reference.py:50。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input_list",
+      "type": "analysis_input",
+      "label": "影像路径清单",
+      "description": "Text file listing preprocessed resting-state BOLD images. Required file input for 静息态 ICA; bind to port input_list.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "mask",
+      "type": "brain_mask",
+      "label": "脑掩膜",
+      "description": "Optional mask image. Optional file input for 静息态 ICA; bind to port mask.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for 静息态 ICA. Contains this operation's generated files, including results/components.nii.gz; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_components_nii_gz",
+      "type": "generated_file",
+      "label": "components.nii.gz",
+      "description": "components.nii.gz: output of resting-state ICA. Relative run path: results/components.nii.gz. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".nii.gz",
+      "primary": false,
+      "path_template": "results/components.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/nilearn-tool/scripts/rest_ica_reference.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.nilearn-tool.ica",
+  "version": "2",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.nilearn-tool.ica",
+      "script": "skills/nilearn-tool/scripts/rest_ica_reference.py",
+      "inputs": [
+        {
+          "id": "input_list",
+          "flag": "--input-list",
+          "path_list": true,
+          "many_args": false
+        },
+        {
+          "id": "mask",
+          "flag": "--mask",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "n_components",
+          "flag": "--n-components"
+        }
+      ],
+      "modules": [
+        "numpy",
+        "pandas",
+        "nibabel",
+        "nilearn"
+      ],
+      "expected": [
+        "components.nii.gz"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/nilearn-tool/scripts/rest_ica_reference.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/nilearn-tool/scripts/rest_ica_reference.py",
+          "source_sha256": "bdff7958a09985ad2563847394a30e95d4f010109557c300dfe2558dd1336582"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/nilearn-tool/scripts/rest_ica_reference.py",
+          "sha256": "3314e7e9d41a06d15c62d9dde8dd954ae5de5458ed5d6d0d829bcffdaeca52fc"
+        }
+      ],
+      "artifact_types": {
+        "components.nii.gz": "generated_file"
+      }
+    }
+  }
+}

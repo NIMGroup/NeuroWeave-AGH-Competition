@@ -1,0 +1,416 @@
+[
+  {
+    "method": "GET",
+    "path": "/",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "GET",
+    "path": "/api/health",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "GET",
+    "path": "/api/maintenance/storage",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "POST",
+    "path": "/api/maintenance/inventory-jobs",
+    "status": 202,
+    "response": null
+  },
+  {
+    "method": "GET",
+    "path": "/api/datasets/roots",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "GET",
+    "path": "/api/capabilities/tree",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "GET",
+    "path": "/api/artifacts/types",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "GET",
+    "path": "/api/datasets/directories",
+    "status": 200,
+    "response": "DirectoryListing"
+  },
+  {
+    "method": "GET",
+    "path": "/api/operations/{operation_id}",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "POST",
+    "path": "/api/operations/{operation_id}/cancel",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "POST",
+    "path": "/api/datasets/register-jobs",
+    "status": 202,
+    "response": null
+  },
+  {
+    "method": "POST",
+    "path": "/api/datasets/{dataset_id}/inspect-jobs",
+    "status": 202,
+    "response": null
+  },
+  {
+    "method": "POST",
+    "path": "/api/workflows/{workflow_id}/dry-run-jobs",
+    "status": 202,
+    "response": null
+  },
+  {
+    "method": "GET",
+    "path": "/api/datasets",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/datasets/{dataset_id}/workspace",
+    "status": 200,
+    "response": "DatasetRecord"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/workflows/{workflow_id}/output",
+    "status": 200,
+    "response": "Workflow"
+  },
+  {
+    "method": "POST",
+    "path": "/api/datasets/register",
+    "status": 200,
+    "response": "DatasetRecord"
+  },
+  {
+    "method": "GET",
+    "path": "/api/datasets/{dataset_id}",
+    "status": 200,
+    "response": "DatasetRecord"
+  },
+  {
+    "method": "POST",
+    "path": "/api/datasets/{dataset_id}/inspect",
+    "status": 200,
+    "response": "DatasetRecord"
+  },
+  {
+    "method": "GET",
+    "path": "/api/skills",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "GET",
+    "path": "/api/skills/{skill_name}",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "GET",
+    "path": "/api/skills/{skill_name}/methods",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "GET",
+    "path": "/api/methods/{method_id}",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "GET",
+    "path": "/api/pipelines/{pipeline_id}",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "GET",
+    "path": "/api/skills/{skill_name}/reference",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "POST",
+    "path": "/api/conversations",
+    "status": 200,
+    "response": "ConversationRecord"
+  },
+  {
+    "method": "GET",
+    "path": "/api/conversations",
+    "status": 200,
+    "response": "ConversationPage"
+  },
+  {
+    "method": "DELETE",
+    "path": "/api/conversations/{conversation_id}",
+    "status": 204,
+    "response": null
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/conversations/{conversation_id}",
+    "status": 200,
+    "response": "ConversationRecord"
+  },
+  {
+    "method": "GET",
+    "path": "/api/conversations/{conversation_id}",
+    "status": 200,
+    "response": "ConversationSnapshot"
+  },
+  {
+    "method": "POST",
+    "path": "/api/conversations/{conversation_id}/compact",
+    "status": 200,
+    "response": "ConversationSnapshot"
+  },
+  {
+    "method": "POST",
+    "path": "/api/workflows/draft",
+    "status": 200,
+    "response": "Workflow"
+  },
+  {
+    "method": "POST",
+    "path": "/api/chat/turns",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "GET",
+    "path": "/api/chat/turns/{identity}",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "POST",
+    "path": "/api/chat/turns/{identity}/retry",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "POST",
+    "path": "/api/chat/turns/{identity}/cancel",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "POST",
+    "path": "/api/chat",
+    "status": 200,
+    "response": "ChatResponse"
+  },
+  {
+    "method": "GET",
+    "path": "/api/workflow-index",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "GET",
+    "path": "/api/workflows/{workflow_id}",
+    "status": 200,
+    "response": "Workflow"
+  },
+  {
+    "method": "GET",
+    "path": "/api/workflows",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "GET",
+    "path": "/api/workflows/{workflow_id}/events",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/workflows/{workflow_id}/steps/{step_id}/method",
+    "status": 200,
+    "response": "Workflow"
+  },
+  {
+    "method": "POST",
+    "path": "/api/workflows/{workflow_id}/lock",
+    "status": 200,
+    "response": "Workflow"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/workflows/{workflow_id}/dataset",
+    "status": 200,
+    "response": "Workflow"
+  },
+  {
+    "method": "POST",
+    "path": "/api/workflows/{workflow_id}/unlock",
+    "status": 200,
+    "response": "Workflow"
+  },
+  {
+    "method": "POST",
+    "path": "/api/workflows/{workflow_id}/steps/{step_id}/remove",
+    "status": 200,
+    "response": "Workflow"
+  },
+  {
+    "method": "POST",
+    "path": "/api/workflows/{workflow_id}/replan",
+    "status": 200,
+    "response": "Workflow"
+  },
+  {
+    "method": "POST",
+    "path": "/api/workflows/{workflow_id}/complete-dependencies",
+    "status": 200,
+    "response": "Workflow"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/workflows/{workflow_id}/steps/{step_id}/inputs/{slot_id}",
+    "status": 200,
+    "response": "Workflow"
+  },
+  {
+    "method": "POST",
+    "path": "/api/workflows/{workflow_id}/steps/{step_id}/inputs/{slot_id}/preview",
+    "status": 200,
+    "response": "DatasetPathPreview"
+  },
+  {
+    "method": "GET",
+    "path": "/api/workflows/{workflow_id}/steps/{step_id}/inputs/{slot_id}/history",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "POST",
+    "path": "/api/workflows/{workflow_id}/steps/{step_id}/inputs/{slot_id}/history/preview",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "POST",
+    "path": "/api/workflows/{workflow_id}/steps/{step_id}/inputs/{slot_id}/history",
+    "status": 200,
+    "response": "Workflow"
+  },
+  {
+    "method": "PATCH",
+    "path": "/api/workflows/{workflow_id}/steps/{step_id}/parameters",
+    "status": 200,
+    "response": "Workflow"
+  },
+  {
+    "method": "POST",
+    "path": "/api/workflows/{workflow_id}/review-parameters",
+    "status": 200,
+    "response": "Workflow"
+  },
+  {
+    "method": "POST",
+    "path": "/api/workflows/{workflow_id}/dry-run",
+    "status": 200,
+    "response": "Workflow"
+  },
+  {
+    "method": "POST",
+    "path": "/api/workflows/{workflow_id}/confirm",
+    "status": 200,
+    "response": "Workflow"
+  },
+  {
+    "method": "GET",
+    "path": "/api/workflows/{workflow_id}/execution-draft",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "PUT",
+    "path": "/api/workflows/{workflow_id}/execution-draft",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "POST",
+    "path": "/api/workflows/{workflow_id}/runs",
+    "status": 200,
+    "response": "WorkflowRun"
+  },
+  {
+    "method": "GET",
+    "path": "/api/runs",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "GET",
+    "path": "/api/execution/backends",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "GET",
+    "path": "/api/runs/{run_id}",
+    "status": 200,
+    "response": "WorkflowRun"
+  },
+  {
+    "method": "GET",
+    "path": "/api/runs/{run_id}/events",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "GET",
+    "path": "/api/runs/{run_id}/monitor",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "POST",
+    "path": "/api/runs/{run_id}/cancel",
+    "status": 200,
+    "response": "WorkflowRun"
+  },
+  {
+    "method": "POST",
+    "path": "/api/runs/{run_id}/retry",
+    "status": 200,
+    "response": "WorkflowRun"
+  },
+  {
+    "method": "POST",
+    "path": "/api/runs/{run_id}/recover-freesurfer",
+    "status": 200,
+    "response": null
+  },
+  {
+    "method": "POST",
+    "path": "/api/runs/{run_id}/resume-monitoring",
+    "status": 200,
+    "response": "WorkflowRun"
+  }
+]

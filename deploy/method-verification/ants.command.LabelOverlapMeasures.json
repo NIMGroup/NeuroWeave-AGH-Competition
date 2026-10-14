@@ -1,0 +1,11 @@
+{
+  "method_id": "ants.command.LabelOverlapMeasures",
+  "method_version": "1",
+  "execution_fingerprint": "8a8f6a61f517b6f40ce75f68b74035c8c471fcb7f081bd8612aeb4d1abd723aa",
+  "report_path": "deploy/method-verification/reports/scientific-synthetic.json",
+  "report_sha256": "77b9848ad9a4be60e4c0c3f79a3e2128a6705cb91fd1a400c0b5878782dfe577",
+  "test_type": "synthetic",
+  "tested_at": "2026-09-23T13:35:29.692029+00:00",
+  "environment": "mgr Linux CPU, 1 thread; isolated synthetic inputs",
+  "result": "passed"
+}

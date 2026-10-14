@@ -1,0 +1,409 @@
+{
+  "label": "ANTs Registration",
+  "description": "使用 ANTs 完成刚体、仿射或 SyN 非线性配准，并保存复合变换与完整日志。",
+  "runner_id": "ants.registration",
+  "input_types": [
+    "imaging_input",
+    "brain_mask"
+  ],
+  "output_types": [
+    "registered_image",
+    "transform_matrix",
+    "execution_log"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "transform",
+      "argument": "transform",
+      "label": "变换模型",
+      "description": "Rigid 只校正位姿，Affine 允许缩放剪切，SyN 进一步估计非线性形变。",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "syn",
+      "options": [
+        {
+          "value": "rigid",
+          "label": "刚体",
+          "description": ""
+        },
+        {
+          "value": "affine",
+          "label": "仿射",
+          "description": ""
+        },
+        {
+          "value": "syn",
+          "label": "SyN 非线性",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "interpolation",
+      "argument": "interpolation",
+      "label": "插值方法",
+      "description": "连续强度影像使用 Linear 或 BSpline；标签图使用 NearestNeighbor。",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "Linear",
+      "options": [
+        {
+          "value": "Linear",
+          "label": "Linear",
+          "description": ""
+        },
+        {
+          "value": "NearestNeighbor",
+          "label": "Nearest Neighbor",
+          "description": ""
+        },
+        {
+          "value": "BSpline",
+          "label": "B-Spline",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "threads",
+      "argument": "threads",
+      "label": "线程数",
+      "description": "ITK 配准使用的 CPU 线程数。",
+      "type": "integer",
+      "control": "number",
+      "level": "basic",
+      "group": "计算资源",
+      "unit": "",
+      "required": true,
+      "default": 4,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 128.0,
+      "step": 1.0,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "metric_bins",
+      "argument": "metric-bins",
+      "label": "MI 直方图 Bin",
+      "description": "刚体与仿射阶段 Mutual Information 的直方图分箱数。",
+      "type": "integer",
+      "control": "number",
+      "level": "advanced",
+      "group": "相似性度量",
+      "unit": "",
+      "required": true,
+      "default": 32,
+      "options": [],
+      "minimum": 8.0,
+      "maximum": 128.0,
+      "step": 8.0,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "sampling_percentage",
+      "argument": "sampling-percentage",
+      "label": "度量采样比例",
+      "description": "线性阶段用于计算 MI 的体素采样比例。",
+      "type": "number",
+      "control": "number",
+      "level": "advanced",
+      "group": "相似性度量",
+      "unit": "",
+      "required": true,
+      "default": 0.25,
+      "options": [],
+      "minimum": 0.05,
+      "maximum": 1.0,
+      "step": 0.05,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "histogram_matching",
+      "argument": "histogram-matching",
+      "label": "直方图匹配",
+      "description": "跨扫描协议且强度分布差异明显时可以启用。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "强度处理",
+      "unit": "",
+      "required": true,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "float_precision",
+      "argument": "float-precision",
+      "label": "使用 Float32",
+      "description": "减少内存占用；关闭时使用双精度。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "计算资源",
+      "unit": "",
+      "required": true,
+      "default": true,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "use_masks",
+      "argument": "use-masks",
+      "label": "使用配准 Mask",
+      "description": "限制固定影像和移动影像的度量计算范围。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "空间约束",
+      "unit": "",
+      "required": true,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "moving_image",
+      "type": "imaging_input",
+      "label": "移动影像",
+      "description": "需要变换到参考空间的 3D NIfTI 影像。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "reference_image",
+      "type": "imaging_input",
+      "label": "参考影像",
+      "description": "定义输出空间和网格的 3D NIfTI 影像。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "moving_mask",
+      "type": "brain_mask",
+      "label": "移动影像 Mask",
+      "description": "可选；启用 Mask 时必须提供。",
+      "required": false,
+      "required_when": {
+        "use_masks": [
+          true
+        ]
+      },
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "reference_mask",
+      "type": "brain_mask",
+      "label": "参考影像 Mask",
+      "description": "可选；启用 Mask 时必须提供。",
+      "required": false,
+      "required_when": {
+        "use_masks": [
+          true
+        ]
+      },
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "registered",
+      "type": "registered_image",
+      "label": "配准后影像",
+      "description": "移动影像重采样到参考影像空间的结果。",
+      "format": ".nii.gz",
+      "primary": true,
+      "path_template": "registered.nii.gz",
+      "generated_when": {}
+    },
+    {
+      "id": "transform",
+      "type": "transform_matrix",
+      "label": "ANTs 复合变换",
+      "description": "可由 antsApplyTransforms 复用的 HDF5 复合变换。",
+      "format": ".h5",
+      "primary": false,
+      "path_template": "ants_Composite.h5",
+      "generated_when": {}
+    },
+    {
+      "id": "log",
+      "type": "execution_log",
+      "label": "配准日志",
+      "description": "ANTs 完整执行日志。",
+      "format": ".log",
+      "primary": false,
+      "path_template": "ants-registration.log",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/smri-skill/skill.json",
+      "label": "sMRI Skill",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "ants.registration",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "builtin"
+  }
+}

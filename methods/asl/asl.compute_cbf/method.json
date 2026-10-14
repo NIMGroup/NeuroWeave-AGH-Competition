@@ -1,0 +1,370 @@
+{
+  "label": "ASL CBF 实际定量",
+  "description": "使用 Skill 自带且已审核的 Buxton 单室模型脚本计算 pCASL、CASL 或 PASL CBF。",
+  "runner_id": "asl.compute_cbf",
+  "input_types": [
+    "imaging_input",
+    "parcellation_image"
+  ],
+  "output_types": [
+    "generated_file",
+    "execution_log"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "label_strategy",
+      "argument": "label-strategy",
+      "label": "标记策略",
+      "description": "选择 pCASL、CASL 或 PASL 对应的定量公式和默认参数。",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "定量模型",
+      "unit": "",
+      "required": true,
+      "default": "pcasl",
+      "options": [
+        {
+          "value": "pcasl",
+          "label": "pCASL",
+          "description": ""
+        },
+        {
+          "value": "casl",
+          "label": "CASL",
+          "description": ""
+        },
+        {
+          "value": "pasl",
+          "label": "PASL",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "field_strength",
+      "argument": "field-strength",
+      "label": "磁场强度",
+      "description": "用于选择动脉血 T1。",
+      "type": "number",
+      "control": "select",
+      "level": "basic",
+      "group": "定量模型",
+      "unit": "T",
+      "required": true,
+      "default": 3.0,
+      "options": [
+        {
+          "value": 1.5,
+          "label": "1.5T",
+          "description": ""
+        },
+        {
+          "value": 3.0,
+          "label": "3T",
+          "description": ""
+        },
+        {
+          "value": 7.0,
+          "label": "7T",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "relative_cbf",
+      "argument": "no-m0",
+      "label": "仅计算相对 CBF",
+      "description": "启用后不使用 M0 归一化；结果不能解释为绝对 mL/100g/min。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "basic",
+      "group": "归一化",
+      "unit": "",
+      "required": true,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "roi_summary",
+      "argument": "roi-summary",
+      "label": "生成 ROI 汇总",
+      "description": "按所选 atlas 计算每个标签的平均 CBF。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "basic",
+      "group": "输出",
+      "unit": "",
+      "required": true,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "alpha",
+      "argument": "alpha",
+      "label": "标记效率 α",
+      "description": "0 表示使用标记策略默认值。",
+      "type": "number",
+      "control": "number",
+      "level": "advanced",
+      "group": "采集参数",
+      "unit": "",
+      "required": true,
+      "default": 0,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "step": 0.01,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "tau",
+      "argument": "tau",
+      "label": "标记持续时间",
+      "description": "0 表示使用标记策略默认值。",
+      "type": "number",
+      "control": "number",
+      "level": "advanced",
+      "group": "采集参数",
+      "unit": "s",
+      "required": true,
+      "default": 0,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 10.0,
+      "step": 0.1,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "pld",
+      "argument": "pld",
+      "label": "标记后延迟",
+      "description": "0 表示使用标记策略默认值。",
+      "type": "number",
+      "control": "number",
+      "level": "advanced",
+      "group": "采集参数",
+      "unit": "s",
+      "required": true,
+      "default": 0,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 10.0,
+      "step": 0.1,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "difference_image",
+      "type": "imaging_input",
+      "label": "ASL 差值影像",
+      "description": "control-label 差值影像。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "m0_image",
+      "type": "imaging_input",
+      "label": "M0 影像",
+      "description": "绝对 CBF 定量所需 M0 参考；相对 CBF 模式可省略。",
+      "required": false,
+      "required_when": {
+        "relative_cbf": [
+          false
+        ]
+      },
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "roi_atlas",
+      "type": "parcellation_image",
+      "label": "ROI Atlas",
+      "description": "仅生成 ROI 汇总时需要。",
+      "required": false,
+      "required_when": {
+        "roi_summary": [
+          true
+        ]
+      },
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "cbf",
+      "type": "generated_file",
+      "label": "CBF 影像",
+      "description": "CBF NIfTI result. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".nii.gz",
+      "primary": true,
+      "path_template": "cbf.nii.gz",
+      "generated_when": {}
+    },
+    {
+      "id": "roi",
+      "type": "generated_file",
+      "label": "CBF ROI 汇总",
+      "description": "The mean CBF for each atlas label. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".csv",
+      "primary": false,
+      "path_template": "cbf-roi-summary.csv",
+      "generated_when": {
+        "roi_summary": [
+          true
+        ]
+      }
+    },
+    {
+      "id": "log",
+      "type": "execution_log",
+      "label": "CBF 日志",
+      "description": "完整定量日志。",
+      "format": "",
+      "primary": false,
+      "path_template": "compute-cbf.log",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/asl-skill/scripts/compute_cbf.py",
+      "label": "CBF 实现脚本",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "skills/asl-skill/skill.json",
+      "label": "ASL Skill",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "asl.compute_cbf",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "builtin"
+  }
+}

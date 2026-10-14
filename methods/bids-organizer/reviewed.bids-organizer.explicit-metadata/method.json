@@ -1,0 +1,183 @@
+{
+  "label": "BIDS 元数据生成",
+  "description": "Generate dataset_description.json with the supplied dataset name and a staging report. This operation does not copy images or validate full BIDS compliance。 Inputs: input: 源数据集目录 (directory). Registered outputs: results/dataset_description.json, results/staging_report.json. Fixed invocation options: --operation metadata.",
+  "runner_id": "reviewed.bids-organizer.explicit-metadata",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "name",
+      "argument": "name",
+      "label": "数据集名称",
+      "description": "写入 BIDS 数据集描述中的名称，不用于移动或重命名输入数据集目录。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "NeuroWeave dataset",
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 name，由结构化 Runner 映射到现有入口参数 name。 平台默认值：NeuroWeave dataset；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "源数据集目录",
+      "description": "源数据集目录. Required directory input for BIDS 元数据生成; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "folder",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for BIDS 元数据生成. Contains this operation's generated files, including results/dataset_description.json, results/staging_report.json; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_dataset_description_json",
+      "type": "generated_file",
+      "label": "dataset_description.json",
+      "description": "dataset_description.json: output of BIDS metadata generation. Relative run path: results/dataset_description.json. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".json",
+      "primary": false,
+      "path_template": "results/dataset_description.json",
+      "generated_when": {}
+    },
+    {
+      "id": "file_staging_report_json",
+      "type": "generated_file",
+      "label": "staging_report.json",
+      "description": "staging_report.json: output of BIDS metadata generation. Relative run path: results/staging_report.json. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".json",
+      "primary": false,
+      "path_template": "results/staging_report.json",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "bakend/app/execution/bids_mapping_worker.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.bids-organizer.explicit-metadata",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.bids-organizer.explicit-metadata",
+      "script": "bakend/app/execution/bids_mapping_worker.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "name",
+          "flag": "--name"
+        }
+      ],
+      "modules": [],
+      "expected": [
+        "dataset_description.json",
+        "staging_report.json"
+      ],
+      "profile": "scientific",
+      "fixed_args": [
+        "--operation",
+        "metadata"
+      ],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [
+        [
+          "json",
+          "dump"
+        ],
+        [
+          "shutil",
+          "copyfile"
+        ]
+      ],
+      "implementation_source": {
+        "kind": "library_api",
+        "entrypoints": [
+          "json.dump",
+          "shutil.copyfile"
+        ],
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "bakend/app/execution/bids_mapping_worker.py",
+          "sha256": "e9f3e35b50b95dc7c1e8f4bc11b1bf88c0e70dc63378732164f1c331fffd5890"
+        }
+      ],
+      "artifact_types": {
+        "dataset_description.json": "generated_file",
+        "staging_report.json": "generated_file"
+      }
+    }
+  }
+}

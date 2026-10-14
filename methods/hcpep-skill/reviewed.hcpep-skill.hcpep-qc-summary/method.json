@@ -1,0 +1,227 @@
+{
+  "label": "hcpep 质控汇总",
+  "description": "Generate per-subject QC summaries for HCP Early Psychosis processing. Clinical-specific: adjusted thresholds for patient data, diagnostic group tracking。 Inputs: fmriprep_dir: fmriprep-dir (directory); freesurfer_dir: freesurfer-dir (directory). Registered outputs: results/output.csv.",
+  "runner_id": "reviewed.hcpep-skill.hcpep-qc-summary",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "fd_threshold",
+      "argument": "fd-threshold",
+      "label": "fd-threshold",
+      "description": "既有质量控制入口使用的帧间位移阈值，应与输入 FD 数值单位保持一致。",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 0.3,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 1000000.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 fd_threshold，由结构化 Runner 映射到现有入口参数 fd-threshold。 平台默认值：0.3；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "diagnosis_file",
+      "argument": "diagnosis-file",
+      "label": "diagnosis-file",
+      "description": "CSV with subject diagnosis info",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/hcpep-skill/scripts/hcpep_qc_summary.py:58。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "fmriprep_dir",
+      "type": "analysis_input",
+      "label": "fmriprep-dir",
+      "description": "fmriprep-dir. Optional directory input for hcpep 质控汇总; bind to port fmriprep_dir.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "folder",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "freesurfer_dir",
+      "type": "analysis_input",
+      "label": "freesurfer-dir",
+      "description": "freesurfer-dir. Optional directory input for hcpep 质控汇总; bind to port freesurfer_dir.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "folder",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for hcpep 质控汇总. Contains this operation's generated files, including results/output.csv; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_output_csv",
+      "type": "generated_file",
+      "label": "output.csv",
+      "description": "output.csv: output of hcpep quality control summary. Relative run path: results/output.csv. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".csv",
+      "primary": false,
+      "path_template": "results/output.csv",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/hcpep-skill/scripts/hcpep_qc_summary.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.hcpep-skill.hcpep-qc-summary",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.hcpep-skill.hcpep-qc-summary",
+      "script": "skills/hcpep-skill/scripts/hcpep_qc_summary.py",
+      "inputs": [
+        {
+          "id": "fmriprep_dir",
+          "flag": "--fmriprep-dir",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "freesurfer_dir",
+          "flag": "--freesurfer-dir",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "fd_threshold",
+          "flag": "--fd-threshold",
+          "split": false
+        },
+        {
+          "id": "diagnosis_file",
+          "flag": "--diagnosis-file",
+          "split": false
+        }
+      ],
+      "modules": [
+        "pandas",
+        "numpy"
+      ],
+      "expected": [
+        "output.csv"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output",
+          "output.csv"
+        ],
+        [
+          "--exclude-output",
+          "exclude_output.csv"
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/hcpep-skill/scripts/hcpep_qc_summary.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/hcpep-skill/scripts/hcpep_qc_summary.py",
+          "source_sha256": "7f9904b6290e912728ff83fc751a21e4a0b5c176c21e07d22449fda355b4c9c9"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/hcpep-skill/scripts/hcpep_qc_summary.py",
+          "sha256": "7f9904b6290e912728ff83fc751a21e4a0b5c176c21e07d22449fda355b4c9c9"
+        }
+      ],
+      "artifact_types": {
+        "output.csv": "generated_file"
+      }
+    }
+  }
+}

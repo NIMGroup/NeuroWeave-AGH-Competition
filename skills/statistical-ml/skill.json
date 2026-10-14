@@ -1,0 +1,204 @@
+{
+  "schema_version": 1,
+  "id": "statistical-ml",
+  "description": "statistical-ml 统筹已登记的独立方法和可复用流程。支持：统计学习：分类；其他方法可在详情中分页查询。",
+  "method_refs": [
+    {
+      "capability": "skill.statistical-ml",
+      "method_id": "reviewed-classification-statistical-ml--logistic",
+      "label": "logistic",
+      "default_recommended": true,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.statistical-ml",
+      "method_id": "reviewed-classification-statistical-ml--ridge",
+      "label": "ridge",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.statistical-ml",
+      "method_id": "reviewed-classification-statistical-ml--elastic-net",
+      "label": "elastic_net",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.statistical-ml",
+      "method_id": "reviewed-classification-statistical-ml--svm",
+      "label": "svm",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.statistical-ml",
+      "method_id": "reviewed-classification-statistical-ml--random-forest",
+      "label": "random_forest",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.statistical-ml",
+      "method_id": "reviewed-classification-statistical-ml--extra-trees",
+      "label": "extra_trees",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.statistical-ml",
+      "method_id": "reviewed-classification-statistical-ml--hist-gradient-boosting",
+      "label": "hist_gradient_boosting",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.statistical-ml",
+      "method_id": "reviewed-classification-statistical-ml--xgboost",
+      "label": "xgboost",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.statistical-ml",
+      "method_id": "reviewed-regression-statistical-ml--ols",
+      "label": "ols",
+      "default_recommended": true,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    },
+    {
+      "capability": "skill.statistical-ml",
+      "method_id": "reviewed-regression-statistical-ml--ridge",
+      "label": "ridge",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    },
+    {
+      "capability": "skill.statistical-ml",
+      "method_id": "reviewed-regression-statistical-ml--elastic-net",
+      "label": "elastic_net",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    },
+    {
+      "capability": "skill.statistical-ml",
+      "method_id": "reviewed-regression-statistical-ml--svm",
+      "label": "svm",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    },
+    {
+      "capability": "skill.statistical-ml",
+      "method_id": "reviewed-regression-statistical-ml--random-forest",
+      "label": "random_forest",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    },
+    {
+      "capability": "skill.statistical-ml",
+      "method_id": "reviewed-regression-statistical-ml--extra-trees",
+      "label": "extra_trees",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    },
+    {
+      "capability": "skill.statistical-ml",
+      "method_id": "reviewed-regression-statistical-ml--hist-gradient-boosting",
+      "label": "hist_gradient_boosting",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    },
+    {
+      "capability": "skill.statistical-ml",
+      "method_id": "reviewed-regression-statistical-ml--xgboost",
+      "label": "xgboost",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "selection_rules": [
+    "受试者级表格选择经典分类或回归；序列张量交给 temporal-models，完整 3D 体数据交给 cnn3d。"
+  ],
+  "name": "statistical-ml",
+  "category": [
+    "任务能力",
+    "statistical"
+  ],
+  "scope": "model",
+  "keywords": [
+    "statistical-ml"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

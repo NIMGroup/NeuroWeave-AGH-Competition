@@ -1,0 +1,278 @@
+{
+  "label": "脑连接图",
+  "description": "Reference script for 3D brain connectome plotting。 Inputs: atlas: 分区图谱 (file); template: 背景模板 (file); matrix: 连接矩阵 (file). Registered outputs: results/connectome.png.",
+  "runner_id": "reviewed.brain-visualization.connectome",
+  "input_types": [
+    "label_image",
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "top_k",
+      "argument": "top-k",
+      "label": "top-k",
+      "description": "Number of strongest positive connections to keep.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 20,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 100000.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/brain-visualization/scripts/connectome_reference.py:90。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "node_size",
+      "argument": "node-size",
+      "label": "node-size",
+      "description": "Node marker size.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 30,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 1000.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/brain-visualization/scripts/connectome_reference.py:91。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "brain_opacity",
+      "argument": "brain-opacity",
+      "label": "brain-opacity",
+      "description": "Background template opacity.",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 0.2,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/brain-visualization/scripts/connectome_reference.py:92。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "atlas",
+      "type": "label_image",
+      "label": "分区图谱",
+      "description": "Atlas NIfTI used to derive parcel coordinates. Required file input for 脑连接图; bind to port atlas.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "template",
+      "type": "analysis_input",
+      "label": "背景模板",
+      "description": "Template T1 image for background display. Required file input for 脑连接图; bind to port template.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "matrix",
+      "type": "analysis_input",
+      "label": "连接矩阵",
+      "description": "Connectivity matrix in .npy or .csv format. Required file input for 脑连接图; bind to port matrix.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for 脑连接图. Contains this operation's generated files, including results/connectome.png; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_connectome_png",
+      "type": "generated_file",
+      "label": "connectome.png",
+      "description": "Output PNG path.: output of brain connectivity graph. Relative run path: results/connectome.png. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".png",
+      "primary": false,
+      "path_template": "results/connectome.png",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/brain-visualization/scripts/connectome_reference.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.brain-visualization.connectome",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.brain-visualization.connectome",
+      "script": "skills/brain-visualization/scripts/connectome_reference.py",
+      "inputs": [
+        {
+          "id": "atlas",
+          "flag": "--atlas",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "template",
+          "flag": "--template",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "matrix",
+          "flag": "--matrix",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "top_k",
+          "flag": "--top-k"
+        },
+        {
+          "id": "node_size",
+          "flag": "--node-size"
+        },
+        {
+          "id": "brain_opacity",
+          "flag": "--brain-opacity"
+        }
+      ],
+      "modules": [
+        "numpy",
+        "pandas",
+        "nibabel",
+        "nilearn"
+      ],
+      "expected": [
+        "connectome.png"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output",
+          "connectome.png"
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/brain-visualization/scripts/connectome_reference.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/brain-visualization/scripts/connectome_reference.py",
+          "source_sha256": "f9bd87fde658a0b3daed741321681d870d8f038763eea32f916211b564768b00"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/brain-visualization/scripts/connectome_reference.py",
+          "sha256": "f9bd87fde658a0b3daed741321681d870d8f038763eea32f916211b564768b00"
+        }
+      ],
+      "artifact_types": {
+        "connectome.png": "generated_file"
+      }
+    }
+  }
+}

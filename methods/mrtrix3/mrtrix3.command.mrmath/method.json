@@ -1,0 +1,617 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix3.command.mrmath",
+  "version": "1",
+  "kind": "method",
+  "label": "MRtrix3 mrmath",
+  "description": "Compute summary statistic on image intensities either across images, or along a specified axis of a single image\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "mrtrix3.command.mrmath",
+  "parameters": [
+    {
+      "id": "operation",
+      "argument": "",
+      "label": "operation",
+      "description": "the operation to apply, one of: mean, median, sum, product, rms, norm, var, std, min, max, absmax, magmax.",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "mean",
+      "options": [
+        {
+          "value": "mean",
+          "label": "mean",
+          "description": ""
+        },
+        {
+          "value": "median",
+          "label": "median",
+          "description": ""
+        },
+        {
+          "value": "sum",
+          "label": "sum",
+          "description": ""
+        },
+        {
+          "value": "product",
+          "label": "product",
+          "description": ""
+        },
+        {
+          "value": "rms",
+          "label": "rms",
+          "description": ""
+        },
+        {
+          "value": "norm",
+          "label": "norm",
+          "description": ""
+        },
+        {
+          "value": "var",
+          "label": "var",
+          "description": ""
+        },
+        {
+          "value": "std",
+          "label": "std",
+          "description": ""
+        },
+        {
+          "value": "min",
+          "label": "min",
+          "description": ""
+        },
+        {
+          "value": "max",
+          "label": "max",
+          "description": ""
+        },
+        {
+          "value": "absmax",
+          "label": "absmax",
+          "description": ""
+        },
+        {
+          "value": "magmax",
+          "label": "magmax",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "the operation to apply, one of: mean, median, sum, product, rms, norm, var, std, min, max, absmax, magmax. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "axis",
+      "argument": "",
+      "label": "axis",
+      "description": "perform operation along a specified axis of a single input image ",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 3,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 3.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "perform operation along a specified axis of a single input image  Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "keep_unary_axes",
+      "argument": "-keep_unary_axes",
+      "label": "keep_unary_axes",
+      "description": "Keep unary axes in input images prior to calculating the stats. The default is to wipe axes with single elements.",
+      "type": "boolean",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Keep unary axes in input images prior to calculating the stats. The default is to wipe axes with single elements. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "datatype",
+      "argument": "",
+      "label": "datatype",
+      "description": "specify output image data type. Valid choices are: float32, float32le, float32be, float64, float64le, float64be, int64, uint64, int64le, uint64le, int64be, uint64be, int32, uint32, int32le, uint32le, int32be, uint32be, int16, uint16, int16le, uint16le, int16be, uint16be, cfloat32, cfloat32le, cfloat32be, cfloat64, cfloat64le, cfloat64be, int8, uint8, bit. ",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [
+        {
+          "value": "float32",
+          "label": "float32",
+          "description": ""
+        },
+        {
+          "value": "float32le",
+          "label": "float32le",
+          "description": ""
+        },
+        {
+          "value": "float32be",
+          "label": "float32be",
+          "description": ""
+        },
+        {
+          "value": "float64",
+          "label": "float64",
+          "description": ""
+        },
+        {
+          "value": "float64le",
+          "label": "float64le",
+          "description": ""
+        },
+        {
+          "value": "float64be",
+          "label": "float64be",
+          "description": ""
+        },
+        {
+          "value": "int64",
+          "label": "int64",
+          "description": ""
+        },
+        {
+          "value": "uint64",
+          "label": "uint64",
+          "description": ""
+        },
+        {
+          "value": "int64le",
+          "label": "int64le",
+          "description": ""
+        },
+        {
+          "value": "uint64le",
+          "label": "uint64le",
+          "description": ""
+        },
+        {
+          "value": "int64be",
+          "label": "int64be",
+          "description": ""
+        },
+        {
+          "value": "uint64be",
+          "label": "uint64be",
+          "description": ""
+        },
+        {
+          "value": "int32",
+          "label": "int32",
+          "description": ""
+        },
+        {
+          "value": "uint32",
+          "label": "uint32",
+          "description": ""
+        },
+        {
+          "value": "int32le",
+          "label": "int32le",
+          "description": ""
+        },
+        {
+          "value": "uint32le",
+          "label": "uint32le",
+          "description": ""
+        },
+        {
+          "value": "int32be",
+          "label": "int32be",
+          "description": ""
+        },
+        {
+          "value": "uint32be",
+          "label": "uint32be",
+          "description": ""
+        },
+        {
+          "value": "int16",
+          "label": "int16",
+          "description": ""
+        },
+        {
+          "value": "uint16",
+          "label": "uint16",
+          "description": ""
+        },
+        {
+          "value": "int16le",
+          "label": "int16le",
+          "description": ""
+        },
+        {
+          "value": "uint16le",
+          "label": "uint16le",
+          "description": ""
+        },
+        {
+          "value": "int16be",
+          "label": "int16be",
+          "description": ""
+        },
+        {
+          "value": "uint16be",
+          "label": "uint16be",
+          "description": ""
+        },
+        {
+          "value": "cfloat32",
+          "label": "cfloat32",
+          "description": ""
+        },
+        {
+          "value": "cfloat32le",
+          "label": "cfloat32le",
+          "description": ""
+        },
+        {
+          "value": "cfloat32be",
+          "label": "cfloat32be",
+          "description": ""
+        },
+        {
+          "value": "cfloat64",
+          "label": "cfloat64",
+          "description": ""
+        },
+        {
+          "value": "cfloat64le",
+          "label": "cfloat64le",
+          "description": ""
+        },
+        {
+          "value": "cfloat64be",
+          "label": "cfloat64be",
+          "description": ""
+        },
+        {
+          "value": "int8",
+          "label": "int8",
+          "description": ""
+        },
+        {
+          "value": "uint8",
+          "label": "uint8",
+          "description": ""
+        },
+        {
+          "value": "bit",
+          "label": "bit",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "specify output image data type. Valid choices are: float32, float32le, float32be, float64, float64le, float64be, int64, uint64, int64le, uint64le, int64be, uint64be, int32, uint32, int32le, uint32le, int32be, uint32be, int16, uint16, int16le, uint16le, int16be, uint16be, cfloat32, cfloat32le, cfloat32be, cfloat64, cfloat64le, cfloat64be, int8, uint8, bit.  Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "nthreads",
+      "argument": "",
+      "label": "nthreads",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading). ",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 1,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 128.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).  Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "the input image(s).",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "input_2",
+      "type": "imaging_input",
+      "label": "input_2",
+      "description": "the input image(s).",
+      "required": false,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "input_3",
+      "type": "imaging_input",
+      "label": "input_3",
+      "description": "the input image(s).",
+      "required": false,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "input_4",
+      "type": "imaging_input",
+      "label": "input_4",
+      "description": "the input image(s).",
+      "required": false,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "output",
+      "type": "imaging_input",
+      "label": "output",
+      "description": "Native command output, saved in this run’s output directory. Compute summary statistic on image intensities either across images, or along a specified axis of a single image The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".mif",
+      "primary": true,
+      "path_template": "output.mif",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "imaging_input"
+  ],
+  "output_types": [
+    "imaging_input"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/mrmath.usage.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "mrtrix3",
+      "command": "mrmath",
+      "version": "3.0.8",
+      "argv": [
+        {
+          "tokens": [
+            {
+              "input": "input"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "input": "input_2"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            {
+              "input": "input_3"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            {
+              "input": "input_4"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            {
+              "parameter": "operation"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "output": "output"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-axis",
+            {
+              "parameter": "axis"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-keep_unary_axes"
+          ],
+          "when": {
+            "keep_unary_axes": [
+              true
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-datatype",
+            {
+              "parameter": "datatype"
+            }
+          ],
+          "when": {},
+          "optional": true
+        },
+        {
+          "tokens": [
+            "-nthreads",
+            {
+              "parameter": "nthreads"
+            }
+          ],
+          "when": {},
+          "optional": true
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "input_unbounded": "This interface supports up to four files for this repeated argument.",
+        "info": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "quiet": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "debug": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "force": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "config": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "help": "Managed by the platform or requires a specialized repeated/text argument contract.",
+        "version": "Managed by the platform or requires a specialized repeated/text argument contract."
+      }
+    }
+  }
+}

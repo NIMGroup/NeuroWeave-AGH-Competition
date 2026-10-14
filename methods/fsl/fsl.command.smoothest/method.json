@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "id": "fsl.command.smoothest",
+  "version": "1",
+  "kind": "method",
+  "label": "FSL smoothest",
+  "description": "Estimate residual smoothness for cluster inference.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "fsl.command.smoothest",
+  "parameters": [
+    {
+      "id": "source",
+      "argument": "",
+      "label": "source",
+      "description": "Use residuals or a Z-statistic image.",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": "zstat",
+      "options": [
+        {
+          "value": "zstat",
+          "label": "zstat",
+          "description": ""
+        },
+        {
+          "value": "residuals",
+          "label": "residuals",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Use residuals or a Z-statistic image. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    },
+    {
+      "id": "dof",
+      "argument": "",
+      "label": "dof",
+      "description": "Residual degrees of freedom.",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": null,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "source": [
+          "residuals"
+        ]
+      },
+      "required_when": {
+        "source": [
+          "residuals"
+        ]
+      },
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "Required only for the selected operation.",
+      "usage": "Residual degrees of freedom. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://fsl.fmrib.ox.ac.uk/fsl/docs/utilities/fslutils.html"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "mask",
+      "type": "brain_mask",
+      "label": "mask",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "zstat",
+      "type": "z_stat_map",
+      "label": "zstat",
+      "description": "Z-statistic image.",
+      "required": false,
+      "required_when": {
+        "source": [
+          "zstat"
+        ]
+      },
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "residuals",
+      "type": "imaging_input",
+      "label": "residuals",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": false,
+      "required_when": {
+        "source": [
+          "residuals"
+        ]
+      },
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "report",
+      "type": "execution_log",
+      "label": "report",
+      "description": "Native command output, saved in this run’s output directory. Estimate residual smoothness for cluster inference.",
+      "format": ".log",
+      "primary": true,
+      "path_template": "command.log",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "brain_mask",
+    "z_stat_map",
+    "imaging_input"
+  ],
+  "output_types": [
+    "execution_log"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/fsl-smoothest.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "fsl",
+      "command": "smoothest",
+      "version": "installed-2412.6",
+      "argv": [
+        {
+          "tokens": [
+            "-m",
+            {
+              "input": "mask"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-z",
+            {
+              "input": "zstat"
+            }
+          ],
+          "when": {
+            "source": [
+              "zstat"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-r",
+            {
+              "input": "residuals"
+            },
+            "-d",
+            {
+              "parameter": "dof"
+            }
+          ],
+          "when": {
+            "source": [
+              "residuals"
+            ]
+          },
+          "optional": false
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

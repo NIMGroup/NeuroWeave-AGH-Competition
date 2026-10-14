@@ -1,0 +1,1 @@
+/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1/bin/mri_synthstrip: line 3: /opt/software/freesurfer/bin/fspython: No such file or directory

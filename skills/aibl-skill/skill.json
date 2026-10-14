@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "id": "aibl-skill",
+  "description": "AIBL 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：aibl 质控汇总；aibl 表型/刺激提取；aibl 复制整理为 BIDS 目录。",
+  "method_refs": [
+    {
+      "capability": "skill.aibl-skill",
+      "method_id": "reviewed-aibl-qc-summary-aibl-skill",
+      "label": "aibl 质控汇总",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "qc-summary"
+      ],
+      "execution_resolution": {},
+      "role": "Generate per-subject QC summaries and exclusion lists for AIBL. Combines fMRIPrep confounds (if available), FreeSurfer recon-all metrics, and structural quality assessment to produce a unified QC report。 Inputs: fmriprep_dir: Path to fMRIPrep output directory (directory); freesurfer_dir: Path to FreeSurfer output directory (directory). Registered outputs: results/output.csv.",
+      "method_ref": "reviewed.aibl-skill.aibl-qc-summary"
+    },
+    {
+      "capability": "skill.aibl-skill",
+      "method_id": "reviewed-extract-aibl-phenotype-aibl-skill",
+      "label": "aibl 表型/刺激提取",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "phenotype-extraction",
+        "stimulus-extraction"
+      ],
+      "execution_resolution": {},
+      "role": "Extract and merge AIBL phenotype tables for downstream analysis. Reads AIBL phenotype files (cognitive assessments, blood biomarkers, APOE genotype, demographics), selects columns, aligns visits, and optionally cross-references with imaging subject lists。 Inputs: phenotype_dir: Directory containing AIBL phenotype CSV/TSV files (directory); imaging_ids: Path to BIDS participants.tsv or file with imaging subject IDs (file). Registered outputs: results/output.csv.",
+      "method_ref": "reviewed.aibl-skill.extract-aibl-phenotype"
+    },
+    {
+      "capability": "skill.aibl-skill",
+      "method_id": "reviewed-reorganize-aibl-aibl-skill",
+      "label": "aibl 复制整理为 BIDS 目录",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "bids-reorganization",
+        "data-reorganization"
+      ],
+      "execution_resolution": {},
+      "role": "Reorganize AIBL raw data into BIDS-style directory structure. Handles AIBL-style subject IDs, visit names, and multimodal routing for T1w MRI and PET (PiB, FDG, tau)。 Inputs: input: Path to AIBL raw data directory (directory); participants_file: Optional: path to AIBL phenotype file for participant metadata (file). Registered outputs: results/.",
+      "method_ref": "reviewed.aibl-skill.reorganize-aibl"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "name": "aibl-skill",
+  "category": [
+    "数据集专属",
+    "数据集适配与质控"
+  ],
+  "scope": "dataset",
+  "keywords": [
+    "aibl-skill",
+    "BIDS"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

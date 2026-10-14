@@ -1,0 +1,7 @@
+# Only use with a locally verified dist artifact and matching Git revision.
+FROM public.ecr.aws/docker/library/nginx:1.28-alpine@sha256:a8b39bd9cf0f83869a2162827a0caf6137ddf759d50a171451b335cecc87d236 AS runtime
+ARG NEUROWEAVE_REVISION=development
+LABEL org.opencontainers.image.revision=${NEUROWEAVE_REVISION}
+COPY frontend/nginx.conf /etc/nginx/conf.d/default.conf
+COPY frontend/dist /usr/share/nginx/html
+EXPOSE 3000

@@ -1,0 +1,184 @@
+{
+  "label": "SEED 按受试者留一交叉验证",
+  "description": "Classify emotions from SEED-IV features. Supports SVM, Random Forest, and Leave-One-Subject-Out cross-validation。 Inputs: input: 特征与标签 CSV (file). Registered outputs: results/metrics.json.",
+  "runner_id": "reviewed.seed-iv-skill.classify",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "method",
+      "argument": "method",
+      "label": "method",
+      "description": "Classification method",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "both",
+      "options": [
+        {
+          "value": "svm",
+          "label": "svm",
+          "description": ""
+        },
+        {
+          "value": "rf",
+          "label": "rf",
+          "description": ""
+        },
+        {
+          "value": "both",
+          "label": "both",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/seed-iv-skill/scripts/classify_seed_iv.py:119。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "特征与标签 CSV",
+      "description": "Path to features CSV. Required file input for SEED 按受试者留一交叉验证; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for SEED 按受试者留一交叉验证. Contains this operation's generated files, including results/metrics.json; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_metrics_json",
+      "type": "generated_file",
+      "label": "metrics.json",
+      "description": "Output path for results: output of SEED leave-one-subject-out cross-validation. Relative run path: results/metrics.json. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".json",
+      "primary": false,
+      "path_template": "results/metrics.json",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/seed-iv-skill/scripts/classify_seed_iv.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.seed-iv-skill.classify",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.seed-iv-skill.classify",
+      "script": "skills/seed-iv-skill/scripts/classify_seed_iv.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "method",
+          "flag": "--method"
+        }
+      ],
+      "modules": [
+        "numpy",
+        "pandas",
+        "sklearn"
+      ],
+      "expected": [
+        "metrics.json"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output",
+          "metrics.json"
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/seed-iv-skill/scripts/classify_seed_iv.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/seed-iv-skill/scripts/classify_seed_iv.py",
+          "source_sha256": "b2cf604337a01521f7dd961a1399509cf9345af6098d4fb6058a91bee9074c3f"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/seed-iv-skill/scripts/classify_seed_iv.py",
+          "sha256": "b2cf604337a01521f7dd961a1399509cf9345af6098d4fb6058a91bee9074c3f"
+        }
+      ],
+      "artifact_types": {
+        "metrics.json": "generated_file"
+      }
+    }
+  }
+}

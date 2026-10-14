@@ -1,0 +1,1 @@
+ERROR: SUBJECTS_DIR not defined in environment

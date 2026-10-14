@@ -1,0 +1,162 @@
+{
+  "label": "图谱坐标提取",
+  "description": "Reference script for atlas ROI center extraction with nibabel。 Inputs: atlas: 分区图谱 (file); labels: 图谱标签文本 (file). Registered outputs: results/coordinates.csv.",
+  "runner_id": "reviewed.nibabel-skill.atlas-coordinates",
+  "input_types": [
+    "label_image",
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [],
+  "input_slots": [
+    {
+      "id": "atlas",
+      "type": "label_image",
+      "label": "分区图谱",
+      "description": "Input atlas NIfTI with integer ROI labels. Required file input for 图谱坐标提取; bind to port atlas.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "labels",
+      "type": "analysis_input",
+      "label": "图谱标签文本",
+      "description": "Text file containing ROI labels. Required file input for 图谱坐标提取; bind to port labels.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for 图谱坐标提取. Contains this operation's generated files, including results/coordinates.csv; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_coordinates_csv",
+      "type": "generated_file",
+      "label": "coordinates.csv",
+      "description": "Output CSV for ROI centers.: output of atlas coordinate extraction. Relative run path: results/coordinates.csv. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".csv",
+      "primary": false,
+      "path_template": "results/coordinates.csv",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/nibabel-skill/scripts/atlas_coordinate_reference.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.nibabel-skill.atlas-coordinates",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.nibabel-skill.atlas-coordinates",
+      "script": "skills/nibabel-skill/scripts/atlas_coordinate_reference.py",
+      "inputs": [
+        {
+          "id": "atlas",
+          "flag": "--atlas",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "labels",
+          "flag": "--labels",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [],
+      "modules": [
+        "numpy",
+        "pandas",
+        "nibabel",
+        "nilearn"
+      ],
+      "expected": [
+        "coordinates.csv"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output",
+          "coordinates.csv"
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/nibabel-skill/scripts/atlas_coordinate_reference.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/nibabel-skill/scripts/atlas_coordinate_reference.py",
+          "source_sha256": "0672ffb7f06727b3c74565db378a02d54ff0b6e6328531ebc74f21db15717155"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/nibabel-skill/scripts/atlas_coordinate_reference.py",
+          "sha256": "0672ffb7f06727b3c74565db378a02d54ff0b6e6328531ebc74f21db15717155"
+        }
+      ],
+      "artifact_types": {
+        "coordinates.csv": "generated_file"
+      }
+    }
+  }
+}

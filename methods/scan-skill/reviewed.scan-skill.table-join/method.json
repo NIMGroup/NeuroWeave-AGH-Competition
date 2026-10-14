@@ -1,0 +1,296 @@
+{
+  "label": "按显式键连接已批准的表格",
+  "description": "Merge two CSV/TSV tables on explicit, non-null keys using pandas, validate the selected key cardinality and record matched and unmatched row counts。 Inputs: input: CSV/TSV 表格 (file); right: 右侧 CSV/TSV 表格 (file). Registered outputs: results/table_report.json, results/joined.csv. Fixed invocation options: --operation join.",
+  "runner_id": "reviewed.scan-skill.table-join",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "keys",
+      "argument": "keys",
+      "label": "连接键（逗号分隔）",
+      "description": "合并表格的键列，多个列名使用逗号分隔；对应列必须存在于两张表。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "subject_id",
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 keys，由结构化 Runner 映射到现有入口参数 keys。 平台默认值：subject_id；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "how",
+      "argument": "how",
+      "label": "how",
+      "description": "表连接方式，传给既有表格合并入口；选项决定保留哪些键对应的行。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "left",
+          "description": ""
+        },
+        {
+          "value": "inner",
+          "label": "inner",
+          "description": ""
+        },
+        {
+          "value": "outer",
+          "label": "outer",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 how，由结构化 Runner 映射到现有入口参数 how。 可选值：left, inner, outer。 平台默认值：left；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "validate",
+      "argument": "validate",
+      "label": "validate",
+      "description": "表连接的键唯一性验证规则；不满足所选关系时合并应失败。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "one_to_one",
+      "options": [
+        {
+          "value": "one_to_one",
+          "label": "one_to_one",
+          "description": ""
+        },
+        {
+          "value": "many_to_one",
+          "label": "many_to_one",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 validate，由结构化 Runner 映射到现有入口参数 validate。 可选值：one_to_one, many_to_one。 平台默认值：one_to_one；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "CSV/TSV 表格",
+      "description": "CSV/TSV 表格. Required file input for 按显式键连接已批准的表格; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "right",
+      "type": "analysis_input",
+      "label": "右侧 CSV/TSV 表格",
+      "description": "右侧 CSV/TSV 表格. Required file input for 按显式键连接已批准的表格; bind to port right.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for 按显式键连接已批准的表格. Contains this operation's generated files, including results/table_report.json, results/joined.csv; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_table_report_json",
+      "type": "generated_file",
+      "label": "table_report.json",
+      "description": "table_report.json: output of joining approved tables by explicit keys. Relative run path: results/table_report.json. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".json",
+      "primary": false,
+      "path_template": "results/table_report.json",
+      "generated_when": {}
+    },
+    {
+      "id": "file_joined_csv",
+      "type": "generated_file",
+      "label": "joined.csv",
+      "description": "joined.csv: output of joining approved tables by explicit keys. Relative run path: results/joined.csv. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".csv",
+      "primary": false,
+      "path_template": "results/joined.csv",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "bakend/app/execution/table_inspection_worker.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.scan-skill.table-join",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.scan-skill.table-join",
+      "script": "bakend/app/execution/table_inspection_worker.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "right",
+          "flag": "--right",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "keys",
+          "flag": "--keys"
+        },
+        {
+          "id": "how",
+          "flag": "--how"
+        },
+        {
+          "id": "validate",
+          "flag": "--validate"
+        }
+      ],
+      "modules": [
+        "pandas"
+      ],
+      "expected": [
+        "table_report.json",
+        "joined.csv"
+      ],
+      "profile": "scientific",
+      "fixed_args": [
+        "--operation",
+        "join"
+      ],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [
+        [
+          "pandas",
+          "read_csv"
+        ],
+        [
+          "pandas",
+          "DataFrame.merge"
+        ]
+      ],
+      "implementation_source": {
+        "kind": "library_api",
+        "entrypoints": [
+          "pandas.read_csv",
+          "pandas.DataFrame.merge"
+        ],
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "bakend/app/execution/table_inspection_worker.py",
+          "sha256": "e89679c9fb7441583c9eafd6777ae65b9644d06e863b61707b6ec51647c59814"
+        }
+      ],
+      "artifact_types": {
+        "table_report.json": "generated_file",
+        "joined.csv": "generated_file"
+      }
+    }
+  }
+}

@@ -1,0 +1,298 @@
+{
+  "label": "受试者分型",
+  "description": "CLI for disease-subtyping models。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json.",
+  "runner_id": "reviewed.subject-subtyping.cluster",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "operation",
+      "argument": "operation",
+      "label": "分型方法",
+      "description": "选择此入口允许的现有操作或模型，具体选项见参数选项列表。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "kmeans",
+      "options": [
+        {
+          "value": "kmeans",
+          "label": "kmeans",
+          "description": ""
+        },
+        {
+          "value": "gmm",
+          "label": "gmm",
+          "description": ""
+        },
+        {
+          "value": "spectral",
+          "label": "spectral",
+          "description": ""
+        },
+        {
+          "value": "nmf",
+          "label": "nmf",
+          "description": ""
+        },
+        {
+          "value": "consensus",
+          "label": "consensus",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 operation，由结构化 Runner 映射到现有入口参数 operation。 可选值：kmeans, gmm, spectral, nmf, consensus。 平台默认值：kmeans；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "n_clusters",
+      "argument": "n-clusters",
+      "label": "n-clusters",
+      "description": "现有聚类操作或模型聚类层的簇数；应与样本量及任务目标匹配。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 2,
+      "options": [],
+      "minimum": 2.0,
+      "maximum": 100.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 n_clusters，由结构化 Runner 映射到现有入口参数 n-clusters。 平台默认值：2；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "subject_col",
+      "argument": "subject-col",
+      "label": "subject-col",
+      "description": "输入表中的样本标识列名，用于按样本对应特征与标签。",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "subject_id",
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 subject_col，由结构化 Runner 映射到现有入口参数 subject-col。 平台默认值：subject_id；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "seed",
+      "argument": "seed",
+      "label": "seed",
+      "description": "现有入口使用的随机种子；相同种子不保证不同硬件或软件版本的结果逐位一致。",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 123,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 2147483647.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "在前端设置 seed，由结构化 Runner 映射到现有入口参数 seed。 平台默认值：123；此值不等同于上游软件默认值。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "features",
+      "type": "analysis_input",
+      "label": "特征 CSV",
+      "description": "特征 CSV. Required file input for 受试者分型; bind to port features.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for 受试者分型. Contains this operation's generated files, including results/metrics.json; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_metrics_json",
+      "type": "generated_file",
+      "label": "metrics.json",
+      "description": "metrics.json: output of subject subtyping. Relative run path: results/metrics.json. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".json",
+      "primary": false,
+      "path_template": "results/metrics.json",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/subject-subtyping/scripts/train_reference.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.subject-subtyping.cluster",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.subject-subtyping.cluster",
+      "script": "skills/subject-subtyping/scripts/train_reference.py",
+      "inputs": [
+        {
+          "id": "features",
+          "flag": "--features",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "operation",
+          "flag": "--model"
+        },
+        {
+          "id": "n_clusters",
+          "flag": "--n-clusters"
+        },
+        {
+          "id": "subject_col",
+          "flag": "--subject-col"
+        },
+        {
+          "id": "seed",
+          "flag": "--seed"
+        }
+      ],
+      "modules": [
+        "numpy",
+        "pandas",
+        "scipy",
+        "sklearn",
+        "joblib"
+      ],
+      "expected": [
+        "metrics.json"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [
+        "models/subtyping/train.py"
+      ],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/subject-subtyping/scripts/train_reference.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/subject-subtyping/scripts/train_reference.py",
+          "source_sha256": "34c079949916b9f34fd0cc06e14c3d60efa52ebf8519e6c04d004e1fbea7c793"
+        },
+        "dependencies": {
+          "models/subtyping/train.py": {
+            "origin": "User-provided NeuroClaw source snapshot",
+            "source_path": "models/subtyping/train.py",
+            "source_sha256": "b3eb86af3bfa0027a56f0b5b96c75a6c2cdffe5a777ee5e11a4783d9609312d3"
+          }
+        },
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/subject-subtyping/scripts/train_reference.py",
+          "sha256": "34c079949916b9f34fd0cc06e14c3d60efa52ebf8519e6c04d004e1fbea7c793"
+        },
+        {
+          "path": "models/subtyping/train.py",
+          "sha256": "b3eb86af3bfa0027a56f0b5b96c75a6c2cdffe5a777ee5e11a4783d9609312d3"
+        }
+      ],
+      "artifact_types": {
+        "metrics.json": "generated_file"
+      }
+    }
+  }
+}

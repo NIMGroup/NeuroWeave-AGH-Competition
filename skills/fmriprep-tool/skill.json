@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "id": "fmriprep-tool",
+  "description": "fmriprep-tool 统筹已登记的独立方法和可复用流程。支持：fMRIPrep 本地环境执行。",
+  "method_refs": [
+    {
+      "capability": "skill.fmriprep-tool",
+      "method_id": "fmriprep-local-environment",
+      "label": "fMRIPrep 本地环境执行",
+      "default_recommended": true,
+      "default_reason": "配置 LOCALFLOW_FMRIPREP_EXECUTABLE 后可直接运行，不向后端开放 Docker socket。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "通过 NeuroClaw 式可执行环境路径运行单个受试者的 fMRIPrep；环境未配置时保留为明确的禁用选项。",
+      "method_ref": "fmriprep.run"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "selection_rules": [
+    "已有预处理 BOLD 仅需混杂回归或连接分析时转用 nilearn-tool；需要从 BIDS 功能像生成预处理衍生物时才选择 fMRIPrep。"
+  ],
+  "name": "fmriprep-tool",
+  "category": [
+    "软件工具",
+    "fmriprep"
+  ],
+  "scope": "software",
+  "limitations": [
+    "启用 FreeSurfer 表面重建前需要有效许可证；关闭表面重建时不能把表面或脑区分区产物当作已经生成。"
+  ],
+  "keywords": [
+    "fmriprep-tool",
+    "fMRIPrep",
+    "fMRI 预处理"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

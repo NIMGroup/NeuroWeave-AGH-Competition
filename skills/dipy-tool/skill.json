@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "id": "dipy-tool",
+  "description": "dipy-tool 统筹已登记的独立方法和可复用流程。支持：DIPY TensorModel；DWI 载入与脑掩膜；分区影像统计。",
+  "method_refs": [
+    {
+      "capability": "dwi.tensor_metrics",
+      "method_id": "dipy",
+      "label": "DIPY TensorModel",
+      "default_recommended": true,
+      "default_reason": "适合 FA/MD 指标计算和后续扩展。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Python 路线，便于扩展、自定义和生成结构化扩散指标。",
+      "method_ref": "dipy.tensor_fit"
+    },
+    {
+      "capability": "skill.dipy-tool",
+      "method_id": "reviewed-mask-dipy-tool",
+      "label": "DWI 载入与脑掩膜",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "load-dwi-gradients",
+        "brain-mask"
+      ],
+      "execution_resolution": {},
+      "role": "Reference DIPY snippet for DWI loading and brain mask generation。 Inputs: dwi: DWI (file); bval: bval (file); bvec: bvec (file). Registered outputs: results/brain_mask.nii.gz.",
+      "method_ref": "reviewed.dipy-tool.mask"
+    },
+    {
+      "capability": "skill.dipy-tool",
+      "method_id": "reviewed-roi-stats-dipy-tool",
+      "label": "分区影像统计",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "roi-stats",
+        "roi-wise-diffusion-features",
+        "roi-wise-feature-extraction"
+      ],
+      "execution_resolution": {},
+      "role": "Reference DIPY snippet for atlas-based ROI statistics on tensor metrics。 Inputs: metric: 标量影像 (file); roi: 分区图谱 (file); labels: 标签表 (file). Registered outputs: results/roi_stats.csv.",
+      "method_ref": "reviewed.dipy-tool.roi-stats"
+    },
+    {
+      "capability": "skill.dipy-tool",
+      "method_id": "linked-dipy",
+      "label": "DIPY TensorModel",
+      "default_recommended": false,
+      "default_reason": "适合 FA/MD 指标计算和后续扩展。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Python 路线，便于扩展、自定义和生成结构化扩散指标。",
+      "method_ref": "dipy.tensor_fit"
+    },
+    {
+      "capability": "skill.dipy-tool",
+      "method_id": "dipy-tool-guided--dti-fit",
+      "label": "DIPY TensorModel",
+      "default_recommended": false,
+      "default_reason": "适合 FA/MD 指标计算和后续扩展。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "dipy-tool-guided--dti-fit",
+        "target_method_id": "dipy"
+      },
+      "role": "Python 路线，便于扩展、自定义和生成结构化扩散指标。",
+      "method_ref": "dipy.tensor_fit"
+    },
+    {
+      "capability": "skill.dipy-tool",
+      "method_id": "dipy-tool-guided--export-tensor-metrics",
+      "label": "DIPY TensorModel",
+      "default_recommended": false,
+      "default_reason": "适合 FA/MD 指标计算和后续扩展。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "dipy-tool-guided--export-tensor-metrics",
+        "target_method_id": "dipy"
+      },
+      "role": "Python 路线，便于扩展、自定义和生成结构化扩散指标。",
+      "method_ref": "dipy.tensor_fit"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "selection_rules": [
+    "需要 FA、MD 等张量指标时选择张量拟合；FOD 估计和基于 FOD 的追踪应查找 MRtrix3 的对应入口。"
+  ],
+  "name": "dipy-tool",
+  "category": [
+    "软件工具",
+    "dipy"
+  ],
+  "scope": "software",
+  "limitations": [
+    "运动或涡流校正后应核对旋转后的 bvec 与当前 DWI；ROI 统计还要求图谱与指标影像处于同一体素空间。"
+  ],
+  "keywords": [
+    "dipy-tool",
+    "TensorModel",
+    "DWI"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

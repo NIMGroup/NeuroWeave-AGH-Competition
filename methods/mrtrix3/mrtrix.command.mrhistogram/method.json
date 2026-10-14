@@ -1,0 +1,245 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix.command.mrhistogram",
+  "version": "1",
+  "kind": "method",
+  "label": "MRtrix3 mrhistogram",
+  "description": "Generate a histogram of image intensities",
+  "runner_id": "mrtrix.command.mrhistogram",
+  "parameters": [
+    {
+      "id": "bins",
+      "argument": "bins",
+      "label": "bins",
+      "description": "Manually set the number of bins to use to generate the histogram.",
+      "type": "integer",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/mrhistogram.html",
+      "minimum": 2
+    },
+    {
+      "id": "ignorezero",
+      "argument": "-ignorezero",
+      "label": "ignorezero",
+      "description": "ignore zero-valued data during histogram construction.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "allvolumes",
+      "argument": "-allvolumes",
+      "label": "allvolumes",
+      "description": "generate one histogram across all image volumes, rather than one per image volume",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "info",
+      "argument": "-info",
+      "label": "info",
+      "description": "display information messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "quiet",
+      "argument": "-quiet",
+      "label": "quiet",
+      "description": "do not display information messages or progress status; alternatively, this can be achieved by setting the MRTRIX_QUIET environment variable to a non-empty string.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "debug",
+      "argument": "-debug",
+      "label": "debug",
+      "description": "display debugging messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "nthreads",
+      "argument": "nthreads",
+      "label": "nthreads",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).",
+      "type": "integer",
+      "required": true,
+      "default": 1,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/mrhistogram.html",
+      "minimum": 0,
+      "group": "计算资源",
+      "level": "advanced"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "image",
+      "type": "imaging_input",
+      "label": "image",
+      "description": "the input image from which the histogram will be computed",
+      "required": true,
+      "binding": "file"
+    },
+    {
+      "id": "template",
+      "type": "generated_file",
+      "label": "template",
+      "description": "Use an existing histogram file as the template for histogram formation",
+      "required": false,
+      "binding": "file"
+    },
+    {
+      "id": "mask",
+      "type": "imaging_input",
+      "label": "mask",
+      "description": "Calculate the histogram only within a mask image.",
+      "required": false,
+      "binding": "file"
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "hist",
+      "type": "generated_file",
+      "label": "hist",
+      "description": "the output histogram file This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".txt",
+      "path_template": "hist.txt"
+    }
+  ],
+  "input_types": [
+    "imaging_input",
+    "generated_file"
+  ],
+  "output_types": [
+    "generated_file"
+  ],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/mrhistogram.usage.txt",
+      "kind": "command",
+      "label": "MRtrix3 安装版原始完整帮助"
+    }
+  ],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "command": "mrhistogram",
+      "version": "3.0.8",
+      "positional": [
+        {
+          "source": "input",
+          "id": "image",
+          "optional": false
+        },
+        {
+          "source": "output",
+          "id": "hist",
+          "optional": false
+        }
+      ],
+      "options": [
+        {
+          "flag": "-bins",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "bins",
+              "kind": "INT"
+            }
+          ]
+        },
+        {
+          "flag": "-template",
+          "values": [
+            {
+              "source": "input",
+              "id": "template"
+            }
+          ]
+        },
+        {
+          "flag": "-mask",
+          "values": [
+            {
+              "source": "input",
+              "id": "mask"
+            }
+          ]
+        },
+        {
+          "flag": "-ignorezero",
+          "values": [],
+          "when": {
+            "ignorezero": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-allvolumes",
+          "values": [],
+          "when": {
+            "allvolumes": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-info",
+          "values": [],
+          "when": {
+            "info": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-quiet",
+          "values": [],
+          "when": {
+            "quiet": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-debug",
+          "values": [],
+          "when": {
+            "debug": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-nthreads",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "nthreads",
+              "kind": "INT"
+            }
+          ]
+        }
+      ],
+      "total_options": 13,
+      "omitted_options": {
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    }
+  }
+}

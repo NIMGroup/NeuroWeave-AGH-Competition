@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "id": "report-builder",
+  "description": "report-builder 统筹已登记的独立方法和可复用流程。支持：结果报告。",
+  "method_refs": [
+    {
+      "capability": "dwi.report",
+      "method_id": "report_builder",
+      "label": "结果报告",
+      "default_recommended": true,
+      "default_reason": "保留流程、参数和 QC 的可追溯记录。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "生成可审阅的处理摘要、参数快照与结果清单。",
+      "method_ref": "report.build"
+    },
+    {
+      "capability": "skill.report-builder",
+      "method_id": "linked-report_builder",
+      "label": "结果报告",
+      "default_recommended": false,
+      "default_reason": "保留流程、参数和 QC 的可追溯记录。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "生成可审阅的处理摘要、参数快照与结果清单。",
+      "method_ref": "report.build"
+    },
+    {
+      "capability": "skill.report-builder",
+      "method_id": "report-builder-guided--processing-summary",
+      "label": "结果报告",
+      "default_recommended": false,
+      "default_reason": "保留流程、参数和 QC 的可追溯记录。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "report-builder-guided--processing-summary",
+        "target_method_id": "report_builder"
+      },
+      "role": "生成可审阅的处理摘要、参数快照与结果清单。",
+      "method_ref": "report.build"
+    },
+    {
+      "capability": "skill.report-builder",
+      "method_id": "report-builder-guided--quality-report",
+      "label": "结果报告",
+      "default_recommended": false,
+      "default_reason": "保留流程、参数和 QC 的可追溯记录。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "report-builder-guided--quality-report",
+        "target_method_id": "report_builder"
+      },
+      "role": "生成可审阅的处理摘要、参数快照与结果清单。",
+      "method_ref": "report.build"
+    },
+    {
+      "capability": "skill.report-builder",
+      "method_id": "report-builder-guided--diagnostic-report",
+      "label": "结果报告",
+      "default_recommended": false,
+      "default_reason": "保留流程、参数和 QC 的可追溯记录。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "report-builder-guided--diagnostic-report",
+        "target_method_id": "report_builder"
+      },
+      "role": "生成可审阅的处理摘要、参数快照与结果清单。",
+      "method_ref": "report.build"
+    },
+    {
+      "capability": "skill.report-builder",
+      "method_id": "report-builder-guided--reproducibility-report",
+      "label": "结果报告",
+      "default_recommended": false,
+      "default_reason": "保留流程、参数和 QC 的可追溯记录。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "report-builder-guided--reproducibility-report",
+        "target_method_id": "report_builder"
+      },
+      "role": "生成可审阅的处理摘要、参数快照与结果清单。",
+      "method_ref": "report.build"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "name": "report-builder",
+  "category": [
+    "任务能力",
+    "report"
+  ],
+  "scope": "task",
+  "limitations": [
+    "报告仅汇总已有流程、参数与结果清单，不会因生成报告而补跑计算或产生缺失的结果。"
+  ],
+  "keywords": [
+    "report-builder"
+  ],
+  "references": []
+}

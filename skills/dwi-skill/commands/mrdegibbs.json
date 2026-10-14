@@ -1,0 +1,403 @@
+{
+  "schema_version": 1,
+  "skill_id": "dwi-skill",
+  "provides": [
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "command-mrdegibbs",
+      "label": "MRtrix3 Gibbs 振铃校正",
+      "description": "独立调用 MRtrix3 3.0.8 的 mrdegibbs；保留原软件计算，参数按原版本帮助定义。\n\nRemove Gibbs Ringing Artifacts\nThis application attempts to remove Gibbs ringing artefacts from MRI images using the method of local subvoxel-shifts proposed by Kellner et al. (see reference below for details).\nThis command is designed to run on data directly after it has been reconstructed by the scanner, before any interpolation of any kind has taken place. You should not run this command after any form of motion correction (e.g. not after dwifslpreproc). Similarly, if you intend running dwidenoise, you should run denoising before this command to not alter the noise structure, which would impact on dwidenoise's performance.\nFor best results, any form of filtering performed by the scanner should be disabled, whether performed in the image domain or k-space. This includes elliptic filtering and other filters that are often applied to reduce Gibbs ringing artifacts. While this method can still safely be applied to such data, some residual ringing artefacts may still be present in the output.\nNote that this method is designed to work on images acquired with full k-space coverage. If this method is executed on data acquired with partial Fourier (eg. \"half-scan\") acceleration, it may not fully remove all ringing artifacts, and you may observe residuals of the original artifact in the partial Fourier direction. Nonetheless, application of the method is still considered safe and worthwhile. Users are however encouraged to acquired full-Fourier data where possible.",
+      "runner_id": "mrtrix.command.mrdegibbs",
+      "execution_mode": "runner",
+      "input_types": [
+        "imaging_input"
+      ],
+      "output_types": [
+        "imaging_input"
+      ],
+      "input_slots": [
+        {
+          "id": "in",
+          "type": "imaging_input",
+          "label": "in",
+          "description": "the input image.",
+          "required": true,
+          "binding": "file",
+          "formats": [
+            ".mif",
+            ".nii",
+            ".nii.gz"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "out",
+          "type": "imaging_input",
+          "label": "输出：Gibbs 振铃校正",
+          "description": "the output image. 文件名由平台固定在本次输出目录内。",
+          "format": ".mif",
+          "primary": true,
+          "path_template": "degibbs.mif"
+        }
+      ],
+      "parameters": [
+        {
+          "id": "axes",
+          "argument": "-axes",
+          "label": "处理平面轴编号",
+          "description": "select the slice axes (default: 0,1 - i.e. x-y).",
+          "required": false,
+          "default": null,
+          "type": "string",
+          "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+          "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/mrdegibbs.html",
+          "usage": "逗号分隔的数值；本接口仅接受明确列表，不接受路径或任意表达式。 坐标向量应有三个数值；轴编号从 0 开始。"
+        },
+        {
+          "id": "nshifts",
+          "argument": "-nshifts",
+          "label": "nshifts",
+          "description": "discretization of subpixel spacing (default: 20).",
+          "required": false,
+          "default": null,
+          "type": "integer",
+          "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+          "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/mrdegibbs.html",
+          "minimum": 8,
+          "maximum": 128
+        },
+        {
+          "id": "minW",
+          "argument": "-minW",
+          "label": "minW",
+          "description": "left border of window used for TV computation (default: 1).",
+          "required": false,
+          "default": null,
+          "type": "integer",
+          "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+          "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/mrdegibbs.html",
+          "minimum": 0,
+          "maximum": 10
+        },
+        {
+          "id": "maxW",
+          "argument": "-maxW",
+          "label": "maxW",
+          "description": "right border of window used for TV computation (default: 3).",
+          "required": false,
+          "default": null,
+          "type": "integer",
+          "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+          "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/mrdegibbs.html",
+          "minimum": 0,
+          "maximum": 128
+        },
+        {
+          "id": "datatype",
+          "argument": "-datatype",
+          "label": "输出数据类型",
+          "description": "specify output image data type. Valid choices are: float32, float32le, float32be, float64, float64le, float64be, int64, uint64, int64le, uint64le, int64be, uint64be, int32, uint32, int32le, uint32le, int32be, uint32be, int16, uint16, int16le, uint16le, int16be, uint16be, cfloat32, cfloat32le, cfloat32be, cfloat64, cfloat64le, cfloat64be, int8, uint8, bit.",
+          "required": false,
+          "default": null,
+          "type": "string",
+          "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+          "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/mrdegibbs.html",
+          "control": "select",
+          "options": [
+            {
+              "value": "float32",
+              "label": "float32"
+            },
+            {
+              "value": "float32le",
+              "label": "float32le"
+            },
+            {
+              "value": "float32be",
+              "label": "float32be"
+            },
+            {
+              "value": "float64",
+              "label": "float64"
+            },
+            {
+              "value": "float64le",
+              "label": "float64le"
+            },
+            {
+              "value": "float64be",
+              "label": "float64be"
+            },
+            {
+              "value": "int64",
+              "label": "int64"
+            },
+            {
+              "value": "uint64",
+              "label": "uint64"
+            },
+            {
+              "value": "int64le",
+              "label": "int64le"
+            },
+            {
+              "value": "uint64le",
+              "label": "uint64le"
+            },
+            {
+              "value": "int64be",
+              "label": "int64be"
+            },
+            {
+              "value": "uint64be",
+              "label": "uint64be"
+            },
+            {
+              "value": "int32",
+              "label": "int32"
+            },
+            {
+              "value": "uint32",
+              "label": "uint32"
+            },
+            {
+              "value": "int32le",
+              "label": "int32le"
+            },
+            {
+              "value": "uint32le",
+              "label": "uint32le"
+            },
+            {
+              "value": "int32be",
+              "label": "int32be"
+            },
+            {
+              "value": "uint32be",
+              "label": "uint32be"
+            },
+            {
+              "value": "int16",
+              "label": "int16"
+            },
+            {
+              "value": "uint16",
+              "label": "uint16"
+            },
+            {
+              "value": "int16le",
+              "label": "int16le"
+            },
+            {
+              "value": "uint16le",
+              "label": "uint16le"
+            },
+            {
+              "value": "int16be",
+              "label": "int16be"
+            },
+            {
+              "value": "uint16be",
+              "label": "uint16be"
+            },
+            {
+              "value": "cfloat32",
+              "label": "cfloat32"
+            },
+            {
+              "value": "cfloat32le",
+              "label": "cfloat32le"
+            },
+            {
+              "value": "cfloat32be",
+              "label": "cfloat32be"
+            },
+            {
+              "value": "cfloat64",
+              "label": "cfloat64"
+            },
+            {
+              "value": "cfloat64le",
+              "label": "cfloat64le"
+            },
+            {
+              "value": "cfloat64be",
+              "label": "cfloat64be"
+            },
+            {
+              "value": "int8",
+              "label": "int8"
+            },
+            {
+              "value": "uint8",
+              "label": "uint8"
+            },
+            {
+              "value": "bit",
+              "label": "bit"
+            }
+          ]
+        },
+        {
+          "id": "info",
+          "argument": "-info",
+          "label": "info",
+          "description": "display information messages.",
+          "type": "boolean",
+          "required": false,
+          "default": false
+        },
+        {
+          "id": "quiet",
+          "argument": "-quiet",
+          "label": "quiet",
+          "description": "do not display information messages or progress status; alternatively, this can be achieved by setting the MRTRIX_QUIET environment variable to a non-empty string.",
+          "type": "boolean",
+          "required": false,
+          "default": false
+        },
+        {
+          "id": "debug",
+          "argument": "-debug",
+          "label": "debug",
+          "description": "display debugging messages.",
+          "type": "boolean",
+          "required": false,
+          "default": false
+        },
+        {
+          "id": "nthreads",
+          "argument": "-nthreads",
+          "label": "CPU 线程数",
+          "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).",
+          "required": true,
+          "default": 1,
+          "type": "integer",
+          "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+          "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/mrdegibbs.html",
+          "minimum": 0,
+          "group": "计算资源",
+          "level": "advanced"
+        }
+      ],
+      "source_references": [
+        {
+          "path": "skills/dwi-skill/references/mrtrix-3.0.8/mrdegibbs.md",
+          "label": "安装版本原始命令帮助",
+          "kind": "command"
+        }
+      ]
+    }
+  ],
+  "command_contract": {
+    "command": "mrdegibbs",
+    "version": "3.0.8",
+    "positional": [
+      {
+        "source": "input",
+        "id": "in"
+      },
+      {
+        "source": "output",
+        "id": "out"
+      }
+    ],
+    "options": [
+      {
+        "flag": "-axes",
+        "values": [
+          {
+            "source": "parameter",
+            "id": "axes",
+            "kind": "ISEQ"
+          }
+        ]
+      },
+      {
+        "flag": "-nshifts",
+        "values": [
+          {
+            "source": "parameter",
+            "id": "nshifts",
+            "kind": "INT"
+          }
+        ]
+      },
+      {
+        "flag": "-minW",
+        "values": [
+          {
+            "source": "parameter",
+            "id": "minW",
+            "kind": "INT"
+          }
+        ]
+      },
+      {
+        "flag": "-maxW",
+        "values": [
+          {
+            "source": "parameter",
+            "id": "maxW",
+            "kind": "INT"
+          }
+        ]
+      },
+      {
+        "flag": "-datatype",
+        "values": [
+          {
+            "source": "parameter",
+            "id": "datatype",
+            "kind": "CHOICE"
+          }
+        ]
+      },
+      {
+        "flag": "-info",
+        "values": [],
+        "when": {
+          "info": [
+            true
+          ]
+        }
+      },
+      {
+        "flag": "-quiet",
+        "values": [],
+        "when": {
+          "quiet": [
+            true
+          ]
+        }
+      },
+      {
+        "flag": "-debug",
+        "values": [],
+        "when": {
+          "debug": [
+            true
+          ]
+        }
+      },
+      {
+        "flag": "-nthreads",
+        "values": [
+          {
+            "source": "parameter",
+            "id": "nthreads",
+            "kind": "INT"
+          }
+        ]
+      }
+    ],
+    "total_options": 13,
+    "omitted_options": {
+      "force": "运行输出目录独立分配，不允许覆盖输入或其他运行。",
+      "config": "不开放任意软件配置键，以免绕过路径、线程及运行环境管理。",
+      "help": "通过命令说明面板提供，不作为计算参数。",
+      "version": "由运行环境探测提供。"
+    }
+  }
+}

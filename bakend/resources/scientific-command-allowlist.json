@@ -1,0 +1,555 @@
+{
+  "fsl.command.fslmaths": {
+    "software": "fsl",
+    "command": "fslmaths",
+    "version": "installed-2412.6",
+    "root": "/opt/software/fsl",
+    "root_env": "LOCALFLOW_FSL_ROOT"
+  },
+  "fsl.command.fslstats": {
+    "software": "fsl",
+    "command": "fslstats",
+    "version": "installed-2412.6",
+    "root": "/opt/software/fsl",
+    "root_env": "LOCALFLOW_FSL_ROOT"
+  },
+  "fsl.command.fslroi": {
+    "software": "fsl",
+    "command": "fslroi",
+    "version": "installed-2412.6",
+    "root": "/opt/software/fsl",
+    "root_env": "LOCALFLOW_FSL_ROOT"
+  },
+  "fsl.command.fslmerge": {
+    "software": "fsl",
+    "command": "fslmerge",
+    "version": "installed-2412.6",
+    "root": "/opt/software/fsl",
+    "root_env": "LOCALFLOW_FSL_ROOT"
+  },
+  "fsl.command.fslsplit": {
+    "software": "fsl",
+    "command": "fslsplit",
+    "version": "installed-2412.6",
+    "root": "/opt/software/fsl",
+    "root_env": "LOCALFLOW_FSL_ROOT"
+  },
+  "fsl.command.fslmeants": {
+    "software": "fsl",
+    "command": "fslmeants",
+    "version": "installed-2412.6",
+    "root": "/opt/software/fsl",
+    "root_env": "LOCALFLOW_FSL_ROOT"
+  },
+  "fsl.command.fslhd": {
+    "software": "fsl",
+    "command": "fslhd",
+    "version": "installed-2412.6",
+    "root": "/opt/software/fsl",
+    "root_env": "LOCALFLOW_FSL_ROOT"
+  },
+  "fsl.command.fslinfo": {
+    "software": "fsl",
+    "command": "fslinfo",
+    "version": "installed-2412.6",
+    "root": "/opt/software/fsl",
+    "root_env": "LOCALFLOW_FSL_ROOT"
+  },
+  "fsl.command.fslval": {
+    "software": "fsl",
+    "command": "fslval",
+    "version": "installed-2412.6",
+    "root": "/opt/software/fsl",
+    "root_env": "LOCALFLOW_FSL_ROOT"
+  },
+  "fsl.command.fslorient": {
+    "software": "fsl",
+    "command": "fslorient",
+    "version": "installed-2412.6",
+    "root": "/opt/software/fsl",
+    "root_env": "LOCALFLOW_FSL_ROOT"
+  },
+  "fsl.command.fslreorient2std": {
+    "software": "fsl",
+    "command": "fslreorient2std",
+    "version": "installed-2412.6",
+    "root": "/opt/software/fsl",
+    "root_env": "LOCALFLOW_FSL_ROOT"
+  },
+  "fsl.command.fslchfiletype": {
+    "software": "fsl",
+    "command": "fslchfiletype",
+    "version": "installed-2412.6",
+    "root": "/opt/software/fsl",
+    "root_env": "LOCALFLOW_FSL_ROOT"
+  },
+  "fsl.command.fslpspec": {
+    "software": "fsl",
+    "command": "fslpspec",
+    "version": "installed-2412.6",
+    "root": "/opt/software/fsl",
+    "root_env": "LOCALFLOW_FSL_ROOT"
+  },
+  "fsl.command.fslcc": {
+    "software": "fsl",
+    "command": "fslcc",
+    "version": "installed-2412.6",
+    "root": "/opt/software/fsl",
+    "root_env": "LOCALFLOW_FSL_ROOT"
+  },
+  "fsl.command.fsl_regfilt": {
+    "software": "fsl",
+    "command": "fsl_regfilt",
+    "version": "installed-2412.6",
+    "root": "/opt/software/fsl",
+    "root_env": "LOCALFLOW_FSL_ROOT"
+  },
+  "fsl.command.fsl_glm": {
+    "software": "fsl",
+    "command": "fsl_glm",
+    "version": "installed-2412.6",
+    "root": "/opt/software/fsl",
+    "root_env": "LOCALFLOW_FSL_ROOT"
+  },
+  "fsl.command.convert_xfm": {
+    "software": "fsl",
+    "command": "convert_xfm",
+    "version": "installed-2412.6",
+    "root": "/opt/software/fsl",
+    "root_env": "LOCALFLOW_FSL_ROOT"
+  },
+  "fsl.command.invwarp": {
+    "software": "fsl",
+    "command": "invwarp",
+    "version": "installed-2412.6",
+    "root": "/opt/software/fsl",
+    "root_env": "LOCALFLOW_FSL_ROOT"
+  },
+  "fsl.command.convertwarp": {
+    "software": "fsl",
+    "command": "convertwarp",
+    "version": "installed-2412.6",
+    "root": "/opt/software/fsl",
+    "root_env": "LOCALFLOW_FSL_ROOT"
+  },
+  "ants.command.N4BiasFieldCorrection": {
+    "software": "ants",
+    "command": "N4BiasFieldCorrection",
+    "version": "2.6.5",
+    "root": "/opt/software/ants-2.6.5",
+    "root_env": "LOCALFLOW_ANTS_ROOT"
+  },
+  "ants.command.DenoiseImage": {
+    "software": "ants",
+    "command": "DenoiseImage",
+    "version": "2.6.5",
+    "root": "/opt/software/ants-2.6.5",
+    "root_env": "LOCALFLOW_ANTS_ROOT"
+  },
+  "ants.command.ThresholdImage": {
+    "software": "ants",
+    "command": "ThresholdImage",
+    "version": "2.6.5",
+    "root": "/opt/software/ants-2.6.5",
+    "root_env": "LOCALFLOW_ANTS_ROOT"
+  },
+  "ants.command.SmoothImage": {
+    "software": "ants",
+    "command": "SmoothImage",
+    "version": "2.6.5",
+    "root": "/opt/software/ants-2.6.5",
+    "root_env": "LOCALFLOW_ANTS_ROOT"
+  },
+  "ants.command.ResampleImage": {
+    "software": "ants",
+    "command": "ResampleImage",
+    "version": "2.6.5",
+    "root": "/opt/software/ants-2.6.5",
+    "root_env": "LOCALFLOW_ANTS_ROOT"
+  },
+  "ants.command.MultiplyImages": {
+    "software": "ants",
+    "command": "MultiplyImages",
+    "version": "2.6.5",
+    "root": "/opt/software/ants-2.6.5",
+    "root_env": "LOCALFLOW_ANTS_ROOT"
+  },
+  "ants.command.ConvertImagePixelType": {
+    "software": "ants",
+    "command": "ConvertImagePixelType",
+    "version": "2.6.5",
+    "root": "/opt/software/ants-2.6.5",
+    "root_env": "LOCALFLOW_ANTS_ROOT"
+  },
+  "ants.command.ExtractSliceFromImage": {
+    "software": "ants",
+    "command": "ExtractSliceFromImage",
+    "version": "2.6.5",
+    "root": "/opt/software/ants-2.6.5",
+    "root_env": "LOCALFLOW_ANTS_ROOT"
+  },
+  "ants.command.ExtractRegionFromImage": {
+    "software": "ants",
+    "command": "ExtractRegionFromImage",
+    "version": "2.6.5",
+    "root": "/opt/software/ants-2.6.5",
+    "root_env": "LOCALFLOW_ANTS_ROOT"
+  },
+  "ants.command.ImageIntensityStatistics": {
+    "software": "ants",
+    "command": "ImageIntensityStatistics",
+    "version": "2.6.5",
+    "root": "/opt/software/ants-2.6.5",
+    "root_env": "LOCALFLOW_ANTS_ROOT"
+  },
+  "ants.command.LabelOverlapMeasures": {
+    "software": "ants",
+    "command": "LabelOverlapMeasures",
+    "version": "2.6.5",
+    "root": "/opt/software/ants-2.6.5",
+    "root_env": "LOCALFLOW_ANTS_ROOT"
+  },
+  "ants.command.LabelGeometryMeasures": {
+    "software": "ants",
+    "command": "LabelGeometryMeasures",
+    "version": "2.6.5",
+    "root": "/opt/software/ants-2.6.5",
+    "root_env": "LOCALFLOW_ANTS_ROOT"
+  },
+  "ants.command.AverageImages": {
+    "software": "ants",
+    "command": "AverageImages",
+    "version": "2.6.5",
+    "root": "/opt/software/ants-2.6.5",
+    "root_env": "LOCALFLOW_ANTS_ROOT"
+  },
+  "ants.command.PrintHeader": {
+    "software": "ants",
+    "command": "PrintHeader",
+    "version": "2.6.5",
+    "root": "/opt/software/ants-2.6.5",
+    "root_env": "LOCALFLOW_ANTS_ROOT"
+  },
+  "ants.command.ImageMath": {
+    "software": "ants",
+    "command": "ImageMath",
+    "version": "2.6.5",
+    "root": "/opt/software/ants-2.6.5",
+    "root_env": "LOCALFLOW_ANTS_ROOT"
+  },
+  "ants.command.ConvertTransformFile": {
+    "software": "ants",
+    "command": "ConvertTransformFile",
+    "version": "2.6.5",
+    "root": "/opt/software/ants-2.6.5",
+    "root_env": "LOCALFLOW_ANTS_ROOT"
+  },
+  "freesurfer.command.mri_convert": {
+    "software": "freesurfer",
+    "command": "mri_convert",
+    "version": "7.4.1",
+    "root": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1",
+    "root_env": "LOCALFLOW_FREESURFER_HOME"
+  },
+  "freesurfer.command.mri_mask": {
+    "software": "freesurfer",
+    "command": "mri_mask",
+    "version": "7.4.1",
+    "root": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1",
+    "root_env": "LOCALFLOW_FREESURFER_HOME"
+  },
+  "freesurfer.command.mri_binarize": {
+    "software": "freesurfer",
+    "command": "mri_binarize",
+    "version": "7.4.1",
+    "root": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1",
+    "root_env": "LOCALFLOW_FREESURFER_HOME"
+  },
+  "freesurfer.command.mri_concat": {
+    "software": "freesurfer",
+    "command": "mri_concat",
+    "version": "7.4.1",
+    "root": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1",
+    "root_env": "LOCALFLOW_FREESURFER_HOME"
+  },
+  "freesurfer.command.mri_info": {
+    "software": "freesurfer",
+    "command": "mri_info",
+    "version": "7.4.1",
+    "root": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1",
+    "root_env": "LOCALFLOW_FREESURFER_HOME"
+  },
+  "freesurfer.command.mri_segstats": {
+    "software": "freesurfer",
+    "command": "mri_segstats",
+    "version": "7.4.1",
+    "root": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1",
+    "root_env": "LOCALFLOW_FREESURFER_HOME"
+  },
+  "freesurfer.command.mri_normalize": {
+    "software": "freesurfer",
+    "command": "mri_normalize",
+    "version": "7.4.1",
+    "root": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1",
+    "root_env": "LOCALFLOW_FREESURFER_HOME"
+  },
+  "freesurfer.command.mri_robust_register": {
+    "software": "freesurfer",
+    "command": "mri_robust_register",
+    "version": "7.4.1",
+    "root": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1",
+    "root_env": "LOCALFLOW_FREESURFER_HOME"
+  },
+  "freesurfer.command.mri_vol2vol": {
+    "software": "freesurfer",
+    "command": "mri_vol2vol",
+    "version": "7.4.1",
+    "root": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1",
+    "root_env": "LOCALFLOW_FREESURFER_HOME"
+  },
+  "freesurfer.command.mris_convert": {
+    "software": "freesurfer",
+    "command": "mris_convert",
+    "version": "7.4.1",
+    "root": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1",
+    "root_env": "LOCALFLOW_FREESURFER_HOME"
+  },
+  "freesurfer.command.mris_smooth": {
+    "software": "freesurfer",
+    "command": "mris_smooth",
+    "version": "7.4.1",
+    "root": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1",
+    "root_env": "LOCALFLOW_FREESURFER_HOME"
+  },
+  "freesurfer.command.mris_extract_main_component": {
+    "software": "freesurfer",
+    "command": "mris_extract_main_component",
+    "version": "7.4.1",
+    "root": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1",
+    "root_env": "LOCALFLOW_FREESURFER_HOME"
+  },
+  "freesurfer.command.mri_tessellate": {
+    "software": "freesurfer",
+    "command": "mri_tessellate",
+    "version": "7.4.1",
+    "root": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1",
+    "root_env": "LOCALFLOW_FREESURFER_HOME"
+  },
+  "freesurfer.command.mri_pretess": {
+    "software": "freesurfer",
+    "command": "mri_pretess",
+    "version": "7.4.1",
+    "root": "/opt/software/freesurfer-7.4.1/usr/local/freesurfer/7.4.1",
+    "root_env": "LOCALFLOW_FREESURFER_HOME"
+  },
+  "mrtrix3.command.5ttcheck": {
+    "software": "mrtrix3",
+    "command": "5ttcheck",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.amp2response": {
+    "software": "mrtrix3",
+    "command": "amp2response",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.dcminfo": {
+    "software": "mrtrix3",
+    "command": "dcminfo",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.dirstat": {
+    "software": "mrtrix3",
+    "command": "dirstat",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.fixelconnectivity": {
+    "software": "mrtrix3",
+    "command": "fixelconnectivity",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.fixelcrop": {
+    "software": "mrtrix3",
+    "command": "fixelcrop",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.fixelreorient": {
+    "software": "mrtrix3",
+    "command": "fixelreorient",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.fod2fixel": {
+    "software": "mrtrix3",
+    "command": "fod2fixel",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.labelstats": {
+    "software": "mrtrix3",
+    "command": "labelstats",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.mraverageheader": {
+    "software": "mrtrix3",
+    "command": "mraverageheader",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.mrcat": {
+    "software": "mrtrix3",
+    "command": "mrcat",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.mrcentroid": {
+    "software": "mrtrix3",
+    "command": "mrcentroid",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.mrfilter": {
+    "software": "mrtrix3",
+    "command": "mrfilter",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.mrinfo": {
+    "software": "mrtrix3",
+    "command": "mrinfo",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.mrmath": {
+    "software": "mrtrix3",
+    "command": "mrmath",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.mrmetric": {
+    "software": "mrtrix3",
+    "command": "mrmetric",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.mrstats": {
+    "software": "mrtrix3",
+    "command": "mrstats",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.peaks2fixel": {
+    "software": "mrtrix3",
+    "command": "peaks2fixel",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.tckedit": {
+    "software": "mrtrix3",
+    "command": "tckedit",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.tckinfo": {
+    "software": "mrtrix3",
+    "command": "tckinfo",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.tsfinfo": {
+    "software": "mrtrix3",
+    "command": "tsfinfo",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.tsfmult": {
+    "software": "mrtrix3",
+    "command": "tsfmult",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.tsfvalidate": {
+    "software": "mrtrix3",
+    "command": "tsfvalidate",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "fsl.command.randomise": {
+    "software": "fsl",
+    "command": "randomise",
+    "version": "installed-2412.6",
+    "root": "/opt/software/fsl",
+    "root_env": "LOCALFLOW_FSL_ROOT"
+  },
+  "fsl.command.smoothest": {
+    "software": "fsl",
+    "command": "smoothest",
+    "version": "installed-2412.6",
+    "root": "/opt/software/fsl",
+    "root_env": "LOCALFLOW_FSL_ROOT"
+  },
+  "ants.command.Atropos": {
+    "software": "ants",
+    "command": "Atropos",
+    "version": "2.6.5",
+    "root": "/opt/software/ants-2.6.5",
+    "root_env": "LOCALFLOW_ANTS_ROOT"
+  },
+  "mrtrix3.command.mtnormalise": {
+    "software": "mrtrix3",
+    "command": "mtnormalise",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.mrregister": {
+    "software": "mrtrix3",
+    "command": "mrregister",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.mrcalc": {
+    "software": "mrtrix3",
+    "command": "mrcalc",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  },
+  "mrtrix3.command.tckconvert": {
+    "software": "mrtrix3",
+    "command": "tckconvert",
+    "version": "3.0.8",
+    "root": "/opt/software/mrtrix3-master",
+    "root_env": "LOCALFLOW_MRTRIX_ROOT"
+  }
+}

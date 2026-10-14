@@ -1,0 +1,56 @@
+***************************************************
+The following COMPULSORY options have not been set:
+	-i,--in	        input file name (text matrix or 3D/4D image file) or path to PANDORA folder
+***************************************************
+
+Part of FSL (ID: 2412.6-dirty)
+fsl_glm
+Author: Christian F. Beckmann 
+Copyright(C) 2006-2013 University of Oxford 
+ 
+ Simple GLM allowing temporal or spatial regression on either text data or images
+
+
+Usage: 
+fsl_glm -i <input> -d <design> -o <output> [options] 
+
+PANDORA (2025):
+all specific options are marked with pandora_.
+setting pandora_mode is required.
+
+Compulsory arguments (You MUST set one or more of):
+	-i,--in	        input file name (text matrix or 3D/4D image file) or path to PANDORA folder
+
+Optional arguments (You may optionally specify one or more of):
+	--arbitrary_dependence	allow arbitrary ( negative ) dependence when performing FDR.
+	--pandora_mode	set to voxel (includes grayordinates), ICA1K or ICA10K [required]
+	--pandora_subs	subset to be selected from full list; order must match design matrix.
+	--pandora_confs	include pre-processed PANDORA imaging confounds in model (--deconf=all or --deconf=small to use globals/confounds_all or globals/confounds_small)
+	--pandora_csize	voxel-chunk size for parallel glm fit (voxel mode only); default=1000
+	--pandora_njobs	number of parallel threads (default=1); set to -1 for all available cores
+	-o,--out	output file name for GLM parameter estimates (GLM betas)
+	-d,--design	file name of the GLM design matrix (text time courses for temporal regression or an image file for spatial regression)
+	-c,--contrasts	matrix of t-statistics contrasts
+	-m,--mask	mask image file name if input is image
+	--dof	        set degrees-of-freedom explicitly
+	--des_norm	switch on normalisation of the design matrix columns to unit std. deviation
+	--dat_norm	switch on normalisation of the data time series to unit std. deviation
+	--vn	        perform MELODIC variance-normalisation on data
+	--demean	switch on de-meaning of design and data
+	-h,--help	display this help text
+	--out_cope	output file name for COPEs (either as text file or image)
+	--out_z	        output file name for Z-stats (either as text file or image)
+	--out_t	        output file name for t-stats (either as text file or image)
+	--out_p	        output file name for -log10(p)-values of Z-stats (either as text file or image)
+	--out_f	        output file name for F-stats (combined across specified contrasts)
+	--out_pf	output file name for -log10(p)-values of F-stats
+	--out_res	output file name for residuals
+	--out_varcb	output file name for variance of COPEs
+	--out_sigsq	output file name for residual noise variance sigma-square
+	--out_data	output file name for pre-processed data
+	--out_vnscales	output file name for scaling factors for variance normalisation
+	--output_thresholds	output Bonferonni and FDR significance thresholds for each contrast.
+	--vxt		list of text files containing text matrix confounds [caution BETA option]
+	--vxf		list of 4D images containing voxelwise confounds [caution BETA option]
+
+

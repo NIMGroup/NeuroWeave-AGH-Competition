@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "id": "reviewed-reviewed-applywarp-fsl-tool-nearest-056915b70c",
+  "version": "1",
+  "kind": "pipeline",
+  "description": "依次执行：FSL 应用形变。输入和参数由方法契约定义。",
+  "label": "FSL 应用形变",
+  "parameters": [],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "输入影像",
+      "description": "",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "reference",
+      "type": "analysis_input",
+      "label": "参考影像",
+      "description": "",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "transform",
+      "type": "analysis_input",
+      "label": "变换/形变场",
+      "description": "",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for FSL 应用形变. Contains this operation's generated files, including results/image.nii.gz; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_image_nii_gz",
+      "type": "registered_image",
+      "label": "image.nii.gz",
+      "description": "image.nii.gz: output of FSL 应用形变. Relative run path: results/image.nii.gz.",
+      "format": ".nii.gz",
+      "primary": false,
+      "path_template": "results/image.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "steps": [
+    {
+      "id": "execute",
+      "title": "FSL 应用形变",
+      "fixed_parameters": {
+        "interp": "nearest"
+      },
+      "parameter_bindings": {},
+      "inherit_parameters": false,
+      "input_bindings": {
+        "input": {
+          "source": "workflow_input",
+          "slot_id": "input",
+          "step_id": null,
+          "output_slot_id": null
+        },
+        "reference": {
+          "source": "workflow_input",
+          "slot_id": "reference",
+          "step_id": null,
+          "output_slot_id": null
+        },
+        "transform": {
+          "source": "workflow_input",
+          "slot_id": "transform",
+          "step_id": null,
+          "output_slot_id": null
+        }
+      },
+      "workspace": "execute",
+      "method_ref": "reviewed.fsl-tool.applywarp",
+      "method_version": "2",
+      "capability": "skill.fsl-tool"
+    }
+  ],
+  "output_bindings": {
+    "results": {
+      "step_id": "execute",
+      "output_slot_id": "results"
+    },
+    "file_image_nii_gz": {
+      "step_id": "execute",
+      "output_slot_id": "file_image_nii_gz"
+    }
+  },
+  "included_capabilities": [
+    "skill.fsl-tool"
+  ],
+  "category": [
+    "内置 Pipeline",
+    "其他软件"
+  ]
+}

@@ -1,0 +1,172 @@
+{
+  "label": "SEED 频带特征提取",
+  "description": "Extract features from SEED-IV EEG data. Supports Differential Entropy (DE), Power Spectral Density (PSD), and band power features for emotion recognition。 Inputs: input: EEG 数据目录 (directory). Registered outputs: results/seed_iv_features_both.csv. Fixed invocation options: --feature-type both.",
+  "runner_id": "reviewed.seed-iv-skill.features",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "epoch_duration",
+      "argument": "epoch-duration",
+      "label": "epoch-duration",
+      "description": "Epoch duration in seconds (default: 4.0)",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 4.0,
+      "options": [],
+      "minimum": 0.5,
+      "maximum": 60.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/seed-iv-skill/scripts/extract_seed_iv_features.py:114。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "EEG 数据目录",
+      "description": "Path to SEED-IV BIDS directory. Required directory input for SEED 频带特征提取; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "folder",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for SEED 频带特征提取. Contains this operation's generated files, including results/seed_iv_features_both.csv; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_seed_iv_features_both_csv",
+      "type": "generated_file",
+      "label": "seed_iv_features_both.csv",
+      "description": "seed_iv_features_both.csv: output of SEED band feature extraction. Relative run path: results/seed_iv_features_both.csv. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".csv",
+      "primary": false,
+      "path_template": "results/seed_iv_features_both.csv",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/seed-iv-skill/scripts/extract_seed_iv_features.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.seed-iv-skill.features",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.seed-iv-skill.features",
+      "script": "skills/seed-iv-skill/scripts/extract_seed_iv_features.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "epoch_duration",
+          "flag": "--epoch-duration"
+        }
+      ],
+      "modules": [
+        "numpy",
+        "pandas",
+        "scipy",
+        "mne"
+      ],
+      "expected": [
+        "seed_iv_features_both.csv"
+      ],
+      "profile": "scientific",
+      "fixed_args": [
+        "--feature-type",
+        "both"
+      ],
+      "outputs": [
+        [
+          "--output",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/seed-iv-skill/scripts/extract_seed_iv_features.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/seed-iv-skill/scripts/extract_seed_iv_features.py",
+          "source_sha256": "67389da902cd8480657be020db81ac7c691cfed470cd3fa491fcd8f8637ae8cd"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/seed-iv-skill/scripts/extract_seed_iv_features.py",
+          "sha256": "e1e137e4e4fb5441e20b8b91ef1e38e5c97c758c2e0536b7085a244b56d11cea"
+        }
+      ],
+      "artifact_types": {
+        "seed_iv_features_both.csv": "generated_file"
+      }
+    }
+  }
+}

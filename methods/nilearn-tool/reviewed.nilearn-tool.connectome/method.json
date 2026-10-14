@@ -1,0 +1,238 @@
+{
+  "label": "ROI 时间序列与功能连接",
+  "description": "Extract standardized, detrended ROI time series with Nilearn NiftiLabelsMasker and calculate a correlation connectivity matrix with ConnectivityMeasure; export ROI time series and NPY/CSV matrices。 Inputs: bold: 预处理 BOLD 影像 (file); atlas: 分区图谱 (file); labels: 图谱标签 (file). Registered outputs: results/connectome.npy, results/roi_timeseries.csv.",
+  "runner_id": "reviewed.nilearn-tool.connectome",
+  "input_types": [
+    "bold_image",
+    "label_image",
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "connectome_matrix",
+    "roi_timeseries"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "tr",
+      "argument": "tr",
+      "label": "TR（秒）",
+      "description": "Repetition time in seconds.",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 2.0,
+      "options": [],
+      "minimum": 0.01,
+      "maximum": 100.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/nilearn-tool/scripts/denoise_timeseries_reference.py:38。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "bold",
+      "type": "bold_image",
+      "label": "预处理 BOLD 影像",
+      "description": "Input preprocessed BOLD NIfTI. Required file input for ROI 时间序列与功能连接; bind to port bold.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "atlas",
+      "type": "label_image",
+      "label": "分区图谱",
+      "description": "Atlas NIfTI for ROI extraction. Required file input for ROI 时间序列与功能连接; bind to port atlas.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "labels",
+      "type": "analysis_input",
+      "label": "图谱标签",
+      "description": "Optional atlas label text file. Optional file input for ROI 时间序列与功能连接; bind to port labels.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for ROI 时间序列与功能连接. Contains this operation's generated files, including results/connectome.npy, results/roi_timeseries.csv; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_connectome_npy",
+      "type": "connectome_matrix",
+      "label": "connectome.npy",
+      "description": "connectome.npy: output of ROI 时间序列与功能连接. Relative run path: results/connectome.npy.",
+      "format": ".npy",
+      "primary": false,
+      "path_template": "results/connectome.npy",
+      "generated_when": {}
+    },
+    {
+      "id": "file_roi_timeseries_csv",
+      "type": "roi_timeseries",
+      "label": "roi_timeseries.csv",
+      "description": "roi_timeseries.csv: output of ROI 时间序列与功能连接. Relative run path: results/roi_timeseries.csv.",
+      "format": ".csv",
+      "primary": false,
+      "path_template": "results/roi_timeseries.csv",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/nilearn-tool/scripts/connectome_reference.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.nilearn-tool.connectome",
+  "version": "2",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.nilearn-tool.connectome",
+      "script": "skills/nilearn-tool/scripts/connectome_reference.py",
+      "inputs": [
+        {
+          "id": "bold",
+          "flag": "--bold",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "atlas",
+          "flag": "--atlas",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "labels",
+          "flag": "--labels",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "tr",
+          "flag": "--tr"
+        }
+      ],
+      "modules": [
+        "numpy",
+        "pandas",
+        "nibabel",
+        "nilearn"
+      ],
+      "expected": [
+        "connectome.npy",
+        "roi_timeseries.csv"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/nilearn-tool/scripts/connectome_reference.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/nilearn-tool/scripts/connectome_reference.py",
+          "source_sha256": "9b0d1f8ef32f200b7aea0c0f030e4911d8007b7e39bb310358a7e37fb8e1cd71"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/nilearn-tool/scripts/connectome_reference.py",
+          "sha256": "9b0d1f8ef32f200b7aea0c0f030e4911d8007b7e39bb310358a7e37fb8e1cd71"
+        }
+      ],
+      "artifact_types": {
+        "connectome.npy": "connectome_matrix",
+        "roi_timeseries.csv": "roi_timeseries"
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "id": "bold5000-skill",
+  "description": "BOLD5000 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：bold5000 质控汇总；bold5000 表型/刺激提取；bold5000 复制整理为 BIDS 目录。",
+  "method_refs": [
+    {
+      "capability": "skill.bold5000-skill",
+      "method_id": "reviewed-bold5000-qc-summary-bold5000-skill",
+      "label": "bold5000 质控汇总",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "qc-summary"
+      ],
+      "execution_resolution": {},
+      "role": "Generate per-subject QC summaries for BOLD5000。 Inputs: fmriprep_dir: Path to fMRIPrep output directory (directory). Registered outputs: results/output.csv.",
+      "method_ref": "reviewed.bold5000-skill.bold5000-qc-summary"
+    },
+    {
+      "capability": "skill.bold5000-skill",
+      "method_id": "reviewed-extract-bold5000-stimulus-bold5000-skill",
+      "label": "bold5000 表型/刺激提取",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "phenotype-extraction",
+        "stimulus-extraction"
+      ],
+      "execution_resolution": {},
+      "role": "Extract and organize BOLD5000 stimulus metadata for downstream analysis。 Inputs: stimulus_dir: Path to BOLD5000 stimuli directory (directory); events_dir: Path to BOLD5000 events directory (directory). Registered outputs: results/output.csv.",
+      "method_ref": "reviewed.bold5000-skill.extract-bold5000-stimulus"
+    },
+    {
+      "capability": "skill.bold5000-skill",
+      "method_id": "reviewed-reorganize-bold5000-bold5000-skill",
+      "label": "bold5000 复制整理为 BIDS 目录",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "bids-reorganization",
+        "data-reorganization"
+      ],
+      "execution_resolution": {},
+      "role": "Verify and reorganize BOLD5000 data into BIDS-style layout. BOLD5000 from OpenNeuro is already in BIDS format; this script validates and optionally copies/reorganizes the structure。 Inputs: input: Path to BOLD5000 data directory (directory). Registered outputs: results/.",
+      "method_ref": "reviewed.bold5000-skill.reorganize-bold5000"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "name": "bold5000-skill",
+  "category": [
+    "数据集专属",
+    "数据集适配与质控"
+  ],
+  "scope": "dataset",
+  "keywords": [
+    "bold5000-skill",
+    "BIDS"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

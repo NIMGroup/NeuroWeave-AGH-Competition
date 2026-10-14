@@ -1,0 +1,40 @@
+{
+  "name": "@neuroweave/agh-roi",
+  "version": "2.8.1",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "exports": "./index.mjs",
+  "agnes": {
+    "plugins": [
+      {
+        "export": "neuroWeave",
+        "id": "ext:neuroweave/roi",
+        "inject": [
+          "extension",
+          "skills"
+        ],
+        "services": [
+          "nw.panel.query",
+          "nw.panel.edit",
+          "nw.session.context",
+          "nw.session.select",
+          "nw.action.prepare",
+          "nw.action.read",
+          "nw.action.submit",
+          "nw.action.status",
+          "nw.workspace.query",
+          "nw.workspace.edit",
+          "nw.workspace.remove",
+          "nw.session.removalcheck"
+        ]
+      }
+    ],
+    "clientDescriptors": [
+      {
+        "rowId": "ext:neuroweave/roi",
+        "path": "./extensions/main/agnes.client.json"
+      }
+    ]
+  }
+}

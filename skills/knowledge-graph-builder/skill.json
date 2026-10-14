@@ -1,0 +1,4213 @@
+{
+  "schema_version": 1,
+  "id": "knowledge-graph-builder",
+  "description": "knowledge-graph-builder 的领域规划与方法选择指导。覆盖：Ingest atlas data (Phase 1)；Generate brain atlas TSV；Run single-disease extraction；Run full batch extraction；Resume from checkpoint；Start fresh (ignore checkpoint)；Verbose logging；Query graph stats；Batch generate hypotheses；Rank saved hypotheses；Find hypothesis paths；Bridge discovery。当前没有独立执行 Method，不能直接提交计算任务。",
+  "method_refs": [],
+  "pipeline_refs": [],
+  "planning_capabilities": [
+    {
+      "capability": "skill.knowledge-graph-builder",
+      "method_id": "knowledge-graph-builder-guided--ingest-atlas-data-phase-1",
+      "skill_id": "knowledge-graph-builder",
+      "label": "Ingest atlas data (Phase 1)",
+      "description": "该入口为规划能力；用于讨论Ingest atlas data (Phase 1)的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": true,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "ingest-atlas-data-phase-1",
+          "options": [
+            {
+              "value": "ingest-atlas-data-phase-1",
+              "label": "Ingest atlas data (Phase 1)",
+              "description": "规划选项：Ingest atlas data (Phase 1)；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_detail",
+          "argument": "output-detail",
+          "label": "输出详细程度",
+          "description": "控制科研产出的层次与解释深度。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "outline",
+              "label": "提纲",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "detailed",
+              "label": "详细",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "evidence_trace",
+          "argument": "evidence-trace",
+          "label": "保留依据追踪",
+          "description": "要求方案区分已提供证据、外部来源和模型推断。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_language",
+          "argument": "output-language",
+          "label": "输出语言",
+          "description": "科研材料与报告的主要输出语言。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "zh-CN",
+          "options": [
+            {
+              "value": "zh-CN",
+              "label": "中文",
+              "description": ""
+            },
+            {
+              "value": "en",
+              "label": "英文",
+              "description": ""
+            },
+            {
+              "value": "bilingual",
+              "label": "中英双语",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "citation_style",
+          "argument": "citation-style",
+          "label": "引文格式",
+          "description": "需要引用时采用的默认格式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "apa",
+          "options": [
+            {
+              "value": "apa",
+              "label": "APA",
+              "description": ""
+            },
+            {
+              "value": "vancouver",
+              "label": "Vancouver",
+              "description": ""
+            },
+            {
+              "value": "gbt7714",
+              "label": "GB/T 7714",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "include_methods_appendix",
+          "argument": "include-methods-appendix",
+          "label": "包含方法附录",
+          "description": "在产出中附带检索、分析或生成过程的结构化说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "mark_uncertainty",
+          "argument": "mark-uncertainty",
+          "label": "标注不确定性",
+          "description": "显式标记证据不足、推断内容和待人工核验项。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "标注",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不标注",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/knowledge-graph-builder/scripts/entity_resolution.py",
+          "label": "entity_resolution.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/extraction_prompt_template.txt",
+          "label": "extraction_prompt_template.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/graph_query.py",
+          "label": "graph_query.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/hypothesis_cli_reference.py",
+          "label": "hypothesis_cli_reference.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/new_data_source_template.py",
+          "label": "new_data_source_template.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/requirements.txt",
+          "label": "requirements.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_implementation",
+        "reason": "原文调用的 neurooracle 软件包、ingest/batch_extract/phase3 入口未随当前项目提供；现有 scripts 是使用参考和辅助函数，不能代替完整图谱引擎。",
+        "source_method_id": "knowledge-graph-builder-guided--ingest-atlas-data-phase-1",
+        "requirements": [
+          "原始 neurooracle 实现及其数据/服务配置"
+        ]
+      }
+    },
+    {
+      "capability": "skill.knowledge-graph-builder",
+      "method_id": "knowledge-graph-builder-guided--generate-brain-atlas-tsv",
+      "skill_id": "knowledge-graph-builder",
+      "label": "Generate brain atlas TSV",
+      "description": "该入口为规划能力；用于讨论Generate brain atlas TSV的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "generate-brain-atlas-tsv",
+          "options": [
+            {
+              "value": "generate-brain-atlas-tsv",
+              "label": "Generate brain atlas TSV",
+              "description": "规划选项：Generate brain atlas TSV；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_detail",
+          "argument": "output-detail",
+          "label": "输出详细程度",
+          "description": "控制科研产出的层次与解释深度。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "outline",
+              "label": "提纲",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "detailed",
+              "label": "详细",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "evidence_trace",
+          "argument": "evidence-trace",
+          "label": "保留依据追踪",
+          "description": "要求方案区分已提供证据、外部来源和模型推断。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_language",
+          "argument": "output-language",
+          "label": "输出语言",
+          "description": "科研材料与报告的主要输出语言。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "zh-CN",
+          "options": [
+            {
+              "value": "zh-CN",
+              "label": "中文",
+              "description": ""
+            },
+            {
+              "value": "en",
+              "label": "英文",
+              "description": ""
+            },
+            {
+              "value": "bilingual",
+              "label": "中英双语",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "citation_style",
+          "argument": "citation-style",
+          "label": "引文格式",
+          "description": "需要引用时采用的默认格式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "apa",
+          "options": [
+            {
+              "value": "apa",
+              "label": "APA",
+              "description": ""
+            },
+            {
+              "value": "vancouver",
+              "label": "Vancouver",
+              "description": ""
+            },
+            {
+              "value": "gbt7714",
+              "label": "GB/T 7714",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "include_methods_appendix",
+          "argument": "include-methods-appendix",
+          "label": "包含方法附录",
+          "description": "在产出中附带检索、分析或生成过程的结构化说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "mark_uncertainty",
+          "argument": "mark-uncertainty",
+          "label": "标注不确定性",
+          "description": "显式标记证据不足、推断内容和待人工核验项。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "标注",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不标注",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/knowledge-graph-builder/scripts/entity_resolution.py",
+          "label": "entity_resolution.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/extraction_prompt_template.txt",
+          "label": "extraction_prompt_template.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/graph_query.py",
+          "label": "graph_query.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/hypothesis_cli_reference.py",
+          "label": "hypothesis_cli_reference.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/new_data_source_template.py",
+          "label": "new_data_source_template.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/requirements.txt",
+          "label": "requirements.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_implementation",
+        "reason": "原文调用的 neurooracle 软件包、ingest/batch_extract/phase3 入口未随当前项目提供；现有 scripts 是使用参考和辅助函数，不能代替完整图谱引擎。",
+        "source_method_id": "knowledge-graph-builder-guided--generate-brain-atlas-tsv",
+        "requirements": [
+          "原始 neurooracle 实现及其数据/服务配置"
+        ]
+      }
+    },
+    {
+      "capability": "skill.knowledge-graph-builder",
+      "method_id": "knowledge-graph-builder-guided--run-single-disease-extraction",
+      "skill_id": "knowledge-graph-builder",
+      "label": "Run single-disease extraction",
+      "description": "该入口为规划能力；用于讨论Run single-disease extraction的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "run-single-disease-extraction",
+          "options": [
+            {
+              "value": "run-single-disease-extraction",
+              "label": "Run single-disease extraction",
+              "description": "规划选项：Run single-disease extraction；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_detail",
+          "argument": "output-detail",
+          "label": "输出详细程度",
+          "description": "控制科研产出的层次与解释深度。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "outline",
+              "label": "提纲",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "detailed",
+              "label": "详细",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "evidence_trace",
+          "argument": "evidence-trace",
+          "label": "保留依据追踪",
+          "description": "要求方案区分已提供证据、外部来源和模型推断。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_language",
+          "argument": "output-language",
+          "label": "输出语言",
+          "description": "科研材料与报告的主要输出语言。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "zh-CN",
+          "options": [
+            {
+              "value": "zh-CN",
+              "label": "中文",
+              "description": ""
+            },
+            {
+              "value": "en",
+              "label": "英文",
+              "description": ""
+            },
+            {
+              "value": "bilingual",
+              "label": "中英双语",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "citation_style",
+          "argument": "citation-style",
+          "label": "引文格式",
+          "description": "需要引用时采用的默认格式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "apa",
+          "options": [
+            {
+              "value": "apa",
+              "label": "APA",
+              "description": ""
+            },
+            {
+              "value": "vancouver",
+              "label": "Vancouver",
+              "description": ""
+            },
+            {
+              "value": "gbt7714",
+              "label": "GB/T 7714",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "include_methods_appendix",
+          "argument": "include-methods-appendix",
+          "label": "包含方法附录",
+          "description": "在产出中附带检索、分析或生成过程的结构化说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "mark_uncertainty",
+          "argument": "mark-uncertainty",
+          "label": "标注不确定性",
+          "description": "显式标记证据不足、推断内容和待人工核验项。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "标注",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不标注",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/knowledge-graph-builder/scripts/entity_resolution.py",
+          "label": "entity_resolution.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/extraction_prompt_template.txt",
+          "label": "extraction_prompt_template.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/graph_query.py",
+          "label": "graph_query.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/hypothesis_cli_reference.py",
+          "label": "hypothesis_cli_reference.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/new_data_source_template.py",
+          "label": "new_data_source_template.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/requirements.txt",
+          "label": "requirements.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_implementation",
+        "reason": "原文调用的 neurooracle 软件包、ingest/batch_extract/phase3 入口未随当前项目提供；现有 scripts 是使用参考和辅助函数，不能代替完整图谱引擎。",
+        "source_method_id": "knowledge-graph-builder-guided--run-single-disease-extraction",
+        "requirements": [
+          "原始 neurooracle 实现及其数据/服务配置"
+        ]
+      }
+    },
+    {
+      "capability": "skill.knowledge-graph-builder",
+      "method_id": "knowledge-graph-builder-guided--run-full-batch-extraction",
+      "skill_id": "knowledge-graph-builder",
+      "label": "Run full batch extraction",
+      "description": "该入口为规划能力；用于讨论Run full batch extraction的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "run-full-batch-extraction",
+          "options": [
+            {
+              "value": "run-full-batch-extraction",
+              "label": "Run full batch extraction",
+              "description": "规划选项：Run full batch extraction；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_detail",
+          "argument": "output-detail",
+          "label": "输出详细程度",
+          "description": "控制科研产出的层次与解释深度。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "outline",
+              "label": "提纲",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "detailed",
+              "label": "详细",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "evidence_trace",
+          "argument": "evidence-trace",
+          "label": "保留依据追踪",
+          "description": "要求方案区分已提供证据、外部来源和模型推断。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_language",
+          "argument": "output-language",
+          "label": "输出语言",
+          "description": "科研材料与报告的主要输出语言。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "zh-CN",
+          "options": [
+            {
+              "value": "zh-CN",
+              "label": "中文",
+              "description": ""
+            },
+            {
+              "value": "en",
+              "label": "英文",
+              "description": ""
+            },
+            {
+              "value": "bilingual",
+              "label": "中英双语",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "citation_style",
+          "argument": "citation-style",
+          "label": "引文格式",
+          "description": "需要引用时采用的默认格式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "apa",
+          "options": [
+            {
+              "value": "apa",
+              "label": "APA",
+              "description": ""
+            },
+            {
+              "value": "vancouver",
+              "label": "Vancouver",
+              "description": ""
+            },
+            {
+              "value": "gbt7714",
+              "label": "GB/T 7714",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "include_methods_appendix",
+          "argument": "include-methods-appendix",
+          "label": "包含方法附录",
+          "description": "在产出中附带检索、分析或生成过程的结构化说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "mark_uncertainty",
+          "argument": "mark-uncertainty",
+          "label": "标注不确定性",
+          "description": "显式标记证据不足、推断内容和待人工核验项。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "标注",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不标注",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/knowledge-graph-builder/scripts/entity_resolution.py",
+          "label": "entity_resolution.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/extraction_prompt_template.txt",
+          "label": "extraction_prompt_template.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/graph_query.py",
+          "label": "graph_query.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/hypothesis_cli_reference.py",
+          "label": "hypothesis_cli_reference.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/new_data_source_template.py",
+          "label": "new_data_source_template.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/requirements.txt",
+          "label": "requirements.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_implementation",
+        "reason": "原文调用的 neurooracle 软件包、ingest/batch_extract/phase3 入口未随当前项目提供；现有 scripts 是使用参考和辅助函数，不能代替完整图谱引擎。",
+        "source_method_id": "knowledge-graph-builder-guided--run-full-batch-extraction",
+        "requirements": [
+          "原始 neurooracle 实现及其数据/服务配置"
+        ]
+      }
+    },
+    {
+      "capability": "skill.knowledge-graph-builder",
+      "method_id": "knowledge-graph-builder-guided--resume-from-checkpoint",
+      "skill_id": "knowledge-graph-builder",
+      "label": "Resume from checkpoint",
+      "description": "该入口为规划能力；用于讨论Resume from checkpoint的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "resume-from-checkpoint",
+          "options": [
+            {
+              "value": "resume-from-checkpoint",
+              "label": "Resume from checkpoint",
+              "description": "规划选项：Resume from checkpoint；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_detail",
+          "argument": "output-detail",
+          "label": "输出详细程度",
+          "description": "控制科研产出的层次与解释深度。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "outline",
+              "label": "提纲",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "detailed",
+              "label": "详细",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "evidence_trace",
+          "argument": "evidence-trace",
+          "label": "保留依据追踪",
+          "description": "要求方案区分已提供证据、外部来源和模型推断。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_language",
+          "argument": "output-language",
+          "label": "输出语言",
+          "description": "科研材料与报告的主要输出语言。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "zh-CN",
+          "options": [
+            {
+              "value": "zh-CN",
+              "label": "中文",
+              "description": ""
+            },
+            {
+              "value": "en",
+              "label": "英文",
+              "description": ""
+            },
+            {
+              "value": "bilingual",
+              "label": "中英双语",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "citation_style",
+          "argument": "citation-style",
+          "label": "引文格式",
+          "description": "需要引用时采用的默认格式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "apa",
+          "options": [
+            {
+              "value": "apa",
+              "label": "APA",
+              "description": ""
+            },
+            {
+              "value": "vancouver",
+              "label": "Vancouver",
+              "description": ""
+            },
+            {
+              "value": "gbt7714",
+              "label": "GB/T 7714",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "include_methods_appendix",
+          "argument": "include-methods-appendix",
+          "label": "包含方法附录",
+          "description": "在产出中附带检索、分析或生成过程的结构化说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "mark_uncertainty",
+          "argument": "mark-uncertainty",
+          "label": "标注不确定性",
+          "description": "显式标记证据不足、推断内容和待人工核验项。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "标注",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不标注",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/knowledge-graph-builder/scripts/entity_resolution.py",
+          "label": "entity_resolution.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/extraction_prompt_template.txt",
+          "label": "extraction_prompt_template.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/graph_query.py",
+          "label": "graph_query.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/hypothesis_cli_reference.py",
+          "label": "hypothesis_cli_reference.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/new_data_source_template.py",
+          "label": "new_data_source_template.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/requirements.txt",
+          "label": "requirements.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_implementation",
+        "reason": "原文调用的 neurooracle 软件包、ingest/batch_extract/phase3 入口未随当前项目提供；现有 scripts 是使用参考和辅助函数，不能代替完整图谱引擎。",
+        "source_method_id": "knowledge-graph-builder-guided--resume-from-checkpoint",
+        "requirements": [
+          "原始 neurooracle 实现及其数据/服务配置"
+        ]
+      }
+    },
+    {
+      "capability": "skill.knowledge-graph-builder",
+      "method_id": "knowledge-graph-builder-guided--start-fresh-ignore-checkpoint",
+      "skill_id": "knowledge-graph-builder",
+      "label": "Start fresh (ignore checkpoint)",
+      "description": "该入口为规划能力；用于讨论Start fresh (ignore checkpoint)的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "start-fresh-ignore-checkpoint",
+          "options": [
+            {
+              "value": "start-fresh-ignore-checkpoint",
+              "label": "Start fresh (ignore checkpoint)",
+              "description": "规划选项：Start fresh (ignore checkpoint)；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_detail",
+          "argument": "output-detail",
+          "label": "输出详细程度",
+          "description": "控制科研产出的层次与解释深度。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "outline",
+              "label": "提纲",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "detailed",
+              "label": "详细",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "evidence_trace",
+          "argument": "evidence-trace",
+          "label": "保留依据追踪",
+          "description": "要求方案区分已提供证据、外部来源和模型推断。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_language",
+          "argument": "output-language",
+          "label": "输出语言",
+          "description": "科研材料与报告的主要输出语言。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "zh-CN",
+          "options": [
+            {
+              "value": "zh-CN",
+              "label": "中文",
+              "description": ""
+            },
+            {
+              "value": "en",
+              "label": "英文",
+              "description": ""
+            },
+            {
+              "value": "bilingual",
+              "label": "中英双语",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "citation_style",
+          "argument": "citation-style",
+          "label": "引文格式",
+          "description": "需要引用时采用的默认格式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "apa",
+          "options": [
+            {
+              "value": "apa",
+              "label": "APA",
+              "description": ""
+            },
+            {
+              "value": "vancouver",
+              "label": "Vancouver",
+              "description": ""
+            },
+            {
+              "value": "gbt7714",
+              "label": "GB/T 7714",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "include_methods_appendix",
+          "argument": "include-methods-appendix",
+          "label": "包含方法附录",
+          "description": "在产出中附带检索、分析或生成过程的结构化说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "mark_uncertainty",
+          "argument": "mark-uncertainty",
+          "label": "标注不确定性",
+          "description": "显式标记证据不足、推断内容和待人工核验项。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "标注",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不标注",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/knowledge-graph-builder/scripts/entity_resolution.py",
+          "label": "entity_resolution.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/extraction_prompt_template.txt",
+          "label": "extraction_prompt_template.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/graph_query.py",
+          "label": "graph_query.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/hypothesis_cli_reference.py",
+          "label": "hypothesis_cli_reference.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/new_data_source_template.py",
+          "label": "new_data_source_template.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/requirements.txt",
+          "label": "requirements.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_implementation",
+        "reason": "原文调用的 neurooracle 软件包、ingest/batch_extract/phase3 入口未随当前项目提供；现有 scripts 是使用参考和辅助函数，不能代替完整图谱引擎。",
+        "source_method_id": "knowledge-graph-builder-guided--start-fresh-ignore-checkpoint",
+        "requirements": [
+          "原始 neurooracle 实现及其数据/服务配置"
+        ]
+      }
+    },
+    {
+      "capability": "skill.knowledge-graph-builder",
+      "method_id": "knowledge-graph-builder-guided--verbose-logging",
+      "skill_id": "knowledge-graph-builder",
+      "label": "Verbose logging",
+      "description": "该入口为规划能力；用于讨论Verbose logging的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "verbose-logging",
+          "options": [
+            {
+              "value": "verbose-logging",
+              "label": "Verbose logging",
+              "description": "规划选项：Verbose logging；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_detail",
+          "argument": "output-detail",
+          "label": "输出详细程度",
+          "description": "控制科研产出的层次与解释深度。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "outline",
+              "label": "提纲",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "detailed",
+              "label": "详细",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "evidence_trace",
+          "argument": "evidence-trace",
+          "label": "保留依据追踪",
+          "description": "要求方案区分已提供证据、外部来源和模型推断。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_language",
+          "argument": "output-language",
+          "label": "输出语言",
+          "description": "科研材料与报告的主要输出语言。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "zh-CN",
+          "options": [
+            {
+              "value": "zh-CN",
+              "label": "中文",
+              "description": ""
+            },
+            {
+              "value": "en",
+              "label": "英文",
+              "description": ""
+            },
+            {
+              "value": "bilingual",
+              "label": "中英双语",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "citation_style",
+          "argument": "citation-style",
+          "label": "引文格式",
+          "description": "需要引用时采用的默认格式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "apa",
+          "options": [
+            {
+              "value": "apa",
+              "label": "APA",
+              "description": ""
+            },
+            {
+              "value": "vancouver",
+              "label": "Vancouver",
+              "description": ""
+            },
+            {
+              "value": "gbt7714",
+              "label": "GB/T 7714",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "include_methods_appendix",
+          "argument": "include-methods-appendix",
+          "label": "包含方法附录",
+          "description": "在产出中附带检索、分析或生成过程的结构化说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "mark_uncertainty",
+          "argument": "mark-uncertainty",
+          "label": "标注不确定性",
+          "description": "显式标记证据不足、推断内容和待人工核验项。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "标注",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不标注",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/knowledge-graph-builder/scripts/entity_resolution.py",
+          "label": "entity_resolution.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/extraction_prompt_template.txt",
+          "label": "extraction_prompt_template.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/graph_query.py",
+          "label": "graph_query.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/hypothesis_cli_reference.py",
+          "label": "hypothesis_cli_reference.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/new_data_source_template.py",
+          "label": "new_data_source_template.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/requirements.txt",
+          "label": "requirements.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_implementation",
+        "reason": "原文调用的 neurooracle 软件包、ingest/batch_extract/phase3 入口未随当前项目提供；现有 scripts 是使用参考和辅助函数，不能代替完整图谱引擎。",
+        "source_method_id": "knowledge-graph-builder-guided--verbose-logging",
+        "requirements": [
+          "原始 neurooracle 实现及其数据/服务配置"
+        ]
+      }
+    },
+    {
+      "capability": "skill.knowledge-graph-builder",
+      "method_id": "knowledge-graph-builder-guided--query-graph-stats",
+      "skill_id": "knowledge-graph-builder",
+      "label": "Query graph stats",
+      "description": "该入口为规划能力；用于讨论Query graph stats的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "query-graph-stats",
+          "options": [
+            {
+              "value": "query-graph-stats",
+              "label": "Query graph stats",
+              "description": "规划选项：Query graph stats；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_detail",
+          "argument": "output-detail",
+          "label": "输出详细程度",
+          "description": "控制科研产出的层次与解释深度。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "outline",
+              "label": "提纲",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "detailed",
+              "label": "详细",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "evidence_trace",
+          "argument": "evidence-trace",
+          "label": "保留依据追踪",
+          "description": "要求方案区分已提供证据、外部来源和模型推断。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_language",
+          "argument": "output-language",
+          "label": "输出语言",
+          "description": "科研材料与报告的主要输出语言。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "zh-CN",
+          "options": [
+            {
+              "value": "zh-CN",
+              "label": "中文",
+              "description": ""
+            },
+            {
+              "value": "en",
+              "label": "英文",
+              "description": ""
+            },
+            {
+              "value": "bilingual",
+              "label": "中英双语",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "citation_style",
+          "argument": "citation-style",
+          "label": "引文格式",
+          "description": "需要引用时采用的默认格式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "apa",
+          "options": [
+            {
+              "value": "apa",
+              "label": "APA",
+              "description": ""
+            },
+            {
+              "value": "vancouver",
+              "label": "Vancouver",
+              "description": ""
+            },
+            {
+              "value": "gbt7714",
+              "label": "GB/T 7714",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "include_methods_appendix",
+          "argument": "include-methods-appendix",
+          "label": "包含方法附录",
+          "description": "在产出中附带检索、分析或生成过程的结构化说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "mark_uncertainty",
+          "argument": "mark-uncertainty",
+          "label": "标注不确定性",
+          "description": "显式标记证据不足、推断内容和待人工核验项。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "标注",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不标注",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/knowledge-graph-builder/scripts/entity_resolution.py",
+          "label": "entity_resolution.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/extraction_prompt_template.txt",
+          "label": "extraction_prompt_template.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/graph_query.py",
+          "label": "graph_query.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/hypothesis_cli_reference.py",
+          "label": "hypothesis_cli_reference.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/new_data_source_template.py",
+          "label": "new_data_source_template.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/requirements.txt",
+          "label": "requirements.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_implementation",
+        "reason": "原文调用的 neurooracle 软件包、ingest/batch_extract/phase3 入口未随当前项目提供；现有 scripts 是使用参考和辅助函数，不能代替完整图谱引擎。",
+        "source_method_id": "knowledge-graph-builder-guided--query-graph-stats",
+        "requirements": [
+          "原始 neurooracle 实现及其数据/服务配置"
+        ]
+      }
+    },
+    {
+      "capability": "skill.knowledge-graph-builder",
+      "method_id": "knowledge-graph-builder-guided--batch-generate-hypotheses",
+      "skill_id": "knowledge-graph-builder",
+      "label": "Batch generate hypotheses",
+      "description": "该入口为规划能力；用于讨论Batch generate hypotheses的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "batch-generate-hypotheses",
+          "options": [
+            {
+              "value": "batch-generate-hypotheses",
+              "label": "Batch generate hypotheses",
+              "description": "规划选项：Batch generate hypotheses；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_detail",
+          "argument": "output-detail",
+          "label": "输出详细程度",
+          "description": "控制科研产出的层次与解释深度。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "outline",
+              "label": "提纲",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "detailed",
+              "label": "详细",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "evidence_trace",
+          "argument": "evidence-trace",
+          "label": "保留依据追踪",
+          "description": "要求方案区分已提供证据、外部来源和模型推断。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_language",
+          "argument": "output-language",
+          "label": "输出语言",
+          "description": "科研材料与报告的主要输出语言。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "zh-CN",
+          "options": [
+            {
+              "value": "zh-CN",
+              "label": "中文",
+              "description": ""
+            },
+            {
+              "value": "en",
+              "label": "英文",
+              "description": ""
+            },
+            {
+              "value": "bilingual",
+              "label": "中英双语",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "citation_style",
+          "argument": "citation-style",
+          "label": "引文格式",
+          "description": "需要引用时采用的默认格式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "apa",
+          "options": [
+            {
+              "value": "apa",
+              "label": "APA",
+              "description": ""
+            },
+            {
+              "value": "vancouver",
+              "label": "Vancouver",
+              "description": ""
+            },
+            {
+              "value": "gbt7714",
+              "label": "GB/T 7714",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "include_methods_appendix",
+          "argument": "include-methods-appendix",
+          "label": "包含方法附录",
+          "description": "在产出中附带检索、分析或生成过程的结构化说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "mark_uncertainty",
+          "argument": "mark-uncertainty",
+          "label": "标注不确定性",
+          "description": "显式标记证据不足、推断内容和待人工核验项。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "标注",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不标注",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/knowledge-graph-builder/scripts/entity_resolution.py",
+          "label": "entity_resolution.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/extraction_prompt_template.txt",
+          "label": "extraction_prompt_template.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/graph_query.py",
+          "label": "graph_query.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/hypothesis_cli_reference.py",
+          "label": "hypothesis_cli_reference.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/new_data_source_template.py",
+          "label": "new_data_source_template.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/requirements.txt",
+          "label": "requirements.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_implementation",
+        "reason": "原文调用的 neurooracle 软件包、ingest/batch_extract/phase3 入口未随当前项目提供；现有 scripts 是使用参考和辅助函数，不能代替完整图谱引擎。",
+        "source_method_id": "knowledge-graph-builder-guided--batch-generate-hypotheses",
+        "requirements": [
+          "原始 neurooracle 实现及其数据/服务配置"
+        ]
+      }
+    },
+    {
+      "capability": "skill.knowledge-graph-builder",
+      "method_id": "knowledge-graph-builder-guided--rank-saved-hypotheses",
+      "skill_id": "knowledge-graph-builder",
+      "label": "Rank saved hypotheses",
+      "description": "该入口为规划能力；用于讨论Rank saved hypotheses的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "rank-saved-hypotheses",
+          "options": [
+            {
+              "value": "rank-saved-hypotheses",
+              "label": "Rank saved hypotheses",
+              "description": "规划选项：Rank saved hypotheses；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_detail",
+          "argument": "output-detail",
+          "label": "输出详细程度",
+          "description": "控制科研产出的层次与解释深度。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "outline",
+              "label": "提纲",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "detailed",
+              "label": "详细",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "evidence_trace",
+          "argument": "evidence-trace",
+          "label": "保留依据追踪",
+          "description": "要求方案区分已提供证据、外部来源和模型推断。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_language",
+          "argument": "output-language",
+          "label": "输出语言",
+          "description": "科研材料与报告的主要输出语言。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "zh-CN",
+          "options": [
+            {
+              "value": "zh-CN",
+              "label": "中文",
+              "description": ""
+            },
+            {
+              "value": "en",
+              "label": "英文",
+              "description": ""
+            },
+            {
+              "value": "bilingual",
+              "label": "中英双语",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "citation_style",
+          "argument": "citation-style",
+          "label": "引文格式",
+          "description": "需要引用时采用的默认格式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "apa",
+          "options": [
+            {
+              "value": "apa",
+              "label": "APA",
+              "description": ""
+            },
+            {
+              "value": "vancouver",
+              "label": "Vancouver",
+              "description": ""
+            },
+            {
+              "value": "gbt7714",
+              "label": "GB/T 7714",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "include_methods_appendix",
+          "argument": "include-methods-appendix",
+          "label": "包含方法附录",
+          "description": "在产出中附带检索、分析或生成过程的结构化说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "mark_uncertainty",
+          "argument": "mark-uncertainty",
+          "label": "标注不确定性",
+          "description": "显式标记证据不足、推断内容和待人工核验项。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "标注",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不标注",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/knowledge-graph-builder/scripts/entity_resolution.py",
+          "label": "entity_resolution.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/extraction_prompt_template.txt",
+          "label": "extraction_prompt_template.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/graph_query.py",
+          "label": "graph_query.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/hypothesis_cli_reference.py",
+          "label": "hypothesis_cli_reference.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/new_data_source_template.py",
+          "label": "new_data_source_template.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/requirements.txt",
+          "label": "requirements.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_implementation",
+        "reason": "原文调用的 neurooracle 软件包、ingest/batch_extract/phase3 入口未随当前项目提供；现有 scripts 是使用参考和辅助函数，不能代替完整图谱引擎。",
+        "source_method_id": "knowledge-graph-builder-guided--rank-saved-hypotheses",
+        "requirements": [
+          "原始 neurooracle 实现及其数据/服务配置"
+        ]
+      }
+    },
+    {
+      "capability": "skill.knowledge-graph-builder",
+      "method_id": "knowledge-graph-builder-guided--find-hypothesis-paths",
+      "skill_id": "knowledge-graph-builder",
+      "label": "Find hypothesis paths",
+      "description": "该入口为规划能力；用于讨论Find hypothesis paths的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "find-hypothesis-paths",
+          "options": [
+            {
+              "value": "find-hypothesis-paths",
+              "label": "Find hypothesis paths",
+              "description": "规划选项：Find hypothesis paths；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_detail",
+          "argument": "output-detail",
+          "label": "输出详细程度",
+          "description": "控制科研产出的层次与解释深度。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "outline",
+              "label": "提纲",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "detailed",
+              "label": "详细",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "evidence_trace",
+          "argument": "evidence-trace",
+          "label": "保留依据追踪",
+          "description": "要求方案区分已提供证据、外部来源和模型推断。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_language",
+          "argument": "output-language",
+          "label": "输出语言",
+          "description": "科研材料与报告的主要输出语言。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "zh-CN",
+          "options": [
+            {
+              "value": "zh-CN",
+              "label": "中文",
+              "description": ""
+            },
+            {
+              "value": "en",
+              "label": "英文",
+              "description": ""
+            },
+            {
+              "value": "bilingual",
+              "label": "中英双语",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "citation_style",
+          "argument": "citation-style",
+          "label": "引文格式",
+          "description": "需要引用时采用的默认格式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "apa",
+          "options": [
+            {
+              "value": "apa",
+              "label": "APA",
+              "description": ""
+            },
+            {
+              "value": "vancouver",
+              "label": "Vancouver",
+              "description": ""
+            },
+            {
+              "value": "gbt7714",
+              "label": "GB/T 7714",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "include_methods_appendix",
+          "argument": "include-methods-appendix",
+          "label": "包含方法附录",
+          "description": "在产出中附带检索、分析或生成过程的结构化说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "mark_uncertainty",
+          "argument": "mark-uncertainty",
+          "label": "标注不确定性",
+          "description": "显式标记证据不足、推断内容和待人工核验项。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "标注",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不标注",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/knowledge-graph-builder/scripts/entity_resolution.py",
+          "label": "entity_resolution.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/extraction_prompt_template.txt",
+          "label": "extraction_prompt_template.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/graph_query.py",
+          "label": "graph_query.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/hypothesis_cli_reference.py",
+          "label": "hypothesis_cli_reference.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/new_data_source_template.py",
+          "label": "new_data_source_template.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/requirements.txt",
+          "label": "requirements.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_implementation",
+        "reason": "原文调用的 neurooracle 软件包、ingest/batch_extract/phase3 入口未随当前项目提供；现有 scripts 是使用参考和辅助函数，不能代替完整图谱引擎。",
+        "source_method_id": "knowledge-graph-builder-guided--find-hypothesis-paths",
+        "requirements": [
+          "原始 neurooracle 实现及其数据/服务配置"
+        ]
+      }
+    },
+    {
+      "capability": "skill.knowledge-graph-builder",
+      "method_id": "knowledge-graph-builder-guided--bridge-discovery",
+      "skill_id": "knowledge-graph-builder",
+      "label": "Bridge discovery",
+      "description": "该入口为规划能力；用于讨论Bridge discovery的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "bridge-discovery",
+          "options": [
+            {
+              "value": "bridge-discovery",
+              "label": "Bridge discovery",
+              "description": "规划选项：Bridge discovery；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_detail",
+          "argument": "output-detail",
+          "label": "输出详细程度",
+          "description": "控制科研产出的层次与解释深度。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "standard",
+          "options": [
+            {
+              "value": "outline",
+              "label": "提纲",
+              "description": ""
+            },
+            {
+              "value": "standard",
+              "label": "标准",
+              "description": ""
+            },
+            {
+              "value": "detailed",
+              "label": "详细",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "evidence_trace",
+          "argument": "evidence-trace",
+          "label": "保留依据追踪",
+          "description": "要求方案区分已提供证据、外部来源和模型推断。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "保留",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_language",
+          "argument": "output-language",
+          "label": "输出语言",
+          "description": "科研材料与报告的主要输出语言。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "zh-CN",
+          "options": [
+            {
+              "value": "zh-CN",
+              "label": "中文",
+              "description": ""
+            },
+            {
+              "value": "en",
+              "label": "英文",
+              "description": ""
+            },
+            {
+              "value": "bilingual",
+              "label": "中英双语",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "citation_style",
+          "argument": "citation-style",
+          "label": "引文格式",
+          "description": "需要引用时采用的默认格式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "表达格式",
+          "unit": "",
+          "required": true,
+          "default": "apa",
+          "options": [
+            {
+              "value": "apa",
+              "label": "APA",
+              "description": ""
+            },
+            {
+              "value": "vancouver",
+              "label": "Vancouver",
+              "description": ""
+            },
+            {
+              "value": "gbt7714",
+              "label": "GB/T 7714",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "include_methods_appendix",
+          "argument": "include-methods-appendix",
+          "label": "包含方法附录",
+          "description": "在产出中附带检索、分析或生成过程的结构化说明。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "mark_uncertainty",
+          "argument": "mark-uncertainty",
+          "label": "标注不确定性",
+          "description": "显式标记证据不足、推断内容和待人工核验项。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "advanced",
+          "group": "透明度",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "标注",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不标注",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [],
+      "output_slots": [],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/knowledge-graph-builder/scripts/entity_resolution.py",
+          "label": "entity_resolution.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/extraction_prompt_template.txt",
+          "label": "extraction_prompt_template.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/graph_query.py",
+          "label": "graph_query.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/hypothesis_cli_reference.py",
+          "label": "hypothesis_cli_reference.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/new_data_source_template.py",
+          "label": "new_data_source_template.py",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        },
+        {
+          "path": "skills/knowledge-graph-builder/scripts/requirements.txt",
+          "label": "requirements.txt",
+          "kind": "script",
+          "line_start": 1,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_implementation",
+        "reason": "原文调用的 neurooracle 软件包、ingest/batch_extract/phase3 入口未随当前项目提供；现有 scripts 是使用参考和辅助函数，不能代替完整图谱引擎。",
+        "source_method_id": "knowledge-graph-builder-guided--bridge-discovery",
+        "requirements": [
+          "原始 neurooracle 实现及其数据/服务配置"
+        ]
+      }
+    }
+  ],
+  "name": "knowledge-graph-builder",
+  "category": [
+    "软件工具",
+    "knowledge"
+  ],
+  "scope": "software",
+  "keywords": [
+    "knowledge-graph-builder"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

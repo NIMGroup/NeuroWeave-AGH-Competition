@@ -1,0 +1,1 @@
+Usage: /opt/software/fsl/bin/fslinfo <filename>

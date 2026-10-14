@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "combraintf",
+  "description": "combraintf 统筹已登记的独立方法和可复用流程。支持：COMBRAINTF 原项目训练脚本。",
+  "method_refs": [
+    {
+      "capability": "skill.combraintf",
+      "method_id": "reviewed-original-trainer-combraintf",
+      "label": "COMBRAINTF 原项目训练脚本",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the original combraintf trainer on per-subject FC tensor dictionaries in <atlas>/sub-*.pt and matching CSV labels. The adapter validates subject IDs, square finite matrices, ROI consistency and fold sizes, and redirects checkpoints and logs into this run。 Inputs: fmri_root: 原始 FC 数据根目录（内含 atlas/sub-*.pt） (directory); labels_csv: 完整样本标签 CSV (file). Registered outputs: results/training.log, results/execution.json. Fixed invocation options: --model combraintf.",
+      "method_ref": "reviewed.combraintf.original-trainer"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "name": "combraintf",
+  "category": [
+    "任务能力",
+    "combraintf"
+  ],
+  "scope": "model",
+  "keywords": [
+    "combraintf"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

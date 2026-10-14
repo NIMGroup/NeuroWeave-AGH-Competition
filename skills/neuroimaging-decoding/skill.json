@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "id": "neuroimaging-decoding",
+  "description": "neuroimaging-decoding 统筹已登记的独立方法和可复用流程。支持：ROI 多变量解码；ROI GLM 与 FDR；SearchLight 分类。",
+  "method_refs": [
+    {
+      "capability": "skill.neuroimaging-decoding",
+      "method_id": "reviewed-mvpa-neuroimaging-decoding",
+      "label": "ROI 多变量解码",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the original MVPA mode on tabular features and an explicit target; cross-validate the selected classification or regression estimator and save metrics and predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --mode mvpa.",
+      "method_ref": "reviewed.neuroimaging-decoding.mvpa"
+    },
+    {
+      "capability": "skill.neuroimaging-decoding",
+      "method_id": "reviewed-roi-glm-neuroimaging-decoding",
+      "label": "ROI GLM 与 FDR",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Join ROI features and the design table by subject ID, fit the original ROI-wise GLM with the selected contrast column, and export ROI test results and FDR summary counts. Inputs: features: 特征 CSV (file); design: 设计矩阵 CSV (file). Registered outputs: results/roi_glm_results.csv. Fixed invocation options: --mode roi-glm.",
+      "method_ref": "reviewed.neuroimaging-decoding.roi-glm"
+    },
+    {
+      "capability": "skill.neuroimaging-decoding",
+      "method_id": "reviewed-searchlight-neuroimaging-decoding",
+      "label": "SearchLight 分类",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the original SearchLight implementation on the supplied image list, mask and row-aligned target labels with the selected number of cross-validation folds; export the score image. Inputs: images_list: 影像路径清单 (file); features: 特征 CSV (file); mask: 脑掩膜 (file). Registered outputs: results/searchlight_scores.nii.gz. Fixed invocation options: --mode searchlight.",
+      "method_ref": "reviewed.neuroimaging-decoding.searchlight"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "selection_rules": [
+    "表格特征预测选择 MVPA，逐 ROI 统计推断选择 ROI GLM，空间局部预测图选择 SearchLight；三类结果的科学含义不同。"
+  ],
+  "name": "neuroimaging-decoding",
+  "category": [
+    "任务能力",
+    "neuroimaging"
+  ],
+  "scope": "task",
+  "keywords": [
+    "neuroimaging-decoding",
+    "ROI",
+    "GLM",
+    "FDR",
+    "SearchLight"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "id": "adni-skill",
+  "description": "ADNI 数据集专属适配，按该数据集的命名、目录或表字段约定选择处理方法。支持：数据集巡检；dcm2niix 实际转换。",
+  "method_refs": [
+    {
+      "capability": "skill.adni-skill",
+      "method_id": "linked-dataset_inspector",
+      "label": "数据集巡检",
+      "default_recommended": false,
+      "default_reason": "所有后续方法都需要先确认输入条件。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "扫描授权目录的结构和轻量元数据，形成处理前检查摘要。",
+      "method_ref": "dataset.inspect"
+    },
+    {
+      "capability": "skill.adni-skill",
+      "method_id": "linked-dcm2niix-convert",
+      "label": "dcm2niix 实际转换",
+      "default_recommended": false,
+      "default_reason": "服务器已检测到 dcm2niix，适合把 DICOM 序列转换为 NIfTI。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "调用服务器现有 dcm2niix，将只读 DICOM 输入转换到隔离输出目录并生成 JSON sidecar。",
+      "method_ref": "dcm2niix.convert"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "selection_rules": [
+    "本地 ADNI 数据先区分 DICOM 和已有 NIfTI；前者可选择转换，后者先检查目录与影像元数据。"
+  ],
+  "name": "adni-skill",
+  "category": [
+    "数据集专属",
+    "数据集适配与质控"
+  ],
+  "scope": "dataset",
+  "limitations": [
+    "当前 ADNI 专属引用只包含巡检与 DICOM 转换；表型提取或完整 ADNI 分析需另查对应方法，不能由历史说明推断已经接入。"
+  ],
+  "keywords": [
+    "adni-skill"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

@@ -1,0 +1,298 @@
+{
+  "label": "原脚本 BOLD 频带波动区域摘要（STD 指标）",
+  "description": "Resample BOLD to the mask grid, detrend and filter at 0.01–0.1 Hz, compute temporal standard deviation and normalize that map within the mask. Summarize values and ROI centres by atlas. The source names this zALFF, but this adapter computes filtered-signal STD, not Fourier-amplitude ALFF. Inputs: bold: 原脚本所需 4D BOLD (file); atlas: 同空间分区图谱 (file); labels: 图谱标签 (file); mask: 分析掩膜 (file). Registered outputs: results/TOP_active_regions.csv, results/top_coordinates.csv, results/all_brain_regions_activity.csv.",
+  "runner_id": "reviewed.brain-visualization.original-region-summary",
+  "input_types": [
+    "bold_image",
+    "label_image",
+    "analysis_input",
+    "brain_mask"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "tr",
+      "argument": "tr",
+      "label": "tr",
+      "description": "Repetition time in seconds.",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 1.0,
+      "options": [],
+      "minimum": 0.01,
+      "maximum": 100.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/brain-visualization/scripts/zalff_summary_reference.py:101。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "top_n",
+      "argument": "top-n",
+      "label": "top-n",
+      "description": "Number of top regions to export.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": 10,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 10000.0,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/brain-visualization/scripts/zalff_summary_reference.py:102。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "bold",
+      "type": "bold_image",
+      "label": "原脚本所需 4D BOLD",
+      "description": "Input 4D BOLD NIfTI image. Required file input for 原脚本 BOLD 频带波动区域摘要（STD 指标）; bind to port bold.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "atlas",
+      "type": "label_image",
+      "label": "同空间分区图谱",
+      "description": "Atlas NIfTI for parcel summaries. Required file input for 原脚本 BOLD 频带波动区域摘要（STD 指标）; bind to port atlas.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "labels",
+      "type": "analysis_input",
+      "label": "图谱标签",
+      "description": "Atlas label text file. Required file input for 原脚本 BOLD 频带波动区域摘要（STD 指标）; bind to port labels.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "mask",
+      "type": "brain_mask",
+      "label": "分析掩膜",
+      "description": "MNI or analysis mask used for resampling and cleanup. Required file input for 原脚本 BOLD 频带波动区域摘要（STD 指标）; bind to port mask.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for 原脚本 BOLD 频带波动区域摘要（STD 指标）. Contains this operation's generated files, including results/TOP_active_regions.csv, results/top_coordinates.csv, results/all_brain_regions_activity.csv; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_TOP_active_regions_csv",
+      "type": "generated_file",
+      "label": "TOP_active_regions.csv",
+      "description": "TOP_active_regions.csv: output of the original script BOLD band fluctuation region summary (STD metric). Relative run path: results/TOP_active_regions.csv. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".csv",
+      "primary": false,
+      "path_template": "results/TOP_active_regions.csv",
+      "generated_when": {}
+    },
+    {
+      "id": "file_top_coordinates_csv",
+      "type": "generated_file",
+      "label": "top_coordinates.csv",
+      "description": "top_coordinates.csv: output of the original script BOLD band fluctuation region summary (STD metric). Relative run path: results/top_coordinates.csv. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".csv",
+      "primary": false,
+      "path_template": "results/top_coordinates.csv",
+      "generated_when": {}
+    },
+    {
+      "id": "file_all_brain_regions_activity_csv",
+      "type": "generated_file",
+      "label": "all_brain_regions_activity.csv",
+      "description": "all_brain_regions_activity.csv: output of the original script's BOLD band fluctuation region summary (STD metric). Relative run path: results/all_brain_regions_activity.csv. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".csv",
+      "primary": false,
+      "path_template": "results/all_brain_regions_activity.csv",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/brain-visualization/scripts/zalff_summary_reference.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.brain-visualization.original-region-summary",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.brain-visualization.original-region-summary",
+      "script": "skills/brain-visualization/scripts/zalff_summary_reference.py",
+      "inputs": [
+        {
+          "id": "bold",
+          "flag": "--bold",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "atlas",
+          "flag": "--atlas",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "labels",
+          "flag": "--labels",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "mask",
+          "flag": "--mask",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "tr",
+          "flag": "--tr"
+        },
+        {
+          "id": "top_n",
+          "flag": "--top-n"
+        }
+      ],
+      "modules": [
+        "numpy",
+        "nibabel",
+        "pandas",
+        "nilearn"
+      ],
+      "expected": [
+        "TOP_active_regions.csv",
+        "top_coordinates.csv",
+        "all_brain_regions_activity.csv"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/brain-visualization/scripts/zalff_summary_reference.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/brain-visualization/scripts/zalff_summary_reference.py",
+          "source_sha256": "1d5d2384d31456aaed602a531d4f44981e24d529c3e1ce4700d6ecfd8f31c236"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/brain-visualization/scripts/zalff_summary_reference.py",
+          "sha256": "0f7bd3abd170f0f5109ce266713ed6325ef1e07553fd1e2a41424e308c29610c"
+        }
+      ],
+      "artifact_types": {
+        "TOP_active_regions.csv": "generated_file",
+        "top_coordinates.csv": "generated_file",
+        "all_brain_regions_activity.csv": "generated_file"
+      }
+    }
+  }
+}

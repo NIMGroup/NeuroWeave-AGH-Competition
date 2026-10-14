@@ -1,0 +1,122 @@
+{
+  "label": "ixi 复制整理为 BIDS 目录",
+  "description": "Reorganize IXI native layout to BIDS structure. Converts IXI directory layout (e.g., IXI002/, IXI002-T1.nii.gz, IXI002-T2.nii.gz) to BIDS-style structure (sub-IXI002/anat/)。 Inputs: input: Path to IXI raw directory (directory). Registered outputs: results/.",
+  "runner_id": "reviewed.ixi-skill.reorganize-ixi",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder"
+  ],
+  "requires_features": [],
+  "parameters": [],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "Path to IXI raw directory",
+      "description": "Path to IXI raw directory. Required directory input for ixi 复制整理为 BIDS 目录; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "folder",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for ixi 复制整理为 BIDS 目录. Contains this operation's generated files, including results/; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/ixi-skill/scripts/reorganize_ixi.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.ixi-skill.reorganize-ixi",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.ixi-skill.reorganize-ixi",
+      "script": "skills/ixi-skill/scripts/reorganize_ixi.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [],
+      "modules": [
+        "pandas",
+        "numpy"
+      ],
+      "expected": [
+        "bids/**/*.nii*"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output",
+          "bids"
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/ixi-skill/scripts/reorganize_ixi.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/ixi-skill/scripts/reorganize_ixi.py",
+          "source_sha256": "473fd199e9544c7dae6dd9e527b7c33d03c4294b362ef36f086c69ce0d88e593"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/ixi-skill/scripts/reorganize_ixi.py",
+          "sha256": "fc311c886f09212a4782bf3585ab1ef4893c7ec8307b252f11a0e8798daf3cce"
+        }
+      ],
+      "artifact_types": {}
+    }
+  }
+}

@@ -1,0 +1,302 @@
+{
+  "schema_version": 1,
+  "skill_id": "dwi-skill",
+  "provides": [
+    {
+      "capability": "skill.dwi-skill",
+      "method_id": "command-dwidenoise",
+      "label": "MRtrix3 MP-PCA DWI 去噪",
+      "description": "独立调用 MRtrix3 3.0.8 的 dwidenoise；保留原软件计算，参数按原版本帮助定义。\n\ndMRI noise level estimation and denoising using Marchenko-Pastur PCA\nDWI data denoising and noise map estimation by exploiting data redundancy in the PCA domain using the prior knowledge that the eigenspectrum of random covariance matrices is described by the universal Marchenko-Pastur (MP) distribution. Fitting the MP distribution to the spectrum of patch-wise signal matrices hence provides an estimator of the noise level 'sigma', as was first shown in Veraart et al. (2016) and later improved in Cordero-Grande et al. (2019). This noise level estimate then determines the optimal cut-off for PCA denoising.\nImportant note: image denoising must be performed as the first step of the image processing pipeline. The routine will fail if interpolation or smoothing has been applied to the data prior to denoising.\nNote that this function does not correct for non-Gaussian noise biases present in magnitude-reconstructed MRI images. If available, including the MRI phase data can reduce such non-Gaussian biases, and the command now supports complex input data.",
+      "runner_id": "mrtrix.command.dwidenoise",
+      "execution_mode": "runner",
+      "input_types": [
+        "raw_dwi",
+        "brain_mask"
+      ],
+      "output_types": [
+        "preprocessed_dwi",
+        "scalar_image"
+      ],
+      "input_slots": [
+        {
+          "id": "dwi",
+          "type": "raw_dwi",
+          "label": "dwi",
+          "description": "the input diffusion-weighted image.",
+          "required": true,
+          "binding": "file",
+          "formats": [
+            ".mif",
+            ".nii",
+            ".nii.gz"
+          ]
+        },
+        {
+          "id": "mask",
+          "type": "brain_mask",
+          "label": "掩膜",
+          "description": "Only process voxels within the specified binary brain mask image.",
+          "required": false,
+          "binding": "file",
+          "formats": [
+            ".mif",
+            ".nii",
+            ".nii.gz"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "out",
+          "type": "preprocessed_dwi",
+          "label": "输出：MP-PCA DWI 去噪",
+          "description": "the output denoised DWI image. 文件名由平台固定在本次输出目录内。",
+          "format": ".mif",
+          "primary": true,
+          "path_template": "denoised.mif"
+        },
+        {
+          "id": "noise",
+          "type": "scalar_image",
+          "label": "noise",
+          "description": "The output noise map, i.e., the estimated noise level 'sigma' in the data. Note that on complex input data, this will be the total noise level across real and imaginary channels, so a scale factor sqrt(2) applies.",
+          "format": ".mif",
+          "path_template": "noise.mif",
+          "generated_when": {
+            "save_noise": [
+              true
+            ]
+          }
+        }
+      ],
+      "parameters": [
+        {
+          "id": "extent",
+          "argument": "-extent",
+          "label": "去噪窗口大小",
+          "description": "Set the patch size of the denoising filter. By default, the command will select the smallest isotropic patch size that exceeds the number of DW images in the input data, e.g., 5x5x5 for data with <= 125 DWI volumes, 7x7x7 for data with <= 343 DWI volumes, etc.",
+          "required": false,
+          "default": null,
+          "type": "string",
+          "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+          "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/dwidenoise.html",
+          "usage": "逗号分隔的数值；本接口仅接受明确列表，不接受路径或任意表达式。 坐标向量应有三个数值；轴编号从 0 开始。"
+        },
+        {
+          "id": "save_noise",
+          "argument": "-noise",
+          "label": "保存 noise",
+          "description": "The output noise map, i.e., the estimated noise level 'sigma' in the data. Note that on complex input data, this will be the total noise level across real and imaginary channels, so a scale factor sqrt(2) applies.",
+          "type": "boolean",
+          "required": false,
+          "default": false
+        },
+        {
+          "id": "datatype",
+          "argument": "-datatype",
+          "label": "输出数据类型",
+          "description": "Datatype for the eigenvalue decomposition (single or double precision). For complex input data, this will select complex float32 or complex float64 datatypes.",
+          "required": false,
+          "default": null,
+          "type": "string",
+          "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+          "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/dwidenoise.html",
+          "control": "select",
+          "options": [
+            {
+              "value": "float32",
+              "label": "float32"
+            },
+            {
+              "value": "float64",
+              "label": "float64"
+            }
+          ]
+        },
+        {
+          "id": "estimator",
+          "argument": "-estimator",
+          "label": "噪声估计器",
+          "description": "Select the noise level estimator (default = Exp2), either:\n* Exp1: the original estimator used in Veraart et al. (2016), or\n* Exp2: the improved estimator introduced in Cordero-Grande et al. (2019).",
+          "required": false,
+          "default": null,
+          "type": "string",
+          "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+          "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/dwidenoise.html",
+          "control": "select",
+          "options": [
+            {
+              "value": "exp1",
+              "label": "exp1"
+            },
+            {
+              "value": "exp2",
+              "label": "exp2"
+            }
+          ]
+        },
+        {
+          "id": "info",
+          "argument": "-info",
+          "label": "info",
+          "description": "display information messages.",
+          "type": "boolean",
+          "required": false,
+          "default": false
+        },
+        {
+          "id": "quiet",
+          "argument": "-quiet",
+          "label": "quiet",
+          "description": "do not display information messages or progress status; alternatively, this can be achieved by setting the MRTRIX_QUIET environment variable to a non-empty string.",
+          "type": "boolean",
+          "required": false,
+          "default": false
+        },
+        {
+          "id": "debug",
+          "argument": "-debug",
+          "label": "debug",
+          "description": "display debugging messages.",
+          "type": "boolean",
+          "required": false,
+          "default": false
+        },
+        {
+          "id": "nthreads",
+          "argument": "-nthreads",
+          "label": "CPU 线程数",
+          "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).",
+          "required": true,
+          "default": 1,
+          "type": "integer",
+          "software_default": "未设置时不传入该选项；默认行为以 MRtrix3 3.0.8 原始说明为准。",
+          "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/dwidenoise.html",
+          "minimum": 0,
+          "group": "计算资源",
+          "level": "advanced"
+        }
+      ],
+      "source_references": [
+        {
+          "path": "skills/dwi-skill/references/mrtrix-3.0.8/dwidenoise.md",
+          "label": "安装版本原始命令帮助",
+          "kind": "command"
+        }
+      ]
+    }
+  ],
+  "command_contract": {
+    "command": "dwidenoise",
+    "version": "3.0.8",
+    "positional": [
+      {
+        "source": "input",
+        "id": "dwi"
+      },
+      {
+        "source": "output",
+        "id": "out"
+      }
+    ],
+    "options": [
+      {
+        "flag": "-mask",
+        "values": [
+          {
+            "source": "input",
+            "id": "mask"
+          }
+        ]
+      },
+      {
+        "flag": "-extent",
+        "values": [
+          {
+            "source": "parameter",
+            "id": "extent",
+            "kind": "ISEQ"
+          }
+        ]
+      },
+      {
+        "flag": "-noise",
+        "values": [
+          {
+            "source": "output",
+            "id": "noise"
+          }
+        ],
+        "when": {
+          "save_noise": [
+            true
+          ]
+        }
+      },
+      {
+        "flag": "-datatype",
+        "values": [
+          {
+            "source": "parameter",
+            "id": "datatype",
+            "kind": "CHOICE"
+          }
+        ]
+      },
+      {
+        "flag": "-estimator",
+        "values": [
+          {
+            "source": "parameter",
+            "id": "estimator",
+            "kind": "CHOICE"
+          }
+        ]
+      },
+      {
+        "flag": "-info",
+        "values": [],
+        "when": {
+          "info": [
+            true
+          ]
+        }
+      },
+      {
+        "flag": "-quiet",
+        "values": [],
+        "when": {
+          "quiet": [
+            true
+          ]
+        }
+      },
+      {
+        "flag": "-debug",
+        "values": [],
+        "when": {
+          "debug": [
+            true
+          ]
+        }
+      },
+      {
+        "flag": "-nthreads",
+        "values": [
+          {
+            "source": "parameter",
+            "id": "nthreads",
+            "kind": "INT"
+          }
+        ]
+      }
+    ],
+    "total_options": 13,
+    "omitted_options": {
+      "force": "运行输出目录独立分配，不允许覆盖输入或其他运行。",
+      "config": "不开放任意软件配置键，以免绕过路径、线程及运行环境管理。",
+      "help": "通过命令说明面板提供，不作为计算参数。",
+      "version": "由运行环境探测提供。"
+    }
+  }
+}

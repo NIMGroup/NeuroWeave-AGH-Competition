@@ -1,0 +1,222 @@
+{
+  "schema_version": 1,
+  "id": "freesurfer.autorecon-stages-f5b6e34bac",
+  "version": "1",
+  "kind": "pipeline",
+  "description": "依次执行：FreeSurfer recon-all（可执行） → FreeSurfer recon-all（可执行） → FreeSurfer recon-all（可执行）。输入和参数由方法契约定义。",
+  "label": "FreeSurfer autorecon1 → autorecon2 → autorecon3",
+  "parameters": [
+    {
+      "id": "threads",
+      "argument": "openmp",
+      "label": "OpenMP 线程数",
+      "description": "recon-all 可使用的 CPU 线程数。",
+      "type": "integer",
+      "control": "number",
+      "level": "basic",
+      "group": "计算资源",
+      "unit": "",
+      "required": true,
+      "default": 4,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 32.0,
+      "step": 1.0,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "t1w",
+      "type": "t1w_image",
+      "label": "T1w 输入",
+      "description": "只在 autorecon1 导入一次；后续阶段复用同一受试者目录。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mgz"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "subject",
+      "type": "freesurfer_subject",
+      "label": "FreeSurfer 受试者目录",
+      "description": "FreeSurfer subject directory containing mri, surf, label and stats. Its existence alone does not certify completion of later stages; use the stage-specific file ports for downstream binding.",
+      "format": "",
+      "primary": true,
+      "path_template": "{subject}/",
+      "generated_when": {}
+    },
+    {
+      "id": "t1w",
+      "type": "t1w_image",
+      "label": "T1 volume",
+      "description": "Conformed T1 volume in the FreeSurfer subject grid. This grid may differ from the original acquisition and from DWI.",
+      "format": ".mgz",
+      "primary": false,
+      "path_template": "{subject}/mri/T1.mgz",
+      "generated_when": {}
+    },
+    {
+      "id": "brain_t1w",
+      "type": "t1w_image",
+      "label": "Brain-extracted T1",
+      "description": "Skull-stripped T1 intensities, despite the filename brainmask.mgz. This is not a binary brain mask.",
+      "format": ".mgz",
+      "primary": false,
+      "path_template": "{subject}/mri/brainmask.mgz",
+      "generated_when": {}
+    },
+    {
+      "id": "parcellation",
+      "type": "parcellation_image",
+      "label": "Anatomical cortical and subcortical parcellation",
+      "description": "Integer Desikan-Killiany cortical and aseg subcortical labels in subject structural space. FreeSurferColorLUT defines label meaning; labels are not contiguous connectome indices. Confirm alignment to streamlines, and remap with the appropriate LUT if needed. Do not use linear interpolation for labels.",
+      "format": ".mgz",
+      "primary": false,
+      "path_template": "{subject}/mri/aparc+aseg.mgz",
+      "generated_when": {}
+    },
+    {
+      "id": "aseg",
+      "type": "label_image",
+      "label": "Subcortical segmentation",
+      "description": "FreeSurfer anatomical segmentation labels in subject space. This alone does not provide the cortical atlas regions contained in aparc+aseg.mgz.",
+      "format": ".mgz",
+      "primary": false,
+      "path_template": "{subject}/mri/aseg.mgz",
+      "generated_when": {}
+    },
+    {
+      "id": "aseg_stats",
+      "type": "generated_file",
+      "label": "Segmentation statistics",
+      "description": "Region statistics table with label IDs, voxel counts and volumes. It is a text report, not a spatial node image. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".stats",
+      "primary": false,
+      "path_template": "{subject}/stats/aseg.stats",
+      "generated_when": {}
+    }
+  ],
+  "steps": [
+    {
+      "id": "autorecon1",
+      "title": "FreeSurfer autorecon1",
+      "fixed_parameters": {
+        "processing_stage": "autorecon1"
+      },
+      "parameter_bindings": {},
+      "inherit_parameters": true,
+      "input_bindings": {
+        "t1w": {
+          "source": "workflow_input",
+          "slot_id": "t1w",
+          "step_id": null,
+          "output_slot_id": null
+        }
+      },
+      "workspace": "subject",
+      "method_ref": "freesurfer.recon_all",
+      "method_version": "2",
+      "capability": "skill.freesurfer-tool"
+    },
+    {
+      "id": "autorecon2",
+      "title": "FreeSurfer autorecon2",
+      "fixed_parameters": {
+        "processing_stage": "autorecon2"
+      },
+      "parameter_bindings": {},
+      "inherit_parameters": true,
+      "input_bindings": {
+        "subject": {
+          "source": "step_output",
+          "slot_id": null,
+          "step_id": "autorecon1",
+          "output_slot_id": "subject"
+        }
+      },
+      "workspace": "subject",
+      "method_ref": "freesurfer.recon_all",
+      "method_version": "2",
+      "capability": "skill.freesurfer-tool"
+    },
+    {
+      "id": "autorecon3",
+      "title": "FreeSurfer autorecon3",
+      "fixed_parameters": {
+        "processing_stage": "autorecon3"
+      },
+      "parameter_bindings": {},
+      "inherit_parameters": true,
+      "input_bindings": {
+        "subject": {
+          "source": "step_output",
+          "slot_id": null,
+          "step_id": "autorecon2",
+          "output_slot_id": "subject"
+        }
+      },
+      "workspace": "subject",
+      "method_ref": "freesurfer.recon_all",
+      "method_version": "2",
+      "capability": "skill.freesurfer-tool"
+    }
+  ],
+  "output_bindings": {
+    "subject": {
+      "step_id": "autorecon3",
+      "output_slot_id": "subject"
+    },
+    "t1w": {
+      "step_id": "autorecon1",
+      "output_slot_id": "t1w"
+    },
+    "brain_t1w": {
+      "step_id": "autorecon1",
+      "output_slot_id": "brain_t1w"
+    },
+    "parcellation": {
+      "step_id": "autorecon3",
+      "output_slot_id": "parcellation"
+    },
+    "aseg": {
+      "step_id": "autorecon3",
+      "output_slot_id": "aseg"
+    },
+    "aseg_stats": {
+      "step_id": "autorecon3",
+      "output_slot_id": "aseg_stats"
+    }
+  },
+  "included_capabilities": [
+    "skill.freesurfer-tool"
+  ],
+  "category": [
+    "内置 Pipeline",
+    "其他软件"
+  ]
+}

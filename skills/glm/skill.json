@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "id": "glm",
+  "description": "glm 统筹已登记的独立方法和可复用流程。支持：任务态一级 GLM；组水平 GLM。",
+  "method_refs": [
+    {
+      "capability": "skill.glm",
+      "method_id": "reviewed-task-glm-nilearn-tool",
+      "label": "任务态一级 GLM",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "first-level-glm-task-based"
+      ],
+      "execution_resolution": {},
+      "role": "Reference Nilearn snippet for first-level task GLM。 Inputs: bold: 预处理 BOLD 影像 (file); events: 事件表 (file); confounds: 混杂变量 (file); mask: 脑掩膜 (file). Registered outputs: results/z_map.nii.gz, results/effect_map.nii.gz.",
+      "method_ref": "reviewed.nilearn-tool.task-glm"
+    },
+    {
+      "capability": "skill.glm",
+      "method_id": "reviewed-group-glm-nilearn-tool",
+      "label": "组水平 GLM",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "group-level-analysis"
+      ],
+      "execution_resolution": {},
+      "role": "Reference Nilearn snippet for second-level GLM。 Inputs: contrast_maps: 对比影像路径清单 (file); design_matrix: 组设计矩阵 (file); mask: 脑掩膜 (file). Registered outputs: results/second_level_z_map.nii.gz.",
+      "method_ref": "reviewed.nilearn-tool.group-glm"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "selection_rules": [
+    "单受试者任务效应选择一级 GLM；跨受试者推断选择二级 GLM，并核对一级对比定义一致。"
+  ],
+  "name": "glm",
+  "category": [
+    "任务能力",
+    "glm"
+  ],
+  "scope": "model",
+  "limitations": [
+    "二级分析需要对齐的受试者效应图与匹配的设计矩阵；分类预测分数不能直接当成 GLM 对比效应图。"
+  ],
+  "keywords": [
+    "glm",
+    "GLM"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

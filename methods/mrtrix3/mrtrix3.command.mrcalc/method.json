@@ -1,0 +1,592 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix3.command.mrcalc",
+  "version": "1",
+  "kind": "method",
+  "label": "MRtrix3 mrcalc",
+  "description": "Voxelwise arithmetic with one native operator per Method; use Pipeline steps for longer expressions.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "mrtrix3.command.mrcalc",
+  "parameters": [
+    {
+      "id": "operation",
+      "argument": "",
+      "label": "operation",
+      "description": "Native voxelwise operator.",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": "-abs",
+      "options": [
+        {
+          "value": "-abs",
+          "label": "-abs",
+          "description": ""
+        },
+        {
+          "value": "-neg",
+          "label": "-neg",
+          "description": ""
+        },
+        {
+          "value": "-sqrt",
+          "label": "-sqrt",
+          "description": ""
+        },
+        {
+          "value": "-exp",
+          "label": "-exp",
+          "description": ""
+        },
+        {
+          "value": "-log",
+          "label": "-log",
+          "description": ""
+        },
+        {
+          "value": "-log10",
+          "label": "-log10",
+          "description": ""
+        },
+        {
+          "value": "-sin",
+          "label": "-sin",
+          "description": ""
+        },
+        {
+          "value": "-cos",
+          "label": "-cos",
+          "description": ""
+        },
+        {
+          "value": "-tan",
+          "label": "-tan",
+          "description": ""
+        },
+        {
+          "value": "-asin",
+          "label": "-asin",
+          "description": ""
+        },
+        {
+          "value": "-acos",
+          "label": "-acos",
+          "description": ""
+        },
+        {
+          "value": "-atan",
+          "label": "-atan",
+          "description": ""
+        },
+        {
+          "value": "-round",
+          "label": "-round",
+          "description": ""
+        },
+        {
+          "value": "-ceil",
+          "label": "-ceil",
+          "description": ""
+        },
+        {
+          "value": "-floor",
+          "label": "-floor",
+          "description": ""
+        },
+        {
+          "value": "-isnan",
+          "label": "-isnan",
+          "description": ""
+        },
+        {
+          "value": "-isinf",
+          "label": "-isinf",
+          "description": ""
+        },
+        {
+          "value": "-finite",
+          "label": "-finite",
+          "description": ""
+        },
+        {
+          "value": "-real",
+          "label": "-real",
+          "description": ""
+        },
+        {
+          "value": "-imag",
+          "label": "-imag",
+          "description": ""
+        },
+        {
+          "value": "-phase",
+          "label": "-phase",
+          "description": ""
+        },
+        {
+          "value": "-conj",
+          "label": "-conj",
+          "description": ""
+        },
+        {
+          "value": "-add",
+          "label": "-add",
+          "description": ""
+        },
+        {
+          "value": "-subtract",
+          "label": "-subtract",
+          "description": ""
+        },
+        {
+          "value": "-multiply",
+          "label": "-multiply",
+          "description": ""
+        },
+        {
+          "value": "-divide",
+          "label": "-divide",
+          "description": ""
+        },
+        {
+          "value": "-pow",
+          "label": "-pow",
+          "description": ""
+        },
+        {
+          "value": "-min",
+          "label": "-min",
+          "description": ""
+        },
+        {
+          "value": "-max",
+          "label": "-max",
+          "description": ""
+        },
+        {
+          "value": "-lt",
+          "label": "-lt",
+          "description": ""
+        },
+        {
+          "value": "-le",
+          "label": "-le",
+          "description": ""
+        },
+        {
+          "value": "-gt",
+          "label": "-gt",
+          "description": ""
+        },
+        {
+          "value": "-ge",
+          "label": "-ge",
+          "description": ""
+        },
+        {
+          "value": "-eq",
+          "label": "-eq",
+          "description": ""
+        },
+        {
+          "value": "-neq",
+          "label": "-neq",
+          "description": ""
+        },
+        {
+          "value": "-and",
+          "label": "-and",
+          "description": ""
+        },
+        {
+          "value": "-or",
+          "label": "-or",
+          "description": ""
+        },
+        {
+          "value": "-xor",
+          "label": "-xor",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Native voxelwise operator. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "operand_kind",
+      "argument": "",
+      "label": "operand_kind",
+      "description": "Second operand source; relevant only for binary operators.",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": "scalar",
+      "options": [
+        {
+          "value": "scalar",
+          "label": "scalar",
+          "description": ""
+        },
+        {
+          "value": "image",
+          "label": "image",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "operation": [
+          "-add",
+          "-subtract",
+          "-multiply",
+          "-divide",
+          "-pow",
+          "-min",
+          "-max",
+          "-lt",
+          "-le",
+          "-gt",
+          "-ge",
+          "-eq",
+          "-neq",
+          "-and",
+          "-or",
+          "-xor"
+        ]
+      },
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Second operand source; relevant only for binary operators. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "value",
+      "argument": "",
+      "label": "value",
+      "description": "Scalar second operand.",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 1,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "operation": [
+          "-add",
+          "-subtract",
+          "-multiply",
+          "-divide",
+          "-pow",
+          "-min",
+          "-max",
+          "-lt",
+          "-le",
+          "-gt",
+          "-ge",
+          "-eq",
+          "-neq",
+          "-and",
+          "-or",
+          "-xor"
+        ],
+        "operand_kind": [
+          "scalar"
+        ]
+      },
+      "required_when": {
+        "operation": [
+          "-add",
+          "-subtract",
+          "-multiply",
+          "-divide",
+          "-pow",
+          "-min",
+          "-max",
+          "-lt",
+          "-le",
+          "-gt",
+          "-ge",
+          "-eq",
+          "-neq",
+          "-and",
+          "-or",
+          "-xor"
+        ],
+        "operand_kind": [
+          "scalar"
+        ]
+      },
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "Required only for the selected operation.",
+      "usage": "Scalar second operand. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    },
+    {
+      "id": "nthreads",
+      "argument": "-nthreads",
+      "label": "nthreads",
+      "description": "CPU threads within the allocated scheduler budget.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 1,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "CPU threads within the allocated scheduler budget. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "operand",
+      "type": "imaging_input",
+      "label": "operand",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": false,
+      "required_when": {
+        "operation": [
+          "-add",
+          "-subtract",
+          "-multiply",
+          "-divide",
+          "-pow",
+          "-min",
+          "-max",
+          "-lt",
+          "-le",
+          "-gt",
+          "-ge",
+          "-eq",
+          "-neq",
+          "-and",
+          "-or",
+          "-xor"
+        ],
+        "operand_kind": [
+          "image"
+        ]
+      },
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "output",
+      "type": "imaging_input",
+      "label": "output",
+      "description": "Native command output, saved in this run’s output directory. Voxelwise arithmetic with one native operator per Method; use Pipeline steps for longer expressions. The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".mif",
+      "primary": true,
+      "path_template": "output.mif",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "imaging_input"
+  ],
+  "output_types": [
+    "imaging_input"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/mrcalc.usage.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "mrtrix3",
+      "command": "mrcalc",
+      "version": "3.0.8",
+      "argv": [
+        {
+          "tokens": [
+            {
+              "input": "input"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "parameter": "value"
+            }
+          ],
+          "when": {
+            "operation": [
+              "-add",
+              "-subtract",
+              "-multiply",
+              "-divide",
+              "-pow",
+              "-min",
+              "-max",
+              "-lt",
+              "-le",
+              "-gt",
+              "-ge",
+              "-eq",
+              "-neq",
+              "-and",
+              "-or",
+              "-xor"
+            ],
+            "operand_kind": [
+              "scalar"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "input": "operand"
+            }
+          ],
+          "when": {
+            "operation": [
+              "-add",
+              "-subtract",
+              "-multiply",
+              "-divide",
+              "-pow",
+              "-min",
+              "-max",
+              "-lt",
+              "-le",
+              "-gt",
+              "-ge",
+              "-eq",
+              "-neq",
+              "-and",
+              "-or",
+              "-xor"
+            ],
+            "operand_kind": [
+              "image"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "parameter": "operation"
+            },
+            {
+              "output": "output"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-nthreads",
+            {
+              "parameter": "nthreads"
+            }
+          ],
+          "when": {},
+          "optional": false
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

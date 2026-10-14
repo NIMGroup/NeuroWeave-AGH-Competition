@@ -1,0 +1,590 @@
+{
+  "schema_version": 1,
+  "id": "run_models",
+  "description": "run_models 统筹已登记的独立方法和可复用流程。支持：统计学习：分类；其他方法可在详情中分页查询。",
+  "method_refs": [
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-classification-statistical-ml--logistic",
+      "label": "logistic",
+      "default_recommended": true,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-classification-statistical-ml--ridge",
+      "label": "ridge",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-classification-statistical-ml--elastic-net",
+      "label": "elastic_net",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-classification-statistical-ml--svm",
+      "label": "svm",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-classification-statistical-ml--random-forest",
+      "label": "random_forest",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-classification-statistical-ml--extra-trees",
+      "label": "extra_trees",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-classification-statistical-ml--hist-gradient-boosting",
+      "label": "hist_gradient_boosting",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-classification-statistical-ml--xgboost",
+      "label": "xgboost",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical classifier on a feature CSV and explicit target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task classification.",
+      "method_ref": "reviewed.statistical-ml.classification"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-regression-statistical-ml--ols",
+      "label": "ols",
+      "default_recommended": true,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-regression-statistical-ml--ridge",
+      "label": "ridge",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-regression-statistical-ml--elastic-net",
+      "label": "elastic_net",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-regression-statistical-ml--svm",
+      "label": "svm",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-regression-statistical-ml--random-forest",
+      "label": "random_forest",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-regression-statistical-ml--extra-trees",
+      "label": "extra_trees",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-regression-statistical-ml--hist-gradient-boosting",
+      "label": "hist_gradient_boosting",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-regression-statistical-ml--xgboost",
+      "label": "xgboost",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the registered classical regressor on a feature CSV and explicit continuous target column, using the original cross-validation trainer and optional subject groups; export metrics and held-out predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --task regression.",
+      "method_ref": "reviewed.statistical-ml.regression"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-train-cpm",
+      "label": "连接组预测模型 CPM",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Canonical CLI for CPM using NPZ connectomes。 Inputs: connectomes: NPZ 连接矩阵（X、subject_id） (file); labels: 标签 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.cpm.train"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-train-brain-age-modeling",
+      "label": "脑龄预测与偏差校正",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-validated brain-age training with fold-local bias correction。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.brain-age-modeling.train"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-cluster-subject-subtyping--kmeans",
+      "label": "kmeans",
+      "default_recommended": true,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "CLI for disease-subtyping models。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json.",
+      "method_ref": "reviewed.subject-subtyping.cluster"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-cluster-subject-subtyping--gmm",
+      "label": "gmm",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "CLI for disease-subtyping models。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json.",
+      "method_ref": "reviewed.subject-subtyping.cluster"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-cluster-subject-subtyping--spectral",
+      "label": "spectral",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "CLI for disease-subtyping models。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json.",
+      "method_ref": "reviewed.subject-subtyping.cluster"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-cluster-subject-subtyping--nmf",
+      "label": "nmf",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "CLI for disease-subtyping models。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json.",
+      "method_ref": "reviewed.subject-subtyping.cluster"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-cluster-subject-subtyping--consensus",
+      "label": "consensus",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "CLI for disease-subtyping models。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json.",
+      "method_ref": "reviewed.subject-subtyping.cluster"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-association-imaging-genetics-models--association",
+      "label": "association",
+      "default_recommended": true,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "CLI for matrix-based imaging-genetics analysis。 Inputs: input: NPZ 矩阵数据 (file). Registered outputs: results/metrics.json.",
+      "method_ref": "reviewed.imaging-genetics-models.association"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-association-imaging-genetics-models--lmm",
+      "label": "lmm",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "CLI for matrix-based imaging-genetics analysis。 Inputs: input: NPZ 矩阵数据 (file). Registered outputs: results/metrics.json.",
+      "method_ref": "reviewed.imaging-genetics-models.association"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-association-imaging-genetics-models--prs",
+      "label": "prs",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "CLI for matrix-based imaging-genetics analysis。 Inputs: input: NPZ 矩阵数据 (file). Registered outputs: results/metrics.json.",
+      "method_ref": "reviewed.imaging-genetics-models.association"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-association-imaging-genetics-models--cca",
+      "label": "cca",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "CLI for matrix-based imaging-genetics analysis。 Inputs: input: NPZ 矩阵数据 (file). Registered outputs: results/metrics.json.",
+      "method_ref": "reviewed.imaging-genetics-models.association"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-association-imaging-genetics-models--pls",
+      "label": "pls",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "CLI for matrix-based imaging-genetics analysis。 Inputs: input: NPZ 矩阵数据 (file). Registered outputs: results/metrics.json.",
+      "method_ref": "reviewed.imaging-genetics-models.association"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-train-temporal-models--lstm",
+      "label": "lstm",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-validated sequence trainer。 Inputs: input: NPZ 训练数据（X、y） (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.temporal-models.train"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-train-temporal-models--gru",
+      "label": "gru",
+      "default_recommended": true,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-validated sequence trainer。 Inputs: input: NPZ 训练数据（X、y） (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.temporal-models.train"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-train-temporal-models--tcn",
+      "label": "tcn",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-validated sequence trainer。 Inputs: input: NPZ 训练数据（X、y） (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.temporal-models.train"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-train-temporal-models--transformer",
+      "label": "transformer",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-validated sequence trainer。 Inputs: input: NPZ 训练数据（X、y） (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.temporal-models.train"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-train-cnn3d",
+      "label": "3D CNN 训练",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-validated trainer for the canonical CNN3D model。 Inputs: input: NPZ 训练数据（X、y） (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.cnn3d.train"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-survival-scientific-survival-models--cox",
+      "label": "cox",
+      "default_recommended": true,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-validated CLI for censored outcomes。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.survival-models.survival-scientific"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-survival-scientific-survival-models--rsf",
+      "label": "rsf",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-validated CLI for censored outcomes。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.survival-models.survival-scientific"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-survival-scientific-survival-models--xgb-cox",
+      "label": "xgb_cox",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-validated CLI for censored outcomes。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.survival-models.survival-scientific"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-survival-torch-survival-models",
+      "label": "生存模型（torch）",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-validated CLI for censored outcomes。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.survival-models.survival-torch"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-cate-causal-treatment-models--ipw",
+      "label": "ipw",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-fitted treatment-effect and policy evaluation CLI。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.causal-treatment-models.cate"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-cate-causal-treatment-models--s-learner",
+      "label": "s_learner",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-fitted treatment-effect and policy evaluation CLI。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.causal-treatment-models.cate"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-cate-causal-treatment-models--t-learner",
+      "label": "t_learner",
+      "default_recommended": true,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-fitted treatment-effect and policy evaluation CLI。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.causal-treatment-models.cate"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-cate-causal-treatment-models--x-learner",
+      "label": "x_learner",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-fitted treatment-effect and policy evaluation CLI。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.causal-treatment-models.cate"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-cate-causal-treatment-models--doubly-robust",
+      "label": "doubly_robust",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-fitted treatment-effect and policy evaluation CLI。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.causal-treatment-models.cate"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-cate-causal-treatment-models--policy-learner",
+      "label": "policy_learner",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-fitted treatment-effect and policy evaluation CLI。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.causal-treatment-models.cate"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-cate-causal-treatment-models--tarnet",
+      "label": "tarnet",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-fitted treatment-effect and policy evaluation CLI。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.causal-treatment-models.cate"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-cate-causal-treatment-models--dragonnet",
+      "label": "dragonnet",
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Cross-fitted treatment-effect and policy evaluation CLI。 Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv.",
+      "method_ref": "reviewed.causal-treatment-models.cate"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-mvpa-neuroimaging-decoding",
+      "label": "ROI 多变量解码",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the original MVPA mode on tabular features and an explicit target; cross-validate the selected classification or regression estimator and save metrics and predictions. Inputs: features: 特征 CSV (file). Registered outputs: results/metrics.json, results/predictions.csv. Fixed invocation options: --mode mvpa.",
+      "method_ref": "reviewed.neuroimaging-decoding.mvpa"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-roi-glm-neuroimaging-decoding",
+      "label": "ROI GLM 与 FDR",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Join ROI features and the design table by subject ID, fit the original ROI-wise GLM with the selected contrast column, and export ROI test results and FDR summary counts. Inputs: features: 特征 CSV (file); design: 设计矩阵 CSV (file). Registered outputs: results/roi_glm_results.csv. Fixed invocation options: --mode roi-glm.",
+      "method_ref": "reviewed.neuroimaging-decoding.roi-glm"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-searchlight-neuroimaging-decoding",
+      "label": "SearchLight 分类",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the original SearchLight implementation on the supplied image list, mask and row-aligned target labels with the selected number of cross-validation folds; export the score image. Inputs: images_list: 影像路径清单 (file); features: 特征 CSV (file); mask: 脑掩膜 (file). Registered outputs: results/searchlight_scores.nii.gz. Fixed invocation options: --mode searchlight.",
+      "method_ref": "reviewed.neuroimaging-decoding.searchlight"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-original-trainer-bnt",
+      "label": "BNT 原项目训练脚本",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the original bnt trainer on per-subject FC tensor dictionaries in <atlas>/sub-*.pt and matching CSV labels. The adapter validates subject IDs, square finite matrices, ROI consistency and fold sizes, and redirects checkpoints and logs into this run。 Inputs: fmri_root: 原始 FC 数据根目录（内含 atlas/sub-*.pt） (directory); labels_csv: 完整样本标签 CSV (file). Registered outputs: results/training.log, results/execution.json. Fixed invocation options: --model bnt.",
+      "method_ref": "reviewed.bnt.original-trainer"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-original-trainer-brainnetcnn",
+      "label": "BRAINNETCNN 原项目训练脚本",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the original brainnetcnn trainer on per-subject FC tensor dictionaries in <atlas>/sub-*.pt and matching CSV labels. The adapter validates subject IDs, square finite matrices, ROI consistency and fold sizes, and redirects checkpoints and logs into this run。 Inputs: fmri_root: 原始 FC 数据根目录（内含 atlas/sub-*.pt） (directory); labels_csv: 完整样本标签 CSV (file). Registered outputs: results/training.log, results/execution.json. Fixed invocation options: --model brainnetcnn.",
+      "method_ref": "reviewed.brainnetcnn.original-trainer"
+    },
+    {
+      "capability": "skill.run-models",
+      "method_id": "reviewed-original-trainer-combraintf",
+      "label": "COMBRAINTF 原项目训练脚本",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the original combraintf trainer on per-subject FC tensor dictionaries in <atlas>/sub-*.pt and matching CSV labels. The adapter validates subject IDs, square finite matrices, ROI consistency and fold sizes, and redirects checkpoints and logs into this run。 Inputs: fmri_root: 原始 FC 数据根目录（内含 atlas/sub-*.pt） (directory); labels_csv: 完整样本标签 CSV (file). Registered outputs: results/training.log, results/execution.json. Fixed invocation options: --model combraintf.",
+      "method_ref": "reviewed.combraintf.original-trainer"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "selection_rules": [
+    "先确定预测、分型、删失结局或处理效应目标，再按表格、连接矩阵、时序或 3D 输入形态缩小模型范围。"
+  ],
+  "name": "run_models",
+  "category": [
+    "任务能力",
+    "run_models"
+  ],
+  "scope": "model",
+  "keywords": [
+    "run_models",
+    "CPM"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "brainnetcnn",
+  "description": "brainnetcnn 统筹已登记的独立方法和可复用流程。支持：BRAINNETCNN 原项目训练脚本。",
+  "method_refs": [
+    {
+      "capability": "skill.brainnetcnn",
+      "method_id": "reviewed-original-trainer-brainnetcnn",
+      "label": "BRAINNETCNN 原项目训练脚本",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run the original brainnetcnn trainer on per-subject FC tensor dictionaries in <atlas>/sub-*.pt and matching CSV labels. The adapter validates subject IDs, square finite matrices, ROI consistency and fold sizes, and redirects checkpoints and logs into this run。 Inputs: fmri_root: 原始 FC 数据根目录（内含 atlas/sub-*.pt） (directory); labels_csv: 完整样本标签 CSV (file). Registered outputs: results/training.log, results/execution.json. Fixed invocation options: --model brainnetcnn.",
+      "method_ref": "reviewed.brainnetcnn.original-trainer"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "name": "brainnetcnn",
+  "category": [
+    "任务能力",
+    "brainnetcnn"
+  ],
+  "scope": "model",
+  "keywords": [
+    "brainnetcnn"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "id": "beautiful-log",
+  "description": "beautiful-log 统筹已登记的独立方法和可复用流程。支持：beautiful-log 日志报告。",
+  "method_refs": [
+    {
+      "capability": "skill.beautiful-log",
+      "method_id": "reviewed-beautiful-log-beautiful-log",
+      "label": "beautiful-log 日志报告",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "phenotype-extraction",
+        "stimulus-extraction"
+      ],
+      "execution_resolution": {},
+      "role": "Generate a clean HTML conversation log for NeuroClaw sessions. This script keeps only direct User <-> NeuroClaw dialogue and filters system/tool/internal traces when they are available in the transcript format。 Inputs: input: Input transcript file (.json, .jsonl, .md, .txt) (file). Registered outputs: results/output.html.",
+      "method_ref": "reviewed.beautiful-log.beautiful-log"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "name": "beautiful-log",
+  "category": [
+    "软件工具",
+    "beautiful"
+  ],
+  "scope": "software",
+  "keywords": [
+    "beautiful-log"
+  ],
+  "references": []
+}

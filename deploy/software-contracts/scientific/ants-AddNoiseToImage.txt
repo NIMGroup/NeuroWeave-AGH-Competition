@@ -1,0 +1,16 @@
+
+COMMAND: 
+     AddNoiseToImage
+
+OPTIONS: 
+     -d, --image-dimensionality 2/3/4
+     -i, --input-image inputImageFilename
+     -n, --noise-model AdditiveGaussian[<mean=0.0>,<standardDeviation=1.0>]
+                       SaltAndPepper[<probability=0.01>,<saltValue=minPixelType>,<pepperValue=maxPixelType>]
+                       Shot[<scale=1.0>]
+                       Speckle[<standardDeviation=1.0>]
+     -o, --output noiseCorruptedImage
+     --version 
+     -v, --verbose (0)/1
+     -h 
+     --help 

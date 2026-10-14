@@ -1,0 +1,665 @@
+{
+  "test_type": "synthetic",
+  "tested_at": "2026-09-27T03:51:26.871280+00:00",
+  "environment": "mgr installed MRtrix3/FSL/ANTs; six-voxel axes",
+  "checks": [
+    {
+      "method_id": "ants.command.AverageImages",
+      "result": "passed",
+      "artifact_types": [
+        "imaging_input"
+      ],
+      "quality_checks": [
+        {
+          "status": "passed",
+          "code": "header_readable",
+          "slot_id": "input_1",
+          "step_id": "ants_command_AverageImages",
+          "details": {
+            "metadata": {
+              "shape": [
+                6,
+                6,
+                6
+              ],
+              "zooms": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "affine": [
+                [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "dtype": "float32"
+            }
+          }
+        },
+        {
+          "status": "passed",
+          "code": "header_readable",
+          "slot_id": "input_1",
+          "step_id": "ants_command_AverageImages",
+          "details": {
+            "metadata": {
+              "shape": [
+                6,
+                6,
+                6
+              ],
+              "zooms": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "affine": [
+                [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "dtype": "float32"
+            }
+          }
+        },
+        {
+          "status": "passed",
+          "code": "header_readable",
+          "slot_id": "input_1",
+          "step_id": "ants_command_AverageImages",
+          "details": {
+            "metadata": {
+              "shape": [
+                6,
+                6,
+                6
+              ],
+              "zooms": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "affine": [
+                [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "dtype": "float32"
+            }
+          }
+        },
+        {
+          "status": "review",
+          "code": "spatial_alignment_requires_review",
+          "slot_id": "",
+          "step_id": "ants_command_AverageImages",
+          "details": {
+            "slots": [
+              "input_1",
+              "input_1",
+              "input_1"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "method_id": "fsl.command.fslmerge",
+      "result": "passed",
+      "artifact_types": [
+        "imaging_input"
+      ],
+      "quality_checks": [
+        {
+          "status": "passed",
+          "code": "header_readable",
+          "slot_id": "input_1",
+          "step_id": "fsl_command_fslmerge",
+          "details": {
+            "metadata": {
+              "shape": [
+                6,
+                6,
+                6
+              ],
+              "zooms": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "affine": [
+                [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "dtype": "float32"
+            }
+          }
+        },
+        {
+          "status": "passed",
+          "code": "header_readable",
+          "slot_id": "input_1",
+          "step_id": "fsl_command_fslmerge",
+          "details": {
+            "metadata": {
+              "shape": [
+                6,
+                6,
+                6
+              ],
+              "zooms": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "affine": [
+                [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "dtype": "float32"
+            }
+          }
+        },
+        {
+          "status": "passed",
+          "code": "header_readable",
+          "slot_id": "input_1",
+          "step_id": "fsl_command_fslmerge",
+          "details": {
+            "metadata": {
+              "shape": [
+                6,
+                6,
+                6
+              ],
+              "zooms": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "affine": [
+                [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "dtype": "float32"
+            }
+          }
+        },
+        {
+          "status": "review",
+          "code": "spatial_alignment_requires_review",
+          "slot_id": "",
+          "step_id": "fsl_command_fslmerge",
+          "details": {
+            "slots": [
+              "input_1",
+              "input_1",
+              "input_1"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "method_id": "mrtrix.command.mrconvert",
+      "result": "passed",
+      "artifact_types": [
+        "imaging_input"
+      ],
+      "quality_checks": [
+        {
+          "status": "passed",
+          "code": "header_readable",
+          "slot_id": "input",
+          "step_id": "p__s0",
+          "details": {
+            "metadata": {
+              "shape": [
+                6,
+                6,
+                6
+              ],
+              "zooms": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "affine": [
+                [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "dtype": "float32"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "method_id": "mrtrix.command.mrconvert",
+      "result": "passed",
+      "artifact_types": [
+        "imaging_input"
+      ],
+      "quality_checks": [
+        {
+          "status": "passed",
+          "code": "header_readable",
+          "slot_id": "input",
+          "step_id": "p__s1",
+          "details": {
+            "metadata": {
+              "shape": [
+                6,
+                6,
+                6
+              ],
+              "zooms": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "affine": [
+                [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "dtype": "float32"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "method_id": "mrtrix.command.mrconvert",
+      "result": "passed",
+      "artifact_types": [
+        "imaging_input"
+      ],
+      "quality_checks": [
+        {
+          "status": "passed",
+          "code": "header_readable",
+          "slot_id": "input",
+          "step_id": "p__s2",
+          "details": {
+            "metadata": {
+              "shape": [
+                6,
+                6,
+                6
+              ],
+              "zooms": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "affine": [
+                [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "dtype": "float32"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "method_id": "mrtrix3.command.mrcat",
+      "result": "passed",
+      "artifact_types": [
+        "imaging_input"
+      ],
+      "quality_checks": [
+        {
+          "status": "not_checked",
+          "code": "format_not_checked",
+          "slot_id": "image1",
+          "step_id": "p__concat",
+          "details": {
+            "metadata": {}
+          }
+        },
+        {
+          "status": "not_checked",
+          "code": "format_not_checked",
+          "slot_id": "image1",
+          "step_id": "p__concat",
+          "details": {
+            "metadata": {}
+          }
+        },
+        {
+          "status": "not_checked",
+          "code": "format_not_checked",
+          "slot_id": "image1",
+          "step_id": "p__concat",
+          "details": {
+            "metadata": {}
+          }
+        }
+      ]
+    },
+    {
+      "method_id": "mrtrix.command.mrtransform",
+      "result": "passed",
+      "artifact_types": [
+        "parcellation_image"
+      ],
+      "quality_checks": [
+        {
+          "status": "passed",
+          "code": "header_readable",
+          "slot_id": "input",
+          "step_id": "transform_None",
+          "details": {
+            "metadata": {
+              "shape": [
+                6,
+                6,
+                6
+              ],
+              "zooms": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "affine": [
+                [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "dtype": "float32"
+            }
+          }
+        },
+        {
+          "status": "review",
+          "code": "voxel_values_and_anatomy_not_checked",
+          "slot_id": "",
+          "step_id": "transform_None",
+          "details": {}
+        }
+      ]
+    },
+    {
+      "method_id": "mrtrix.command.mrtransform",
+      "result": "passed",
+      "artifact_types": [
+        "imaging_input"
+      ],
+      "quality_checks": [
+        {
+          "status": "passed",
+          "code": "header_readable",
+          "slot_id": "input",
+          "step_id": "transform_jac",
+          "details": {
+            "metadata": {
+              "shape": [
+                6,
+                6,
+                6
+              ],
+              "zooms": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "affine": [
+                [
+                  1.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "dtype": "float32"
+            }
+          }
+        },
+        {
+          "status": "review",
+          "code": "voxel_values_and_anatomy_not_checked",
+          "slot_id": "",
+          "step_id": "transform_jac",
+          "details": {}
+        }
+      ]
+    }
+  ],
+  "submitted_jobs": false,
+  "user_datasets_read": false
+}

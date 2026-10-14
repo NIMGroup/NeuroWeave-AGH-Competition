@@ -1,0 +1,179 @@
+{
+  "label": "abide 复制整理为 BIDS 目录",
+  "description": "Reorganize ABIDE raw data into BIDS-style directory structure. Handles FCP/INDI-style subject directories, site extraction, and modality routing for T1w and rs-fMRI。 Inputs: input: Path to ABIDE raw data directory (directory); phenotype: Path to ABIDE phenotype CSV file (file). Registered outputs: results/.",
+  "runner_id": "reviewed.abide-skill.reorganize-abide",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "version",
+      "argument": "version",
+      "label": "version",
+      "description": "ABIDE version: I or II (default: I)",
+      "type": "string",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": "I",
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "参数说明直接来自 skills/abide-skill/scripts/reorganize_abide.py:340。平台仅转发已登记选项；默认值和取值限制见本方法定义。",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "Path to ABIDE raw data directory",
+      "description": "Path to ABIDE raw data directory. Required directory input for abide 复制整理为 BIDS 目录; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "folder",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "phenotype",
+      "type": "analysis_input",
+      "label": "Path to ABIDE phenotype CSV file",
+      "description": "Path to ABIDE phenotype CSV file. Optional file input for abide 复制整理为 BIDS 目录; bind to port phenotype.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for abide 复制整理为 BIDS 目录. Contains this operation's generated files, including results/; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/abide-skill/scripts/reorganize_abide.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.abide-skill.reorganize-abide",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.abide-skill.reorganize-abide",
+      "script": "skills/abide-skill/scripts/reorganize_abide.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "phenotype",
+          "flag": "--phenotype",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [
+        {
+          "id": "version",
+          "flag": "--version",
+          "split": false
+        }
+      ],
+      "modules": [
+        "pandas",
+        "numpy"
+      ],
+      "expected": [
+        "bids/**/*.nii*"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output",
+          "bids"
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/abide-skill/scripts/reorganize_abide.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/abide-skill/scripts/reorganize_abide.py",
+          "source_sha256": "b2e0e7a0b4ac3a1390adb87d3cbf8d14567ac7536aac18c2422e5848cbcf8083"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/abide-skill/scripts/reorganize_abide.py",
+          "sha256": "b2e0e7a0b4ac3a1390adb87d3cbf8d14567ac7536aac18c2422e5848cbcf8083"
+        }
+      ],
+      "artifact_types": {}
+    }
+  }
+}

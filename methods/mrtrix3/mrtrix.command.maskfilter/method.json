@@ -1,0 +1,326 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix.command.maskfilter",
+  "version": "1",
+  "kind": "method",
+  "label": "MRtrix3 maskfilter",
+  "description": "Perform filtering operations on 3D / 4D mask images\nThe available filters are: clean, connect, dilate, erode, median.\nEach filter has its own unique set of optional parameters.",
+  "runner_id": "mrtrix.command.maskfilter",
+  "parameters": [
+    {
+      "id": "filter",
+      "argument": "",
+      "label": "filter",
+      "description": "the type of filter to be applied (clean, connect, dilate, erode, median)",
+      "type": "string",
+      "required": true,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/maskfilter.html",
+      "control": "select",
+      "options": [
+        {
+          "value": "clean",
+          "label": "clean",
+          "description": ""
+        },
+        {
+          "value": "connect",
+          "label": "connect",
+          "description": ""
+        },
+        {
+          "value": "dilate",
+          "label": "dilate",
+          "description": ""
+        },
+        {
+          "value": "erode",
+          "label": "erode",
+          "description": ""
+        },
+        {
+          "value": "median",
+          "label": "median",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": "scale",
+      "argument": "scale",
+      "label": "scale",
+      "description": "the maximum scale used to cut bridges. A certain maximum scale cuts bridges up to a width (in voxels) of 2x the provided scale. (Default: 2)",
+      "type": "integer",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/maskfilter.html",
+      "minimum": 1,
+      "maximum": 1000000
+    },
+    {
+      "id": "axes",
+      "argument": "axes",
+      "label": "axes",
+      "description": "specify which axes should be included in the connected components. By default only the first 3 axes are included. The axes should be provided as a comma-separated list of values.",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/maskfilter.html"
+    },
+    {
+      "id": "largest",
+      "argument": "-largest",
+      "label": "largest",
+      "description": "only retain the largest connected component",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "connectivity",
+      "argument": "-connectivity",
+      "label": "connectivity",
+      "description": "use 26-voxel-neighbourhood connectivity (Default: 6)",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "npass",
+      "argument": "npass",
+      "label": "npass",
+      "description": "the number of times to repeatedly apply the filter",
+      "type": "integer",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/maskfilter.html",
+      "minimum": 1,
+      "maximum": 1000000
+    },
+    {
+      "id": "extent",
+      "argument": "extent",
+      "label": "extent",
+      "description": "specify the extent (width) of kernel size in voxels. This can be specified either as a single value to be used for all axes, or as a comma-separated list of the extent for each axis. The default is 3x3x3.",
+      "type": "string",
+      "required": false,
+      "default": null,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/maskfilter.html"
+    },
+    {
+      "id": "info",
+      "argument": "-info",
+      "label": "info",
+      "description": "display information messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "quiet",
+      "argument": "-quiet",
+      "label": "quiet",
+      "description": "do not display information messages or progress status; alternatively, this can be achieved by setting the MRTRIX_QUIET environment variable to a non-empty string.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "debug",
+      "argument": "-debug",
+      "label": "debug",
+      "description": "display debugging messages.",
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    {
+      "id": "nthreads",
+      "argument": "nthreads",
+      "label": "nthreads",
+      "description": "use this number of threads in multi-threaded applications (set to 0 to disable multi-threading).",
+      "type": "integer",
+      "required": true,
+      "default": 1,
+      "usage": "使用原始命令参数；未指定的可选参数不传给软件。",
+      "software_default": "参见本机安装版本原始帮助。",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/maskfilter.html",
+      "minimum": 0,
+      "group": "计算资源",
+      "level": "advanced"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "the input image.",
+      "required": true,
+      "binding": "file"
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "output",
+      "type": "imaging_input",
+      "label": "output",
+      "description": "the output image. The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".mif",
+      "path_template": "output.mif"
+    }
+  ],
+  "input_types": [
+    "imaging_input"
+  ],
+  "output_types": [
+    "imaging_input"
+  ],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/maskfilter.usage.txt",
+      "kind": "command",
+      "label": "MRtrix3 安装版原始完整帮助"
+    }
+  ],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "command": "maskfilter",
+      "version": "3.0.8",
+      "positional": [
+        {
+          "source": "input",
+          "id": "input",
+          "optional": false
+        },
+        {
+          "source": "parameter",
+          "id": "filter",
+          "kind": "CHOICE",
+          "optional": false
+        },
+        {
+          "source": "output",
+          "id": "output",
+          "optional": false
+        }
+      ],
+      "options": [
+        {
+          "flag": "-scale",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "scale",
+              "kind": "INT"
+            }
+          ]
+        },
+        {
+          "flag": "-axes",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "axes",
+              "kind": "ISEQ"
+            }
+          ]
+        },
+        {
+          "flag": "-largest",
+          "values": [],
+          "when": {
+            "largest": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-connectivity",
+          "values": [],
+          "when": {
+            "connectivity": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-npass",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "npass",
+              "kind": "INT"
+            }
+          ]
+        },
+        {
+          "flag": "-extent",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "extent",
+              "kind": "ISEQ"
+            }
+          ]
+        },
+        {
+          "flag": "-info",
+          "values": [],
+          "when": {
+            "info": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-quiet",
+          "values": [],
+          "when": {
+            "quiet": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-debug",
+          "values": [],
+          "when": {
+            "debug": [
+              true
+            ]
+          }
+        },
+        {
+          "flag": "-nthreads",
+          "values": [
+            {
+              "source": "parameter",
+              "id": "nthreads",
+              "kind": "INT"
+            }
+          ]
+        }
+      ],
+      "total_options": 15,
+      "omitted_options": {
+        "strides": "重复参数、文本或自定义路径语法需专用校验；完整原始帮助已保留。",
+        "force": "平台为每次运行创建独立输出目录，禁止覆盖既有数据。",
+        "config": "任意配置键由部署管理员管理，防止绕过目录及资源边界。",
+        "help": "原始帮助作为文档提供。",
+        "version": "平台自动检查安装版本。"
+      }
+    }
+  }
+}

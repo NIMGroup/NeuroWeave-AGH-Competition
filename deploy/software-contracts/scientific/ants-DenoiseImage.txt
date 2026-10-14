@@ -1,0 +1,20 @@
+
+COMMAND: 
+     DenoiseImage
+
+OPTIONS: 
+     -d, --image-dimensionality 2/3/4
+     -i, --input-image inputImageFilename
+     -n, --noise-model Rician/(Gaussian)
+     -x, --mask-image maskImageFilename
+     -s, --shrink-factor (1)/2/3/...
+     -p, --patch-radius 1
+                        1x1x1
+     -r, --search-radius 2
+                         2x2x2
+     -o, --output correctedImage
+                  [correctedImage,<noiseImage>]
+     --version 
+     -v, --verbose (0)/1
+     -h 
+     --help 

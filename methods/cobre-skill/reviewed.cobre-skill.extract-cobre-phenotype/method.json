@@ -1,0 +1,183 @@
+{
+  "label": "cobre 表型/刺激提取",
+  "description": "Extract and merge COBRE phenotype tables for downstream analysis。 Inputs: phenotype_dir: Directory containing COBRE phenotype CSV files (directory); phenotype_file: Direct path to COBRE phenotype CSV file (file); imaging_ids: Path to BIDS participants.tsv for filtering (file). Registered outputs: results/output.csv.",
+  "runner_id": "reviewed.cobre-skill.extract-cobre-phenotype",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [],
+  "input_slots": [
+    {
+      "id": "phenotype_dir",
+      "type": "analysis_input",
+      "label": "Directory containing COBRE phenotype CSV files",
+      "description": "Directory containing COBRE phenotype CSV files. Optional directory input for cobre 表型/刺激提取; bind to port phenotype_dir.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "folder",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "phenotype_file",
+      "type": "analysis_input",
+      "label": "Direct path to COBRE phenotype CSV file",
+      "description": "Direct path to COBRE phenotype CSV file. Optional file input for cobre 表型/刺激提取; bind to port phenotype_file.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "imaging_ids",
+      "type": "analysis_input",
+      "label": "Path to BIDS participants.tsv for filtering",
+      "description": "Path to BIDS participants.tsv for filtering. Optional file input for cobre 表型/刺激提取; bind to port imaging_ids.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for cobre 表型/刺激提取. Contains this operation's generated files, including results/output.csv; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_output_csv",
+      "type": "generated_file",
+      "label": "output.csv",
+      "description": "Output path for phenotype CSV: output of cobre phenotype/stimulus extraction. Relative run path: results/output.csv. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".csv",
+      "primary": false,
+      "path_template": "results/output.csv",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/cobre-skill/scripts/extract_cobre_phenotype.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.cobre-skill.extract-cobre-phenotype",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.cobre-skill.extract-cobre-phenotype",
+      "script": "skills/cobre-skill/scripts/extract_cobre_phenotype.py",
+      "inputs": [
+        {
+          "id": "phenotype_dir",
+          "flag": "--phenotype-dir",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "phenotype_file",
+          "flag": "--phenotype-file",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "imaging_ids",
+          "flag": "--imaging-ids",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [],
+      "modules": [
+        "pandas",
+        "numpy"
+      ],
+      "expected": [
+        "output.csv"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output",
+          "output.csv"
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/cobre-skill/scripts/extract_cobre_phenotype.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/cobre-skill/scripts/extract_cobre_phenotype.py",
+          "source_sha256": "8fe85db8dc5499ccb2ab5fbac699f2231da2b47696c58cf6412f6fd6e7c6cfc7"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/cobre-skill/scripts/extract_cobre_phenotype.py",
+          "sha256": "0b4917cbee67a67e5bd2861061762c5f167dd345868f1983dc94cc21fa0471e5"
+        }
+      ],
+      "artifact_types": {
+        "output.csv": "generated_file"
+      }
+    }
+  }
+}

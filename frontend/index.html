@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="NeuroWeave — neuroimaging workflow platform. Compose analysis pipelines in natural language, bind datasets and artifacts, execute on local or Slurm backends, and track results."
+    />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>NeuroWeave</title>
+    <script>
+      /*
+       * Applies the persisted appearance and language before first paint so the
+       * shell never flashes the wrong theme. Mirrors src/stores/themeStore.ts.
+       * Accepts both the legacy bare-theme string and the current JSON shape
+       * ({"theme":..,"accent":..}).
+       */
+      (function () {
+        try {
+          var raw = localStorage.getItem('neuroweave-theme');
+          var storedTheme = null;
+          var storedAccent = null;
+          if (raw === 'light' || raw === 'dark') {
+            storedTheme = raw;
+          } else if (raw) {
+            var parsed = JSON.parse(raw);
+            if (parsed && (parsed.theme === 'light' || parsed.theme === 'dark')) {
+              storedTheme = parsed.theme;
+              storedAccent = parsed.accent;
+            }
+          }
+          if (parsed && parsed.wave === true) {
+            document.documentElement.setAttribute('data-classy', 'true');
+          }
+          var isDark =
+            storedTheme === 'dark' ||
+            (storedTheme !== 'light' &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.classList.toggle('dark', isDark);
+          if (storedAccent === 'teal' || storedAccent === 'violet') {
+            document.documentElement.setAttribute('data-accent', storedAccent);
+          }
+          if (parsed && (parsed.fontSize === 'small' || parsed.fontSize === 'large')) {
+            document.documentElement.setAttribute('data-font-size', parsed.fontSize);
+          }
+          var meta = document.querySelector('meta[name="theme-color"]');
+          if (meta) meta.setAttribute('content', isDark ? '#0a0a0b' : '#ffffff');
+
+          var storedLanguage =
+            localStorage.getItem('neuroweave-language') ||
+            localStorage.getItem('neuroclaw-language');
+          if (storedLanguage === 'zh') document.documentElement.lang = 'zh-CN';
+          else if (storedLanguage === 'en') document.documentElement.lang = 'en';
+        } catch (error) {
+          /* Storage unavailable - the app falls back to system preferences. */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

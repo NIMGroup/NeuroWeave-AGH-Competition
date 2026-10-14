@@ -1,0 +1,22 @@
+[Unit]
+Description=NeuroWeave native FastAPI backend
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/hipeson/LocalFlow/bakend
+EnvironmentFile=-/home/hipeson/LocalFlow/bakend/.env
+EnvironmentFile=/home/hipeson/LocalFlow/deploy/native-backend.env
+ExecStartPre=/usr/bin/rm -f /home/hipeson/LocalFlow/runtime/localflow-backend.sock
+ExecStart=/home/hipeson/LocalFlow/.conda/backend/bin/python -m uvicorn app.main:app --uds /home/hipeson/LocalFlow/runtime/localflow-backend.sock --proxy-headers --forwarded-allow-ips=*
+Restart=on-failure
+RestartSec=3
+KillMode=mixed
+TimeoutStopSec=30
+UMask=0002
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=default.target

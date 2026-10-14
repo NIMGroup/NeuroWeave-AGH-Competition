@@ -1,0 +1,7 @@
+# Imported implementation provenance
+
+Some model implementations, scripts and reference documents were imported from a user-provided NeuroClaw source snapshot on 2026-09-01. That snapshot had no Git metadata. Original attribution and the MIT notice remain under [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES/); recorded source paths and hashes remain in [the implementation inventory](bakend/resources/existing_implementation_sources.json).
+
+These records establish provenance, not NeuroWeave's current architecture or execution permissions. The native catalog uses `skills/*/skill.json`, independent `methods/*/*/method.json` and versioned Pipelines. Imported Skill manuals have been curated into explicitly registered reference notes; obsolete execution/delegation instructions were removed. Original authorship and licensing remain recorded. Original software help and implementation identifiers retain their source context and hashes; new notes must not be relabeled as original help or newly authored implementations. The source inventory describes the imported snapshot, not an assertion that every original document still exists in the current tree.
+
+Review individual source updates together with affected Method contracts and execution evidence. Do not synchronize an old source tree over the native catalog, or restore obsolete planning/execution manifests as an execution authority. Current maintenance instructions are in [the branch documentation](deploy/README.md).

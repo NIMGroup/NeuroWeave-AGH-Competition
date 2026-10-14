@@ -1,0 +1,9 @@
+{
+  "site": "3003",
+  "branch": "codex/multi-agent-shared-facts",
+  "commit": "7ecf540296136a10bf2a39fb4342b098861dea33",
+  "working_tree_clean": true,
+  "selection": "Running server frontend, backend and worker revisions observed at the start of this update",
+  "observed_at": "2026-10-14T06:11:50.420229+00:00",
+  "assistant_prompt_version": "agent-v23-port-grounded-goals"
+}

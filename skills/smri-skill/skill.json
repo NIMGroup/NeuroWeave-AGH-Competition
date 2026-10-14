@@ -1,0 +1,934 @@
+{
+  "schema_version": 1,
+  "id": "smri-skill",
+  "description": "smri-skill 统筹已登记的独立方法和可复用流程。支持：ANTs Registration；分区影像统计；FSL 脑提取；FSL 组织分割；FSL 非线性配准；FSL 应用形变；ANTs 应用变换；FSL 完整结构预处理（fsl_anat）；其他方法可在详情中分页查询。",
+  "method_refs": [
+    {
+      "capability": "image.registration",
+      "method_id": "ants_registration",
+      "label": "ANTs Registration",
+      "default_recommended": true,
+      "default_reason": "需要非线性形变或更高精度跨受试者配准时优先使用。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "使用 ANTs 完成刚体、仿射或 SyN 非线性配准，并保存复合变换与完整日志。",
+      "method_ref": "ants.registration"
+    },
+    {
+      "capability": "skill.smri-skill",
+      "method_id": "reviewed-roi-stats-dipy-tool",
+      "label": "分区影像统计",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "roi-stats",
+        "roi-wise-diffusion-features",
+        "roi-wise-feature-extraction"
+      ],
+      "execution_resolution": {},
+      "role": "Reference DIPY snippet for atlas-based ROI statistics on tensor metrics。 Inputs: metric: 标量影像 (file); roi: 分区图谱 (file); labels: 标签表 (file). Registered outputs: results/roi_stats.csv.",
+      "method_ref": "reviewed.dipy-tool.roi-stats"
+    },
+    {
+      "capability": "skill.smri-skill",
+      "method_id": "reviewed-bet-fsl-tool",
+      "label": "FSL 脑提取",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Extract brain tissue from the input image with FSL BET, controlling the fractional intensity threshold; save the extracted image and BET mask inside the result directory。 Inputs: input: 输入影像 (file). Registered outputs: results/image.nii.gz. Fixed invocation options: --operation bet.",
+      "method_ref": "reviewed.fsl-tool.bet"
+    },
+    {
+      "capability": "skill.smri-skill",
+      "method_id": "reviewed-fast-fsl-tool",
+      "label": "FSL 组织分割",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Segment the input brain image into the requested number of tissue classes with FSL FAST; expose the tissue segmentation and preserve additional FAST products in the result directory。 Inputs: input: 输入影像 (file). Registered outputs: results/tissue_seg.nii.gz. Fixed invocation options: --operation fast.",
+      "method_ref": "reviewed.fsl-tool.fast"
+    },
+    {
+      "capability": "skill.smri-skill",
+      "method_id": "reviewed-fnirt-fsl-tool",
+      "label": "FSL 非线性配准",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Register an input image nonlinearly to a reference with FSL FNIRT, optionally initialized by a supplied affine matrix; write the warped image and warp coefficients。 Inputs: input: 输入影像 (file); reference: 参考影像 (file); transform: 变换/形变场 (file). Registered outputs: results/image.nii.gz. Fixed invocation options: --operation fnirt.",
+      "method_ref": "reviewed.fsl-tool.fnirt"
+    },
+    {
+      "capability": "skill.smri-skill",
+      "method_id": "reviewed-applywarp-fsl-tool",
+      "label": "FSL 应用形变",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Apply an existing FSL warp to the input image on the supplied reference grid, using linear or nearest-neighbour interpolation. This entry does not estimate a new registration。 Inputs: input: 输入影像 (file); reference: 参考影像 (file); transform: 变换/形变场 (file). Registered outputs: results/image.nii.gz. Fixed invocation options: --operation applywarp.",
+      "method_ref": "reviewed.fsl-tool.applywarp"
+    },
+    {
+      "capability": "skill.smri-skill",
+      "method_id": "reviewed-ants-apply-smri-skill",
+      "label": "ANTs 应用变换",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Apply an existing ANTs transform to a 3D image on the supplied reference grid with linear or nearest-neighbour interpolation; do not estimate a new transform。 Inputs: input: 输入影像 (file); reference: 参考影像 (file); transform: 变换/形变场 (file). Registered outputs: results/image.nii.gz. Fixed invocation options: --operation ants-apply.",
+      "method_ref": "reviewed.smri-skill.ants-apply"
+    },
+    {
+      "capability": "skill.smri-skill",
+      "method_id": "reviewed-fsl-anat-fsl-tool",
+      "label": "FSL 完整结构预处理（fsl_anat）",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Invoke the existing FSL fsl_anat workflow on a T1-weighted image and retain its structural.anat directory, including the bias-corrected brain image。 Inputs: input: T1w NIfTI (file). Registered outputs: results/structural.anat/T1_biascorr_brain.nii.gz. Fixed invocation options: --operation fsl-anat.",
+      "method_ref": "reviewed.fsl-tool.fsl-anat"
+    },
+    {
+      "capability": "skill.smri-skill",
+      "method_id": "linked-freesurfer-recon-all",
+      "label": "FreeSurfer recon-all（可执行）",
+      "default_recommended": false,
+      "default_reason": "Choose for anatomical atlas parcellation or cortical/subcortical reconstruction when T1w or a suitable existing FreeSurfer subject is available. Verify stage, space and runtime status; availability is not a completed run.",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Run FreeSurfer recon-all for T1w cortical surface reconstruction, subcortical segmentation and anatomical atlas parcellation. all runs the full reconstruction; autorecon1/2/3 are consecutive stages, and stats recomputes statistics in an existing subject directory. all/autorecon3 expose mri/aparc+aseg.mgz as a Desikan-Killiany cortical plus subcortical node image, not just a result folder. Labels are in the subject structural space, not automatically aligned to DWI or streamlines. Connectome use requires checking alignment and the atlas lookup table; labelconvert remaps IDs but does not register images. Tissue segmentation, 5TT and data-driven clusters are different products.",
+      "method_ref": "freesurfer.recon_all"
+    },
+    {
+      "capability": "skill.smri-skill",
+      "method_id": "linked-ants_registration",
+      "label": "ANTs Registration",
+      "default_recommended": false,
+      "default_reason": "需要非线性形变或更高精度跨受试者配准时优先使用。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "使用 ANTs 完成刚体、仿射或 SyN 非线性配准，并保存复合变换与完整日志。",
+      "method_ref": "ants.registration"
+    },
+    {
+      "capability": "skill.smri-skill",
+      "method_id": "smri-skill-guided--dicom-nifti",
+      "label": "dcm2niix 实际转换",
+      "default_recommended": false,
+      "default_reason": "服务器已检测到 dcm2niix，适合把 DICOM 序列转换为 NIfTI。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "smri-skill-guided--dicom-nifti",
+        "target_method_id": "dcm2niix-convert"
+      },
+      "role": "调用服务器现有 dcm2niix，将只读 DICOM 输入转换到隔离输出目录并生成 JSON sidecar。",
+      "method_ref": "dcm2niix.convert"
+    },
+    {
+      "capability": "skill.smri-skill",
+      "method_id": "smri-skill-guided--organize-to-bids",
+      "label": "按用户文件映射整理 BIDS（文件名检查）",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "支持显式文件映射整理；完整数据集验证仍需 BIDS Validator CLI，不把文件名检查当作完整验证。",
+        "source_method_id": "smri-skill-guided--organize-to-bids",
+        "target_method_id": "reviewed-explicit-stage-bids-organizer"
+      },
+      "role": "Copy files according to an explicit source-relative to BIDS-relative JSON mapping, check destination filenames with BIDSValidator, and write dataset metadata and a staging report. It does not infer missing entities or perform full dataset validation。 Inputs: input: 源数据集目录 (directory); mapping: 显式文件映射 JSON（源相对路径 → BIDS 相对路径） (file). Registered outputs: results/dataset_description.json, results/staging_report.json. Fixed invocation options: --operation stage.",
+      "method_ref": "reviewed.bids-organizer.explicit-stage"
+    },
+    {
+      "capability": "skill.smri-skill",
+      "method_id": "smri-skill-guided--bids-anatomical-derivatives-standardized",
+      "label": "fMRIPrep 本地环境执行",
+      "default_recommended": false,
+      "default_reason": "配置 LOCALFLOW_FMRIPREP_EXECUTABLE 后可直接运行，不向后端开放 Docker socket。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "smri-skill-guided--bids-anatomical-derivatives-standardized",
+        "target_method_id": "fmriprep-local-environment"
+      },
+      "role": "通过 NeuroClaw 式可执行环境路径运行单个受试者的 fMRIPrep；环境未配置时保留为明确的禁用选项。",
+      "method_ref": "fmriprep.run"
+    }
+  ],
+  "pipeline_refs": [
+    {
+      "capability": "skill.smri-skill",
+      "method_id": "smri-skill-guided--freesurfer-autorecon1-volumetric-preprocessing",
+      "label": "FreeSurfer Autorecon1 (volumetric preprocessing)",
+      "default_recommended": false,
+      "default_reason": "当用户明确要求 FreeSurfer 分割/皮层重建且已提供 T1w 时，选择服务器已验证的 recon-all Runner。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "smri-skill-guided--freesurfer-autorecon1-volumetric-preprocessing",
+        "target_method_id": "freesurfer-recon-all"
+      },
+      "role": "依次执行：FreeSurfer recon-all（可执行）。输入和参数由方法契约定义。",
+      "pipeline_ref": "reviewed-freesurfer-recon-all-autorecon1-d377e50519"
+    },
+    {
+      "capability": "skill.smri-skill",
+      "method_id": "smri-skill-guided--freesurfer-autorecon2-subcortical-segmentation-surface-extraction",
+      "label": "FreeSurfer Autorecon2 (subcortical segmentation & surface extraction)",
+      "default_recommended": false,
+      "default_reason": "当用户明确要求 FreeSurfer 分割/皮层重建且已提供 T1w 时，选择服务器已验证的 recon-all Runner。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "smri-skill-guided--freesurfer-autorecon2-subcortical-segmentation-surface-extraction",
+        "target_method_id": "freesurfer-recon-all"
+      },
+      "role": "依次执行：FreeSurfer recon-all（可执行）。输入和参数由方法契约定义。",
+      "pipeline_ref": "reviewed-freesurfer-recon-all-autorecon2-abaa753109"
+    },
+    {
+      "capability": "skill.smri-skill",
+      "method_id": "smri-skill-guided--freesurfer-autorecon3-spherical-registration-parcellation",
+      "label": "FreeSurfer Autorecon3 (spherical registration & parcellation)",
+      "default_recommended": false,
+      "default_reason": "当用户明确要求 FreeSurfer 分割/皮层重建且已提供 T1w 时，选择服务器已验证的 recon-all Runner。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "smri-skill-guided--freesurfer-autorecon3-spherical-registration-parcellation",
+        "target_method_id": "freesurfer-recon-all"
+      },
+      "role": "依次执行：FreeSurfer recon-all（可执行）。输入和参数由方法契约定义。",
+      "pipeline_ref": "reviewed-freesurfer-recon-all-autorecon3-1049aced17"
+    },
+    {
+      "capability": "skill.smri-skill",
+      "method_id": "smri-skill-guided--full-freesurfer-pipeline-all-3-stages",
+      "label": "Full FreeSurfer pipeline (all 3 stages)",
+      "default_recommended": false,
+      "default_reason": "当用户明确要求 FreeSurfer 分割/皮层重建且已提供 T1w 时，选择服务器已验证的 recon-all Runner。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "smri-skill-guided--full-freesurfer-pipeline-all-3-stages",
+        "target_method_id": "freesurfer-recon-all"
+      },
+      "role": "依次执行：FreeSurfer recon-all（可执行）。输入和参数由方法契约定义。",
+      "pipeline_ref": "reviewed-freesurfer-recon-all-all-7bc6e7a712"
+    },
+    {
+      "capability": "skill.smri-skill",
+      "method_id": "smri-skill-guided--surface-based-morphometry-quick",
+      "label": "Surface-based morphometry (quick)",
+      "default_recommended": false,
+      "default_reason": "当用户明确要求 FreeSurfer 分割/皮层重建且已提供 T1w 时，选择服务器已验证的 recon-all Runner。",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "smri-skill-guided--surface-based-morphometry-quick",
+        "target_method_id": "freesurfer-recon-all"
+      },
+      "role": "依次执行：FreeSurfer recon-all（可执行）。输入和参数由方法契约定义。",
+      "pipeline_ref": "reviewed-freesurfer-recon-all-all-ec5fdb196c"
+    }
+  ],
+  "planning_capabilities": [
+    {
+      "capability": "skill.smri-skill",
+      "method_id": "smri-skill-guided--hcp-grade-structural-pipeline",
+      "skill_id": "smri-skill",
+      "label": "HCP-grade structural pipeline",
+      "description": "该入口为规划能力；用于讨论HCP-grade structural pipeline的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "hcp-grade-structural-pipeline",
+          "options": [
+            {
+              "value": "hcp-grade-structural-pipeline",
+              "label": "HCP-grade structural pipeline",
+              "description": "规划选项：HCP-grade structural pipeline；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "workflow_scope",
+          "argument": "workflow-scope",
+          "label": "工作流范围",
+          "description": "选择只做预处理、提取特征或规划端到端模态流程。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "end_to_end",
+          "options": [
+            {
+              "value": "preprocess",
+              "label": "仅预处理",
+              "description": ""
+            },
+            {
+              "value": "features",
+              "label": "特征提取",
+              "description": ""
+            },
+            {
+              "value": "end_to_end",
+              "label": "端到端流程",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "quality_control",
+          "argument": "quality-control",
+          "label": "包含质量控制",
+          "description": "在流程方案中保留输入检查、中间 QC 和结果核验步骤。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "artifact_strategy",
+          "argument": "artifact-strategy",
+          "label": "伪影处理策略",
+          "description": "选择保守标记、自动校正或排除受影响数据。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "预处理细节",
+          "unit": "",
+          "required": true,
+          "default": "correct",
+          "options": [
+            {
+              "value": "flag",
+              "label": "仅标记",
+              "description": ""
+            },
+            {
+              "value": "correct",
+              "label": "自动校正",
+              "description": ""
+            },
+            {
+              "value": "exclude",
+              "label": "排除受影响数据",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "normalization_space",
+          "argument": "normalization-space",
+          "label": "标准空间",
+          "description": "规划空间标准化目标；原生空间不会应用模板归一化。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "空间与输出",
+          "unit": "",
+          "required": true,
+          "default": "native",
+          "options": [
+            {
+              "value": "native",
+              "label": "原生空间",
+              "description": ""
+            },
+            {
+              "value": "template",
+              "label": "标准模板空间",
+              "description": ""
+            },
+            {
+              "value": "both",
+              "label": "同时保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "smoothing_extent",
+          "argument": "smoothing-extent",
+          "label": "平滑尺度",
+          "description": "按模态解释为空间或时间平滑尺度；0 表示关闭。",
+          "type": "number",
+          "control": "number",
+          "level": "advanced",
+          "group": "空间与输出",
+          "unit": "",
+          "required": true,
+          "default": 0,
+          "options": [],
+          "minimum": 0.0,
+          "maximum": 20.0,
+          "step": 0.5,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "compute_threads",
+          "argument": "compute-threads",
+          "label": "计算线程数",
+          "description": "为支持并行的软件规划线程数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": 4,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 128.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "dataset_folder",
+          "label": "输入数据集",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "folder",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/smri-skill/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/smri-skill/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [
+        "freesurfer-tool"
+      ],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_runtime",
+        "reason": "HCP Pipelines、Workbench/MSM/FIX 及其模板/分类器尚未完整配置；已有 FSL/FreeSurfer 不能替代 HCP 的完整流程。",
+        "source_method_id": "smri-skill-guided--hcp-grade-structural-pipeline",
+        "requirements": [
+          "HCP Pipelines",
+          "Workbench / MSM / ICA-FIX（按阶段）",
+          "模板、配置与分类器"
+        ]
+      }
+    },
+    {
+      "capability": "skill.smri-skill",
+      "method_id": "smri-skill-guided--wmh-lesion-segmentation",
+      "skill_id": "smri-skill",
+      "label": "WMH lesion segmentation",
+      "description": "该入口为规划能力；用于讨论WMH lesion segmentation的目标、条件与限制，尚无独立执行 Method。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "wmh-lesion-segmentation",
+          "options": [
+            {
+              "value": "wmh-lesion-segmentation",
+              "label": "WMH lesion segmentation",
+              "description": "规划选项：WMH lesion segmentation；不代表已登记可执行命令。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "workflow_scope",
+          "argument": "workflow-scope",
+          "label": "工作流范围",
+          "description": "选择只做预处理、提取特征或规划端到端模态流程。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "end_to_end",
+          "options": [
+            {
+              "value": "preprocess",
+              "label": "仅预处理",
+              "description": ""
+            },
+            {
+              "value": "features",
+              "label": "特征提取",
+              "description": ""
+            },
+            {
+              "value": "end_to_end",
+              "label": "端到端流程",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "quality_control",
+          "argument": "quality-control",
+          "label": "包含质量控制",
+          "description": "在流程方案中保留输入检查、中间 QC 和结果核验步骤。",
+          "type": "boolean",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "包含",
+              "description": ""
+            },
+            {
+              "value": false,
+              "label": "不包含",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "artifact_strategy",
+          "argument": "artifact-strategy",
+          "label": "伪影处理策略",
+          "description": "选择保守标记、自动校正或排除受影响数据。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "预处理细节",
+          "unit": "",
+          "required": true,
+          "default": "correct",
+          "options": [
+            {
+              "value": "flag",
+              "label": "仅标记",
+              "description": ""
+            },
+            {
+              "value": "correct",
+              "label": "自动校正",
+              "description": ""
+            },
+            {
+              "value": "exclude",
+              "label": "排除受影响数据",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "normalization_space",
+          "argument": "normalization-space",
+          "label": "标准空间",
+          "description": "规划空间标准化目标；原生空间不会应用模板归一化。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "空间与输出",
+          "unit": "",
+          "required": true,
+          "default": "native",
+          "options": [
+            {
+              "value": "native",
+              "label": "原生空间",
+              "description": ""
+            },
+            {
+              "value": "template",
+              "label": "标准模板空间",
+              "description": ""
+            },
+            {
+              "value": "both",
+              "label": "同时保留",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "smoothing_extent",
+          "argument": "smoothing-extent",
+          "label": "平滑尺度",
+          "description": "按模态解释为空间或时间平滑尺度；0 表示关闭。",
+          "type": "number",
+          "control": "number",
+          "level": "advanced",
+          "group": "空间与输出",
+          "unit": "",
+          "required": true,
+          "default": 0,
+          "options": [],
+          "minimum": 0.0,
+          "maximum": 20.0,
+          "step": 0.5,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "compute_threads",
+          "argument": "compute-threads",
+          "label": "计算线程数",
+          "description": "为支持并行的软件规划线程数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "计算资源",
+          "unit": "",
+          "required": true,
+          "default": 4,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 128.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "dataset_folder",
+          "label": "输入数据集",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "folder",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/smri-skill/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/smri-skill/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [
+        "wmh-segmentation"
+      ],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "missing_runtime",
+        "reason": "原 WMH 分割软件和对应模型权重未部署；不能用现有通用分割库代替。",
+        "source_method_id": "smri-skill-guided--wmh-lesion-segmentation",
+        "requirements": [
+          "原 WMH 软件/容器",
+          "匹配的模型权重"
+        ]
+      }
+    }
+  ],
+  "selection_rules": [
+    "先区分结构像脑提取、组织分割、脑区分区和表面重建；连接组所需的脑区标签不能由组织 Mask 替代。"
+  ],
+  "name": "smri-skill",
+  "category": [
+    "任务能力",
+    "smri"
+  ],
+  "scope": "modality",
+  "keywords": [
+    "smri-skill",
+    "sMRI",
+    "T1w",
+    "T2w",
+    "FLAIR",
+    "结构磁共振",
+    "Registration",
+    "FSL"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

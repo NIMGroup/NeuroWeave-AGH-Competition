@@ -1,0 +1,142 @@
+{
+  "label": "NiBabel NIfTI 保存／格式转换",
+  "description": "Load an existing image with NiBabel and save it as image.nii.gz, retaining its voxel data and geometry. This is format conversion, not registration。 Inputs: image: 已有影像 (file). Registered outputs: results/image.nii.gz. Fixed invocation options: --operation save.",
+  "runner_id": "reviewed.nibabel-skill.save-existing",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder",
+    "generated_file"
+  ],
+  "requires_features": [],
+  "parameters": [],
+  "input_slots": [
+    {
+      "id": "image",
+      "type": "analysis_input",
+      "label": "已有影像",
+      "description": "已有影像. Required file input for NiBabel NIfTI 保存／格式转换; bind to port image.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for NiBabel NIfTI 保存／格式转换. Contains this operation's generated files, including results/image.nii.gz; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    },
+    {
+      "id": "file_image_nii_gz",
+      "type": "generated_file",
+      "label": "image.nii.gz",
+      "description": "image.nii.gz: output of NiBabel NIfTI saving/format conversion. Relative run path: results/image.nii.gz. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".nii.gz",
+      "primary": false,
+      "path_template": "results/image.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "bakend/app/execution/image_summary_worker.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.nibabel-skill.save-existing",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.nibabel-skill.save-existing",
+      "script": "bakend/app/execution/image_summary_worker.py",
+      "inputs": [
+        {
+          "id": "image",
+          "flag": "--image",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [],
+      "modules": [
+        "nibabel",
+        "numpy"
+      ],
+      "expected": [
+        "image.nii.gz"
+      ],
+      "profile": "scientific",
+      "fixed_args": [
+        "--operation",
+        "save"
+      ],
+      "outputs": [
+        [
+          "--output-dir",
+          "."
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [
+        [
+          "nibabel",
+          "load"
+        ],
+        [
+          "nibabel",
+          "save"
+        ]
+      ],
+      "implementation_source": {
+        "kind": "library_api",
+        "entrypoints": [
+          "nibabel.load",
+          "nibabel.save"
+        ],
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "bakend/app/execution/image_summary_worker.py",
+          "sha256": "ce298add94eda8567cb0addd046ffaaedfd84d408eedde324350144d3647568f"
+        }
+      ],
+      "artifact_types": {
+        "image.nii.gz": "generated_file"
+      }
+    }
+  }
+}

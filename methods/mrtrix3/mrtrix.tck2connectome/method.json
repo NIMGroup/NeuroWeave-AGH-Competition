@@ -1,0 +1,388 @@
+{
+  "label": "MRtrix3 tck2connectome",
+  "description": "把流线与脑区分区映射为结构连接矩阵，可选使用 SIFT2 权重或标量边权。",
+  "runner_id": "mrtrix.tck2connectome",
+  "input_types": [
+    "tractogram",
+    "parcellation_image",
+    "streamline_weights",
+    "scalar_image"
+  ],
+  "output_types": [
+    "connectome",
+    "generated_file",
+    "execution_log"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "edge_weight",
+      "argument": "edge-weight",
+      "label": "边权类型",
+      "description": "使用流线计数，或沿流线聚合标量影像。",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": "count",
+      "options": [
+        {
+          "value": "count",
+          "label": "流线计数",
+          "description": ""
+        },
+        {
+          "value": "mean_scalar",
+          "label": "平均标量",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "use_weights",
+      "argument": "tck-weights-in",
+      "label": "使用 SIFT2 权重",
+      "description": "按每条流线的 SIFT2 权重汇总连接。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "symmetric",
+      "argument": "symmetric",
+      "label": "输出对称矩阵",
+      "description": "将双向连接合并为对称矩阵。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "矩阵",
+      "unit": "",
+      "required": true,
+      "default": true,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "zero_diagonal",
+      "argument": "zero-diagonal",
+      "label": "对角线置零",
+      "description": "清除同一节点内部的自连接。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "矩阵",
+      "unit": "",
+      "required": true,
+      "default": true,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "radial_search",
+      "argument": "assignment-radial-search",
+      "label": "端点径向搜索",
+      "description": "端点未落入标签时的径向搜索距离。",
+      "type": "number",
+      "control": "number",
+      "level": "advanced",
+      "group": "节点分配",
+      "unit": "mm",
+      "required": true,
+      "default": 2,
+      "options": [],
+      "minimum": 0.0,
+      "maximum": 10.0,
+      "step": 0.5,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "stat_edge",
+      "argument": "stat-edge",
+      "label": "边聚合统计",
+      "description": "多条流线聚合到同一边时的统计方式。",
+      "type": "string",
+      "control": "select",
+      "level": "advanced",
+      "group": "矩阵",
+      "unit": "",
+      "required": true,
+      "default": "sum",
+      "options": [
+        {
+          "value": "sum",
+          "label": "求和",
+          "description": ""
+        },
+        {
+          "value": "mean",
+          "label": "平均",
+          "description": ""
+        },
+        {
+          "value": "min",
+          "label": "最小",
+          "description": ""
+        },
+        {
+          "value": "max",
+          "label": "最大",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "threads",
+      "argument": "nthreads",
+      "label": "线程数",
+      "description": "MRtrix3 使用的 CPU 线程数。",
+      "type": "integer",
+      "control": "number",
+      "level": "advanced",
+      "group": "计算资源",
+      "unit": "",
+      "required": true,
+      "default": 4,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 128.0,
+      "step": 1.0,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "tractogram",
+      "type": "tractogram",
+      "label": "纤维流线",
+      "description": "tckgen 生成的 .tck 文件。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".tck"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "parcellation",
+      "type": "parcellation_image",
+      "label": "脑区分区图",
+      "description": "Integer-valued node parcellation in the same physical coordinate space as the tractogram. Verify subject, atlas, alignment and label-to-node mapping. Native anatomical labels may need LUT remapping and registration with nearest-neighbour resampling; tissue classes, 5TT and statistical maps are not substitutes.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "weights",
+      "type": "streamline_weights",
+      "label": "SIFT2 权重",
+      "description": "仅启用 SIFT2 权重时必需。",
+      "required": false,
+      "required_when": {
+        "use_weights": [
+          true
+        ]
+      },
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".txt",
+        ".csv"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    },
+    {
+      "id": "scalar",
+      "type": "scalar_image",
+      "label": "边权标量影像",
+      "description": "仅使用平均标量边权时必需。",
+      "required": false,
+      "required_when": {
+        "edge_weight": [
+          "mean_scalar"
+        ]
+      },
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists"
+      ]
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "connectome",
+      "type": "connectome",
+      "label": "结构连接矩阵",
+      "description": "ROI×ROI CSV 矩阵。",
+      "format": ".csv",
+      "primary": true,
+      "path_template": "connectome.csv",
+      "generated_when": {}
+    },
+    {
+      "id": "assignments",
+      "type": "generated_file",
+      "label": "流线节点分配",
+      "description": "The node pair assigned to each streamline. This generic file port does not establish a specialized scientific artifact type; downstream use must match the documented contents, not merely the filename extension.",
+      "format": ".txt",
+      "primary": false,
+      "path_template": "assignments.txt",
+      "generated_when": {}
+    },
+    {
+      "id": "log",
+      "type": "execution_log",
+      "label": "连接组日志",
+      "description": "tck2connectome 完整输出。",
+      "format": "",
+      "primary": false,
+      "path_template": "tck2connectome.log",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/dwi-skill/skill.json",
+      "label": "DWI Skill",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "mrtrix.tck2connectome",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "builtin"
+  }
+}

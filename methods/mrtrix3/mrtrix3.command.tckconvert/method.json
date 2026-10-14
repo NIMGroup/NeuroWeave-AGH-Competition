@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "id": "mrtrix3.command.tckconvert",
+  "version": "1",
+  "kind": "method",
+  "label": "MRtrix3 tckconvert",
+  "description": "Convert a tractogram to VTK polydata for external visualization.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "mrtrix3.command.tckconvert",
+  "parameters": [
+    {
+      "id": "nthreads",
+      "argument": "-nthreads",
+      "label": "nthreads",
+      "description": "CPU threads.",
+      "type": "integer",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 1,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "CPU threads. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://mrtrix.readthedocs.io/en/3.0.8/reference/commands/"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "tracks",
+      "type": "tractogram",
+      "label": "tracks",
+      "description": "Input streamline file.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "tracks",
+      "type": "tractogram",
+      "label": "tracks",
+      "description": "Native command output, saved in this run’s output directory. Convert a tractogram to VTK polydata for external visualization.",
+      "format": ".vtk",
+      "primary": true,
+      "path_template": "tracks.vtk",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "tractogram"
+  ],
+  "output_types": [
+    "tractogram"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/mrtrix3/tckconvert.usage.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "mrtrix3",
+      "command": "tckconvert",
+      "version": "3.0.8",
+      "argv": [
+        {
+          "tokens": [
+            {
+              "input": "tracks"
+            },
+            {
+              "output": "tracks"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            "-nthreads",
+            {
+              "parameter": "nthreads"
+            }
+          ],
+          "when": {},
+          "optional": false
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

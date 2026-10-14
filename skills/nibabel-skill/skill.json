@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "id": "nibabel-skill",
+  "description": "nibabel-skill 统筹已登记的独立方法和可复用流程。支持：Nibabel NIfTI 实际检查；图谱坐标提取；NIfTI 头信息与空间检查；FreeSurfer 表面与分区读取；NiBabel NIfTI 保存／格式转换。",
+  "method_refs": [
+    {
+      "capability": "skill.nibabel-skill",
+      "method_id": "nifti-inspect",
+      "label": "Nibabel NIfTI 实际检查",
+      "default_recommended": true,
+      "default_reason": "轻量检查不会修改输入影像，适合在处理前确认文件空间信息。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "读取 NIfTI 头、维度、数据类型、体素尺寸与仿射矩阵，并可保存规范化副本。",
+      "method_ref": "nibabel.inspect"
+    },
+    {
+      "capability": "skill.nibabel-skill",
+      "method_id": "reviewed-atlas-coordinates-nibabel-skill",
+      "label": "图谱坐标提取",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "atlas-coordinate-extraction"
+      ],
+      "execution_resolution": {},
+      "role": "Reference script for atlas ROI center extraction with nibabel。 Inputs: atlas: 分区图谱 (file); labels: 图谱标签文本 (file). Registered outputs: results/coordinates.csv.",
+      "method_ref": "reviewed.nibabel-skill.atlas-coordinates"
+    },
+    {
+      "capability": "skill.nibabel-skill",
+      "method_id": "reviewed-inspect-nibabel-skill",
+      "label": "NIfTI 头信息与空间检查",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "nifti-inspection"
+      ],
+      "execution_resolution": {},
+      "role": "Read image dimensions, voxel sizes, affine matrix, axis orientation and stored data type with NiBabel and write inspection.json; no image resampling is performed。 Inputs: image: NIfTI (file). Registered outputs: results/inspection.json. Fixed invocation options: --operation inspect.",
+      "method_ref": "reviewed.nibabel-skill.inspect"
+    },
+    {
+      "capability": "skill.nibabel-skill",
+      "method_id": "reviewed-surface-nibabel-skill",
+      "label": "FreeSurfer 表面与分区读取",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [
+        "freesurfer-io"
+      ],
+      "execution_resolution": {},
+      "role": "Read FreeSurfer surface vertices/faces and annotation labels/colours with NiBabel; verify matching vertex counts and export the arrays in surface.npz。 Inputs: surf: 表面 (file); annot: 标注 (file). Registered outputs: results/surface.npz. Fixed invocation options: --operation surface.",
+      "method_ref": "reviewed.nibabel-skill.surface"
+    },
+    {
+      "capability": "skill.nibabel-skill",
+      "method_id": "reviewed-save-existing-nibabel-skill",
+      "label": "NiBabel NIfTI 保存／格式转换",
+      "default_recommended": true,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "Load an existing image with NiBabel and save it as image.nii.gz, retaining its voxel data and geometry. This is format conversion, not registration。 Inputs: image: 已有影像 (file). Registered outputs: results/image.nii.gz. Fixed invocation options: --operation save.",
+      "method_ref": "reviewed.nibabel-skill.save-existing"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [],
+  "name": "nibabel-skill",
+  "category": [
+    "软件工具",
+    "nibabel"
+  ],
+  "scope": "software",
+  "limitations": [
+    "读取或重新保存影像保留的是数据和几何信息，不执行配准；体素坐标必须结合 affine 才能解释为空间坐标。"
+  ],
+  "keywords": [
+    "nibabel-skill",
+    "NIfTI",
+    "affine",
+    "影像读写",
+    "FreeSurfer"
+  ],
+  "references": [
+    {
+      "id": "notes",
+      "title": "背景与注意事项",
+      "path": "references/notes.md"
+    }
+  ]
+}

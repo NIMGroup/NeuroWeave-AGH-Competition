@@ -1,0 +1,146 @@
+{
+  "label": "aibl 复制整理为 BIDS 目录",
+  "description": "Reorganize AIBL raw data into BIDS-style directory structure. Handles AIBL-style subject IDs, visit names, and multimodal routing for T1w MRI and PET (PiB, FDG, tau)。 Inputs: input: Path to AIBL raw data directory (directory); participants_file: Optional: path to AIBL phenotype file for participant metadata (file). Registered outputs: results/.",
+  "runner_id": "reviewed.aibl-skill.reorganize-aibl",
+  "input_types": [
+    "analysis_input"
+  ],
+  "output_types": [
+    "generated_folder"
+  ],
+  "requires_features": [],
+  "parameters": [],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "analysis_input",
+      "label": "Path to AIBL raw data directory",
+      "description": "Path to AIBL raw data directory. Required directory input for aibl 复制整理为 BIDS 目录; bind to port input.",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "folder",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "participants_file",
+      "type": "analysis_input",
+      "label": "Optional: path to AIBL phenotype file for participant metadata",
+      "description": "Optional: path to AIBL phenotype file for participant metadata. Optional file input for aibl 复制整理为 BIDS 目录; bind to port participants_file.",
+      "required": false,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "results",
+      "type": "generated_folder",
+      "label": "分析结果",
+      "description": "Result directory for aibl 复制整理为 BIDS 目录. Contains this operation's generated files, including results/; ancillary files remain available here. Relative run path: results/.",
+      "format": "",
+      "primary": true,
+      "path_template": "results/",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "skills/aibl-skill/scripts/reorganize_aibl.py",
+      "label": "现有实现调用入口",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "bakend/resources/existing_implementation_sources.json",
+      "label": "实现来源与原始源码校验记录",
+      "kind": "script",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "reviewed.aibl-skill.reorganize-aibl",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "reviewed",
+    "adapter": {
+      "runner_id": "reviewed.aibl-skill.reorganize-aibl",
+      "script": "skills/aibl-skill/scripts/reorganize_aibl.py",
+      "inputs": [
+        {
+          "id": "input",
+          "flag": "--input",
+          "path_list": false,
+          "many_args": false
+        },
+        {
+          "id": "participants_file",
+          "flag": "--participants-file",
+          "path_list": false,
+          "many_args": false
+        }
+      ],
+      "parameters": [],
+      "modules": [
+        "pandas",
+        "numpy"
+      ],
+      "expected": [
+        "bids/**/*.nii*"
+      ],
+      "profile": "scientific",
+      "fixed_args": [],
+      "outputs": [
+        [
+          "--output",
+          "bids"
+        ]
+      ],
+      "required_files": [],
+      "executables": [],
+      "required_apis": [],
+      "implementation_source": {
+        "kind": "existing_project_script",
+        "entrypoints": [
+          "skills/aibl-skill/scripts/reorganize_aibl.py"
+        ],
+        "source": {
+          "origin": "NeuroWeave before runtime expansion",
+          "revision": "70b681c",
+          "source_path": "skills/aibl-skill/scripts/reorganize_aibl.py",
+          "source_sha256": "72ebe6b2ec50cb37fbcaef44d8084b2c7fe8d74f5701d5b9c091c8dedbc78c41"
+        },
+        "dependencies": {},
+        "adapter_scope": "Existing calls, argument/input validation, scheduling and output collection only; no replacement algorithm."
+      },
+      "implementation_files": [
+        {
+          "path": "skills/aibl-skill/scripts/reorganize_aibl.py",
+          "sha256": "72ebe6b2ec50cb37fbcaef44d8084b2c7fe8d74f5701d5b9c091c8dedbc78c41"
+        }
+      ],
+      "artifact_types": {}
+    }
+  }
+}

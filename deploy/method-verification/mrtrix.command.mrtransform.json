@@ -1,0 +1,11 @@
+{
+  "method_id": "mrtrix.command.mrtransform",
+  "method_version": "3",
+  "execution_fingerprint": "e19754cba425c5fa6cb4972bf985d4ea569a5dbf22b4a9a2212896a59654a2b3",
+  "test_type": "synthetic",
+  "tested_at": "2026-09-27T03:51:26.871280+00:00",
+  "environment": "mgr installed MRtrix3/FSL/ANTs; six-voxel axes",
+  "result": "passed",
+  "report_path": "deploy/method-verification/reports/reliability-synthetic.json",
+  "report_sha256": "8ac98604628405dba7c79bb7a2c027322331cd17afb6c28c866ab0c681e30d75"
+}

@@ -1,0 +1,21 @@
+
+COMMAND: 
+     N4BiasFieldCorrection
+
+OPTIONS: 
+     -d, --image-dimensionality 2/3/4
+     -i, --input-image inputImageFilename
+     -x, --mask-image maskImageFilename
+     -r, --rescale-intensities 0/(1)
+     -w, --weight-image weightImageFilename
+     -s, --shrink-factor 1/2/3/(4)/...
+     -c, --convergence [<numberOfIterations=50x50x50x50>,<convergenceThreshold=0.0>]
+     -b, --bspline-fitting [splineDistance,<splineOrder=3>]
+                           [initialMeshResolution,<splineOrder=3>]
+     -t, --histogram-sharpening [<FWHM=0.15>,<wienerNoise=0.01>,<numberOfHistogramBins=200>]
+     -o, --output correctedImage
+                  [correctedImage,<biasField>]
+     --version 
+     -v, --verbose (0)/1
+     -h 
+     --help 

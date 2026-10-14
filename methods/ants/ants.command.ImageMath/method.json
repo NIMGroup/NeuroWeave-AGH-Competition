@@ -1,0 +1,424 @@
+{
+  "schema_version": 1,
+  "id": "ants.command.ImageMath",
+  "version": "1",
+  "kind": "method",
+  "label": "ANTs ImageMath",
+  "description": "Native ANTs image arithmetic and morphology; choose one operation per method step.\n\nThe interface exposes the typed options listed below; the original installed-version help is retained in source references.",
+  "runner_id": "ants.command.ImageMath",
+  "parameters": [
+    {
+      "id": "dimension",
+      "argument": "",
+      "label": "dimension",
+      "description": "Image dimensionality. Match the actual input image.",
+      "type": "integer",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 3,
+      "options": [
+        {
+          "value": 2,
+          "label": "2",
+          "description": ""
+        },
+        {
+          "value": 3,
+          "label": "3",
+          "description": ""
+        },
+        {
+          "value": 4,
+          "label": "4",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Image dimensionality. Match the actual input image. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://github.com/ANTsX/ANTs/wiki"
+    },
+    {
+      "id": "operation",
+      "argument": "",
+      "label": "operation",
+      "description": "Native ImageMath operator.",
+      "type": "string",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": "abs",
+      "options": [
+        {
+          "value": "abs",
+          "label": "abs",
+          "description": ""
+        },
+        {
+          "value": "Neg",
+          "label": "Neg",
+          "description": ""
+        },
+        {
+          "value": "m",
+          "label": "m",
+          "description": ""
+        },
+        {
+          "value": "+",
+          "label": "+",
+          "description": ""
+        },
+        {
+          "value": "-",
+          "label": "-",
+          "description": ""
+        },
+        {
+          "value": "/",
+          "label": "/",
+          "description": ""
+        },
+        {
+          "value": "^",
+          "label": "^",
+          "description": ""
+        },
+        {
+          "value": "max",
+          "label": "max",
+          "description": ""
+        },
+        {
+          "value": "exp",
+          "label": "exp",
+          "description": ""
+        },
+        {
+          "value": "G",
+          "label": "G",
+          "description": ""
+        },
+        {
+          "value": "MD",
+          "label": "MD",
+          "description": ""
+        },
+        {
+          "value": "ME",
+          "label": "ME",
+          "description": ""
+        },
+        {
+          "value": "MO",
+          "label": "MO",
+          "description": ""
+        },
+        {
+          "value": "MC",
+          "label": "MC",
+          "description": ""
+        },
+        {
+          "value": "GD",
+          "label": "GD",
+          "description": ""
+        },
+        {
+          "value": "GE",
+          "label": "GE",
+          "description": ""
+        },
+        {
+          "value": "GO",
+          "label": "GO",
+          "description": ""
+        },
+        {
+          "value": "GC",
+          "label": "GC",
+          "description": ""
+        },
+        {
+          "value": "FillHoles",
+          "label": "FillHoles",
+          "description": ""
+        },
+        {
+          "value": "Normalize",
+          "label": "Normalize",
+          "description": ""
+        },
+        {
+          "value": "Laplacian",
+          "label": "Laplacian",
+          "description": ""
+        },
+        {
+          "value": "Grad",
+          "label": "Grad",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "Native ImageMath operator. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://github.com/ANTsX/ANTs/wiki"
+    },
+    {
+      "id": "value",
+      "argument": "",
+      "label": "value",
+      "description": "Operation argument, such as smoothing sigma or morphology radius.",
+      "type": "number",
+      "control": "auto",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": false,
+      "default": 1,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {
+        "operation": [
+          "exp",
+          "G",
+          "MD",
+          "ME",
+          "MO",
+          "MC",
+          "GD",
+          "GE",
+          "GO",
+          "GC",
+          "Laplacian",
+          "Grad"
+        ]
+      },
+      "required_when": {
+        "operation": [
+          "exp",
+          "G",
+          "MD",
+          "ME",
+          "MO",
+          "MC",
+          "GD",
+          "GE",
+          "GO",
+          "GC",
+          "Laplacian",
+          "Grad"
+        ]
+      },
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "Required only for the selected operation.",
+      "usage": "Operation argument, such as smoothing sigma or morphology radius. Unset optional values are not passed to the command.",
+      "software_default": "The installed command decides omitted values; see the pinned help snapshot.",
+      "documentation_url": "https://github.com/ANTsX/ANTs/wiki"
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "input",
+      "type": "imaging_input",
+      "label": "input",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": true,
+      "required_when": {},
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    },
+    {
+      "id": "image2",
+      "type": "imaging_input",
+      "label": "image2",
+      "description": "Input image. Choose an existing file; the command never modifies it.",
+      "required": false,
+      "required_when": {
+        "operation": [
+          "m",
+          "+",
+          "-",
+          "/",
+          "^",
+          "max"
+        ]
+      },
+      "required_when_any": [],
+      "cardinality": "one",
+      "binding": "file",
+      "formats": [
+        ".nii",
+        ".nii.gz",
+        ".mif",
+        ".mgz",
+        ".mgh"
+      ],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": []
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "output",
+      "type": "imaging_input",
+      "label": "output",
+      "description": "Native command output, saved in this run’s output directory. Native ANTs image arithmetic and morphology; choose one operation per method step. The output meaning depends on the input and selected operation. This generic image port does not certify anatomical labels, diffusion orientation, tissue fractions or spatial alignment.",
+      "format": ".nii.gz",
+      "primary": true,
+      "path_template": "output.nii.gz",
+      "generated_when": {}
+    }
+  ],
+  "input_types": [
+    "imaging_input"
+  ],
+  "output_types": [
+    "imaging_input"
+  ],
+  "requires_features": [],
+  "included_capabilities": [],
+  "source_references": [
+    {
+      "path": "deploy/software-contracts/scientific/ants-ImageMath.txt",
+      "label": "Installed-version command help",
+      "kind": "command",
+      "line_start": null,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "execution": {
+    "kind": "command",
+    "contract": {
+      "software": "ants",
+      "command": "ImageMath",
+      "version": "2.6.5",
+      "argv": [
+        {
+          "tokens": [
+            {
+              "parameter": "dimension"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "output": "output"
+            },
+            {
+              "parameter": "operation"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "input": "input"
+            }
+          ],
+          "when": {},
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "input": "image2"
+            }
+          ],
+          "when": {
+            "operation": [
+              "m",
+              "+",
+              "-",
+              "/",
+              "^",
+              "max"
+            ]
+          },
+          "optional": false
+        },
+        {
+          "tokens": [
+            {
+              "parameter": "value"
+            }
+          ],
+          "when": {
+            "operation": [
+              "exp",
+              "G",
+              "MD",
+              "ME",
+              "MO",
+              "MC",
+              "GD",
+              "GE",
+              "GO",
+              "GC",
+              "Laplacian",
+              "Grad"
+            ]
+          },
+          "optional": false
+        }
+      ],
+      "patterns": {},
+      "complete_groups": [],
+      "omitted_options": {
+        "other_options": "Only the documented options below are exposed. Consult the installed-version help for other syntax; arbitrary arguments are not accepted."
+      }
+    }
+  }
+}

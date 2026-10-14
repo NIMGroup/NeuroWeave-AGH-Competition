@@ -1,0 +1,384 @@
+{
+  "label": "QSIPrep",
+  "description": "容器化的标准 BIDS-App 路线，输出统一且包含 QC 报告。",
+  "runner_id": "qsiprep.run",
+  "input_types": [
+    "bids_dwi"
+  ],
+  "output_types": [
+    "preprocessed_dwi",
+    "preprocess_qc",
+    "execution_log"
+  ],
+  "requires_features": [],
+  "parameters": [
+    {
+      "id": "participant_label",
+      "argument": "participant-label",
+      "label": "受试者编号",
+      "description": "只运行一个明确受试者；可输入 01 或 sub-01。",
+      "type": "string",
+      "control": "text",
+      "level": "basic",
+      "group": "运行范围",
+      "unit": "",
+      "required": true,
+      "default": "",
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "例如 01",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "output_resolution",
+      "argument": "output-resolution",
+      "label": "输出分辨率",
+      "description": "预处理后 DWI 的目标各向同性分辨率。",
+      "type": "number",
+      "control": "select",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "mm",
+      "required": true,
+      "default": 2.0,
+      "options": [
+        {
+          "value": 1.2,
+          "label": "1.2 mm",
+          "description": ""
+        },
+        {
+          "value": 1.5,
+          "label": "1.5 mm",
+          "description": ""
+        },
+        {
+          "value": 2.0,
+          "label": "2.0 mm（推荐）",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "denoise",
+      "argument": "denoise",
+      "label": "启用去噪",
+      "description": "在预处理主流程中启用 DWI 去噪步骤。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "basic",
+      "group": "常用参数",
+      "unit": "",
+      "required": true,
+      "default": true,
+      "options": [
+        {
+          "value": true,
+          "label": "启用",
+          "description": ""
+        },
+        {
+          "value": false,
+          "label": "关闭",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "unringing",
+      "argument": "unringing",
+      "label": "Gibbs 去振铃",
+      "description": "在采集和重建条件允许时应用去振铃。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "信号预处理",
+      "unit": "",
+      "required": true,
+      "default": true,
+      "options": [
+        {
+          "value": true,
+          "label": "启用",
+          "description": ""
+        },
+        {
+          "value": false,
+          "label": "关闭",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "distortion_group_merge",
+      "argument": "distortion-group-merge",
+      "label": "畸变组融合",
+      "description": "控制相位编码组的融合方式。",
+      "type": "string",
+      "control": "select",
+      "level": "advanced",
+      "group": "畸变与运动",
+      "unit": "",
+      "required": true,
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "不融合",
+          "description": ""
+        },
+        {
+          "value": "average",
+          "label": "平均",
+          "description": ""
+        },
+        {
+          "value": "concat",
+          "label": "拼接",
+          "description": ""
+        }
+      ],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "threads",
+      "argument": "threads",
+      "label": "线程数",
+      "description": "预处理工作流允许使用的 CPU 线程数量。",
+      "type": "integer",
+      "control": "number",
+      "level": "advanced",
+      "group": "计算资源",
+      "unit": "",
+      "required": true,
+      "default": 8,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 128.0,
+      "step": 1.0,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "omp_threads",
+      "argument": "omp-nthreads",
+      "label": "每进程 OMP 线程",
+      "description": "单个多线程工具最多使用的线程数。",
+      "type": "integer",
+      "control": "number",
+      "level": "advanced",
+      "group": "计算资源",
+      "unit": "",
+      "required": true,
+      "default": 2,
+      "options": [],
+      "minimum": 1.0,
+      "maximum": 64.0,
+      "step": 1.0,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "memory_gb",
+      "argument": "memory-gb",
+      "label": "内存上限",
+      "description": "工作流允许使用的内存上限。",
+      "type": "number",
+      "control": "number",
+      "level": "advanced",
+      "group": "计算资源",
+      "unit": "GB",
+      "required": true,
+      "default": 16,
+      "options": [],
+      "minimum": 2.0,
+      "maximum": 1024.0,
+      "step": 1.0,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    },
+    {
+      "id": "skip_bids_validation",
+      "argument": "skip-bids-validation",
+      "label": "跳过 BIDS Validator",
+      "description": "仅在数据已经独立验证时启用。",
+      "type": "boolean",
+      "control": "switch",
+      "level": "advanced",
+      "group": "输入",
+      "unit": "",
+      "required": true,
+      "default": false,
+      "options": [],
+      "minimum": null,
+      "maximum": null,
+      "step": null,
+      "placeholder": "",
+      "visible_when": {},
+      "required_when": {},
+      "enabled_when": {},
+      "conflicts_with": [],
+      "condition_help": "",
+      "usage": "",
+      "software_default": "",
+      "documentation_url": ""
+    }
+  ],
+  "input_slots": [
+    {
+      "id": "bids_dataset",
+      "type": "bids_dwi",
+      "label": "BIDS DWI 数据集",
+      "description": "QSIPrep 的 BIDS 输入目录，需包含 DWI、bval、bvec 和必要 sidecar。",
+      "required": true,
+      "required_when": {},
+      "cardinality": "one",
+      "binding": "folder",
+      "formats": [],
+      "companions": [],
+      "source_options": [
+        "dataset",
+        "existing_path",
+        "upstream_output"
+      ],
+      "validation": [
+        "path_exists",
+        "bids_dwi_complete"
+      ]
+    }
+  ],
+  "output_slots": [
+    {
+      "id": "preprocessed_dwi",
+      "type": "preprocessed_dwi",
+      "label": "QSIPrep derivatives",
+      "description": "指定受试者的预处理 DWI、变换和衍生文件目录。",
+      "format": "",
+      "primary": true,
+      "path_template": "qsiprep/",
+      "generated_when": {}
+    },
+    {
+      "id": "preprocess_qc",
+      "type": "preprocess_qc",
+      "label": "QSIPrep QC",
+      "description": "QSIPrep 生成的可视化报告和质量控制指标。",
+      "format": ".html",
+      "primary": false,
+      "path_template": "qsiprep/{subject}.html",
+      "generated_when": {}
+    },
+    {
+      "id": "log",
+      "type": "execution_log",
+      "label": "QSIPrep 日志",
+      "description": "完整命令输出。",
+      "format": "",
+      "primary": false,
+      "path_template": "qsiprep.log",
+      "generated_when": {}
+    }
+  ],
+  "source_references": [
+    {
+      "path": "methods/qsiprep/qsiprep.run/method.json",
+      "label": "结构化方法声明",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    },
+    {
+      "path": "skills/qsiprep-tool/skill.json",
+      "label": "Skill 使用说明",
+      "kind": "skill",
+      "line_start": 1,
+      "line_end": null
+    }
+  ],
+  "command_references": [],
+  "included_capabilities": [],
+  "schema_version": 1,
+  "id": "qsiprep.run",
+  "version": "1",
+  "kind": "method",
+  "execution": {
+    "kind": "builtin"
+  }
+}

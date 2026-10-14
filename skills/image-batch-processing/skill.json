@@ -1,0 +1,718 @@
+{
+  "schema_version": 1,
+  "id": "image-batch-processing",
+  "description": "image-batch-processing 统筹已登记的独立方法和可复用流程。支持：数据集巡检；NiBabel NIfTI 保存／格式转换；NIfTI 头信息与空间检查。",
+  "method_refs": [
+    {
+      "capability": "skill.image-batch-processing",
+      "method_id": "linked-dataset_inspector",
+      "label": "数据集巡检",
+      "default_recommended": false,
+      "default_reason": "所有后续方法都需要先确认输入条件。",
+      "replaces_operations": [],
+      "execution_resolution": {},
+      "role": "扫描授权目录的结构和轻量元数据，形成处理前检查摘要。",
+      "method_ref": "dataset.inspect"
+    },
+    {
+      "capability": "skill.image-batch-processing",
+      "method_id": "image-batch-processing-guided--format-conversion",
+      "label": "NiBabel NIfTI 保存／格式转换",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "image-batch-processing-guided--format-conversion",
+        "target_method_id": "reviewed-save-existing-nibabel-skill"
+      },
+      "role": "Load an existing image with NiBabel and save it as image.nii.gz, retaining its voxel data and geometry. This is format conversion, not registration。 Inputs: image: 已有影像 (file). Registered outputs: results/image.nii.gz. Fixed invocation options: --operation save.",
+      "method_ref": "reviewed.nibabel-skill.save-existing"
+    },
+    {
+      "capability": "skill.image-batch-processing",
+      "method_id": "image-batch-processing-guided--spatial-validation",
+      "label": "NIfTI 头信息与空间检查",
+      "default_recommended": false,
+      "default_reason": "",
+      "replaces_operations": [
+        "nifti-inspection"
+      ],
+      "execution_resolution": {
+        "state": "mapped",
+        "reason": "已核对到现有实现；选择具体入口后按其真实输入、参数和输出执行。",
+        "source_method_id": "image-batch-processing-guided--spatial-validation",
+        "target_method_id": "reviewed-inspect-nibabel-skill"
+      },
+      "role": "Read image dimensions, voxel sizes, affine matrix, axis orientation and stored data type with NiBabel and write inspection.json; no image resampling is performed。 Inputs: image: NIfTI (file). Registered outputs: results/inspection.json. Fixed invocation options: --operation inspect.",
+      "method_ref": "reviewed.nibabel-skill.inspect"
+    }
+  ],
+  "pipeline_refs": [],
+  "planning_capabilities": [
+    {
+      "capability": "skill.image-batch-processing",
+      "method_id": "image-batch-processing-guided--batch-preprocessing",
+      "skill_id": "image-batch-processing",
+      "label": "批量预处理",
+      "description": "先验证单样本，再扩展到全部样本。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "batch_preprocessing",
+          "options": [
+            {
+              "value": "batch_preprocessing",
+              "label": "批量预处理",
+              "description": "先验证单样本，再扩展到全部样本。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_policy",
+          "argument": "output-policy",
+          "label": "输出策略",
+          "description": "规划阶段默认保留原始数据，并把结果写入新目录。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "new_output",
+          "options": [
+            {
+              "value": "preview_only",
+              "label": "只预览变更",
+              "description": ""
+            },
+            {
+              "value": "copy_then_modify",
+              "label": "复制后处理",
+              "description": ""
+            },
+            {
+              "value": "new_output",
+              "label": "写入新输出目录",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "validation_level",
+          "argument": "validation-level",
+          "label": "输出验证",
+          "description": "选择基础结构检查或包含模式、计数和元数据的严格验证。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "strict",
+          "options": [
+            {
+              "value": "basic",
+              "label": "基础验证",
+              "description": ""
+            },
+            {
+              "value": "strict",
+              "label": "严格验证",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "metadata_policy",
+          "argument": "metadata-policy",
+          "label": "元数据处理",
+          "description": "控制缺失或冲突元数据的处理方式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "结构与元数据",
+          "unit": "",
+          "required": true,
+          "default": "preserve_and_report",
+          "options": [
+            {
+              "value": "preserve_and_report",
+              "label": "保留并报告",
+              "description": ""
+            },
+            {
+              "value": "normalize",
+              "label": "规范化字段",
+              "description": ""
+            },
+            {
+              "value": "strict",
+              "label": "严格拒绝冲突",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "naming_template",
+          "argument": "naming-template",
+          "label": "命名模板",
+          "description": "可选的输出文件或实体命名模板。",
+          "type": "string",
+          "control": "text",
+          "level": "advanced",
+          "group": "结构与元数据",
+          "unit": "",
+          "required": false,
+          "default": "",
+          "options": [],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "例如：sub-{subject}_ses-{session}",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "collision_policy",
+          "argument": "collision-policy",
+          "label": "命名冲突策略",
+          "description": "目标位置已经存在同名文件时的处理方式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "安全策略",
+          "unit": "",
+          "required": true,
+          "default": "stop",
+          "options": [
+            {
+              "value": "stop",
+              "label": "停止并报告",
+              "description": ""
+            },
+            {
+              "value": "rename",
+              "label": "自动追加编号",
+              "description": ""
+            },
+            {
+              "value": "replace_copy",
+              "label": "替换输出副本",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "worker_count",
+          "argument": "worker-count",
+          "label": "并行处理数",
+          "description": "批量转换或清洗时允许的并行任务数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "性能",
+          "unit": "",
+          "required": true,
+          "default": 2,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 64.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "dataset_folder",
+          "label": "输入数据集",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "folder",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/image-batch-processing/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/image-batch-processing/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "needs_protocol",
+        "reason": "批量是调度方式；先选明确的预处理方法、输入匹配规则和每节点并行数量，平台按样本执行。",
+        "source_method_id": "image-batch-processing-guided--batch-preprocessing",
+        "requirements": [
+          "具体预处理方法"
+        ]
+      }
+    },
+    {
+      "capability": "skill.image-batch-processing",
+      "method_id": "image-batch-processing-guided--failure-manifest",
+      "skill_id": "image-batch-processing",
+      "label": "失败清单与质量控制",
+      "description": "保存成功、跳过和失败样本清单。",
+      "runner_id": "",
+      "execution_mode": "planning",
+      "input_types": [
+        "*"
+      ],
+      "output_types": [
+        "planned_artifact"
+      ],
+      "requires_features": [],
+      "default_recommended": false,
+      "default_reason": "该方法来自命中 Skill 的任务选项；模型会结合当前需求在相关实现中排序推荐。",
+      "parameters": [
+        {
+          "id": "operation",
+          "argument": "operation",
+          "label": "已选任务范围",
+          "description": "该值由流程中的方法选择确定。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "方法与任务",
+          "unit": "",
+          "required": true,
+          "default": "failure_manifest",
+          "options": [
+            {
+              "value": "failure_manifest",
+              "label": "失败清单与质量控制",
+              "description": "保存成功、跳过和失败样本清单。"
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "output_policy",
+          "argument": "output-policy",
+          "label": "输出策略",
+          "description": "规划阶段默认保留原始数据，并把结果写入新目录。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "new_output",
+          "options": [
+            {
+              "value": "preview_only",
+              "label": "只预览变更",
+              "description": ""
+            },
+            {
+              "value": "copy_then_modify",
+              "label": "复制后处理",
+              "description": ""
+            },
+            {
+              "value": "new_output",
+              "label": "写入新输出目录",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "validation_level",
+          "argument": "validation-level",
+          "label": "输出验证",
+          "description": "选择基础结构检查或包含模式、计数和元数据的严格验证。",
+          "type": "string",
+          "control": "auto",
+          "level": "basic",
+          "group": "常用参数",
+          "unit": "",
+          "required": true,
+          "default": "strict",
+          "options": [
+            {
+              "value": "basic",
+              "label": "基础验证",
+              "description": ""
+            },
+            {
+              "value": "strict",
+              "label": "严格验证",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "metadata_policy",
+          "argument": "metadata-policy",
+          "label": "元数据处理",
+          "description": "控制缺失或冲突元数据的处理方式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "结构与元数据",
+          "unit": "",
+          "required": true,
+          "default": "preserve_and_report",
+          "options": [
+            {
+              "value": "preserve_and_report",
+              "label": "保留并报告",
+              "description": ""
+            },
+            {
+              "value": "normalize",
+              "label": "规范化字段",
+              "description": ""
+            },
+            {
+              "value": "strict",
+              "label": "严格拒绝冲突",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "naming_template",
+          "argument": "naming-template",
+          "label": "命名模板",
+          "description": "可选的输出文件或实体命名模板。",
+          "type": "string",
+          "control": "text",
+          "level": "advanced",
+          "group": "结构与元数据",
+          "unit": "",
+          "required": false,
+          "default": "",
+          "options": [],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "例如：sub-{subject}_ses-{session}",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "collision_policy",
+          "argument": "collision-policy",
+          "label": "命名冲突策略",
+          "description": "目标位置已经存在同名文件时的处理方式。",
+          "type": "string",
+          "control": "auto",
+          "level": "advanced",
+          "group": "安全策略",
+          "unit": "",
+          "required": true,
+          "default": "stop",
+          "options": [
+            {
+              "value": "stop",
+              "label": "停止并报告",
+              "description": ""
+            },
+            {
+              "value": "rename",
+              "label": "自动追加编号",
+              "description": ""
+            },
+            {
+              "value": "replace_copy",
+              "label": "替换输出副本",
+              "description": ""
+            }
+          ],
+          "minimum": null,
+          "maximum": null,
+          "step": null,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        },
+        {
+          "id": "worker_count",
+          "argument": "worker-count",
+          "label": "并行处理数",
+          "description": "批量转换或清洗时允许的并行任务数量。",
+          "type": "integer",
+          "control": "number",
+          "level": "advanced",
+          "group": "性能",
+          "unit": "",
+          "required": true,
+          "default": 2,
+          "options": [],
+          "minimum": 1.0,
+          "maximum": 64.0,
+          "step": 1.0,
+          "placeholder": "",
+          "visible_when": {},
+          "required_when": {},
+          "enabled_when": {},
+          "conflicts_with": [],
+          "condition_help": "",
+          "usage": "",
+          "software_default": "",
+          "documentation_url": ""
+        }
+      ],
+      "input_slots": [
+        {
+          "id": "primary_input",
+          "type": "dataset_folder",
+          "label": "输入数据集",
+          "description": "可从已登记数据集、授权路径或上游步骤选择；具体格式仍以该 Skill 的说明为准。",
+          "required": false,
+          "required_when": {},
+          "cardinality": "one",
+          "binding": "folder",
+          "formats": [],
+          "companions": [],
+          "source_options": [
+            "dataset",
+            "existing_path",
+            "upstream_output"
+          ],
+          "validation": [
+            "path_exists"
+          ]
+        }
+      ],
+      "output_slots": [
+        {
+          "id": "planned_output",
+          "type": "planned_artifact",
+          "label": "规划输出",
+          "description": "该 planning 步骤声明的预期产物；只有接入 runner 后才会实际生成。",
+          "format": "",
+          "primary": true,
+          "path_template": "derivatives/image-batch-processing/",
+          "generated_when": {}
+        }
+      ],
+      "structure_level": "evidence",
+      "source_references": [
+        {
+          "path": "skills/image-batch-processing/skill.json",
+          "label": "原生 Skill 规划定义",
+          "kind": "skill",
+          "line_start": null,
+          "line_end": null
+        }
+      ],
+      "command_references": [],
+      "delegate_skill_ids": [],
+      "execution_recipe": null,
+      "included_capabilities": [],
+      "replaces_operations": [],
+      "execution_resolution": {
+        "state": "platform_managed",
+        "reason": "样本成功/失败清单由现有运行监控和运行审计统一生成；它不是需要额外对影像执行的算法。",
+        "source_method_id": "image-batch-processing-guided--failure-manifest",
+        "requirements": [
+          "在运行监控中查看样本状态和日志"
+        ]
+      }
+    }
+  ],
+  "name": "image-batch-processing",
+  "category": [
+    "任务能力",
+    "image"
+  ],
+  "scope": "task",
+  "limitations": [
+    "当前已登记的影像入口提供巡检、头信息检查与保存已有影像；批量算法预处理不能由这些格式操作代替。"
+  ],
+  "keywords": [
+    "image-batch-processing",
+    "NiBabel",
+    "NIfTI"
+  ],
+  "references": []
+}
