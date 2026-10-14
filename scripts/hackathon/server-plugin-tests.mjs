@@ -8,7 +8,7 @@ const contracts = JSON.parse(readFileSync(new URL('../../integrations/agh/server
 test('context hook captures native messages then reads only prompt context, never scheduler or execution', async () => {
   const calls = [], signal = new AbortController().signal
   const context = {session:{key:'native-session'},signal,log:{warn(){}}}
-  const state = {selected:{workflow_id:'wf_123456789abc'},task:{goal:'synthetic goal'},shared_facts:{value:1},
+  const state = {planning_only:true,selected:{workflow_id:'wf_123456789abc'},task:{goal:'synthetic goal'},shared_facts:{value:1},
     workflow:{workflow_id:'wf_123456789abc',revision:4,status:'confirmed'},
     dataset:{dataset_id:'synthetic',absolute_path:'/synthetic',inspection:{sample_count:1}},workspace:{root_path:'/output'}}
   const result = await promptContext(async (operation,body,key,tool,abort) => {
@@ -20,6 +20,7 @@ test('context hook captures native messages then reads only prompt context, neve
   const projected = JSON.parse(result.sections.find(section=>section.id==='neuroweave/current-context').content)
   assert.deepEqual(projected.task,state.task);assert.deepEqual(projected.shared_facts,state.shared_facts)
   assert.equal(projected.workflow_revision,4);assert.equal(projected.facts_are_not_permission,true)
+  assert.equal(projected.planning_only,true)
 })
 
 test('context hook fails closed when capture or prompt context is unavailable', async () => {

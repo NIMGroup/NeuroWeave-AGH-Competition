@@ -99,7 +99,7 @@ export async function promptContext(send, readNativeMessages, context) {
       workflow_revision: value?.workflow?.revision, workflow_status: value?.workflow?.status,
       data_operations: value?.data_operations?.map(o => ({ id: o.id, status: o.status, title: o.title })),
       business_baseline: value?.business_baseline, method_routes: value?.method_routes, shared_facts: value?.shared_facts,
-      task: value?.task,
+      task: value?.task, planning_only: value?.planning_only === true,
       facts_are_not_permission: true }) }] }
 }
 

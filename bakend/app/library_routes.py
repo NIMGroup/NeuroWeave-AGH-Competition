@@ -153,7 +153,9 @@ def library_router(library, workflows, workspaces, runners, chat=None):
             ]
             value["verification"] = library.registry.definitions.verification(identity)
             value["runtime_status"] = (
-                runner.runtime_status()
+                runners.runtime_status(identity)
+                if getattr(runners, 'planning_only', False) is True
+                else runner.runtime_status()
                 if runner
                 else {"available": False, "reason": "Runner 未注册"}
             )

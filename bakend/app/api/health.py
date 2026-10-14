@@ -77,6 +77,7 @@ def router_for(services: ApplicationServices) -> APIRouter:
                 "storage": "sqlite",
             },
             "persistence": "sqlite",
+            "planning_only": services.run_service.planning_only,
             "dataset_roots": len(services.dataset_service.roots()),
             "execution": {
                 "enabled": services.run_service.enabled,

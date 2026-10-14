@@ -159,7 +159,9 @@ class MethodContractIndex:
                 else None
             )
             status = (
-                runner.runtime_status() if runner is not None else {"available": None}
+                runner_registry.runtime_status(m.runner_id)
+                if getattr(runner_registry, 'planning_only', False) is True
+                else runner.runtime_status() if runner is not None else {"available": None}
             )
             result.append(
                 {

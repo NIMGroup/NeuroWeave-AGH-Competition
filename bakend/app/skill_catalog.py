@@ -17,6 +17,13 @@ class SkillCatalog:
     def __init__(self, loader, registry, runners):
         self.loader, self.registry, self.runners = loader, registry, runners
 
+    def _runtime_status(self, runner_id):
+        status = getattr(self.runners, 'runtime_status', None)
+        if callable(status):
+            return status(runner_id)
+        runner = self.runners.get(runner_id)
+        return runner.runtime_status() if runner else {'available': False, 'reason': '执行器未注册'}
+
     def execution_status(
         self,
         skill: Any,
@@ -42,7 +49,7 @@ class SkillCatalog:
                 reasons.append(f"{runner_id}：尚未接入可信 Runner")
                 continue
             if runner_id not in statuses:
-                statuses[runner_id] = runner.runtime_status()
+                statuses[runner_id] = self._runtime_status(runner_id)
             status = statuses[runner_id]
             if status.get("available"):
                 ready.append(runner_id)
@@ -301,7 +308,7 @@ class SkillCatalog:
         p = store.pipelines[identity]
         members = [store.methods[s["method_ref"]] for s in p["steps"]]
         states = [
-            self.runners.get(m.runner_id).runtime_status()
+            self._runtime_status(m.runner_id)
             if self.runners.get(m.runner_id)
             else {"available": False, "reason": "执行器未注册"}
             for m in members
@@ -382,7 +389,7 @@ class SkillCatalog:
             else None
         )
         runtime = (
-            runner.runtime_status()
+            self._runtime_status(method.runner_id)
             if runner
             else dict(available=False, reason="该条目没有独立执行入口")
         )

@@ -36,6 +36,7 @@ const tabs = [
 ] as const;
 
 export type BusinessContext = { conversation_id: string; session_id: string; task?: AssistantTaskState | null;
+  planning_only?: boolean;
   selected: { dataset_id?: string; workspace_id?: string; workflow_id?: string; selected_skills?: string[] };
   dataset: Dataset | null; workspace: OutputDirectory | null; workflow: Workflow | null;
   workflows: Workflow[]; data_operations: DataOperation[] };
@@ -95,6 +96,7 @@ function Workspace({ host }: { host: AGHHost }) {
         <div className="min-w-0"><h2 className="text-title">{activeTab.label}</h2><p className="mt-1 text-xs text-muted">{activeTab.description}</p></div>
       </header>
       {(error || context.error) && <p role="alert" className="mx-5 mt-3 rounded-control border border-danger-line bg-danger-quiet p-3 text-xs text-danger">{error || context.error?.message}</p>}
+      {current?.planning_only && <p role="status" className="mx-5 mt-3 rounded-control border border-line bg-raised p-3 text-xs text-muted">仅规划部署：无需数据或计算环境即可生成和编辑流程；实际运行前需接入科学软件和 Slurm。</p>}
       {context.isPending && <p role="status" className="px-5 py-3 text-xs text-muted">正在读取会话…</p>}
       {tab === 'tasks' && <div className="flex min-h-0 flex-1 flex-col lg:flex-row">
       <aside className="flex max-h-48 shrink-0 flex-col border-b border-line lg:max-h-none lg:w-56 lg:border-r lg:border-b-0"><WorkflowHistory selectedId={selectedTask ?? current?.task?.task_id ?? workflow?.managed_task_id ?? workflow?.workflow_id ?? null}

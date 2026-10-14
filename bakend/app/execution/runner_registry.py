@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import tempfile
 from pathlib import Path
 from threading import Event
@@ -36,6 +37,7 @@ class RunnerRegistry:
     """Allowlist of code-reviewed runners that may execute on the server."""
 
     def __init__(self) -> None:
+        self.planning_only = os.getenv('NEUROWEAVE_PLANNING_ONLY', 'false').lower() in {'true', '1', 'yes'}
         runners: list[TrustedRunner] = [
             DatasetInspectRunner(),
             AntsRegistrationRunner(),
@@ -72,11 +74,22 @@ class RunnerRegistry:
         return self._runners.get(runner_id)
 
     def available_ids(self) -> set[str]:
+        if self.planning_only:
+            return set()
         return {
             runner_id
             for runner_id, runner in self._runners.items()
-            if bool(runner.runtime_status().get("available"))
+            if bool(self.runtime_status(runner_id).get("available"))
         }
+
+    def runtime_status(self, runner_id: str) -> dict[str, object]:
+        runner = self.get(runner_id)
+        if runner is None:
+            return {'available': False, 'reason': '执行器未注册'}
+        if self.planning_only:
+            return {'available': False, 'planning_only': True,
+                    'reason': '仅规划部署：方法契约可用于规划，实际运行需接入计算环境'}
+        return runner.runtime_status()
 
     def public_catalog(self) -> list[dict[str, object]]:
         catalog: list[dict[str, object]] = []
@@ -85,7 +98,7 @@ class RunnerRegistry:
                 {
                     "runner_id": runner_id,
                     "label": runner.label,
-                    **runner.runtime_status(),
+                    **self.runtime_status(runner_id),
                 }
             )
         return catalog

@@ -44,6 +44,7 @@ class RunService:
         self.store = store
         self.capability_registry = capability_registry
         self.runner_registry = runner_registry
+        self.planning_only = getattr(runner_registry, 'planning_only', False) is True
         self.output_root = output_root.resolve()
         self.output_root.mkdir(parents=True, exist_ok=True)
         self.recipe_compiler = RecipeCompiler(capability_registry)
@@ -63,13 +64,14 @@ class RunService:
                 "LOCALFLOW_SLURM_OUTPUT_ROOT", "/home/data/neuroweave/runs/hipeson"
             )
         ).resolve()
-        self.store.fail_incomplete_runs(
-            self._now(),
-            "backend_restarted",
-            "后端重启时任务仍处于运行状态；请确认输出后重新运行。",
-            preserve_slurm=True,
-        )
-        self._recover_slurm_runs()
+        if not self.planning_only:
+            self.store.fail_incomplete_runs(
+                self._now(),
+                "backend_restarted",
+                "后端重启时任务仍处于运行状态；请确认输出后重新运行。",
+                preserve_slurm=True,
+            )
+            self._recover_slurm_runs()
 
     @property
     def mutation_lock(self):
@@ -81,9 +83,14 @@ class RunService:
 
     @property
     def enabled(self) -> bool:
-        return bool(self.runner_registry.available_ids())
+        return not self.planning_only and bool(self.runner_registry.available_ids())
 
     def execution_backends(self) -> dict[str, Any]:
+        if self.planning_only:
+            return {'planning_only': True, 'local': {'available': False},
+                    'slurm': {'enabled': False, 'available': False, 'partitions': [],
+                              'nodes': [], 'gpu_available': False,
+                              'reason': '仅规划部署：接入 Slurm、Worker 和科学软件后才能运行'}}
         return {"local": {"available": True}, "slurm": self.slurm_backend.status()}
 
     def create(
@@ -93,6 +100,8 @@ class RunService:
         execution: RunExecutionOptions | None = None,
     ) -> WorkflowRun:
         from ..task_management import assert_plan_open
+        if self.planning_only:
+            raise RunConflict('仅规划部署不能执行计算；请接入真实软件、数据和 Slurm 环境')
         assert_plan_open(self.store,'workflow',workflow_id)
         # The deployment uses one API process. Serialize check-and-insert and
         # all run writes with cancel so a stale snapshot cannot erase a Job ID.
@@ -123,6 +132,8 @@ class RunService:
         execution: RunExecutionOptions | None = None,
     ) -> WorkflowRun:
         execution = execution or RunExecutionOptions()
+        if self.planning_only:
+            raise RunConflict('仅规划部署不能执行计算；请接入真实软件、数据和 Slurm 环境')
         if execution.backend == "slurm":
             status = self.slurm_backend.status()
             if not status.get("available"):

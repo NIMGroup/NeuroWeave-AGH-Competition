@@ -337,7 +337,7 @@ class DatasetService:
                 readable=os.access(path, os.R_OK),
                 writable=os.access(path, os.W_OK),
             )
-        if not roots:
+        if not roots and os.getenv('NEUROWEAVE_PLANNING_ONLY', 'false').lower() not in {'true', '1', 'yes'}:
             raise RuntimeError("LOCALFLOW_DATA_ROOTS 中没有可用目录")
         return roots
 

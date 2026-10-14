@@ -2,8 +2,10 @@
 set -euo pipefail
 source "$(dirname "$0")/server-env.sh"
 umask 077
-[[ -d "$LOCALFLOW_SLURM_WORKER_ROOT/bakend" ]] || { echo 'Missing immutable worker release'; exit 1; }
-[[ -x "$LOCALFLOW_SLURM_PYTHON" ]] || { echo 'Missing scientific Python runtime'; exit 1; }
+if [[ "$NW_SERVER_MODE" == execution ]]; then
+  [[ -d "$LOCALFLOW_SLURM_WORKER_ROOT/bakend" ]] || { echo 'Missing immutable worker release; use NW_SERVER_MODE=planning to plan without it'; exit 1; }
+  [[ -x "$LOCALFLOW_SLURM_PYTHON" ]] || { echo 'Missing scientific Python runtime; use NW_SERVER_MODE=planning to plan without it'; exit 1; }
+fi
 mkdir -p "$NW_RUNTIME/secrets" "$NW_RUNTIME/logs" "$AGH_HOME/profiles/local-dev" "$LOCALFLOW_OUTPUT_ROOT"
 if [[ ! -f "$NW_BRIDGE_TOKEN_FILE" ]]; then
   node -e 'require("node:fs").writeFileSync(process.env.NW_BRIDGE_TOKEN_FILE,require("node:crypto").randomBytes(32).toString("hex"),{flag:"wx",mode:0o600})'

@@ -45,6 +45,8 @@ class WorkflowPreflight:
         self.dataset_service = dataset_service
 
     def dry_run(self, workflow_id: str, expected_revision: int) -> Workflow:
+        if getattr(self.catalog.runner_registry, 'planning_only', False) is True:
+            raise ValueError('仅规划部署不进行执行预检；请先接入真实计算环境')
         with self.session.lock:
             workflow = self.session.require(workflow_id)
             contracts.check_revision(workflow, expected_revision)

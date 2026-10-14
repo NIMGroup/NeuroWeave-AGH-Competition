@@ -43,4 +43,4 @@ agh_changes="$(git -C "$NW_DEPENDENCIES/agnes-harness" status --porcelain --untr
 node scripts/hackathon/apply-web-adapter.mjs "$NW_DEPENDENCIES/agnes-harness"
 (cd "$NW_DEPENDENCIES/agnes-harness"; pnpm install --frozen-lockfile; pnpm --filter @agnes/cli build:local)
 (cd frontend; npm ci)
-printf '%s\n' 'Dependencies installed. Configure deployment.env/science-paths.env and an immutable Slurm Worker, then run prepare-server.sh. See deploy/hackathon/README.md.'
+printf '%s\n' 'Dependencies installed. Use planning.env.example to plan without compute infrastructure, or configure deployment.env/science-paths.env and an immutable Slurm Worker for execution. Then run prepare-server.sh. See deploy/hackathon/README.md.'

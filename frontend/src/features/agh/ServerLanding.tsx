@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { request } from '../../api/http';
 
-type Overview = { mode: string; agh_url: string; revision: string; approval: string;
+type Overview = { mode: string; agh_url: string; revision: string; approval: string; planning_only?: boolean;
   execution: { slurm: { available: boolean; reason: string; worker_root: string; nodes: { name: string; state: string }[] } } };
 
 export function ServerLanding() {
@@ -11,7 +11,7 @@ export function ServerLanding() {
     <header className="space-y-3 border-b border-line pb-6">
       <p className="text-meta text-muted">NeuroWeave · 独立比赛版本</p>
       <h1 className="text-3xl font-semibold">AGH 服务器分析工作台</h1>
-      <p className="text-sm text-muted">在 AGH 会话中描述需求，打开 NeuroWeave 工作台，选择服务器数据、编辑流程和资源，预检通过后点击运行。</p>
+      <p className="text-sm text-muted">{state?.planning_only ? '当前为仅规划部署。在 AGH 会话中描述需求，即可检索方法、生成和编辑流程；接入计算环境后再预检与运行。' : '在 AGH 会话中描述需求，打开 NeuroWeave 工作台，选择服务器数据、编辑流程和资源，预检通过后点击运行。'}</p>
       <a className="inline-block rounded-control bg-accent-solid px-5 py-3 text-on-accent" href={state?.agh_url ?? 'http://127.0.0.1:4187'}>打开 AGH 工作台 ↗</a>
       <p className="text-xs text-muted">本机通过 SSH 转发访问服务器上的 AGH 页面。会话和模型由 AGH 管理，工作台操作不再弹出额外审批。</p>
     </header>

@@ -189,7 +189,9 @@ class MethodCatalog:
                     for recipe_method in recipe_methods:
                         runner = self.runner_registry.get(recipe_method.runner_id)
                         stage_statuses.append(
-                            runner.runtime_status()
+                            self.runner_registry.runtime_status(recipe_method.runner_id)
+                            if getattr(self.runner_registry, 'planning_only', False) is True
+                            else runner.runtime_status()
                             if runner is not None
                             else {
                                 "available": False,
@@ -342,6 +344,7 @@ class MethodCatalog:
             check_runtime
             and definition.execution_mode == "runner"
             and self.runner_registry is not None
+            and getattr(self.runner_registry, 'planning_only', False) is not True
         ):
             recipe_methods = (
                 self.registry.recipe_methods(definition.execution_recipe)

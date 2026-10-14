@@ -242,6 +242,7 @@ class AGHBusiness:
         state = request.assistant_task
         task = public_understanding(state) if state.get('goal') and state.get('deliverable') != 'answer' else None
         return {'conversation_id': conversation, 'session_id': key, 'selected': selected, 'task': task,
+                'planning_only': self.s.run_service.planning_only,
                 'dataset': ({'dataset_id': dataset.dataset_id, 'absolute_path': dataset.absolute_path,
                     'inspection': dataset.inspection.model_dump(mode='json', include={'sample_count', 'input_types', 'features'})}
                     if for_prompt else dataset.model_dump(mode='json')) if dataset else None,
@@ -521,6 +522,8 @@ class AGHBusiness:
             return {'status': 200, 'body': self.download(key, request.path)}
         if request.method != 'GET' and EXECUTION_PATH.match(path) and not execution:
             raise PermissionError('USER_ACTION_DISPATCH_REQUIRED')
+        if execution and self.s.run_service.planning_only and EXECUTION_PATH.match(path):
+            raise PermissionError('PLANNING_ONLY: 仅规划部署不能执行服务器操作，请先接入真实计算环境')
         token = _internal.set(True)
         try:
             async with httpx.AsyncClient(transport=httpx.ASGITransport(app=self.app, client=('127.0.0.1', 0)),
@@ -871,6 +874,7 @@ def build_server_app():
     @app.get('/api/agh/overview')
     def overview():
         return {'mode': 'AGH + NeuroWeave server', 'agh_url': 'http://127.0.0.1:4187',
+                'planning_only': business.s.run_service.planning_only,
                 'revision': os.getenv('NEUROWEAVE_RELEASE_REVISION', 'unversioned'),
                 'execution': business.s.run_service.execution_backends(),
                 'approval': 'workbench action button; no additional approval', 'data_mode': 'server datasets'}

@@ -301,6 +301,7 @@ export type SlurmNode = {
 };
 
 export type ExecutionBackends = {
+  planning_only?: boolean;
   local: { available: boolean };
   slurm: {
     enabled: boolean;

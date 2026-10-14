@@ -1,6 +1,8 @@
 # 执行软件配置说明
 
-NeuroWeave 调用已经安装的专业软件、库 API 和已登记脚本。平台依赖安装器不安装 MRtrix3、FSL、ANTs 或 FreeSurfer；按实际演示方法准备所需软件即可。下面版本来自登记的方法契约和现有部署基线，不表示自动支持新版本的全部参数。
+NeuroWeave 的流程规划使用登记的方法契约，无需安装专业软件、准备真实数据或连接 Slurm。仅规划部署使用 [planning.env.example](planning.env.example)，设置 NW_SERVER_MODE=planning；AGH 与 Agnes 模型服务仍须可用。
+
+实际执行调用已经安装的专业软件、库 API 和已登记脚本，部署模式为 NW_SERVER_MODE=execution。平台依赖安装器不安装 MRtrix3、FSL、ANTs 或 FreeSurfer；按实际演示方法准备所需软件即可。下面版本来自登记的方法契约和现有部署基线，不表示自动支持新版本的全部参数。
 
 ## 配置位置
 

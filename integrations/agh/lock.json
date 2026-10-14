@@ -3,5 +3,5 @@
   "commit": "dc267c3c78429933e2b3d8c5d544e56bb980a574",
   "node": "24.21.0",
   "pnpm": "10.34.5",
-  "plugin": "@neuroweave/agh-roi@2.8.1"
+  "plugin": "@neuroweave/agh-roi@2.9.0"
 }
